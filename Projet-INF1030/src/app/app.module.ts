@@ -29,6 +29,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import {ReactiveFormsModule} from '@angular/forms';
+import {MatSortModule} from "@angular/material/sort";
 
 
 
@@ -66,7 +67,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     MatInputModule,
     MatCardModule,
     MatSlideToggleModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSortModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

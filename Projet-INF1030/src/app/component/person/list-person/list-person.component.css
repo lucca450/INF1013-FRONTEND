@@ -1,0 +1,19 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+
+  width: 100%;
+}
+
+th.mat-header-cell {
+  color: black;
+  font-size: 18px;
+}
+
+div{
+  padding-top: 20px;
+  width: 70%;
+  margin: 0 auto;
+}
