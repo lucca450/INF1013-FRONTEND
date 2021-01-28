@@ -1,9 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatSliderModule} from '@angular/material/slider';
 import { HeaderComponent } from './component/header/header.component';
 import { LoginComponent } from './component/login/login.component';
 import { AddIntervenantComponent } from './component/intervenant/add-intervenant/add-intervenant.component';
@@ -20,6 +18,20 @@ import { ReportWeeklyComponent } from './component/admin/report-weekly/report-we
 import { ReportHoursWeeklyComponent } from './component/admin/report-hours-weekly/report-hours-weekly.component';
 import { ReportNbrpeopleMonthComponent } from './component/admin/report-nbrpeople-month/report-nbrpeople-month.component';
 import { ReportAnnualStatisticComponent } from './component/admin/report-annual-statistic/report-annual-statistic.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSelectModule } from '@angular/material/select';
+import {ReactiveFormsModule} from '@angular/forms';
+
+
+
 
 @NgModule({
   declarations: [
@@ -44,7 +56,17 @@ import { ReportAnnualStatisticComponent } from './component/admin/report-annual-
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatSliderModule
+    MatMenuModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTableModule,
+    MatDividerModule,
+    MatProgressSpinnerModule,
+    MatInputModule,
+    MatCardModule,
+    MatSlideToggleModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
