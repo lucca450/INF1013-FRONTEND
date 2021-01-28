@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatSliderModule} from '@angular/material/slider';
+import {MatMenuModule} from '@angular/material/menu';
 import { HeaderComponent } from './component/header/header.component';
 import { LoginComponent } from './component/login/login.component';
 import { AddIntervenantComponent } from './component/intervenant/add-intervenant/add-intervenant.component';
@@ -44,7 +44,7 @@ import { ReportAnnualStatisticComponent } from './component/admin/report-annual-
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatSliderModule
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
