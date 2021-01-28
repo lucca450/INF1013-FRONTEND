@@ -1,2 +1,2 @@
-export class Admin {
+export interface Admin {
 }

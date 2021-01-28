@@ -1,7 +1,7 @@
-export class Intervenant {
+export interface Intervenant {
   lname: string;
   fname: string;
   email: string;
-  phone: string;
+  phone: number;
   address: string;
 }
