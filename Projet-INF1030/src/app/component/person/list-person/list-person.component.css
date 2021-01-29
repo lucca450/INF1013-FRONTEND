@@ -1,7 +1,12 @@
-table {
+/*table {
+  width: 100%;
+}*/
+
+
+/*
+mat-table {
   width: 100%;
 }
-
 .mat-form-field {
 
   width: 100%;
@@ -14,6 +19,62 @@ th.mat-header-cell {
 
 div{
   padding-top: 20px;
-  width: 70%;
+  width: 80%;
   margin: 0 auto;
 }
+
+*/
+
+/*
+@media only screen and (max-width: 736px) and (orientation:portrait) {
+  mat-header-row, mat-row{
+    width: 200%;
+  }
+
+}
+*/
+
+
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+
+.mobile-label {
+  display: none;
+}
+
+@media(max-width: 600px) {
+  .mobile-label {
+    width: 80px;
+    display: inline-block;
+    font-weight: bold;
+  }
+
+  .mat-header-row {
+    display: none;
+  }
+
+  .mat-row {
+    flex-direction: column;
+    align-items: start;
+    padding: 8px 24px;
+  }
+}
+
+
+
+
+
+
+
