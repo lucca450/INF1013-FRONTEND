@@ -24,6 +24,42 @@
       </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="phone">
+      <mat-header-cell  *matHeaderCellDef mat-sort-header> Téléphone </mat-header-cell>
+      <mat-cell  *matCellDef="let row">
+        <span class="mobile-label">Téléphone:</span>
+        {{row.phone}}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row  *matHeaderRowDef=" displayedColumns" ></mat-header-row>
+    <mat-row  *matRowDef="let row; columns: displayedColumns;"></mat-row >
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">Aucune donnée trouvé en appliquant le filtre: "{{input.value}}"</td>
+    </tr>
+
+  </mat-table>
+
+<!--
+  <mat-table [dataSource]="dataSource" matSort matSortActive="fname" matSortDirection="asc" class="mat-elevation-z8" >
+
+    <ng-container matColumnDef="fname">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Prénom </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <span class="mobile-label">Prénom:</span>
+        {{row.fname}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="lname">
+      <mat-header-cell  *matHeaderCellDef mat-sort-header> Nom </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <span class="mobile-label">Nom:</span>
+        {{row.lname}}
+      </mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="email">
       <mat-header-cell  *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
       <mat-cell  *matCellDef="let row">
@@ -57,7 +93,7 @@
 
   </mat-table>
 
-
+-->
 
 
   <!-- FONCTIONNE, MAIS S'ADAPTE MOYEN -->

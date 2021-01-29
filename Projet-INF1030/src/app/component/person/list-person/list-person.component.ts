@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MockDataService} from '../../../services/mock-data.service';
 import {Doctor} from '../../../models/doctor';
+import {Person} from '../../../models/person';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 
@@ -14,8 +15,10 @@ import {MatTableDataSource} from '@angular/material/table';
 export class ListPersonComponent implements OnInit, AfterViewInit  {
 
   @ViewChild(MatSort) sort: MatSort;
-  dataSource = new MatTableDataSource(this.mockDataService.doctors);
-  displayedColumns: string[] = ['fname', 'lname', 'email', 'fax', 'phone'];
+  // dataSource = new MatTableDataSource(this.mockDataService.doctors);
+  dataSource = new MatTableDataSource(this.mockDataService.persons);
+  // displayedColumns: string[] = ['fname', 'lname', 'email', 'fax', 'phone'];
+  displayedColumns: string[] = ['fname', 'lname', 'phone'];
 
   constructor(private mockDataService: MockDataService) { }
 
@@ -24,9 +27,11 @@ export class ListPersonComponent implements OnInit, AfterViewInit  {
     this.dataSource.filterPredicate = function(data, filter: string): boolean {
       return data.fname.toLowerCase().includes(filter) ||
         data.lname.toLowerCase().includes(filter) ||
-        data.phone.toString().includes(filter) ||
-        data.email.toLowerCase().includes(filter);
+        data.phone.toString().includes(filter) ; /* ||
+        data.email.toLowerCase().includes(filter);*/
     };
+
+
   }
 
   ngAfterViewInit(): void {
