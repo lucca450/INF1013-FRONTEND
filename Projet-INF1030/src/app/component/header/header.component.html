@@ -1,5 +1,15 @@
-<ul>
-  <li routerLinkActive = "active"><a routerLink = "home">Accueil</a></li>
+<ul *ngIf="isAuth">
+  <!--<li routerLinkActive = "active"><a routerLink = "home">Accueil</a></li> -->
+  <li routerLinkActive = "active"><a routerLink = "utilisateur">Utilisateurs</a></li>
   <li routerLinkActive = "active"><a routerLink = "intervenant">Intervenants</a></li>
-  <li style="float:right" routerLinkActive = "active"><a routerLink = "login" >Connexion</a></li>
+  <li routerLinkActive = "active"><a routerLink = "rencontre">Rencontres</a></li>
+  <li *ngIf= "!isAuth" style="float:right" routerLinkActive = "active"><a routerLink = "login" >Connexion</a></li>
+
+  <li *ngIf= "isAuth" style="float:right" routerLinkActive = "active" [matMenuTriggerFor]="menu">
+    <a>Mon compte</a>
+    <mat-menu #menu="matMenu">
+      <button  mat-menu-item [routerLink] = "['/account',accountID]">Mon compte</button>
+      <button mat-menu-item (click)="OnSignOut()">Se déconnecter</button>
+    </mat-menu>
+  </li>
 </ul>

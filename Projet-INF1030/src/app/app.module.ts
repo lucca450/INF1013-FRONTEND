@@ -4,15 +4,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './component/header/header.component';
 import { LoginComponent } from './component/login/login.component';
-import { AddIntervenantComponent } from './component/intervenant/add-intervenant/add-intervenant.component';
-import { EditIntervenantComponent } from './component/intervenant/edit-intervenant/edit-intervenant.component';
 import { ListIntervenantComponent } from './component/intervenant/list-intervenant/list-intervenant.component';
-import { AddPersonComponent } from './component/person/add-person/add-person.component';
-import { EditPersonComponent } from './component/person/edit-person/edit-person.component';
-import { DetailsPersonComponent } from './component/person/details-person/details-person.component';
 import { ListPersonComponent } from './component/person/list-person/list-person.component';
-import { AddMeetingComponent } from './component/meeting/add-meeting/add-meeting.component';
-import { EditMeetingComponent } from './component/meeting/edit-meeting/edit-meeting.component';
 import { ListMeetingComponent } from './component/meeting/list-meeting/list-meeting.component';
 import { ReportWeeklyComponent } from './component/admin/report-weekly/report-weekly.component';
 import { ReportHoursWeeklyComponent } from './component/admin/report-hours-weekly/report-hours-weekly.component';
@@ -30,16 +23,29 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatSortModule} from "@angular/material/sort";
-import {PersonService} from './services/person.service.';
+import {PersonService} from './services/person/person.service.';
 import {RouterModule, Routes} from '@angular/router';
 import { NotFoundComponent } from './component/error/not-found/not-found.component';
+import {AuthService} from './services/authentification/auth.service';
+import {AuthGuard} from './services/authentification/auth-guard.service';
+import { ManagementIntervenantComponent } from './component/intervenant/management-intervenant/management-intervenant.component';
+import { ManagementMeetingComponent } from './component/meeting/management-meeting/management-meeting.component';
+import { ManagementPersonComponent } from './component/person/management-person/management-person.component';
+import {DetailsPersonComponent} from './component/person/details-person/details-person.component';
+import { MyAccountComponent } from './component/person/my-account/my-account.component';
 
 
 // Définition des routes de base
 
 const appRoutes: Routes = [
   {path : 'login', component : LoginComponent},
-  {path : 'person', component : ListPersonComponent},
+  {path : 'utilisateur', canActivate : [AuthGuard], component : ListPersonComponent},
+  {path : 'utilisateur/:id', canActivate : [AuthGuard], component : ManagementPersonComponent},
+  {path : 'intervenant', canActivate : [AuthGuard], component : ListIntervenantComponent},
+  {path : 'intervenant/:id', canActivate : [AuthGuard], component : ManagementIntervenantComponent},
+  {path : 'rencontre', canActivate : [AuthGuard], component : ListMeetingComponent},
+  {path : 'rencontre/:id', canActivate : [AuthGuard], component : ManagementMeetingComponent},
+  {path : 'account/:id', canActivate : [AuthGuard], component : MyAccountComponent},
   {path : '', component : LoginComponent},
   {path : 'not-found', component : NotFoundComponent},
   {path : '**', redirectTo : '/not-found'}
@@ -51,21 +57,19 @@ const appRoutes: Routes = [
     AppComponent,
     HeaderComponent,
     LoginComponent,
-    AddIntervenantComponent,
-    EditIntervenantComponent,
     ListIntervenantComponent,
-    AddPersonComponent,
-    EditPersonComponent,
     DetailsPersonComponent,
     ListPersonComponent,
-    AddMeetingComponent,
-    EditMeetingComponent,
     ListMeetingComponent,
     ReportWeeklyComponent,
     ReportHoursWeeklyComponent,
     ReportNbrpeopleMonthComponent,
     ReportAnnualStatisticComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ManagementIntervenantComponent,
+    ManagementMeetingComponent,
+    ManagementPersonComponent,
+    MyAccountComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +88,11 @@ const appRoutes: Routes = [
     MatSortModule,
     RouterModule.forRoot(appRoutes) // On injecte les routes
   ],
-  providers: [PersonService],
+  providers: [
+    PersonService,
+    AuthService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
