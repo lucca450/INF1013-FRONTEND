@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {MockDataService} from '../../../services/mock-data.service';
+import {MockDataService} from '../../../services/person.service.';
 import {Doctor} from '../../../models/doctor';
 import {Person} from '../../../models/person';
 import {MatSort} from '@angular/material/sort';
