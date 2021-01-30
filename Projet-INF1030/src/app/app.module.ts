@@ -30,8 +30,20 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatSortModule} from "@angular/material/sort";
+import {PersonService} from './services/person.service.';
+import {RouterModule, Routes} from '@angular/router';
+import { NotFoundComponent } from './component/error/not-found/not-found.component';
 
 
+// Définition des routes de base
+
+const appRoutes: Routes = [
+  {path : 'login', component : LoginComponent},
+  {path : 'person', component : ListPersonComponent},
+  {path : '', component : LoginComponent},
+  {path : 'not-found', component : NotFoundComponent},
+  {path : '**', redirectTo : '/not-found'}
+]
 
 
 @NgModule({
@@ -52,7 +64,8 @@ import {MatSortModule} from "@angular/material/sort";
     ReportWeeklyComponent,
     ReportHoursWeeklyComponent,
     ReportNbrpeopleMonthComponent,
-    ReportAnnualStatisticComponent
+    ReportAnnualStatisticComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -69,8 +82,9 @@ import {MatSortModule} from "@angular/material/sort";
     MatSlideToggleModule,
     MatSelectModule,
     MatSortModule,
+    RouterModule.forRoot(appRoutes) // On injecte les routes
   ],
-  providers: [],
+  providers: [PersonService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

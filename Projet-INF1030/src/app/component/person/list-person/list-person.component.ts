@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {MockDataService} from '../../../services/person.service.';
+import {PersonService} from '../../../services/person.service.';
 import {Doctor} from '../../../models/doctor';
 import {Person} from '../../../models/person';
 import {MatSort} from '@angular/material/sort';
@@ -16,11 +16,11 @@ export class ListPersonComponent implements OnInit, AfterViewInit  {
 
   @ViewChild(MatSort) sort: MatSort;
   // dataSource = new MatTableDataSource(this.mockDataService.doctors);
-  dataSource = new MatTableDataSource(this.mockDataService.persons);
+  dataSource = new MatTableDataSource(this.personService.persons);
   // displayedColumns: string[] = ['fname', 'lname', 'email', 'fax', 'phone'];
   displayedColumns: string[] = ['fname', 'lname', 'phone'];
 
-  constructor(private mockDataService: MockDataService) { }
+  constructor(private personService: PersonService) { }
 
   ngOnInit(): void {
     // tslint:disable-next-line:only-arrow-functions

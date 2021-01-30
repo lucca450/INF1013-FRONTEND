@@ -6,7 +6,7 @@ import {EmergencyContact} from '../models/emergency-contact';
 @Injectable({
   providedIn: 'root'
 })
-export class MockDataService {
+export class PersonService {
 
   doctors: Doctor[];
   persons: Person[];
