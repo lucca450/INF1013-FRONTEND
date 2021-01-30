@@ -32,19 +32,19 @@ import { ManagementIntervenantComponent } from './component/intervenant/manageme
 import { ManagementMeetingComponent } from './component/meeting/management-meeting/management-meeting.component';
 import { ManagementPersonComponent } from './component/person/management-person/management-person.component';
 import {DetailsPersonComponent} from './component/person/details-person/details-person.component';
-import { MyAccountComponent } from './component/person/my-account/my-account.component';
+import { MyAccountComponent } from './component/intervenant/my-account/my-account.component';
 
 
 // Définition des routes de base
 
 const appRoutes: Routes = [
   {path : 'login', component : LoginComponent},
-  {path : 'utilisateur', canActivate : [AuthGuard], component : ListPersonComponent},
-  {path : 'utilisateur/:id', canActivate : [AuthGuard], component : ManagementPersonComponent},
+  {path : 'person', canActivate : [AuthGuard], component : ListPersonComponent},
+  {path : 'person/:id', canActivate : [AuthGuard], component : ManagementPersonComponent},
   {path : 'intervenant', canActivate : [AuthGuard], component : ListIntervenantComponent},
   {path : 'intervenant/:id', canActivate : [AuthGuard], component : ManagementIntervenantComponent},
-  {path : 'rencontre', canActivate : [AuthGuard], component : ListMeetingComponent},
-  {path : 'rencontre/:id', canActivate : [AuthGuard], component : ManagementMeetingComponent},
+  {path : 'meeting', canActivate : [AuthGuard], component : ListMeetingComponent},
+  {path : 'meeting/:id', canActivate : [AuthGuard], component : ManagementMeetingComponent},
   {path : 'account/:id', canActivate : [AuthGuard], component : MyAccountComponent},
   {path : '', component : LoginComponent},
   {path : 'not-found', component : NotFoundComponent},

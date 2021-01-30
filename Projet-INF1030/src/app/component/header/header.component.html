@@ -1,8 +1,8 @@
 <ul *ngIf="isAuth">
   <!--<li routerLinkActive = "active"><a routerLink = "home">Accueil</a></li> -->
-  <li routerLinkActive = "active"><a routerLink = "utilisateur">Utilisateurs</a></li>
   <li routerLinkActive = "active"><a routerLink = "intervenant">Intervenants</a></li>
-  <li routerLinkActive = "active"><a routerLink = "rencontre">Rencontres</a></li>
+  <li routerLinkActive = "active"><a routerLink = "person">Patients</a></li>
+  <li routerLinkActive = "active"><a routerLink = "meeting">Rencontres</a></li>
   <li *ngIf= "!isAuth" style="float:right" routerLinkActive = "active"><a routerLink = "login" >Connexion</a></li>
 
   <li *ngIf= "isAuth" style="float:right" routerLinkActive = "active" [matMenuTriggerFor]="menu">
