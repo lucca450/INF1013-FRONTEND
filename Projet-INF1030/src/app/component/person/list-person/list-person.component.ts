@@ -7,6 +7,7 @@ import {MatTableDataSource} from '@angular/material/table';
 
 
 
+
 @Component({
   selector: 'app-list-person',
   templateUrl: './list-person.component.html',
@@ -18,7 +19,8 @@ export class ListPersonComponent implements OnInit, AfterViewInit  {
   // dataSource = new MatTableDataSource(this.mockDataService.doctors);
   dataSource = new MatTableDataSource(this.personService.persons);
   // displayedColumns: string[] = ['fname', 'lname', 'email', 'fax', 'phone'];
-  displayedColumns: string[] = ['fname', 'lname', 'phone'];
+  displayedColumns: string[] = ['fname', 'lname', 'phone', 'actions-icon'];
+
 
   constructor(private personService: PersonService) { }
 
@@ -42,5 +44,6 @@ export class ListPersonComponent implements OnInit, AfterViewInit  {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
 
 }

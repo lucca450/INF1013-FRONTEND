@@ -11,9 +11,9 @@ import {Router} from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginInvalid: boolean;
-  accountID: number = 0;
+  accountID = 0;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router : Router) { }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
   }
 
-  private initForm() {
+  private initForm(): void {
     this.loginForm = this.formBuilder.group({
       username: [''/*, Validators.email*/],
       password: [''/*, Validators.required*/]
@@ -30,12 +30,12 @@ export class LoginComponent implements OnInit {
   }
 
 
-  onSignIn() {
+  onSignIn(): void {
     this.authService.signIn().then(  // .then Pour réagir quand le callback sera appelé parce que c'est asynchrone
-      () =>{
+      () => {
         this.authService.signIn();
-        this.router.navigate(['intervenant',this.accountID]);
+        this.router.navigate(['intervenant', this.accountID]);
       }
-    )
+    );
   }
 }

@@ -4,6 +4,7 @@ import {Doctor} from './doctor';
 import {OtherPerson} from './other-person';
 
 export interface Person {
+  id: number;
   active: 'Oui' | 'Non';
   lname: string;
   fname: string;

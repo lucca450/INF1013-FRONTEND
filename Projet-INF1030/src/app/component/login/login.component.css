@@ -4,8 +4,11 @@ mat-card {
   margin: 2em auto;
   top:30%;
   text-align: center;
+  background-color: #fbfbfb;
 }
 
 mat-form-field {
   display: block;
 }
+
+

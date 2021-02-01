@@ -32,6 +32,16 @@
       </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="actions-icon">
+      <mat-header-cell  *matHeaderCellDef mat-sort-header>  </mat-header-cell>
+      <mat-cell  *matCellDef="let row">
+        <span class="mobile-label"></span>
+        <img class="icons" src="assets/edit-icon.png" alt="Icone modifier" [routerLink]="['/person',row.id]" routerLinkActive="active"/>
+        <img class="icons" src="assets/meeting-icon.png" alt="Icone rencontre" [routerLink]="['/meeting',row.id]" routerLinkActive="active"/>
+      </mat-cell>
+    </ng-container>
+
+
     <mat-header-row  *matHeaderRowDef=" displayedColumns" ></mat-header-row>
     <mat-row  *matRowDef="let row; columns: displayedColumns;"></mat-row >
 

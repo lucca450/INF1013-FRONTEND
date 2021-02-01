@@ -33,6 +33,7 @@ export class PersonService {
   private mockPersonData(): Person[]{
     return [
       {
+        id: 0,
         active: 'Oui',
         lname: 'blo',
         fname: 'joe',
@@ -62,6 +63,7 @@ export class PersonService {
         followedBy: this.mockEmergencyContactData()
       },
       {
+        id: 1,
         active: 'Oui',
         lname: 'plante',
         fname: 'marcel',
@@ -91,6 +93,7 @@ export class PersonService {
         followedBy: this.mockEmergencyContactData()
       },
       {
+        id: 2,
         active: 'Oui',
         lname: 'boucher',
         fname: 'Linette',
