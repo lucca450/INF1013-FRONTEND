@@ -21,18 +21,19 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
-import {ReactiveFormsModule} from '@angular/forms';
-import {MatSortModule} from "@angular/material/sort";
-import {PersonService} from './services/person/person.service.';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatSortModule} from '@angular/material/sort';
+import {PersonService} from './services/person/person.service';
 import {RouterModule, Routes} from '@angular/router';
 import { NotFoundComponent } from './component/error/not-found/not-found.component';
 import {AuthService} from './services/authentification/auth.service';
 import {AuthGuard} from './services/authentification/auth-guard.service';
 import { ManagementIntervenantComponent } from './component/intervenant/management-intervenant/management-intervenant.component';
-import { ManagementMeetingComponent } from './component/meeting/management-meeting/management-meeting.component';
+import { EditMeetingComponent } from './component/meeting/edit-meeting/edit-meeting.component';
 import { ManagementPersonComponent } from './component/person/management-person/management-person.component';
 import {DetailsPersonComponent} from './component/person/details-person/details-person.component';
 import { MyAccountComponent } from './component/intervenant/my-account/my-account.component';
+import { AddMeetingComponent } from './component/meeting/add-meeting/add-meeting.component';
 
 
 // Définition des routes de base
@@ -44,7 +45,8 @@ const appRoutes: Routes = [
   {path : 'intervenant', canActivate : [AuthGuard], component : ListIntervenantComponent},
   {path : 'intervenant/:id', canActivate : [AuthGuard], component : ManagementIntervenantComponent},
   {path : 'meeting', canActivate : [AuthGuard], component : ListMeetingComponent},
-  {path : 'meeting/:id', canActivate : [AuthGuard], component : ManagementMeetingComponent},
+  {path : 'meeting/add', canActivate : [AuthGuard], component : AddMeetingComponent},
+  {path : 'meeting/:id', canActivate : [AuthGuard], component : EditMeetingComponent},
   {path : 'account/:id', canActivate : [AuthGuard], component : MyAccountComponent},
   {path : '', component : LoginComponent},
   {path : 'not-found', component : NotFoundComponent},
@@ -67,9 +69,10 @@ const appRoutes: Routes = [
     ReportAnnualStatisticComponent,
     NotFoundComponent,
     ManagementIntervenantComponent,
-    ManagementMeetingComponent,
+    EditMeetingComponent,
     ManagementPersonComponent,
-    MyAccountComponent
+    MyAccountComponent,
+    AddMeetingComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +89,9 @@ const appRoutes: Routes = [
     MatSlideToggleModule,
     MatSelectModule,
     MatSortModule,
-    RouterModule.forRoot(appRoutes) // On injecte les routes
+    RouterModule.forRoot(appRoutes),
+    FormsModule,
+    // On injecte les routes
   ],
   providers: [
     PersonService,

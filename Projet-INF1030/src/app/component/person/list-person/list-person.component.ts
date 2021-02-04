@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {PersonService} from '../../../services/person/person.service.';
+import {PersonService} from '../../../services/person/person.service';
 import {Doctor} from '../../../models/doctor';
 import {Person} from '../../../models/person';
 import {MatSort} from '@angular/material/sort';

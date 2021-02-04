@@ -1,0 +1,30 @@
+<div class="example-container">
+  <h1>Adding New Meeting</h1>
+
+  <form [formGroup]="addingForm" (ngSubmit)="onSubmit()">
+
+    <div>
+      <label for="notes">
+        Notes
+      </label>
+      <input id="notes" type="text" formControlName="notes">
+    </div>
+
+    <div>
+      <label for="followup">
+        Suivi
+      </label>
+      <input id="followup" type="text" formControlName="followup">
+    </div>
+
+    <div>
+      <label for="goals">
+        Buts
+      </label>
+      <input id="goals" type="text" formControlName="goals">
+    </div>
+
+    <button class="button" type="submit">Add</button>
+
+  </form>
+</div>
