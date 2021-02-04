@@ -16,25 +16,33 @@ export class MeetingService {
         id: 0,
         notes: 'Meeting sur le développement',
         followup: 'followup',
-        goals: 'Avancer le développement'
+        goals: 'Avancer le développement',
+        idPerson: 0,
+        idIntervenant: 0
       },
       {
         id: 1,
         notes: 'Meeting sur l analyse',
         followup: 'followup1',
-        goals: 'Avancer l analyse'
+        goals: 'Avancer l analyse',
+        idPerson: 1,
+        idIntervenant: 0
       },
       {
         id: 2,
         notes: 'Meeting sur la recherche',
         followup: 'followup2',
-        goals: 'Faire des recherches'
+        goals: 'Faire des recherches',
+        idPerson: 0,
+        idIntervenant: 0
       },
       {
         id: 3,
         notes: 'Meeting avec le client',
         followup: 'followup3',
-        goals: 'Faire un contract avec le client'
+        goals: 'Faire un contract avec le client',
+        idPerson: 1,
+        idIntervenant: 0
       }
     ];
   }

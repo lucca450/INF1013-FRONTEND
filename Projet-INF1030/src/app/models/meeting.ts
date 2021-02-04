@@ -3,4 +3,6 @@ export interface Meeting {
   notes: string;
   followup: string;
   goals: string;
+  idPerson: number;
+  idIntervenant: number;
 }

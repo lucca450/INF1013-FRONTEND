@@ -1,10 +1,11 @@
+
 <div class="example-container">
   <mat-form-field>
     <mat-label>Recherche</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Recherche" #input>
   </mat-form-field>
 
-  <button [routerLink] = "['/meeting/add']" aria-label="Add new meeting" class="addButton" mat-icon-button style="color:#4CAF50">
+  <button [routerLink] = "['/meeting/add/',personID]" aria-label="Add new meeting" class="addButton" mat-icon-button style="color:#4CAF50">
     <mat-icon inline="true">add</mat-icon>
   </button>
 
