@@ -8,6 +8,9 @@ import {Router} from '@angular/router';
   providedIn: 'root'
 })
 export class PersonService {
+  addPerson(): void {
+      throw new Error('Method not implemented.');
+  }
 
   doctors: Doctor[];
   persons: Person[];
