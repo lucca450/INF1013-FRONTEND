@@ -75,10 +75,15 @@ div{
 }
 
 .addButton {
-  font-size: 40px;
-  float: right;
+  background-color: forestgreen;
+  width:auto;
+  color:white;
 }
 
+.container-button{
+  width:200px;
+  padding-bottom: 10px;
+}
 
 
 

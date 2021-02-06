@@ -13,7 +13,7 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   intervenants = new MatTableDataSource(this.intervenantService.intervenants);
-  displayedColumns: string[] = ['actions-icon','fname', 'lname', 'email', 'phone', 'address'];
+  displayedColumns: string[] = ['actions-icon', 'fname', 'lname', 'email', 'phone', 'address'];
 
 
   constructor(private intervenantService: IntervenantService) { }

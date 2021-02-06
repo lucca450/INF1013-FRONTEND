@@ -5,9 +5,12 @@
     <input matInput (keyup)="applyFilter($event)" placeholder="Recherche" #input>
   </mat-form-field>
 
-  <button [routerLink] = "['/meeting/add/',personID]" aria-label="Add new meeting" class="addButton" mat-icon-button style="color:#4CAF50">
-    <mat-icon inline="true">add</mat-icon>
-  </button>
+
+  <div class ="container-button">
+    <button [routerLink] = "['/meeting/add/', personID]" aria-label="Add new meeting" mat-raised-button color="basic"
+            class="addButton">Ajouter une rencontre <mat-icon>add</mat-icon>
+    </button>
+  </div>
 
   <mat-table [dataSource]="dataSource" matSort matSortActive="notes" matSortDirection="asc" class="mat-elevation-z8" >
     <ng-container matColumnDef="notes">

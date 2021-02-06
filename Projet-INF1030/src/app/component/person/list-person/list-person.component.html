@@ -5,9 +5,12 @@
     <input matInput (keyup)="applyFilter($event)" placeholder="Recherche" #input>
   </mat-form-field>
 
-  <button [routerLink] = "['/person/add/']" aria-label="Add new person" class="addButton" mat-icon-button style="color:#4CAF50">
-    <mat-icon inline="true">add</mat-icon>
-  </button>
+
+  <div class ="container-button">
+    <button [routerLink] = "['/person/add/']" aria-label="Add new person" mat-raised-button color="basic"
+            class="addButton">Ajouter une personne <mat-icon>add</mat-icon>
+    </button>
+  </div>
 
   <mat-table [dataSource]="dataSource" matSort matSortActive="fname" matSortDirection="asc" class="mat-elevation-z8" >
 
@@ -39,7 +42,8 @@
       <mat-header-cell  *matHeaderCellDef mat-sort-header>  </mat-header-cell>
       <mat-cell  *matCellDef="let row">
         <span class="mobile-label"></span>
-        <img class="icons" src="assets/edit-icon.png" alt="Icone modifier" [routerLink]="['/person/edit',row.id]" routerLinkActive="active"/>
+        <img class="icons" src="assets/details-icon.png" alt="Icone visualiser" [routerLink]="['/person/details',row.id]" routerLinkActive="active"/>
+        <img class="icons" src="assets/edit2-icon.png" alt="Icone modifier" [routerLink]="['/person/edit',row.id]" routerLinkActive="active"/>
         <img class="icons" src="assets/meeting-icon.png" alt="Icone rencontre" [routerLink]="['/meeting',row.id]" routerLinkActive="active"/>
       </mat-cell>
     </ng-container>

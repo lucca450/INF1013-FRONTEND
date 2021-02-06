@@ -19,7 +19,7 @@ export class ListPersonComponent implements OnInit, AfterViewInit  {
   // dataSource = new MatTableDataSource(this.mockDataService.doctors);
   dataSource = new MatTableDataSource(this.personService.persons);
   // displayedColumns: string[] = ['fname', 'lname', 'email', 'fax', 'phone'];
-  displayedColumns: string[] = ['fname', 'lname', 'phone', 'actions-icon'];
+  displayedColumns: string[] = ['actions-icon', 'fname', 'lname', 'phone'];
 
 
   constructor(private personService: PersonService) { }

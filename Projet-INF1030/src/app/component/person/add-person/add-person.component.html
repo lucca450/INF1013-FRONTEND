@@ -204,7 +204,7 @@
         </mat-select>
       </mat-form-field>
 
-      <div *ngIf="followRoaming.value == 'Oui'">
+      <div *ngIf="communityWork.value == 'Oui'">
         <p>Dates des travaux communautaires</p>
         <mat-form-field appearance="fill">
           <mat-label>Date de début</mat-label>
@@ -272,15 +272,16 @@
       <p>Suivi par</p>
       <mat-form-field>
         <mat-label>Suivi par</mat-label>
-        <mat-select>
+        <mat-select #followedBy>
           <mat-option value="Intervenant">Intervenant</mat-option>
           <mat-option value="Médecin">Médecin</mat-option>
           <mat-option value="Autres">Autres</mat-option>
         </mat-select>
       </mat-form-field>
 
+
       <p>Informations de la personne de suivi</p>
-      <mat-form-field class="full-width-input">
+      <mat-form-field class="full-width-input" >
         <input matInput placeholder="Prénom de la personne de suivi." formControlName="followFname">
         <mat-error>
           Veuillez entrer le prénom de la personne de suivi.
@@ -301,21 +302,21 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field class="full-width-input">
+      <mat-form-field *ngIf="followedBy.value == 'Médecin' || followedBy.value == 'Intervenant'" class="full-width-input">
         <input matInput placeholder="Email de la personne de suivi." formControlName="followEmail">
         <mat-error>
           Veuillez entrer l'email de la personne de suivi.
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field class="full-width-input">
+      <mat-form-field *ngIf="followedBy.value == 'Médecin'" class="full-width-input">
         <input matInput placeholder="Numéro de fax de la personne de suivi." formControlName="followFax">
         <mat-error>
           Veuillez entrer le numéro de fax de la personne de suivi.
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field class="full-width-input">
+      <mat-form-field *ngIf="followedBy.value == 'Autres' || followedBy.value == 'Intervenant'" class="full-width-input">
         <input matInput placeholder="Organisme de la personne de suivi." formControlName="followOrganism">
         <mat-error>
           Veuillez entrer l'organisme de la personne de suivi.'

@@ -73,14 +73,18 @@ div{
     padding: 8px 24px;
   }
 }
+
 .addButton {
-  font-size: 40px;
-  float: right;
+  background-color: forestgreen;
+  width:auto;
+  color:white;
 }
 
-.mat-icon {
-  vertical-align: top;
+.container-button{
+  width:200px;
+  padding-bottom: 10px;
 }
+
 
 
 
