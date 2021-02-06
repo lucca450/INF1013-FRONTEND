@@ -58,6 +58,7 @@ export class PersonService {
         roamingTracking: true,
         communityWork: true,
         hourlyRate: 20,
+        transportFees: 5,
         responsibleIntervenantID: 1,
         emergencyContact: this.mockEmergencyContactData(),
         followedBy: this.mockEmergencyContactData()
@@ -88,6 +89,7 @@ export class PersonService {
         roamingTracking: true,
         communityWork: false,
         hourlyRate: 22,
+        transportFees: 5,
         responsibleIntervenantID: 2,
         emergencyContact: this.mockEmergencyContactData(),
         followedBy: this.mockEmergencyContactData()
@@ -118,6 +120,7 @@ export class PersonService {
         roamingTracking: false,
         communityWork: false,
         hourlyRate: 25.75,
+        transportFees: 5,
         responsibleIntervenantID: 1,
         emergencyContact: this.mockEmergencyContactData(),
         followedBy: this.mockEmergencyContactData()

@@ -18,17 +18,19 @@ export interface Person {
   startDate: Date;
   endDate: Date;
   reference: string;
-  residenceType: string; // appartement, famille d’accueil, logement supervisé, etc.
+  residenceType: string; // appartement, famille d’accueil, logement supervisé
   educationalLevel: string; // aucun diplôme, études secondaires, études professionnelles, études collégiales, études universitaires
 
   // ???? 	Participation à un programme d’employabilité: date de début, date de fin
 
-  departureReason: 'Emploi' | 'Retour aux études' | 'Problèmes de santé mentale';
+
+  departureReason: 'Emploi' | 'Retour aux études' | 'Problèmes de santé mentale' | 'Problèmes de santé physique' | 'Déménagement' | 'Fin de contrat/projet' | 'Décès' | 'Autres';
   hoursPerDay: number;
   status: 'Clientèle' | 'Employés réguliers'; // (administration, intervenant, soutien)
   roamingTracking: boolean;
   communityWork: boolean;
   hourlyRate: number;
+  transportFees: number;
   responsibleIntervenantID: number;
   emergencyContact: EmergencyContact;
   followedBy: Intervenant | EmergencyContact | Doctor | OtherPerson;

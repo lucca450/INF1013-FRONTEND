@@ -5,6 +5,9 @@
     <input matInput (keyup)="applyFilter($event)" placeholder="Recherche" #input>
   </mat-form-field>
 
+  <button [routerLink] = "['/person/add/']" aria-label="Add new person" class="addButton" mat-icon-button style="color:#4CAF50">
+    <mat-icon inline="true">add</mat-icon>
+  </button>
 
   <mat-table [dataSource]="dataSource" matSort matSortActive="fname" matSortDirection="asc" class="mat-elevation-z8" >
 
@@ -37,7 +40,7 @@
       <mat-cell  *matCellDef="let row">
         <span class="mobile-label"></span>
         <img class="icons" src="assets/edit-icon.png" alt="Icone modifier" [routerLink]="['/person/edit',row.id]" routerLinkActive="active"/>
-        <img class="icons" src="assets/meeting-icon.png" alt="Icone rencontre" [routerLink]="['/meeting/add',row.id]" routerLinkActive="active"/>
+        <img class="icons" src="assets/meeting-icon.png" alt="Icone rencontre" [routerLink]="['/meeting',row.id]" routerLinkActive="active"/>
       </mat-cell>
     </ng-container>
 

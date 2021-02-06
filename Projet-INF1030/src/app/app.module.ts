@@ -43,7 +43,7 @@ import { EditIntervenantComponent } from './component/intervenant/edit-intervena
 const appRoutes: Routes = [
   {path : 'login', component : LoginComponent},
   {path : 'person', canActivate : [AuthGuard], component : ListPersonComponent},
-  {path : 'person/add/:id', canActivate : [AuthGuard], component : AddPersonComponent},
+  {path : 'person/add', canActivate : [AuthGuard], component : AddPersonComponent},
   {path : 'person/edit/:id', canActivate : [AuthGuard], component : EditPersonComponent},
   {path : 'person/details/:id', canActivate : [AuthGuard], component : DetailsPersonComponent},
   {path : 'intervenant', canActivate : [AuthGuard], component : ListIntervenantComponent},
