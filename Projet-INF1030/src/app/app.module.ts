@@ -36,6 +36,7 @@ import { AddPersonComponent } from './component/person/add-person/add-person.com
 import { EditPersonComponent } from './component/person/edit-person/edit-person.component';
 import { AddIntervenantComponent } from './component/intervenant/add-intervenant/add-intervenant.component';
 import { EditIntervenantComponent } from './component/intervenant/edit-intervenant/edit-intervenant.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 // Définition des routes de base
@@ -82,25 +83,26 @@ const appRoutes: Routes = [
     AddIntervenantComponent,
     EditIntervenantComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatMenuModule,
-    ReactiveFormsModule,
-    MatIconModule,
-    MatButtonModule,
-    MatTableModule,
-    MatDividerModule,
-    MatProgressSpinnerModule,
-    MatInputModule,
-    MatCardModule,
-    MatSlideToggleModule,
-    MatSelectModule,
-    MatSortModule,
-    RouterModule.forRoot(appRoutes),
-    FormsModule,
-    // On injecte les routes
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatMenuModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        MatButtonModule,
+        MatTableModule,
+        MatDividerModule,
+        MatProgressSpinnerModule,
+        MatInputModule,
+        MatCardModule,
+        MatSlideToggleModule,
+        MatSelectModule,
+        MatSortModule,
+        RouterModule.forRoot(appRoutes),
+        FormsModule,
+        MatDatepickerModule,
+        // On injecte les routes
+    ],
   providers: [
     PersonService,
     AuthService,

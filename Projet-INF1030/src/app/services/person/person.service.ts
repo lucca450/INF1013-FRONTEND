@@ -7,6 +7,9 @@ import {EmergencyContact} from '../../models/emergency-contact';
   providedIn: 'root'
 })
 export class PersonService {
+  addPerson(): void {
+      throw new Error('Method not implemented.');
+  }
 
   doctors: Doctor[];
   persons: Person[];
