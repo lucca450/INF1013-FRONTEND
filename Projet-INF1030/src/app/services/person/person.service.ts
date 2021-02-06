@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Doctor} from '../../models/doctor';
 import {Person} from '../../models/person';
 import {EmergencyContact} from '../../models/emergency-contact';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class PersonService {
   persons: Person[];
   emergencyContact: EmergencyContact;
 
-  constructor()
+  constructor(private router: Router)
   {
     /*this.doctors = this.mockDoctorData(); */
     this.persons = this.mockPersonData();
@@ -129,5 +130,7 @@ export class PersonService {
   }
 
 
-
+  addPerson() {
+    this.router.navigate(['person']);
+  }
 }

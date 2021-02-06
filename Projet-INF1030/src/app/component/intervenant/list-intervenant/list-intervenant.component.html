@@ -4,10 +4,11 @@
     <input matInput (keyup)="applyFilter($event)" placeholder="Recherche" #input>
   </mat-form-field>
 
-  <button [routerLink] = "['/intervenant/add/']" aria-label="Add new intervenant" class="addButton" mat-icon-button style="color:#4CAF50">
-    <mat-icon inline="true">add</mat-icon>
-  </button>
-
+  <div class ="container-button">
+    <button [routerLink] = "['/intervenant/add/']" aria-label="Add new intervenant" mat-raised-button color="basic"
+            class="addButton">Ajouter un intervenant <mat-icon>add</mat-icon>
+    </button>
+  </div>
   <mat-table [dataSource]="intervenants" matSort matSortActive="fname" matSortDirection="asc" class="mat-elevation-z8" >
 
     <ng-container matColumnDef="fname">
