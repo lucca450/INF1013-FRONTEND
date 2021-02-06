@@ -28,12 +28,14 @@ import {RouterModule, Routes} from '@angular/router';
 import { NotFoundComponent } from './component/error/not-found/not-found.component';
 import {AuthService} from './services/authentification/auth.service';
 import {AuthGuard} from './services/authentification/auth-guard.service';
-import { ManagementIntervenantComponent } from './component/intervenant/management-intervenant/management-intervenant.component';
 import { EditMeetingComponent } from './component/meeting/edit-meeting/edit-meeting.component';
-import { ManagementPersonComponent } from './component/person/management-person/management-person.component';
 import {DetailsPersonComponent} from './component/person/details-person/details-person.component';
 import { MyAccountComponent } from './component/intervenant/my-account/my-account.component';
 import { AddMeetingComponent } from './component/meeting/add-meeting/add-meeting.component';
+import { AddPersonComponent } from './component/person/add-person/add-person.component';
+import { EditPersonComponent } from './component/person/edit-person/edit-person.component';
+import { AddIntervenantComponent } from './component/intervenant/add-intervenant/add-intervenant.component';
+import { EditIntervenantComponent } from './component/intervenant/edit-intervenant/edit-intervenant.component';
 
 
 // Définition des routes de base
@@ -41,11 +43,15 @@ import { AddMeetingComponent } from './component/meeting/add-meeting/add-meeting
 const appRoutes: Routes = [
   {path : 'login', component : LoginComponent},
   {path : 'person', canActivate : [AuthGuard], component : ListPersonComponent},
-  {path : 'person/:id', canActivate : [AuthGuard], component : ManagementPersonComponent},
+  {path : 'person/add/:id', canActivate : [AuthGuard], component : AddPersonComponent},
+  {path : 'person/edit/:id', canActivate : [AuthGuard], component : EditPersonComponent},
+  {path : 'person/details/:id', canActivate : [AuthGuard], component : DetailsPersonComponent},
   {path : 'intervenant', canActivate : [AuthGuard], component : ListIntervenantComponent},
-  {path : 'intervenant/:id', canActivate : [AuthGuard], component : ManagementIntervenantComponent},
- // {path : 'meeting', canActivate : [AuthGuard], component : ListMeetingComponent},
+  {path : 'intervenant/add', canActivate : [AuthGuard], component : AddIntervenantComponent},
+  {path : 'intervenant/edit/:id', canActivate : [AuthGuard], component : EditIntervenantComponent},
+  {path : 'meeting', canActivate : [AuthGuard], component : ListMeetingComponent},
   {path : 'meeting/add/:id', canActivate : [AuthGuard], component : AddMeetingComponent},
+  {path : 'meeting/edit:id', canActivate : [AuthGuard], component : EditMeetingComponent},
   {path : 'meeting/:id', canActivate : [AuthGuard], component : ListMeetingComponent},
   {path : 'account/:id', canActivate : [AuthGuard], component : MyAccountComponent},
   {path : '', component : LoginComponent},
@@ -68,11 +74,13 @@ const appRoutes: Routes = [
     ReportNbrpeopleMonthComponent,
     ReportAnnualStatisticComponent,
     NotFoundComponent,
-    ManagementIntervenantComponent,
     EditMeetingComponent,
-    ManagementPersonComponent,
     MyAccountComponent,
-    AddMeetingComponent
+    AddMeetingComponent,
+    AddPersonComponent,
+    EditPersonComponent,
+    AddIntervenantComponent,
+    EditIntervenantComponent
   ],
   imports: [
     BrowserModule,

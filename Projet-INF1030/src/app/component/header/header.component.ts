@@ -21,9 +21,12 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
 
     // @ts-ignore
-    this.isAuthSubscription = this.authService.authSubject.subscribe((value:boolean) => {
+    this.isAuthSubscription = this.authService.authSubject.subscribe((value: boolean) => {
       this.isAuth = value;
-    });
+    },
+      (value: boolean) => {
+      console.log('erreur');
+      });
   }
 
 

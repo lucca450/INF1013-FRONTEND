@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   private initForm(): void {
     this.loginForm = this.formBuilder.group({
-      username: [''/*, Validators.email*/],
+      email: [''/*, Validators.email*/],
       password: [''/*, Validators.required*/]
     });
   }
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     this.authService.signIn().then(  // .then Pour réagir quand le callback sera appelé parce que c'est asynchrone
       () => {
         this.authService.signIn();
-        this.router.navigate(['intervenant', this.accountID]);
+        this.router.navigate(['intervenant'/*, this.accountID*/]);
       }
     );
   }

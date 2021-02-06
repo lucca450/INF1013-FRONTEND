@@ -1,0 +1,44 @@
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="addintervenantForm" (ngSubmit)="onSubmit()">
+      <h2>Ajout d'un intervenant</h2>
+
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Prénom" formControlName="fname">
+        <mat-error>
+          Veuillez entrer un prénom.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Nom" formControlName="lname">
+        <mat-error>
+          Veuillez entrer un nom.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Courriel" formControlName="email">
+        <mat-error>
+          Veuillez entrer un courriel.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Numéro de téléphone" formControlName="phone">
+        <mat-error>
+          Veuillez entrer un numéro de téléphone.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Adresse" formControlName="address">
+        <mat-error>
+          Veuillez entrer une adresse.
+        </mat-error>
+      </mat-form-field>
+
+      <button class ="button-add" (click) = "onAddIntervenant()">Ajouter</button>
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,24 @@
+mat-card {
+  max-width: 600px;
+  width:600px;
+  margin: 2em auto;
+  top:25%;
+  text-align: center;
+  background-color: #fbfbfb;
+  box-shadow: 5px 10px 8px #888888!important;
+}
+
+mat-form-field {
+  display: block;
+}
+
+.button-add{
+  background-color: green;
+  color:white;
+  padding: 10px 10px 10px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width:200px;
+}
+
+
