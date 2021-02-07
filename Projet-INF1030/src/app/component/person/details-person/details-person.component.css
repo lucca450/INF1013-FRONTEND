@@ -1,13 +1,14 @@
+/*
 mat-card {
   max-width: 600px;
-  width:600px;
+  width: 600px;
   margin: 2em auto;
   top:2%;
   text-align: center;
   background-color: #fbfbfb;
   box-shadow: 5px 10px 8px #888888!important;
 }
-
+*/
 mat-form-field {
   display: block;
 }
@@ -23,3 +24,44 @@ mat-form-field {
 
 
 
+.main-div {
+  max-width: 1000px;
+  width: 1000px;
+  margin: 2em auto;
+  top:2%;
+  text-align: center;
+  background-color: green;
+}
+
+label {
+  /* Other styling... */
+  text-align: right;
+  clear: both;
+  float:left;
+  margin-right:15px;
+  font-weight: bold;
+}
+
+.left-mat-card {
+  max-width: 400px;
+  width: 400px;
+ /* margin: 2em auto;*/
+  /*top:2%;*/
+  text-align: center;
+  background-color: #fbfbfb;
+  box-shadow: 5px 10px 8px #888888!important;
+  float: left;
+/* left: 10%;*/
+}
+
+.right-mat-card {
+  max-width: 400px;
+  width: 400px;
+/*  margin: 2em auto;*/
+ /* top:2%;*/
+  text-align: center;
+  background-color: #fbfbfb;
+  box-shadow: 5px 10px 8px #888888!important;
+  float: right;
+ /* right: 10%;*/
+}

@@ -22,8 +22,8 @@ export interface Person {
   residenceType: string; // appartement, famille d’accueil, logement supervisé
   educationalLevel: string; // aucun diplôme, études secondaires, études professionnelles, études collégiales, études universitaires
 
-  // ???? 	Participation à un programme d’employabilité: date de début, date de fin
-
+  programStartDate: Date;
+  programEndDate: Date;
 
   departureReason: 'Emploi' | 'Retour aux études' | 'Problèmes de santé mentale' | 'Problèmes de santé physique' | 'Déménagement' | 'Fin de contrat/projet' | 'Décès' | 'Autres';
   hoursPerDay: number;

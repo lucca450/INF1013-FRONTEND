@@ -47,7 +47,8 @@ export class PersonService {
         residenceType: 'appartement',
         educationalLevel: 'études secondaires',
 
-        /*Manque des champs qui sont dans le document*/
+        programStartDate: new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+        programEndDate: new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
 
         departureReason: 'Problèmes de santé mentale',
         hoursPerDay: 8,
@@ -79,7 +80,8 @@ export class PersonService {
         residenceType: 'logement supervisé',
         educationalLevel: 'études universitaires',
 
-        /*Manque des champs qui sont dans le document*/
+        programStartDate: new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+        programEndDate: new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
 
         departureReason: 'Emploi',
         hoursPerDay: 3,
@@ -111,7 +113,8 @@ export class PersonService {
         residenceType: 'famille d’accueil',
         educationalLevel: 'études collégiales',
 
-        /*Manque des champs qui sont dans le document*/
+        programStartDate: new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+        programEndDate: new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
 
         departureReason: 'Retour aux études',
         hoursPerDay: 6,
