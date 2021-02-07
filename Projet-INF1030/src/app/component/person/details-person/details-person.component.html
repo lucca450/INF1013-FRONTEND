@@ -1,1 +1,200 @@
-<p>details-person works!</p>
+<mat-card>
+  <mat-card-content>
+
+      <h2>Détails d'une personne</h2>
+
+      <mat-form-field >
+        <label>Prénom</label>
+        <p>{{person.fname}}</p>
+      </mat-form-field>
+
+      <mat-form-field>
+        <label>Nom</label>
+        <p>{{person.lname}}</p>
+      </mat-form-field>
+
+
+      <mat-form-field >
+        <label>Date de naissance</label>
+        <p>{{person.birthday | date}}</p>
+      </mat-form-field>
+
+      <mat-form-field>
+        <label>Sexe</label>
+        <p>{{person.sexe}}</p>
+      </mat-form-field>
+
+      <mat-form-field >
+        <label>Adresse</label>
+        <p>{{person.address}}</p>
+      </mat-form-field>
+
+      <mat-form-field >
+        <label>Numéro de téléphone</label>
+        <p>{{person.phone}}</p>
+      </mat-form-field>
+
+      <mat-form-field >
+        <label>NAS</label>
+        <p>{{person.NAS}}</p>
+      </mat-form-field>
+
+
+      <mat-form-field >
+        <label>Problèmes de santé/allergies</label>
+        <textarea>{{person.healthIssues}}</textarea>
+      </mat-form-field>
+
+      <mat-form-field>
+        <label>Lieu de travail</label>
+        <p>{{person.workCity}}</p>
+      </mat-form-field>
+
+      <mat-form-field >
+        <label>Date de début de la participation</label>
+        <p>{{person.startDate | date}}</p>
+      </mat-form-field>
+
+      <mat-form-field >
+        <label>Date de fin de la participation</label>
+        <p>{{person.endDate | date}}</p>
+      </mat-form-field>
+
+      <mat-form-field>
+        <label>Référence</label>
+        <p>{{person.reference}}</p>
+      </mat-form-field>
+
+      <mat-form-field>
+        <label>Type de résidence</label>
+        <p>{{person.residenceType}}</p>
+      </mat-form-field>
+
+      <mat-form-field>
+        <label>Niveau de scolarité</label>
+        <p>{{person.educationalLevel}}</p>
+      </mat-form-field>
+
+
+      <p>Participation à un programme d’employabilité</p>
+      <mat-form-field>
+        <label>Date de début</label>
+        <p>{{person}}</p>
+      </mat-form-field>
+
+      <mat-form-field >
+        <label>Date de fin</label>
+        <p>{{person}}</p>
+      </mat-form-field>
+
+
+      <mat-form-field>
+        <label>Motifs de départ</label>
+        <p>{{person.departureReason}}</p>
+      </mat-form-field>
+
+      <mat-form-field>
+        <label>Heures travaillées par jour</label>
+        <p>{{person.hoursPerDay}} heures</p>
+      </mat-form-field>
+
+      <mat-form-field>
+        <label>Statut</label>
+        <p>{{person.status}}</p>
+      </mat-form-field>
+
+      <mat-form-field>
+
+        <label>Suivi en itinérance</label>
+        <p>{{person.roamingTracking}}</p>
+      </mat-form-field>
+
+
+
+      <mat-form-field>
+        <label>Travaux communautaires</label>
+        <p>{{person.communityWork}}</p>
+      </mat-form-field>
+
+
+
+      <mat-form-field >
+        <label>Taux horaire</label>
+        <p>{{person.hourlyRate | currency}}</p>
+      </mat-form-field>
+
+      <mat-form-field >
+        <label>Frais de transport</label>
+        <p>{{person.transportFees}}</p>
+      </mat-form-field>
+
+
+      <mat-form-field>
+        <label>Intervenant responsable</label>
+        <p>{{person.responsibleIntervenantID}}</p>
+      </mat-form-field>
+
+
+
+      <p>Personne ressource en cas d'urgence</p>
+
+
+    <mat-form-field>
+      <label>Personne ressource en cas d'urgence</label>
+    </mat-form-field>
+
+      <mat-form-field>
+        <label>Prénom de la personne ressource en cas d'urgence</label>
+        <p>{{person.emergencyContact.fname}}</p>
+      </mat-form-field>
+
+      <mat-form-field>
+        <label>Nom de la personne ressource en cas d'urgence</label>
+        <p>{{person.emergencyContact.lname}}</p>
+      </mat-form-field>
+
+      <mat-form-field>
+        <label>Numéro de téléphone de la personne ressource en cas d'urgence</label>
+        <p>{{person.emergencyContact.phone }}</p>
+      </mat-form-field>
+
+      <p>Suivi par</p>
+      <mat-form-field>
+        <label>Suivi par</label>
+        <p>{{person.followedBy}}</p>
+      </mat-form-field>
+
+
+      <p>Informations de la personne de suivi</p>
+      <mat-form-field>
+        <label>Prénom de la personne de suivi</label>
+        <p>{{person.followedBy.fname}}</p>
+      </mat-form-field>
+
+      <mat-form-field>
+        <label>Nom de la personne de suivi</label>
+        <p>{{person.followedBy.lname}}</p>
+      </mat-form-field>
+
+      <mat-form-field >
+        <label>Numéro de téléphone de la personne de suivi</label>
+        <p>{{person.followedBy.phone }}</p>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="person.followedBy.value == 'Médecin' || person.followedBy.value == 'Intervenant'" >
+        <label>Email de la personne de suivi</label>
+        <p>{{person.followedBy.email}}</p>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="person.followedBy.value == 'Médecin'" >
+        <label>Numéro de fax de la personne de suivi</label>
+        <p>{{person.followedBy.fax}}</p>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="person.followedBy.value == 'Autres' || person.followedBy.value == 'Intervenant'">
+        <label>Organisme de la personne de suivi</label>
+        <p>{{person.followedBy.organization}}</p>
+      </mat-form-field>
+
+  </mat-card-content>
+</mat-card>

@@ -6,10 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit-person.component.css']
 })
 export class EditPersonComponent implements OnInit {
+  EditPersonForm: any;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  onEditPerson(): void {
+
+  }
+
+  onSubmit(): void {
+
+  }
 }
