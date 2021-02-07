@@ -18,21 +18,18 @@ export class PersonService {
     this.persons = this.mockPersonData();
   }
 
-  private mockDoctorData(): Doctor[]{
-    return [
-      {lname: 'moumoua', fname: 'dau', email: 'test1@gmail.ca', fax: 1111111111, phone: 1111111111},
-      {lname: 'doudou', fname: 'aby', email: 'test2@gmail.ca', fax: 2222222222, phone: 2222222222},
-      {lname: 'prot', fname: 'col', email: 'test3@gmail.ca', fax: 3333333333, phone: 3333333333}
-    ];
+  private mockDoctorData(): Doctor{
+    return {interfaceName: 'Doctor', lname: 'protou', fname: 'colin', email: 'test1@doctor.ca', fax: 8888888888, phone: 9333333333};
   }
 
   private mockEmergencyContactData(): EmergencyContact{
-    return this.emergencyContact = {lname: 'smith', fname: 'john', phone: 8190002222, relation: 'Frère'};
+    return this.emergencyContact = {interfaceName: 'EmergencyContact', lname: 'smith', fname: 'john', phone: 8190002222, relation: 'Frère'};
   }
 
   private mockPersonData(): Person[]{
     return [
       {
+        interfaceName: 'Person',
         id: 0,
         active: 'Oui',
         lname: 'blo',
@@ -64,6 +61,7 @@ export class PersonService {
         followedBy: this.mockEmergencyContactData()
       },
       {
+        interfaceName: 'Person',
         id: 1,
         active: 'Oui',
         lname: 'plante',
@@ -95,6 +93,7 @@ export class PersonService {
         followedBy: this.mockEmergencyContactData()
       },
       {
+        interfaceName: 'Person',
         id: 2,
         active: 'Oui',
         lname: 'boucher',
@@ -123,13 +122,13 @@ export class PersonService {
         transportFees: 5,
         responsibleIntervenantID: 1,
         emergencyContact: this.mockEmergencyContactData(),
-        followedBy: this.mockEmergencyContactData()
+        followedBy: this.mockDoctorData()
       }
     ];
   }
 
 
-  addPerson() {
+  addPerson(): void{
     this.router.navigate(['person']);
   }
 }

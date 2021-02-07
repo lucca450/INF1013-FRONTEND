@@ -1,4 +1,5 @@
 export interface Intervenant {
+  interfaceName: 'Intervenant';
   id: number;
   lname: string;
   fname: string;

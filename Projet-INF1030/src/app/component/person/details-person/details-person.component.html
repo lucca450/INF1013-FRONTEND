@@ -31,7 +31,7 @@
 
       <mat-form-field >
         <label>Numéro de téléphone</label>
-        <p>{{person.phone}}</p>
+        <p>{{person.phone  | phone}}</p>
       </mat-form-field>
 
       <mat-form-field >
@@ -155,7 +155,7 @@
 
       <mat-form-field>
         <label>Numéro de téléphone de la personne ressource en cas d'urgence</label>
-        <p>{{person.emergencyContact.phone }}</p>
+        <p>{{person.emergencyContact.phone  | phone}}</p>
       </mat-form-field>
 
       <p>Suivi par</p>
@@ -178,20 +178,20 @@
 
       <mat-form-field >
         <label>Numéro de téléphone de la personne de suivi</label>
-        <p>{{person.followedBy.phone }}</p>
+        <p>{{person.followedBy.phone | phone}}</p>
       </mat-form-field>
 
-      <mat-form-field *ngIf="person.followedBy.value == 'Médecin' || person.followedBy.value == 'Intervenant'" >
+      <mat-form-field *ngIf="getClassName(person.followedBy) == 'Doctor' || getClassName(person.followedBy) == 'Intervenant'" >
         <label>Email de la personne de suivi</label>
         <p>{{person.followedBy.email}}</p>
       </mat-form-field>
 
-      <mat-form-field *ngIf="person.followedBy.value == 'Médecin'" >
+      <mat-form-field *ngIf="getClassName(person.followedBy) == 'Doctor' " >
         <label>Numéro de fax de la personne de suivi</label>
-        <p>{{person.followedBy.fax}}</p>
+        <p>{{person.followedBy.fax | phone}}</p>
       </mat-form-field>
 
-      <mat-form-field *ngIf="person.followedBy.value == 'Autres' || person.followedBy.value == 'Intervenant'">
+      <mat-form-field *ngIf=" getClassName(person.followedBy) == 'OtherPerson'  || getClassName(person.followedBy) == 'Intervenant'">
         <label>Organisme de la personne de suivi</label>
         <p>{{person.followedBy.organization}}</p>
       </mat-form-field>

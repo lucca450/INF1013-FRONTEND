@@ -4,6 +4,13 @@ import {ActivatedRoute} from '@angular/router';
 import {PersonService} from '../../../services/person/person.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {Person} from '../../../models/person';
+import {Intervenant} from '../../../models/intervenant';
+import {EmergencyContact} from '../../../models/emergency-contact';
+import {OtherPerson} from '../../../models/other-person';
+import {Doctor} from '../../../models/doctor';
+import {getClassName} from 'codelyzer/util/utils';
+
+
 
 @Component({
   selector: 'app-details-person',
@@ -26,4 +33,8 @@ export class DetailsPersonComponent implements OnInit {
     });
   }
 
+  getClassName(obj: Intervenant | EmergencyContact | Doctor | OtherPerson): string {
+    return obj.interfaceName;
+  }
 }
+
