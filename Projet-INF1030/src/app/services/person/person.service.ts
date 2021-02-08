@@ -44,8 +44,8 @@ export class PersonService {
         startDate: new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
         endDate: new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
         reference: 'Aucune',
-        residenceType: 'appartement',
-        educationalLevel: 'études secondaires',
+        residenceType: 'Appartement',
+        educationalLevel: 'Études secondaires',
 
         programStartDate: new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
         programEndDate: new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
@@ -77,8 +77,8 @@ export class PersonService {
         startDate: new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
         endDate: new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
         reference: 'Aucune',
-        residenceType: 'logement supervisé',
-        educationalLevel: 'études universitaires',
+        residenceType: 'Logement supervisé',
+        educationalLevel: 'Études universitaires',
 
         programStartDate: new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
         programEndDate: new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
@@ -110,8 +110,8 @@ export class PersonService {
         startDate: new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
         endDate: new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
         reference: 'Aucune',
-        residenceType: 'famille d’accueil',
-        educationalLevel: 'études collégiales',
+        residenceType: 'Famille d’accueil',
+        educationalLevel: 'Études collégiales',
 
         programStartDate: new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
         programEndDate: new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
@@ -132,6 +132,10 @@ export class PersonService {
 
 
   addPerson(): void{
+    this.router.navigate(['person']);
+  }
+
+  editPerson() {
     this.router.navigate(['person']);
   }
 }

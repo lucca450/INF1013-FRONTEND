@@ -2,6 +2,7 @@ import {EmergencyContact} from './emergency-contact';
 import {Intervenant} from './intervenant';
 import {Doctor} from './doctor';
 import {OtherPerson} from './other-person';
+import {City} from '../enum/city';
 
 export interface Person {
   interfaceName: 'Person';
@@ -15,7 +16,7 @@ export interface Person {
   phone: number;
   NAS: number;
   healthIssues: string;
-  workCity: 0 | 1 | 2 | 3; // Trois-Rivières, Shawinigan, Louiseville, St-Tite
+  workCity: City // Trois-Rivières, Shawinigan, Louiseville, St-Tite
   startDate: Date;
   endDate: Date;
   reference: string;

@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {PersonService} from '../../../services/person/person.service';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
+import {City} from '../../../enum/city';
+
 
 
 
@@ -15,11 +17,15 @@ export class AddPersonComponent implements OnInit {
   addPersonForm: FormGroup;
   personInvalid: boolean;
   intervenants = this.intervenantService.intervenants;
+  city: City;
+  citykeys = [];
   test: any;
+
 
   constructor(private formBuilder: FormBuilder, private personService: PersonService, private intervenantService: IntervenantService) { }
 
   ngOnInit(): void {
+    //this.citykeys = Object.keys(this.city);
     this.initForm();
   }
 

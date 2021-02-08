@@ -1,12 +1,11 @@
-<div class="main-div">
-  <h2>Détails d'une personne</h2>
 
-    <mat-card class="left-mat-card">
-      <mat-card-content>
-
-        <h3>Informations personnelles</h3>
-
-        <mat-form-field >
+<div class="contianer-row">
+  <h1 id = "information-emplacement">Détails d'une personne</h1>
+  <div class="row">
+    <div class="column">
+      <div class ="container-column">
+        <h1 class = "header-column"> Informations personnelles</h1>
+        <mat-form-field>
           <label>Prénom:</label>
           <p>{{person.fname}}</p>
         </mat-form-field>
@@ -50,46 +49,11 @@
                     cdkAutosizeMinRows="1"
                     cdkAutosizeMaxRows="5">{{person.healthIssues}}</textarea>
         </mat-form-field>
+      </div>
 
+      <div class ="container-column">
+        <h1 class = "header-column"> Participation à un programme d’employabilité</h1>
 
-
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card class="right-mat-card">
-
-      <mat-card-content>
-        <mat-form-field>
-          <label>Lieu de travail:</label>
-          <p>{{person.workCity}}</p>
-        </mat-form-field>
-
-        <mat-form-field >
-          <label>Date de début de la participation:</label>
-          <p>{{person.startDate | date}}</p>
-        </mat-form-field>
-
-        <mat-form-field >
-          <label>Date de fin de la participation:</label>
-          <p>{{person.endDate | date}}</p>
-        </mat-form-field>
-
-        <mat-form-field>
-          <label>Référence:</label>
-          <p>{{person.reference}}</p>
-        </mat-form-field>
-
-        <mat-form-field>
-          <label>Type de résidence:</label>
-          <p>{{person.residenceType}}</p>
-        </mat-form-field>
-
-        <mat-form-field>
-          <label>Niveau de scolarité:</label>
-          <p>{{person.educationalLevel}}</p>
-        </mat-form-field>
-
-        <p>Participation à un programme d’employabilité</p>
         <mat-form-field>
           <label>Date de début:</label>
           <p>{{person.programStartDate | date}}</p>
@@ -146,12 +110,46 @@
           <label>Intervenant responsable:</label>
           <p>{{person.responsibleIntervenantID}}</p>
         </mat-form-field>
+      </div>
 
+    </div>
 
+    <div class="column column-right">
+      <div class ="container-column">
+        <h1 class = "header-column"> Informations sur le travail</h1>
+        <mat-form-field>
+          <label>Lieu de travail:</label>
+          <p>{{person.workCity}}</p>
+        </mat-form-field>
 
-        <p>Personne ressource en cas d'urgence</p>
+        <mat-form-field >
+          <label>Date de début de la participation:</label>
+          <p>{{person.startDate | date}}</p>
+        </mat-form-field>
 
+        <mat-form-field >
+          <label>Date de fin de la participation:</label>
+          <p>{{person.endDate | date}}</p>
+        </mat-form-field>
 
+        <mat-form-field>
+          <label>Référence:</label>
+          <p>{{person.reference}}</p>
+        </mat-form-field>
+
+        <mat-form-field>
+          <label>Type de résidence:</label>
+          <p>{{person.residenceType}}</p>
+        </mat-form-field>
+
+        <mat-form-field>
+          <label>Niveau de scolarité:</label>
+          <p>{{person.educationalLevel}}</p>
+        </mat-form-field>
+      </div>
+
+      <div class ="container-column">
+        <h1 class = "header-column"> Personne ressource en cas d'urgence</h1>
         <mat-form-field>
           <label>Personne ressource en cas d'urgence</label>
         </mat-form-field>
@@ -170,8 +168,10 @@
           <label>Numéro de téléphone de la personne ressource en cas d'urgence:</label>
           <p>{{person.emergencyContact.phone  | phone}}</p>
         </mat-form-field>
+      </div>
 
-        <p>Informations de la personne de suivi</p>
+      <div class ="container-column">
+        <h1 class = "header-column"> Informations de la personne de suivi</h1>
         <mat-form-field>
           <label>Prénom de la personne de suivi:</label>
           <p>{{person.followedBy.fname}}</p>
@@ -201,8 +201,11 @@
           <label>Organisme de la personne de suivi:</label>
           <p>{{person.followedBy.organization}}</p>
         </mat-form-field>
-      </mat-card-content>
-    </mat-card>
+      </div>
+
+    </div>
+  </div>
 </div>
+
 
 

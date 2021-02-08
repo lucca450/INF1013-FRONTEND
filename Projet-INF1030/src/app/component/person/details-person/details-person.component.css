@@ -1,16 +1,45 @@
-/*
-mat-card {
-  max-width: 600px;
-  width: 600px;
-  margin: 2em auto;
-  top:2%;
-  text-align: center;
-  background-color: #fbfbfb;
-  box-shadow: 5px 10px 8px #888888!important;
+.row {
+  display: flex;
+  padding: 10px 10px 10px 10px;
 }
-*/
+
+.column {
+  flex: 50%;
+}
+
+.column-right {
+  margin-left: 20px;
+}
+.header-column{
+  border-bottom : 1px solid;
+  padding-bottom: 10px;
+}
+
+.column{
+
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  background-clip: padding-box;
+  margin-bottom: 20px;
+}
+
 mat-form-field {
   display: block;
+  border-color: #ebedf0!important;
+  border-bottom: 1px solid;
+}
+
+.container-column{
+  padding:20px;
+  border: 1px solid rgba(54, 64, 74, 0.08);
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  background-clip: padding-box;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  margin-top: 10px;
 }
 
 .button-add{
@@ -57,11 +86,18 @@ label {
 .right-mat-card {
   max-width: 400px;
   width: 400px;
-/*  margin: 2em auto;*/
- /* top:2%;*/
   text-align: center;
   background-color: #fbfbfb;
   box-shadow: 5px 10px 8px #888888!important;
   float: right;
- /* right: 10%;*/
+}
+
+body{
+  height: auto!important;
+}
+
+#information-emplacement{
+  padding:20px;
+  text-align: center;
+  border-bottom: 1px solid;
 }
