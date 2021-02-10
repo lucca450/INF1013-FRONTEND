@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Meeting} from '../../models/meeting';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import {Meeting} from '../../models/meeting';
 export class MeetingService {
 
   meetings: Meeting[];
-  constructor() {
+  constructor(private router: Router) {
     this.meetings = this.mockMeetingData();
   }
   private mockMeetingData(): Meeting[]{
@@ -45,5 +46,9 @@ export class MeetingService {
         idIntervenant: 0
       }
     ];
+  }
+
+  addMeeting(): void{
+    this.router.navigate(['meeting']);
   }
 }

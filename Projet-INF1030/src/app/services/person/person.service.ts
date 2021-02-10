@@ -129,7 +129,14 @@ export class PersonService {
       }
     ];
   }
-
+  public personFullName(id: number): string {
+    let person: Person;
+    // tslint:disable-next-line:only-arrow-functions typedef
+    person = this.persons.find(function(p: Person) {
+      return p.id === id;
+    });
+    return person.fname  + ' ' + person.lname;
+  }
 
   addPerson(): void{
     this.router.navigate(['person']);
