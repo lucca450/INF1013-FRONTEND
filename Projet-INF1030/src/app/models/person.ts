@@ -16,7 +16,7 @@ export interface Person {
   phone: number;
   NAS: number;
   healthIssues: string;
-  workCity: City // Trois-Rivières, Shawinigan, Louiseville, St-Tite
+  workCity: string // Trois-Rivières, Shawinigan, Louiseville, St-Tite
   startDate: Date;
   endDate: Date;
   reference: string;

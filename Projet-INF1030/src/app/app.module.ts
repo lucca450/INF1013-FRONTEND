@@ -39,6 +39,7 @@ import { EditIntervenantComponent } from './component/intervenant/edit-intervena
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { PhonePipe } from './pipes/phone.pipe';
+import { ConvertBooleanPipe } from './pipes/convert-boolean.pipe';
 
 
 // Définition des routes de base
@@ -84,7 +85,8 @@ const appRoutes: Routes = [
     EditPersonComponent,
     AddIntervenantComponent,
     EditIntervenantComponent,
-    PhonePipe
+    PhonePipe,
+    ConvertBooleanPipe
   ],
   imports: [
     BrowserModule,

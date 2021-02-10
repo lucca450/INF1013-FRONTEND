@@ -66,14 +66,14 @@
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>Lieu de travail : {{person.workCity}} </mat-label>
+        <mat-label>Lieu de travail :</mat-label>
         <mat-select [(value)]="person.workCity">
-          <mat-option value="0">Trois-Rivières</mat-option>
-          <mat-option value="1">Shawinigan</mat-option>
-          <mat-option value="2">Louiseville</mat-option>
-          <mat-option value="3">St-Tite</mat-option>
+          <mat-option *ngFor="let city of cities" [value]="city.id">
+            {{ city.name }}
+          </mat-option>
         </mat-select>
       </mat-form-field>
+
 
       <mat-form-field appearance="fill">
         <mat-label>Date de début de la participation</mat-label>

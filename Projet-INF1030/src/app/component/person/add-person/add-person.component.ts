@@ -17,15 +17,12 @@ export class AddPersonComponent implements OnInit {
   addPersonForm: FormGroup;
   personInvalid: boolean;
   intervenants = this.intervenantService.intervenants;
-  city: City;
-  citykeys = [];
-  test: any;
+  cities = Object.entries(City).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
 
 
   constructor(private formBuilder: FormBuilder, private personService: PersonService, private intervenantService: IntervenantService) { }
 
   ngOnInit(): void {
-    //this.citykeys = Object.keys(this.city);
     this.initForm();
   }
 

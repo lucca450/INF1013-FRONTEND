@@ -5,4 +5,3 @@ export enum City {
   "St-Tite"
 }
 
-const city: Array<string> = Object.keys(City).filter(key => isNaN(+key));

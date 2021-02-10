@@ -9,6 +9,7 @@ import {EmergencyContact} from '../../../models/emergency-contact';
 import {OtherPerson} from '../../../models/other-person';
 import {Doctor} from '../../../models/doctor';
 import {getClassName} from 'codelyzer/util/utils';
+import {City} from '../../../enum/city';
 
 
 
@@ -19,8 +20,9 @@ import {getClassName} from 'codelyzer/util/utils';
 })
 export class DetailsPersonComponent implements OnInit {
 
-  @Input() personID: number;
+  personID: number;
   person: Person;
+  cities = Object.keys(City).map(key => City[key]);
 
   constructor(private personService: PersonService , private route: ActivatedRoute) { }
 

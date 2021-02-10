@@ -59,18 +59,15 @@
               <mat-label>Problèmes de santé/allergies</mat-label>
               <textarea matInput></textarea>
       </mat-form-field>
-        Faut foreach l'énum des city.... mais comment....
 
       <mat-form-field>
-        <mat-label>Lieu de travail</mat-label>
+        <mat-label>Lieu de travail :</mat-label>
         <mat-select>
-          <mat-option value="0">Trois-Rivières</mat-option>
-          <mat-option value="1">Shawinigan</mat-option>
-          <mat-option value="2">Louiseville</mat-option>
-          <mat-option value="3">St-Tite</mat-option>
+          <mat-option *ngFor="let city of cities" [value]="city.id">
+            {{ city.name }}
+          </mat-option>
         </mat-select>
       </mat-form-field>
-
 
       <mat-form-field appearance="fill">
         <mat-label>Date de début de la participation</mat-label>
@@ -174,13 +171,13 @@
       <mat-form-field>
         <mat-label>Suivi en itinérance</mat-label>
         <mat-select #followRoaming>
-          <mat-option value="Oui">Oui</mat-option>
-          <mat-option value="Non">Non</mat-option>
+          <mat-option value="true">Oui</mat-option>
+          <mat-option value="false">Non</mat-option>
         </mat-select>
       </mat-form-field>
 
 
-      <div *ngIf="followRoaming.value == 'Oui'">
+      <div *ngIf="followRoaming.value == 'true'">
         <p>Dates du suivi d'itinérance</p>
         <mat-form-field appearance="fill">
           <mat-label>Date de début</mat-label>

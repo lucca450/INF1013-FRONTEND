@@ -3,6 +3,7 @@ import {FormBuilder} from '@angular/forms';
 import {PersonService} from '../../../services/person/person.service';
 import {Person} from '../../../models/person';
 import {ActivatedRoute} from '@angular/router';
+import {City} from '../../../enum/city';
 
 @Component({
   selector: 'app-edit-person',
@@ -13,6 +14,8 @@ export class EditPersonComponent implements OnInit {
   EditPersonForm: any;
   person: Person;
   personID: number;
+  cities = Object.entries(City).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
+
 
   constructor(private formBuilder: FormBuilder,private personService: PersonService, private route: ActivatedRoute) { }
 
