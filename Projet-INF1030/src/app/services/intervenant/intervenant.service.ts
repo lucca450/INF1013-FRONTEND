@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Intervenant} from '../../models/intervenant';
 import {Router} from '@angular/router';
+import {Person} from '../../models/person';
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +27,15 @@ export class IntervenantService {
 
   editIntervenant(): void {
     this.router.navigate(['intervenant']);
+  }
+
+
+  public intervenantFullName(id: number): string {
+    let intervenant: Intervenant;
+    // tslint:disable-next-line:only-arrow-functions typedef
+    intervenant = this.intervenants.find(function(i: Intervenant) {
+      return i.id === id;
+    });
+    return intervenant.fname  + ' ' + intervenant.lname;
   }
 }

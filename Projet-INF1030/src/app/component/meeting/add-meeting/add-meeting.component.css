@@ -20,6 +20,3 @@ mat-form-field {
   cursor: pointer;
   width:200px;
 }
-.resizable{
-  resize: both;
-}

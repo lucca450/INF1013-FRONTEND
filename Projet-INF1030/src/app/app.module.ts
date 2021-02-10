@@ -55,7 +55,7 @@ const appRoutes: Routes = [
   {path : 'intervenant/edit/:id', canActivate : [AuthGuard], component : EditIntervenantComponent},
   {path : 'meeting', canActivate : [AuthGuard], component : ListMeetingComponent},
   {path : 'meeting/add/:id', canActivate : [AuthGuard], component : AddMeetingComponent},
-  {path : 'meeting/edit:id', canActivate : [AuthGuard], component : EditMeetingComponent},
+  {path : 'meeting/edit/:id', canActivate : [AuthGuard], component : EditMeetingComponent},
   {path : 'meeting/:id', canActivate : [AuthGuard], component : ListMeetingComponent},
   {path : 'account/:id', canActivate : [AuthGuard], component : MyAccountComponent},
   {path : '', component : LoginComponent},

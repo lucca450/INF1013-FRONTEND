@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Meeting} from '../../models/meeting';
 import {Router} from '@angular/router';
+import {Person} from '../../models/person';
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +49,23 @@ export class MeetingService {
     ];
   }
 
+  public getMeetingFromID(id: number): Meeting {
+    let meeting: Meeting;
+    // tslint:disable-next-line:only-arrow-functions typedef
+    meeting = this.meetings.find(function(m: Meeting) {
+      return m.id === id;
+    });
+    return meeting;
+  }
+
   addMeeting(): void{
+    this.router.navigate(['meeting']);
+  }
+
+  editMeeting(): void{
+    this.router.navigate(['meeting']);
+  }
+  cancelEditMeeting(): void{
     this.router.navigate(['meeting']);
   }
 }
