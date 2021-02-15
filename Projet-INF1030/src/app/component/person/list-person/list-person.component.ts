@@ -16,15 +16,17 @@ import {MatTableDataSource} from '@angular/material/table';
 export class ListPersonComponent implements OnInit, AfterViewInit  {
 
   @ViewChild(MatSort) sort: MatSort;
-  // dataSource = new MatTableDataSource(this.mockDataService.doctors);
+
   dataSource = new MatTableDataSource(this.personService.persons);
-  // displayedColumns: string[] = ['fname', 'lname', 'email', 'fax', 'phone'];
+
+  // Columns qui seront affichées
   displayedColumns: string[] = ['actions-icon', 'fname', 'lname', 'phone'];
 
 
   constructor(private personService: PersonService) { }
 
   ngOnInit(): void {
+    // Nous permet de définir sur quels attributs la recherche va se faire.
     // tslint:disable-next-line:only-arrow-functions
     this.dataSource.filterPredicate = function(data, filter: string): boolean {
       return data.fname.toLowerCase().includes(filter) ||

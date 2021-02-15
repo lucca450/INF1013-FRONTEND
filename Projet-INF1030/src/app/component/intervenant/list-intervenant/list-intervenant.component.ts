@@ -19,6 +19,8 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit {
   constructor(private intervenantService: IntervenantService) { }
 
   ngOnInit(): void {
+    // Nous permet de définir sur quels attributs la recherche va se faire.
+    // tslint:disable-next-line:only-arrow-functions
     this.intervenants.filterPredicate = function(data, filter: string): boolean {
       return data.fname.toLowerCase().includes(filter) ||
         data.lname.toLowerCase().includes(filter) ||

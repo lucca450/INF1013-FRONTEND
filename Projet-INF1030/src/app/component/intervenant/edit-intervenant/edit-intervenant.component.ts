@@ -19,11 +19,12 @@ export class EditIntervenantComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    var index = 0;
-    this.route.paramMap.subscribe(params =>{
+    let index = 0;
+    // Nous permet d'aller chercher les informations selon l'id passé dans le path
+    this.route.paramMap.subscribe(params => {
       index =  Number(params.get('id'));
       this.intervenant =  this.intervenantService.intervenants[index];
-    })
+    });
   }
 
   onSubmit(): void {
@@ -39,7 +40,7 @@ export class EditIntervenantComponent implements OnInit {
     });
   }
 
-  onEditIntervenant() {
+  onEditIntervenant(): void {
     this.intervenantService.editIntervenant();
   }
 

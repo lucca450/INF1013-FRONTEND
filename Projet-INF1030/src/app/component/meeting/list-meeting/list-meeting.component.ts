@@ -29,6 +29,7 @@ export class ListMeetingComponent implements OnInit, AfterViewInit {
       this.dataSource = new MatTableDataSource(this.meetingService.meetings.filter(meeting => meeting.idPerson === this.personID));
     });
 
+    // Nous permet de définir sur quels attributs la recherche va se faire.
     // tslint:disable-next-line:only-arrow-functions
     this.dataSource.filterPredicate = function(data, filter: string): boolean {
       return data.notes.toLowerCase().includes(filter) ||
