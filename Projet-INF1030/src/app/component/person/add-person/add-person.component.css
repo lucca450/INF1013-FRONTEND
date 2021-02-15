@@ -1,3 +1,4 @@
+
 mat-card {
   max-width: 600px;
   width:600px;
@@ -23,3 +24,10 @@ mat-form-field {
 
 
 
+.mat-stepper-vertical {
+  margin-top: 8px;
+}
+
+.mat-form-field {
+  margin-top: 16px;
+}

@@ -1,6 +1,420 @@
+
+<mat-card>
+  <mat-card-content>
+<!-- INFORMATIONS PERSONNELLES -->
+  <mat-vertical-stepper [linear]="isLinear" #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Informations personnelles</ng-template>
+
+          <mat-form-field class="full-width-input">
+            <input matInput placeholder="Prénom" formControlName="fname" >
+            <mat-error>
+              Veuillez entrer un prénom.
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field class="full-width-input">
+            <input matInput placeholder="Nom" formControlName="lname" >
+            <mat-error>
+              Veuillez entrer un nom.
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Date de naissance</mat-label>
+            <input matInput [matDatepicker]="picker" >
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <mat-label>Sexe</mat-label>
+            <mat-select >
+              <mat-option value="Homme">Homme</mat-option>
+              <mat-option value="Femme">Femme</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <mat-form-field class="full-width-input">
+            <input matInput placeholder="Adresse" formControlName="address" >
+            <mat-error>
+              Veuillez entrer une adresse.
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field class="full-width-input">
+            <input matInput placeholder="Numéro de téléphone" formControlName="phone" >
+            <mat-error>
+              Veuillez entrer un numéro de téléphone.
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field class="full-width-input">
+            <input matInput placeholder="NAS" formControlName="NAS" >
+            <mat-error>
+              Veuillez entrer un NAS.
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Problèmes de santé/allergies</mat-label>
+            <textarea matInput placeholder="Problèmes de santé/allergies" formControlName="healthIssues" ></textarea>
+          </mat-form-field>
+
+          <div>
+            <button mat-button matStepperNext>Prochaine étape</button>
+          </div>
+        </form>
+      </mat-step>
+
+
+
+
+    <!-- INFORMATIONS SUR LE TRAVAIL -->
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Informations sur le travail</ng-template>
+
+          <mat-form-field>
+            <mat-label>Lieu de travail :</mat-label>
+            <mat-select >
+              <mat-option *ngFor="let city of cities" [value]="city.id">
+                {{ city.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Date de début de la participation</mat-label>
+            <input matInput [matDatepicker]="picker1" >
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Date de fin de la participation</mat-label>
+            <input matInput [matDatepicker]="picker2" >
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <mat-label>Référence</mat-label>
+            <mat-select >
+              <mat-option value="CIUSSS">CIUSSS</mat-option>
+              <mat-option value="SIV">SIV</mat-option>
+              <mat-option value="SI">SI</mat-option>
+              <mat-option value="Organismes communautaires">Organismes communautaires</mat-option>
+              <mat-option value="Centre local d’emploi">Centre local d’emploi</mat-option>
+              <mat-option value="SEMO">SEMO</mat-option>
+              <mat-option value="Personne elle-même">Personne elle-même</mat-option>
+              <mat-option value="Ami">Ami</mat-option>
+              <mat-option value="Famille">Famille</mat-option>
+              <mat-option value="Autres">Autres</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <mat-label>Type de résidence</mat-label>
+            <mat-select >
+              <mat-option value="Appartement">Appartement</mat-option>
+              <mat-option value="Famille d’accueil">Famille d’accueil</mat-option>
+              <mat-option value="Logement supervisé">Logement supervisé</mat-option>
+              <mat-option value="Autres">Autres</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <mat-label>Niveau de scolarité</mat-label>
+            <mat-select >
+              <mat-option value="Aucun diplôme">Aucun diplôme</mat-option>
+              <mat-option value="Études secondaires">Études secondaires</mat-option>
+              <mat-option value="Études professionnelles">Études professionnelles</mat-option>
+              <mat-option value="Études collégiales">Études collégiales</mat-option>
+              <mat-option value="Études universitaires">Études universitaires</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+
+          <div>
+            <button mat-button matStepperPrevious>Étape précédente</button>
+            <button mat-button matStepperNext>Prochaine étape</button>
+          </div>
+        </form>
+      </mat-step>
+
+
+
+
+  <!-- PARTICIPATION À UN PROGRAMME D'EMPLOYABILITÉ -->
+    <mat-step [stepControl]="thirdFormGroup">
+      <form [formGroup]="thirdFormGroup">
+        <ng-template matStepLabel>Participation à un programme d'employabilité</ng-template>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Date de début</mat-label>
+          <input matInput [matDatepicker]="picker3" >
+          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Date de fin</mat-label>
+          <input matInput [matDatepicker]="picker4" >
+          <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+          <mat-datepicker #picker4></mat-datepicker>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <mat-label>Motifs de départ</mat-label>
+          <mat-select >
+            <mat-option value="Emploi">Emploi</mat-option>
+            <mat-option value="Retour aux études">Retour aux études</mat-option>
+            <mat-option value="Problèmes de santé mentale">Problèmes de santé mentale</mat-option>
+            <mat-option value="Problèmes de santé physique">Problèmes de santé physique</mat-option>
+            <mat-option value="Déménagement">Déménagement</mat-option>
+            <mat-option value="Fin de contrat/projet">Fin de contrat/projet</mat-option>
+            <mat-option value="Décès">Décès</mat-option>
+            <mat-option value="Autres">Autres</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="full-width-input">
+          <input matInput type="number" placeholder="Heures travaillées par jour " formControlName="hoursPerDay" >
+          <mat-error>
+            Veuillez entrer le nombre d'heures travaillées par jour.
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <mat-label>Statut</mat-label>
+          <mat-select >
+            <mat-option value="Clientèle">Clientèle</mat-option>
+            <mat-option value="Employés réguliers">Employés réguliers</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <mat-label>Suivi en itinérance</mat-label>
+          <mat-select #followRoaming >
+            <mat-option value="true">Oui</mat-option>
+            <mat-option value="false">Non</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <div *ngIf="followRoaming.value == 'true'">
+          <p>Dates du suivi d'itinérance</p>
+          <mat-form-field appearance="fill">
+            <mat-label>Date de début</mat-label>
+            <input matInput [matDatepicker]="picker5" >
+            <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+            <mat-datepicker #picker5></mat-datepicker>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Date de fin</mat-label>
+            <input matInput [matDatepicker]="picker6" >
+            <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
+            <mat-datepicker #picker6></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <br>
+        <mat-form-field>
+          <mat-label>Travaux communautaires</mat-label>
+          <mat-select #communityWork >
+            <mat-option value="Oui">Oui</mat-option>
+            <mat-option value="Non">Non</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <div *ngIf="communityWork.value == 'Oui'">
+          <p>Dates des travaux communautaires</p>
+          <mat-form-field appearance="fill" >
+            <mat-label>Date de début</mat-label>
+            <input matInput [matDatepicker]="picker7" >
+            <mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>
+            <mat-datepicker #picker7></mat-datepicker>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill" >
+            <mat-label>Date de fin</mat-label>
+            <input matInput [matDatepicker]="picker8" >
+            <mat-datepicker-toggle matSuffix [for]="picker8"></mat-datepicker-toggle>
+            <mat-datepicker #picker8></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <br>
+        <mat-form-field class="full-width-input">
+          <input matInput type="number" placeholder="Taux horaire" formControlName="hourlyRate" >
+          <mat-error>
+            Veuillez entrer le taux horaire.
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="full-width-input">
+          <input matInput type="number" placeholder="Frais de transport" formControlName="transportFees" >
+          <mat-error>
+            Veuillez entrer les frais de transport.
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <mat-label>Intervenant responsable</mat-label>
+          <mat-select >
+            <mat-option *ngFor="let intervenant of intervenants"
+                        [value]="intervenant.id">{{intervenant.fname}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+
+        <div>
+          <button mat-button matStepperPrevious>Étape précédente</button>
+          <button mat-button matStepperNext>Prochaine étape</button>
+        </div>
+      </form>
+    </mat-step>
+
+
+
+
+
+    <!-- PERSONNE RESSOURCE EN CAS D'URGENCE -->
+    <mat-step [stepControl]="fourthFormGroup">
+      <form [formGroup]="fourthFormGroup">
+        <ng-template matStepLabel>Personne ressource en cas d'urgence</ng-template>
+
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Prénom de la personne ressource en cas d'urgence" formControlName="ressourceFname" >
+          <mat-error>
+            Veuillez entrer le prénom de la personne ressource en cas d'urgence.
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Nom de la personne ressource en cas d'urgence" formControlName="ressourceLname" >
+          <mat-error>
+            Veuillez entrer le nom de la personne ressource en cas d'urgence.
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Numéro de téléphone de la personne ressource en cas d'urgence" formControlName="ressourcePhone" >
+          <mat-error>
+            Veuillez entrer le numéro de téléphone de la personne ressource en cas d'urgence.
+          </mat-error>
+        </mat-form-field>
+
+        <div>
+          <button mat-button matStepperPrevious>Étape précédente</button>
+          <button mat-button matStepperNext>Prochaine étape</button>
+        </div>
+      </form>
+    </mat-step>
+
+
+
+
+
+    <!-- Informations de la personne de suivi -->
+    <mat-step [stepControl]="fifthFormGroup">
+      <form [formGroup]="fifthFormGroup">
+        <ng-template matStepLabel>Informations de la personne de suivi</ng-template>
+
+        <mat-form-field>
+          <mat-label>Suivi par</mat-label>
+          <mat-select #followedBy >
+            <mat-option value="Intervenant">Intervenant</mat-option>
+            <mat-option value="Médecin">Médecin</mat-option>
+            <mat-option value="Autres">Autres</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <p>Informations de la personne de suivi</p>
+        <mat-form-field class="full-width-input" >
+          <input matInput placeholder="Prénom de la personne de suivi." formControlName="followFname" >
+          <mat-error>
+            Veuillez entrer le prénom de la personne de suivi.
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Nom de la personne de suivi." formControlName="followLname" >
+          <mat-error>
+            Veuillez entrer le nom de la personne de suivi.
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Numéro de téléphone de la personne de suivi." formControlName="followPhone" >
+          <mat-error>
+            Veuillez entrer le numéro de téléphone de la personne de suivi.
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field *ngIf="followedBy.value == 'Médecin' || followedBy.value == 'Intervenant'" class="full-width-input">
+          <input matInput placeholder="Email de la personne de suivi." formControlName="followEmail" >
+          <mat-error>
+            Veuillez entrer l'email de la personne de suivi.
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field *ngIf="followedBy.value == 'Médecin'" class="full-width-input">
+          <input matInput placeholder="Numéro de fax de la personne de suivi." formControlName="followFax" >
+          <mat-error>
+            Veuillez entrer le numéro de fax de la personne de suivi.
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field *ngIf="followedBy.value == 'Autres' || followedBy.value == 'Intervenant'" class="full-width-input">
+          <input matInput placeholder="Organisme de la personne de suivi." formControlName="followOrganism" >
+          <mat-error>
+            Veuillez entrer l'organisme de la personne de suivi.'
+          </mat-error>
+        </mat-form-field>
+
+        <div>
+          <button mat-button matStepperPrevious>Étape précédente</button>
+          <button mat-button matStepperNext>Prochaine étape</button>
+        </div>
+      </form>
+    </mat-step>
+
+
+
+
+      <mat-step>
+        <ng-template matStepLabel>Enregistrer</ng-template>
+        <p>Terminé</p>
+        <div>
+          <button mat-button matStepperPrevious>Étape précédente</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+  </mat-vertical-stepper>
+
+
+  </mat-card-content>
+</mat-card>
+
+
+
+
+
+
+
+
+
+<!--
+
+
+
 <mat-card>
   <mat-card-content>
     <form [formGroup]="addPersonForm" (ngSubmit)="onSubmit()">
+
       <h2>Ajout d'une personne</h2>
 
       <mat-form-field class="full-width-input">
@@ -59,6 +473,18 @@
               <mat-label>Problèmes de santé/allergies</mat-label>
               <textarea matInput></textarea>
       </mat-form-field>
+
+
+
+
+
+
+
+
+
+
+
+
 
       <mat-form-field>
         <mat-label>Lieu de travail :</mat-label>
@@ -121,6 +547,16 @@
           <mat-option value="Études universitaires">Études universitaires</mat-option>
         </mat-select>
       </mat-form-field>
+
+
+
+
+
+
+
+
+
+
 
 
       <p>Participation à un programme d’employabilité</p>
@@ -244,6 +680,20 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       <p>Personne ressource en cas d'urgence</p>
 
       <mat-form-field class="full-width-input">
@@ -266,6 +716,16 @@
           Veuillez entrer le numéro de téléphone de la personne ressource en cas d'urgence.
         </mat-error>
       </mat-form-field>
+
+
+
+
+
+
+
+
+
+
 
       <p>Suivi par</p>
       <mat-form-field>
@@ -326,3 +786,5 @@
           </form>
         </mat-card-content>
       </mat-card>
+
+-->

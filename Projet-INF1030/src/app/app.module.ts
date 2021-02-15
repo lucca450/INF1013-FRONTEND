@@ -40,7 +40,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { PhonePipe } from './pipes/phone.pipe';
 import { ConvertBooleanPipe } from './pipes/convert-boolean.pipe';
-
+import {MatStepperModule} from '@angular/material/stepper';
 
 // Définition des routes de base
 
@@ -107,6 +107,8 @@ const appRoutes: Routes = [
     MatDatepickerModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
+    MatStepperModule
+
     // On injecte les routes
   ],
   providers: [
