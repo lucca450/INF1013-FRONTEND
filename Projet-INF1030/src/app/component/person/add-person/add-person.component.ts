@@ -76,27 +76,25 @@ export class AddPersonComponent implements OnInit {
       followOrganism: [''/*, Validators.required*/]
     });
 
-    this.addPersonForm = this.formBuilder.group({
-      fname: [''/*, Validators.email*/],
-      lname: [''/*, Validators.required*/],
-      phone: [''/*, Validators.required*/],
-      address: [''/*, Validators.required*/],
-      NAS: [''/*, Validators.required*/],
-      hoursPerDay: [''/*, Validators.required*/],
-      hourlyRate: [''/*, Validators.required*/],
-      transportFees: [''/*, Validators.required*/],
-      ressourceFname: [''/*, Validators.required*/],
-      ressourceLname: [''/*, Validators.required*/],
-      ressourcePhone: [''/*, Validators.required*/],
-      followFname: [''/*, Validators.required*/],
-      followLname: [''/*, Validators.required*/],
-      followPhone: [''/*, Validators.required*/],
-      followEmail: [''/*, Validators.required*/],
-      followFax: [''/*, Validators.required*/],
-      followOrganism: [''/*, Validators.required*/]
-
-
-    });
+    /*this.addPersonForm = this.formBuilder.group({
+      fname: [''],
+      lname: [''],
+      phone: [''],
+      address: [''],
+      NAS: [''],
+      hoursPerDay: [''],
+      hourlyRate: [''],
+      transportFees: [''],
+      ressourceFname: [''],
+      ressourceLname: [''],
+      ressourcePhone: [''],
+      followFname: [''],
+      followLname: [''],
+      followPhone: [''],
+      followEmail: [''],
+      followFax: [''],
+      followOrganism: ['']
+    });*/
   }
 
   onAddPerson(): void {

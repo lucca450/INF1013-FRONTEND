@@ -12,7 +12,7 @@
           <p>{{person.lname}}</p>
 
           <label>Date de naissance:</label>
-          <p>{{person.birthday | date}}</p>
+          <p>{{person.birthday | date:'d MMMM  y'}}</p>
 
           <label>Sexe:</label>
           <p>{{person.sexe}}</p>
@@ -38,10 +38,10 @@
         <h1 class = "header-column"> Participation à un programme d’employabilité</h1>
 
           <label>Date de début:</label>
-          <p>{{person.programStartDate | date}}</p>
+          <p>{{person.programStartDate | date:'d MMMM  y'}}</p>
 
           <label>Date de fin:</label>
-          <p>{{person.programEndDate | date}}</p>
+          <p>{{person.programEndDate | date:'d MMMM  y'}}</p>
 
           <label>Motifs de départ:</label>
           <p>{{person.departureReason}}</p>
@@ -59,13 +59,13 @@
           <p>{{person.communityWork | convertBoolean}}</p>
 
           <label>Taux horaire:</label>
-          <p>{{person.hourlyRate | currency}}</p>
+          <p>{{person.hourlyRate | currency :'$' }}</p>
 
           <label>Frais de transport:</label>
-          <p>{{person.transportFees}}</p>
+          <p>{{person.transportFees | currency :'$' }}</p>
 
           <label>Intervenant responsable:</label>
-          <p>{{person.responsibleIntervenantID}}</p>
+          <p>{{getIntervenantFromID(person.responsibleIntervenantID).fname}} {{getIntervenantFromID(person.responsibleIntervenantID).lname}}</p>
 
       </div>
 
@@ -79,10 +79,10 @@
           <p>{{cities[person.workCity]}}</p>
 
           <label>Date de début de la participation:</label>
-          <p>{{person.startDate | date}}</p>
+          <p>{{person.startDate | date:'d MMMM  y'}}</p>
 
           <label>Date de fin de la participation:</label>
-          <p>{{person.endDate | date}}</p>
+          <p>{{person.endDate | date:'d MMMM  y'}}</p>
 
           <label>Référence:</label>
           <p>{{person.reference}}</p>

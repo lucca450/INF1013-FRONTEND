@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './component/header/header.component';
@@ -41,6 +41,14 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { PhonePipe } from './pipes/phone.pipe';
 import { ConvertBooleanPipe } from './pipes/convert-boolean.pipe';
 import {MatStepperModule} from '@angular/material/stepper';
+
+
+
+import { registerLocaleData } from '@angular/common';
+
+import localeFr from '@angular/common/locales/fr';
+
+registerLocaleData(localeFr);
 
 // Définition des routes de base
 
@@ -114,7 +122,8 @@ const appRoutes: Routes = [
   providers: [
     PersonService,
     AuthService,
-    AuthGuard
+    AuthGuard,
+    [ {provide: LOCALE_ID, useValue: 'fr-CA' } ]
   ],
   bootstrap: [AppComponent]
 })

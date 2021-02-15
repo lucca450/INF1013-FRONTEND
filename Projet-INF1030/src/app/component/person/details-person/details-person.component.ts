@@ -10,6 +10,7 @@ import {OtherPerson} from '../../../models/other-person';
 import {Doctor} from '../../../models/doctor';
 import {getClassName} from 'codelyzer/util/utils';
 import {City} from '../../../enum/city';
+import {IntervenantService} from '../../../services/intervenant/intervenant.service';
 
 
 
@@ -24,7 +25,7 @@ export class DetailsPersonComponent implements OnInit {
   person: Person;
   cities = Object.keys(City).map(key => City[key]);
 
-  constructor(private personService: PersonService , private route: ActivatedRoute) { }
+  constructor(private personService: PersonService , private intervenantService: IntervenantService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -37,6 +38,11 @@ export class DetailsPersonComponent implements OnInit {
 
   getClassName(obj: Intervenant | EmergencyContact | Doctor | OtherPerson): string {
     return obj.interfaceName;
+  }
+
+  getIntervenantFromID( myID: number): Intervenant {
+    const returnOBJ = this.intervenantService.intervenants.filter(p => p.id === myID);
+    return returnOBJ[0];
   }
 }
 
