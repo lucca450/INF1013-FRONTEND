@@ -30,7 +30,11 @@ export interface Person {
   hoursPerDay: number;
   status: 'Clientèle' | 'Employés réguliers'; // (administration, intervenant, soutien)
   roamingTracking: boolean;
+  roamingStartDate: Date;
+  roamingEndDate: Date;
   communityWork: boolean;
+  communityStartDate: Date;
+  communityEndDate: Date;
   hourlyRate: number;
   transportFees: number;
   responsibleIntervenantID: number;

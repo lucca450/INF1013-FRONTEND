@@ -44,5 +44,6 @@ export class DetailsPersonComponent implements OnInit {
     const returnOBJ = this.intervenantService.intervenants.filter(p => p.id === myID);
     return returnOBJ[0];
   }
+
 }
 

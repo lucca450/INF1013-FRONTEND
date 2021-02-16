@@ -66,7 +66,7 @@
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Problèmes de santé/allergies</mat-label>
-            <textarea matInput formControlName="healthIssues">{{person.healthIssues}}</textarea>
+            <textarea matInput formControlName="healthIssues"></textarea>
           </mat-form-field>
 
           <div>
@@ -111,6 +111,7 @@
           <mat-form-field>
             <mat-label>Référence</mat-label>
             <mat-select [(value)]="person.reference">
+              <mat-option value="Aucune">Aucune</mat-option>
               <mat-option value="CIUSSS">CIUSSS</mat-option>
               <mat-option value="SIV">SIV</mat-option>
               <mat-option value="SI">SI</mat-option>
@@ -193,7 +194,6 @@
           <br>
           <mat-form-field class="full-width-input">
             <input matInput type="number" placeholder="Heures travaillées par jour " formControlName="hoursPerDay">
-            {{person.hoursPerDay}}
             <mat-error>
               Veuillez entrer le nombre d'heures travaillées par jour.
             </mat-error>
@@ -209,7 +209,8 @@
           <br>
           <mat-form-field>
             <mat-label>Suivi en itinérance</mat-label>
-            <mat-select #followRoaming [(value)]="person.roamingTracking">
+            <mat-select #followRoaming [value]="person.roamingTracking|convertBoolean"
+                        (valueChange)="followRoaming.value = $event">
               <mat-option value="Oui">Oui</mat-option>
               <mat-option value="Non">Non</mat-option>
             </mat-select>
@@ -220,6 +221,7 @@
             <mat-form-field appearance="fill">
               <mat-label>Date de début</mat-label>
               <input matInput [matDatepicker]="picker5">
+              {{person.roamingStartDate | date:'d MMMM  y':'d MMMM  y'}}
               <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
               <mat-datepicker #picker5></mat-datepicker>
             </mat-form-field>
@@ -227,6 +229,7 @@
             <mat-form-field appearance="fill">
               <mat-label>Date de fin</mat-label>
               <input matInput [matDatepicker]="picker6">
+              {{person.roamingStartDate | date:'d MMMM  y':'d MMMM  y'}}
               <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
               <mat-datepicker #picker6></mat-datepicker>
             </mat-form-field>
@@ -234,7 +237,8 @@
           <br>
           <mat-form-field>
             <mat-label>Travaux communautaires</mat-label>
-            <mat-select #communityWork [(value)]="person.communityWork">
+            <mat-select #communityWork [value]="person.communityWork|convertBoolean"
+                        (valueChange)="communityWork.value = $event">
               <mat-option value="Oui">Oui</mat-option>
               <mat-option value="Non">Non</mat-option>
             </mat-select>
@@ -245,6 +249,7 @@
             <mat-form-field appearance="fill">
               <mat-label>Date de début</mat-label>
               <input matInput [matDatepicker]="picker7">
+              {{person.communityStartDate | date:'d MMMM  y':'d MMMM  y'}}
               <mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>
               <mat-datepicker #picker7></mat-datepicker>
             </mat-form-field>
@@ -252,6 +257,7 @@
             <mat-form-field appearance="fill">
               <mat-label>Date de fin</mat-label>
               <input matInput [matDatepicker]="picker8">
+              {{person.communityEndDate | date:'d MMMM  y':'d MMMM  y'}}
               <mat-datepicker-toggle matSuffix [for]="picker8"></mat-datepicker-toggle>
               <mat-datepicker #picker8></mat-datepicker>
             </mat-form-field>
@@ -259,7 +265,6 @@
           <br>
           <mat-form-field class="full-width-input">
             <input matInput type="number" placeholder="Taux horaire" formControlName="hourlyRate">
-            {{person.hourlyRate | currency :'$' :'$'}}
             <mat-error>
               Veuillez entrer le taux horaire.
             </mat-error>
@@ -267,7 +272,6 @@
           <br>
           <mat-form-field class="full-width-input">
             <input matInput type="number" placeholder="Frais de transport" formControlName="transportFees">
-            {{person.transportFees | currency :'$' :'$'}}
             <mat-error>
               Veuillez entrer les frais de transport.
             </mat-error>
@@ -293,10 +297,6 @@
           </div>
         </form>
       </mat-step>
-
-
-
-
 
       <!-- PERSONNE RESSOURCE EN CAS D'URGENCE -->
       <mat-step [stepControl]="fourthFormGroup">
@@ -345,7 +345,7 @@
 
           <mat-form-field>
             <mat-label>Suivi par</mat-label>
-            <mat-select #followedBy>
+            <mat-select #followedBy [(value)]="person.followedBy">
               <mat-option value="Intervenant">Intervenant</mat-option>
               <mat-option value="Médecin">Médecin</mat-option>
               <mat-option value="Autres">Autres</mat-option>

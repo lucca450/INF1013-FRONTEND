@@ -53,7 +53,7 @@ export class EditPersonComponent implements OnInit {
       address: [''/*, Validators.required*/],
       phone: [''/*, Validators.required*/],
       NAS: [''/*, Validators.required*/],
-      healthIssues: []
+      healthIssues: [this.person.healthIssues]
     });
     this.secondFormGroup = this.formBuilder.group({
       city: [],
@@ -64,14 +64,14 @@ export class EditPersonComponent implements OnInit {
     this.thirdFormGroup = this.formBuilder.group({
       picker3: [],
       picker4: [],
-      hoursPerDay: [''/*, Validators.required*/],
+      hoursPerDay: [this.person.hoursPerDay/*, Validators.required*/],
       picker5: [],
       picker6: [],
       communityWork: [],
       picker7: [],
       picker8: [],
-      hourlyRate: [''/*, Validators.required*/],
-      transportFees: [''/*, Validators.required*/],
+      hourlyRate: [this.person.hourlyRate/*, Validators.required*/],
+      transportFees: [this.person.transportFees/*, Validators.required*/],
     });
     this.fourthFormGroup = this.formBuilder.group({
       ressourceFname: [''/*, Validators.required*/],

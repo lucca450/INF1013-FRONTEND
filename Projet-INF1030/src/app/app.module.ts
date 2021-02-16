@@ -47,6 +47,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { registerLocaleData } from '@angular/common';
 
 import localeFr from '@angular/common/locales/fr';
+import { ConvertInterfaceNamePipe } from './pipes/convert-interface-name.pipe';
 
 registerLocaleData(localeFr);
 
@@ -94,7 +95,8 @@ const appRoutes: Routes = [
     AddIntervenantComponent,
     EditIntervenantComponent,
     PhonePipe,
-    ConvertBooleanPipe
+    ConvertBooleanPipe,
+    ConvertInterfaceNamePipe
   ],
   imports: [
     BrowserModule,

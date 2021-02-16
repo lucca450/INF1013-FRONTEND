@@ -53,10 +53,26 @@
           <p>{{person.status}}</p>
 
           <label>Suivi en itinérance:</label>
-          <p>{{person.roamingTracking | convertBoolean}}</p>
+          <p #followRoaming [innerText]="person.roamingTracking|convertBoolean">{{person.roamingTracking | convertBoolean}}</p>
+
+          <div *ngIf="followRoaming.innerText == 'Oui'">
+            <label>Dates de début du suivi d'itinérance:</label>
+            <p>{{person.roamingStartDate| date:'d MMMM  y'}}</p>
+
+            <label>Dates de fin du suivi d'itinérance:</label>
+            <p>{{person.roamingEndDate| date:'d MMMM  y'}}</p>
+          </div>
 
           <label>Travaux communautaires:</label>
-          <p>{{person.communityWork | convertBoolean}}</p>
+          <p #communityWork [innerText]="person.communityWork|convertBoolean">{{person.communityWork | convertBoolean}}</p>
+
+        <div *ngIf="communityWork.innerText == 'Oui'">
+          <label>Dates de début des travaux communautaires:</label>
+          <p>{{person.communityStartDate| date:'d MMMM  y'}}</p>
+
+          <label>Dates de fin des travaux communautaires:</label>
+          <p>{{person.communityEndDate | date:'d MMMM  y'}}</p>
+        </div>
 
           <label>Taux horaire:</label>
           <p>{{person.hourlyRate | currency :'$' }}</p>
@@ -111,6 +127,8 @@
 
       <div class ="container-column">
         <h1 class = "header-column"> Informations de la personne de suivi</h1>
+          <label>Type de personne:</label>
+          <p>{{person.followedBy.interfaceName | ConvertInterfaceName}}</p>
 
           <label>Prénom de la personne de suivi:</label>
           <p>{{person.followedBy.fname}}</p>
