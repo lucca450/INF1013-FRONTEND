@@ -4,6 +4,13 @@
       <h2>Ajout d'une rencontre</h2>
 
       <mat-form-field class="full-width-input">
+        <input matInput placeholder="Personne" formControlName="person">
+        <mat-error>
+          Veuillez choisir une personne.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width-input">
         <textarea matInput placeholder="Notes" formControlName="notes"></textarea>
         <mat-error>
           Veuillez entrer des notes.
@@ -25,13 +32,6 @@
       </mat-form-field>
 
       <mat-form-field class="full-width-input">
-        <input matInput placeholder="Personne" formControlName="person">
-        <mat-error>
-          Veuillez choisir une personne.
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field class="full-width-input">
         <mat-select placeholder="Intervenant">
           <mat-option *ngFor="let inter of intervenants" [value]="inter.id">
             {{ inter.fname + ' ' + inter.lname}}
@@ -41,7 +41,6 @@
           Veuillez choisir un intervenant.
         </mat-error>
       </mat-form-field>
-
 
       <button class ="button-add" (click) = "onAddMeeting()">Ajouter</button>
     </form>

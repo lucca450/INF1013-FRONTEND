@@ -13,21 +13,18 @@ mat-form-field {
   display: block;
 }
 
-.button-add{
-  background-color: green;
-  color:white;
-  padding: 10px 10px 10px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  width:200px;
-}
-
-
-
 .mat-stepper-vertical {
   margin-top: 8px;
 }
 
 .mat-form-field {
   margin-top: 16px;
+}
+.laststep{
+  margin-right: 36px;
+  margin-top: 10px;
+}
+
+.button-add{
+  margin-top: 10px;
 }

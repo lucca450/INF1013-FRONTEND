@@ -41,18 +41,6 @@ mat-form-field {
   background-color: #ffffff;
   margin-top: 10px;
 }
-
-.button-add{
-  background-color: green;
-  color:white;
-  padding: 10px 10px 10px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  width:200px;
-}
-
-
-
 .main-div {
   max-width: 1000px;
   width: 1000px;
@@ -96,8 +84,13 @@ body{
   height: auto!important;
 }
 
-#information-emplacement{
+#information_emplacement{
   padding:20px;
   text-align: center;
   border-bottom: 1px solid;
+}
+
+#intervenant_responsable
+{
+  text-align: center;
 }

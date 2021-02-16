@@ -1,39 +1,3 @@
-/*table {
-  width: 100%;
-}*/
-
-
-/*
-mat-table {
-  width: 100%;
-}
-.mat-form-field {
-
-  width: 100%;
-}
-
-th.mat-header-cell {
-  color: black;
-  font-size: 18px;
-}
-
-div{
-  padding-top: 20px;
-  width: 80%;
-  margin: 0 auto;
-}
-
-*/
-
-/*
-@media only screen and (max-width: 736px) and (orientation:portrait) {
-  mat-header-row, mat-row{
-    width: 200%;
-  }
-
-}
-*/
-
 .icons{
   padding-left: 3px;
 }
@@ -72,12 +36,6 @@ div{
     align-items: start;
     padding: 8px 24px;
   }
-}
-
-.addButton {
-  background-color: forestgreen;
-  width:auto;
-  color:white;
 }
 
 .container-button{

@@ -1,6 +1,7 @@
 
 <div class="contianer-row">
-  <h1 id = "information-emplacement">Détails d'une personne</h1>
+  <h1 id = "information_emplacement">Détails d'une personne</h1>
+  <h2 id = "intervenant_responsable" *ngIf="person.responsibleIntervenantID">Intervenant responsable : {{getIntervenantFromID(person.responsibleIntervenantID).fname}} {{getIntervenantFromID(person.responsibleIntervenantID).lname}}</h2>
   <div class="row">
     <div class="column">
       <div class ="container-column">
@@ -79,10 +80,6 @@
 
           <label>Frais de transport:</label>
           <p>{{person.transportFees | currency :'$' }}</p>
-
-          <label>Intervenant responsable:</label>
-          <p>{{getIntervenantFromID(person.responsibleIntervenantID).fname}} {{getIntervenantFromID(person.responsibleIntervenantID).lname}}</p>
-
       </div>
 
     </div>
@@ -128,7 +125,7 @@
       <div class ="container-column">
         <h1 class = "header-column"> Informations de la personne de suivi</h1>
           <label>Type de personne:</label>
-          <p>{{person.followedBy.interfaceName | ConvertInterfaceName}}</p>
+          <p>{{person.followedBy.interfaceName | convertInterfaceName}}</p>
 
           <label>Prénom de la personne de suivi:</label>
           <p>{{person.followedBy.fname}}</p>
@@ -140,17 +137,17 @@
           <p>{{person.followedBy.phone | phone}}</p>
 
 
-        <div *ngIf="getClassName(person.followedBy) == 'Doctor' || getClassName(person.followedBy) == 'Intervenant'" >
+        <div *ngIf="person.followedBy.interfaceName == 'Doctor' || person.followedBy.interfaceName == 'Intervenant'" >
           <label>Email de la personne de suivi:</label>
           <p>{{person.followedBy.email}}</p>
         </div>
 
-        <div *ngIf="getClassName(person.followedBy) == 'Doctor' " >
+        <div *ngIf="person.followedBy.interfaceName == 'Doctor' " >
           <label>Numéro de fax de la personne de suivi:</label>
           <p>{{person.followedBy.fax | phone}}</p>
         </div>
 
-        <div *ngIf=" getClassName(person.followedBy) == 'OtherPerson'  || getClassName(person.followedBy) == 'Intervenant'">
+        <div *ngIf="person.followedBy.interfaceName == 'OtherPerson'  || person.followedBy.interfaceName == 'Intervenant'">
           <label>Organisme de la personne de suivi:</label>
           <p>{{person.followedBy.organization}}</p>
         </div>

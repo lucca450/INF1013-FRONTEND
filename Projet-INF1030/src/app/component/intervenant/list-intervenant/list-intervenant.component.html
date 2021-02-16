@@ -6,7 +6,7 @@
 
   <div class ="container-button">
     <button [routerLink] = "['/intervenant/add/']" aria-label="Add new intervenant" mat-raised-button color="basic"
-            class="addButton">Ajouter un intervenant <mat-icon>add</mat-icon>
+            class="button-add-icon">Ajouter un intervenant <mat-icon>add</mat-icon>
     </button>
   </div>
   <mat-table [dataSource]="intervenants" matSort matSortActive="fname" matSortDirection="asc" class="mat-elevation-z8" >
@@ -56,7 +56,8 @@
       <mat-header-cell  *matHeaderCellDef mat-sort-header>  </mat-header-cell>
       <mat-cell  *matCellDef="let row">
         <span class="mobile-label"></span>
-        <img class="icons" src="assets/edit-icon.png" alt="Icone modifier" [routerLink]="['/intervenant/edit',row.id]" routerLinkActive="active"/>
+        <img class="table-icon icons-click" src="assets/edit-icon.png" alt="Icone modifier" title="Modifier"
+             [routerLink]="['/intervenant/edit',row.id]" routerLinkActive="active"/>
       </mat-cell>
     </ng-container>
 

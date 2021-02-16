@@ -36,10 +36,6 @@ export class DetailsPersonComponent implements OnInit {
     });
   }
 
-  getClassName(obj: Intervenant | EmergencyContact | Doctor | OtherPerson): string {
-    return obj.interfaceName;
-  }
-
   getIntervenantFromID( myID: number): Intervenant {
     const returnOBJ = this.intervenantService.intervenants.filter(p => p.id === myID);
     return returnOBJ[0];

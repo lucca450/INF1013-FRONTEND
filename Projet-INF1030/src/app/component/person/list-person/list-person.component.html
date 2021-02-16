@@ -8,7 +8,7 @@
 
   <div class ="container-button">
     <button [routerLink] = "['/person/add/']" aria-label="Add new person" mat-raised-button color="basic"
-            class="addButton">Ajouter une personne <mat-icon>add</mat-icon>
+            class="button-add-icon">Ajouter une personne <mat-icon>add</mat-icon>
     </button>
   </div>
 
@@ -42,9 +42,12 @@
       <mat-header-cell  *matHeaderCellDef mat-sort-header>  </mat-header-cell>
       <mat-cell  *matCellDef="let row">
         <span class="mobile-label"></span>
-        <img class="icons" src="assets/details-icon.png" alt="Icone visualiser" [routerLink]="['/person/details',row.id]" routerLinkActive="active"/>
-        <img class="icons" src="assets/edit2-icon.png" alt="Icone modifier" [routerLink]="['/person/edit',row.id]" routerLinkActive="active"/>
-        <img class="icons" src="assets/meeting-icon.png" alt="Icone rencontre" [routerLink]="['/meeting',row.id]" routerLinkActive="active"/>
+        <img class="table-icon icons-click" src="assets/edit-icon.png" alt="Icone modifier" title="Modifier"
+             [routerLink]="['/person/edit',row.id]" routerLinkActive="active" style="padding-right: 10px"/>
+        <img class="table-icon icons-click" src="assets/search-information.png" alt="Icone visualiser" title="Détails"
+             [routerLink]="['/person/details',row.id]" routerLinkActive="active" style="padding-top: 3px"/>
+        <img class="icons-click" src="assets/calendar-icon.jpg" alt="Icone rencontre" title="Recontres"
+             [routerLink]="['/meeting',row.id]" routerLinkActive="active" style="width:50px; height: 50px"/>
       </mat-cell>
     </ng-container>
 

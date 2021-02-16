@@ -343,11 +343,14 @@
         <form [formGroup]="fifthFormGroup">
           <ng-template matStepLabel>Informations de la personne de suivi</ng-template>
 
+
           <mat-form-field>
             <mat-label>Suivi par</mat-label>
-            <mat-select #followedBy [(value)]="person.followedBy">
+            <mat-select #followedBy [value]="person.followedBy.interfaceName|convertInterfaceName"
+                        (valueChange)="followedBy.value =$event">
               <mat-option value="Intervenant">Intervenant</mat-option>
               <mat-option value="Médecin">Médecin</mat-option>
+              <mat-option value="ContacteUrgence">Contacte d'urgence</mat-option>
               <mat-option value="Autres">Autres</mat-option>
             </mat-select>
           </mat-form-field>

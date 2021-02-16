@@ -38,4 +38,12 @@ export class IntervenantService {
     });
     return intervenant.fname  + ' ' + intervenant.lname;
   }
+
+  cancelIntervenant() {
+    this.router.navigate(['intervenant']);
+  }
+
+  editAccount() {
+    this.router.navigate(['intervenant']);
+  }
 }

@@ -44,4 +44,7 @@ export class EditIntervenantComponent implements OnInit {
     this.intervenantService.editIntervenant();
   }
 
+  onCancelMeeting() {
+    this.intervenantService.cancelIntervenant();
+  }
 }

@@ -96,7 +96,7 @@ const appRoutes: Routes = [
     EditIntervenantComponent,
     PhonePipe,
     ConvertBooleanPipe,
-    ConvertInterfaceNamePipe
+    ConvertInterfaceNamePipe,
   ],
   imports: [
     BrowserModule,

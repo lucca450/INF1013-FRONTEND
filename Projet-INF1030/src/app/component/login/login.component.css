@@ -13,4 +13,8 @@ mat-form-field {
   display: block;
 }
 
-
+.button-connexion{
+  padding: 5px 5px 5px 5px;
+  border-radius: 5px;
+  width:200px;
+}

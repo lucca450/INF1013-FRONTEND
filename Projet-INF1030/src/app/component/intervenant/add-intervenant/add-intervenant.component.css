@@ -12,13 +12,4 @@ mat-form-field {
   display: block;
 }
 
-.button-add{
-  background-color: forestgreen;
-  color:white;
-  padding: 10px 10px 10px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  width:200px;
-}
-
 

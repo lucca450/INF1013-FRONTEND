@@ -42,6 +42,6 @@ export class MyAccountComponent implements OnInit {
 
 
   onEditAccount(): void {
-
+    this.intervenantService.editAccount();
   }
 }

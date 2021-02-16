@@ -269,18 +269,12 @@
           </mat-select>
         </mat-form-field>
 
-
-
         <div>
           <button mat-button matStepperPrevious>Étape précédente</button>
           <button mat-button matStepperNext>Prochaine étape</button>
         </div>
       </form>
     </mat-step>
-
-
-
-
 
     <!-- PERSONNE RESSOURCE EN CAS D'URGENCE -->
     <mat-step [stepControl]="fourthFormGroup">
@@ -315,10 +309,6 @@
       </form>
     </mat-step>
 
-
-
-
-
     <!-- Informations de la personne de suivi -->
     <mat-step [stepControl]="fifthFormGroup">
       <form [formGroup]="fifthFormGroup">
@@ -326,9 +316,10 @@
 
         <mat-form-field>
           <mat-label>Suivi par</mat-label>
-          <mat-select #followedBy >
+          <mat-select #followedBy>
             <mat-option value="Intervenant">Intervenant</mat-option>
             <mat-option value="Médecin">Médecin</mat-option>
+            <mat-option value="ContacteUrgence">Contacte d'urgence</mat-option>
             <mat-option value="Autres">Autres</mat-option>
           </mat-select>
         </mat-form-field>
@@ -387,12 +378,14 @@
 
 
 
-      <mat-step>
+      <mat-step class="testfu">
         <ng-template matStepLabel>Enregistrer</ng-template>
-        <p>Terminé</p>
-        <div>
-          <button mat-button matStepperPrevious>Étape précédente</button>
-          <button mat-button (click)="stepper.reset()">Reset</button>
+        <div class="laststep">
+          <div>
+            <button mat-button matStepperPrevious>Étape précédente</button>
+            <button mat-button (click)="stepper.reset()">Recommencer</button>
+          </div>
+          <button class ="button-add" (click) = "onAddPerson()">Ajouter</button>
         </div>
       </mat-step>
   </mat-vertical-stepper>
