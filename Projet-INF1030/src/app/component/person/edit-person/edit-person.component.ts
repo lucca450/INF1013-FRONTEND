@@ -46,17 +46,17 @@ export class EditPersonComponent implements OnInit {
 
   private initForm(): void {
     this.firstFormGroup = this.formBuilder.group({
-      fname: [''/*, Validators.email*/],
-      lname: [''/*, Validators.required*/],
+      fname: [this.person.fname],
+      lname: [this.person.lname],
       picker : [],
-      sexe: [],
-      address: [''/*, Validators.required*/],
-      phone: [''/*, Validators.required*/],
-      NAS: [''/*, Validators.required*/],
+      sexe: [this.person.sexe],
+      address: [this.person.address],
+      phone: [this.person.phone],
+      NAS: [this.person.NAS],
       healthIssues: [this.person.healthIssues]
     });
     this.secondFormGroup = this.formBuilder.group({
-      city: [],
+      city: [this.person.workCity],
       picker1: [],
       picker2: [],
 
@@ -67,25 +67,50 @@ export class EditPersonComponent implements OnInit {
       hoursPerDay: [this.person.hoursPerDay/*, Validators.required*/],
       picker5: [],
       picker6: [],
-      communityWork: [],
+      communityWork: [this.person.communityWork],
       picker7: [],
       picker8: [],
       hourlyRate: [this.person.hourlyRate/*, Validators.required*/],
       transportFees: [this.person.transportFees/*, Validators.required*/],
     });
     this.fourthFormGroup = this.formBuilder.group({
-      ressourceFname: [''/*, Validators.required*/],
-      ressourceLname: [''/*, Validators.required*/],
-      ressourcePhone: [''/*, Validators.required*/],
+      ressourceFname: [this.person.emergencyContact.fname],
+      ressourceLname: [this.person.emergencyContact.lname],
+      ressourcePhone: [this.person.emergencyContact.phone],
     });
-    this.fifthFormGroup = this.formBuilder.group({
-      followFname: [''/*, Validators.required*/],
-      followLname: [''/*, Validators.required*/],
-      followPhone: [''/*, Validators.required*/],
-      followEmail: [''/*, Validators.required*/],
-      followFax: [''/*, Validators.required*/],
-      followOrganism: [''/*, Validators.required*/]
-    });
+    if (this.person.followedBy.interfaceName === 'Doctor') {
+        this.fifthFormGroup = this.formBuilder.group({
+          followFname: [this.person.followedBy.fname],
+          followLname: [this.person.followedBy.lname],
+          followPhone: [this.person.followedBy.phone],
+          followEmail: [this.person.followedBy.email],
+          followFax: [this.person.followedBy.fax],
+        });
+    }
+    if (this.person.followedBy.interfaceName === 'OtherPerson') {
+      this.fifthFormGroup = this.formBuilder.group({
+        followFname: [this.person.followedBy.fname],
+        followLname: [this.person.followedBy.lname],
+        followPhone: [this.person.followedBy.phone],
+        followOrganism: [this.person.followedBy.organization]
+      });
+    }
+    if (this.person.followedBy.interfaceName === 'Intervenant') {
+      this.fifthFormGroup = this.formBuilder.group({
+        followFname: [this.person.followedBy.fname],
+        followLname: [this.person.followedBy.lname],
+        followPhone: [this.person.followedBy.phone],
+        followEmail: [this.person.followedBy.email],
+        //followOrganism: [this.person.followedBy.organization]
+      });
+    }
+    if (this.person.followedBy.interfaceName === 'EmergencyContact') {
+      this.fifthFormGroup = this.formBuilder.group({
+        followFname: [this.person.followedBy.fname],
+        followLname: [this.person.followedBy.lname],
+        followPhone: [this.person.followedBy.phone],
+      });
+    }
 
     /*this.EditPersonForm = this.formBuilder.group({
       fname: [''],
