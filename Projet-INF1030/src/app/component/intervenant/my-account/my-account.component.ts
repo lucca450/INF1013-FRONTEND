@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Intervenant} from '../../../models/intervenant';
+import {Intervenant} from '../../../models/intervenant/intervenant';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
 import {ActivatedRoute} from '@angular/router';

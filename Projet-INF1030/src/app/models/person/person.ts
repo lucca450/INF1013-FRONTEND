@@ -1,8 +1,8 @@
-import {EmergencyContact} from './emergency-contact';
-import {Intervenant} from './intervenant';
-import {Doctor} from './doctor';
-import {OtherPerson} from './other-person';
-import {City} from '../enum/city';
+import {EmergencyContact} from '../emergency/emergency-contact';
+import {Intervenant} from '../intervenant/intervenant';
+import {Doctor} from '../doctor/doctor';
+import {OtherPerson} from '../other-person/other-person';
+import {City} from '../../enum/city';
 
 export interface Person {
   interfaceName: 'Person';

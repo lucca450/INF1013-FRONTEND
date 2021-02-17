@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {Doctor} from '../../models/doctor';
-import {Person} from '../../models/person';
-import {EmergencyContact} from '../../models/emergency-contact';
+import {Doctor} from '../../models/doctor/doctor';
+import {Person} from '../../models/person/person';
+import {EmergencyContact} from '../../models/emergency/emergency-contact';
 import {Router} from '@angular/router';
 
 @Injectable({

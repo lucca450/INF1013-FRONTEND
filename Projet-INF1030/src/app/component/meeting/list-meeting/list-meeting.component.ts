@@ -3,7 +3,7 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {MeetingService} from '../../../services/meeting/meeting.service';
 import {ActivatedRoute} from '@angular/router';
-import {Meeting} from '../../../models/meeting';
+import {Meeting} from '../../../models/meeting/meeting';
 
 @Component({
   selector: 'app-list-meeting',

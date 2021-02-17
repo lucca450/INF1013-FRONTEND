@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {Intervenant} from '../../models/intervenant';
+import {Intervenant} from '../../models/intervenant/intervenant';
 import {Router} from '@angular/router';
-import {Person} from '../../models/person';
+import {Person} from '../../models/person/person';
 
 @Injectable({
   providedIn: 'root'

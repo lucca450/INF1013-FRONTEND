@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {PersonService} from '../../../services/person/person.service';
-import {Person} from '../../../models/person';
+import {Person} from '../../../models/person/person';
 import {ActivatedRoute} from '@angular/router';
 import {City} from '../../../enum/city';
 

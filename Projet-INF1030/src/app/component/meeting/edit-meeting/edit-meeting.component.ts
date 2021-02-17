@@ -5,7 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {ListMeetingComponent} from '../list-meeting/list-meeting.component';
 import {PersonService} from '../../../services/person/person.service';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
-import {Meeting} from '../../../models/meeting';
+import {Meeting} from '../../../models/meeting/meeting';
 
 @Component({
   selector: 'app-management-meeting',
