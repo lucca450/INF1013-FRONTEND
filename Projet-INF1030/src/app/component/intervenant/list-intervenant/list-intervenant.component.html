@@ -1,14 +1,15 @@
 <div class="container-intervenant">
-  <mat-form-field>
-    <mat-label>Recherche</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Recherche" #input>
-  </mat-form-field>
 
-  <div class ="container-button">
-    <button [routerLink] = "['/intervenant/add/']" aria-label="Add new intervenant" mat-raised-button color="basic"
-            class="button-add-icon">Ajouter un intervenant <mat-icon>add</mat-icon>
-    </button>
+
+  <div class ="container-search">
+    <mat-form-field>
+      <mat-label>Recherche</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Recherche" #input>
+    </mat-form-field>
   </div>
+
+
+
   <mat-table [dataSource]="intervenants" matSort matSortActive="fname" matSortDirection="asc" class="mat-elevation-z8" >
 
     <ng-container matColumnDef="fname">
@@ -53,7 +54,7 @@
     </ng-container>
 
     <ng-container matColumnDef="actions-icon">
-      <mat-header-cell  *matHeaderCellDef mat-sort-header>  </mat-header-cell>
+      <mat-header-cell  *matHeaderCellDef mat-sort-header> Actions</mat-header-cell>
       <mat-cell  *matCellDef="let row">
         <span class="mobile-label"></span>
         <img class="table-icon icons-click" src="assets/edit-icon.png" alt="Icone modifier" title="Modifier"
@@ -69,4 +70,12 @@
     </tr>
 
   </mat-table>
+
+
+  <div class ="container-button">
+    <button  [routerLink] = "['/intervenant/add/']"  mat-fab color="basic" class="button-add-icon" aria-label="Ajouter un intervenant">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
 </div>

@@ -39,11 +39,11 @@ export class IntervenantService {
     return intervenant.fname  + ' ' + intervenant.lname;
   }
 
-  cancelIntervenant() {
+  cancelIntervenant(): void {
     this.router.navigate(['intervenant']);
   }
 
-  editAccount() {
+  editAccount(): void {
     this.router.navigate(['intervenant']);
   }
 }

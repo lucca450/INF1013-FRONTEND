@@ -39,8 +39,32 @@
 }
 
 .container-button{
-  width:200px;
-  padding-bottom: 10px;
+  width:100%;
+  padding-top: 10px;
+  text-align: right;
+}
+
+.container-search{
+  width:100%;
+  padding-top: 10px;
+  text-align: right;
+}
+
+.mat-form-field{
+  width: 40%;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: green !important;
+}
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: green !important;
+}
+::ng-deep.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: green !important;;
 }
 
 

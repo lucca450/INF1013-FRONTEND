@@ -13,7 +13,7 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   intervenants = new MatTableDataSource(this.intervenantService.intervenants);
-  displayedColumns: string[] = ['actions-icon', 'fname', 'lname', 'email', 'phone', 'address']; // L'odre des colonnes est déterminé ici
+  displayedColumns: string[] = [ 'fname', 'lname', 'email', 'phone', 'address', 'actions-icon']; // L'ordre des colonnes est déterminé ici
 
 
   constructor(private intervenantService: IntervenantService) { }
@@ -21,6 +21,7 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     // Nous permet de définir sur quels attributs la recherche va se faire.
 
+    // tslint:disable-next-line:only-arrow-functions
     this.intervenants.filterPredicate = function(data, filter: string): boolean {
       return data.fname.toLowerCase().includes(filter) ||
         data.lname.toLowerCase().includes(filter) ||
