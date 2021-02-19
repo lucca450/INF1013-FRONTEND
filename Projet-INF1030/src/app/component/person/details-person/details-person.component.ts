@@ -11,6 +11,7 @@ import {Doctor} from '../../../models/doctor/doctor';
 import {getClassName} from 'codelyzer/util/utils';
 import {City} from '../../../enum/city';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
+import {MatSlideToggleChange} from '@angular/material/slide-toggle';
 
 
 
@@ -24,6 +25,7 @@ export class DetailsPersonComponent implements OnInit {
   personID: number;
   person: Person;
   cities = Object.keys(City).map(key => City[key]);
+  isSlideChecked = false;
 
   constructor(private personService: PersonService , private intervenantService: IntervenantService, private route: ActivatedRoute) { }
 
@@ -39,6 +41,10 @@ export class DetailsPersonComponent implements OnInit {
   getIntervenantFromID( myID: number): Intervenant {
     const returnOBJ = this.intervenantService.intervenants.filter(p => p.id === myID);
     return returnOBJ[0];
+  }
+
+  toggleChanges($event: MatSlideToggleChange):  void {
+    this.isSlideChecked = $event.checked;
   }
 
 }

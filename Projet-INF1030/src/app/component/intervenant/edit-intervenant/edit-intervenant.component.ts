@@ -18,13 +18,13 @@ export class EditIntervenantComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.initForm();
     let index = 0;
     // Nous permet d'aller chercher les informations selon l'id passé dans le path
     this.route.paramMap.subscribe(params => {
       index =  Number(params.get('id'));
       this.intervenant =  this.intervenantService.intervenants[index];
     });
+    this.initForm();
   }
 
   onSubmit(): void {
@@ -32,11 +32,11 @@ export class EditIntervenantComponent implements OnInit {
 
   private initForm(): void {
     this.editintervenantForm = this.formBuilder.group({
-      fname: [''/*, Validators.email*/],
-      lname: [''/*, Validators.required*/],
-      email: [''/*, Validators.required*/],
-      phone: [''/*, Validators.required*/],
-      address: [''/*, Validators.required*/]
+      fname: [this.intervenant.fname],
+      lname: [this.intervenant.lname],
+      email: [this.intervenant.email],
+      phone: [this.intervenant.phone],
+      address: [this.intervenant.address]
     });
   }
 
@@ -44,7 +44,7 @@ export class EditIntervenantComponent implements OnInit {
     this.intervenantService.editIntervenant();
   }
 
-  onCancelMeeting() {
+  onCancelIntervenant(): void {
     this.intervenantService.cancelIntervenant();
   }
 }

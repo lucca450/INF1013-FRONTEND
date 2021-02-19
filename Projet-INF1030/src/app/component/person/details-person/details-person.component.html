@@ -24,8 +24,21 @@
           <label>Numéro de téléphone:</label>
           <p>{{person.phone  | phone}}</p>
 
+        <div>
+
           <label>NAS:</label>
-          <p>{{person.NAS}}</p>
+          <mat-slide-toggle [checked]="isSlideChecked" (change)="toggleChanges($event)"> <p class="toggle-p">{{isSlideChecked ? person.NAS : 'Information cachée'}}</p>
+          </mat-slide-toggle>
+
+
+
+
+        </div>
+
+
+
+
+
 
           <label>Problèmes de santé/allergies:</label>
           <textarea matInput
