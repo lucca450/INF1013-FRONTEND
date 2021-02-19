@@ -11,6 +11,7 @@ export class AddIntervenantComponent implements OnInit {
 
   addintervenantForm: FormGroup;
   intervenantInvalid: boolean;
+  submitted = false;
 
   constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService) { }
 
@@ -23,15 +24,21 @@ export class AddIntervenantComponent implements OnInit {
 
   private initForm(): void {
     this.addintervenantForm = this.formBuilder.group({
-      fname: [''/*, Validators.email*/],
-      lname: [''/*, Validators.required*/],
-      email: [''/*, Validators.required*/],
-      phone: [''/*, Validators.required*/],
-      address: [''/*, Validators.required*/]
+      fname: ['', Validators.required],
+      lname: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
+      address: ['', Validators.required]
     });
   }
 
-  onAddIntervenant() {
-    this.intervenantService.addIntervenant();
+  onAddIntervenant(): void {
+    this.submitted = true;
+
+    if (this.addintervenantForm.valid) {
+        this.intervenantService.addIntervenant(this.addintervenantForm.value);
+    }else {
+      alert('Veuillez remplir tous les champs');
+    }
   }
 }

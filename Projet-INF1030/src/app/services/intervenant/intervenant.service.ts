@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Intervenant} from '../../models/intervenant/intervenant';
 import {Router} from '@angular/router';
 import {Person} from '../../models/person/person';
+import {tryCatch} from 'rxjs/internal-compatibility';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +22,12 @@ export class IntervenantService {
     ];
   }
 
-  addIntervenant(): void {
-    this.router.navigate(['intervenant']);
+  addIntervenant(intervenant: any): void {
+    if (this.intervenants.push(intervenant)){
+      this.router.navigate(['intervenant']);
+    }else{
+      alert('Erreur lors de l\'ajout.');
+    }
   }
 
   editIntervenant(): void {
@@ -43,7 +48,18 @@ export class IntervenantService {
     this.router.navigate(['intervenant']);
   }
 
-  editAccount(): void {
-    this.router.navigate(['intervenant']);
+  editAccount(myID: number, data: any): void {
+
+    try {
+      const itemIndex = this.intervenants.findIndex(item => item.id === myID);
+      data.id = this.intervenants[itemIndex].id;
+      this.intervenants[itemIndex] = data;
+      this.router.navigate(['intervenant']);
+    }catch (e) {
+      alert('Erreur lors de la modification.');
+    }
+
+
+
   }
 }
