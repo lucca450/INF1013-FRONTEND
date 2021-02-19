@@ -18,7 +18,7 @@ export class ListMeetingComponent implements OnInit, AfterViewInit {
 
   dataSource: MatTableDataSource<Meeting>;
 
-  displayedColumns: string[] = ['actions-icon', 'notes', 'followup', 'goals'];
+  displayedColumns: string[] = [ 'notes', 'followup', 'goals', 'actions-icon'];
   constructor(private meetingService: MeetingService , private route: ActivatedRoute) { }
 
   ngOnInit(): void {

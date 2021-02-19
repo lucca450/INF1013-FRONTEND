@@ -20,7 +20,7 @@ export class ListPersonComponent implements OnInit, AfterViewInit  {
   dataSource = new MatTableDataSource(this.personService.persons);
 
   // Columns qui seront affichées
-  displayedColumns: string[] = ['actions-icon', 'fname', 'lname', 'phone'];
+  displayedColumns: string[] = [ 'fname', 'lname', 'phone', 'actions-icon' ];
 
 
   constructor(private personService: PersonService) { }
