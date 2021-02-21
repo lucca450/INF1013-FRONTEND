@@ -33,8 +33,9 @@
           <mat-form-field>
             <mat-label>Sexe</mat-label>
             <mat-select [(value)]="person.sexe">
-              <mat-option selected value="Homme">Homme</mat-option>
-              <mat-option value="Femme">Femme</mat-option>
+              <mat-option *ngFor="let gender of genderEnum" [value]="gender.name">
+                {{ gender.name }}
+              </mat-option>
             </mat-select>
           </mat-form-field>
           <br>
@@ -80,7 +81,7 @@
 
           <mat-form-field>
             <mat-label>Lieu de travail :</mat-label>
-            <mat-select [(value)]="person.workCity">
+            <mat-select [(value)]="person.workCityID">
               <mat-option *ngFor="let city of cities" [value]="city.id">
                 {{ city.name }}
               </mat-option>
@@ -105,39 +106,28 @@
               <br>
               <mat-form-field>
                 <mat-label>Référence</mat-label>
-                <mat-select [(value)]="person.reference">
-                  <mat-option value="Aucune">Aucune</mat-option>
-                  <mat-option value="CIUSSS">CIUSSS</mat-option>
-                  <mat-option value="SIV">SIV</mat-option>
-                  <mat-option value="SI">SI</mat-option>
-                  <mat-option value="Organismes communautaires">Organismes communautaires</mat-option>
-                  <mat-option value="Centre local d’emploi">Centre local d’emploi</mat-option>
-                  <mat-option value="SEMO">SEMO</mat-option>
-                  <mat-option value="Personne elle-même">Personne elle-même</mat-option>
-                  <mat-option value="Ami">Ami</mat-option>
-                  <mat-option value="Famille">Famille</mat-option>
-                  <mat-option value="Autres">Autres</mat-option>
+                <mat-select [(value)]="person.referenceID">
+                  <mat-option *ngFor="let reference of referenceList" [value]="reference.id">
+                    {{ reference.name }}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
               <br>
               <mat-form-field>
                 <mat-label>Type de résidence</mat-label>
-                <mat-select [(value)]="person.residenceType">
-                  <mat-option value="Appartement">Appartement</mat-option>
-                  <mat-option value="Famille d’accueil">Famille d’accueil</mat-option>
-                  <mat-option value="Logement supervisé">Logement supervisé</mat-option>
-                  <mat-option value="Autres">Autres</mat-option>
+                <mat-select [(value)]="person.residenceTypeID">
+                  <mat-option *ngFor="let residenceType of residenceTypeList" [value]="residenceType.id">
+                    {{ residenceType.name }}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
               <br>
               <mat-form-field>
                 <mat-label>Niveau de scolarité</mat-label>
-                <mat-select [(value)]="person.educationalLevel">
-                  <mat-option value="Aucun diplôme">Aucun diplôme</mat-option>
-                  <mat-option value="Études secondaires">Études secondaires</mat-option>
-                  <mat-option value="Études professionnelles">Études professionnelles</mat-option>
-                  <mat-option value="Études collégiales">Études collégiales</mat-option>
-                  <mat-option value="Études universitaires">Études universitaires</mat-option>
+                <mat-select [(value)]="person.educationalLevelID">
+                  <mat-option *ngFor="let educationLevel of educationLevelList" [value]="educationLevel.id">
+                    {{ educationLevel.name }}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
               <br>
@@ -175,15 +165,10 @@
            <br>
            <mat-form-field>
              <mat-label>Motifs de départ</mat-label>
-             <mat-select [(value)]="person.departureReason">
-               <mat-option value="Emploi">Emploi</mat-option>
-               <mat-option value="Retour aux études">Retour aux études</mat-option>
-               <mat-option value="Problèmes de santé mentale">Problèmes de santé mentale</mat-option>
-               <mat-option value="Problèmes de santé physique">Problèmes de santé physique</mat-option>
-               <mat-option value="Déménagement">Déménagement</mat-option>
-               <mat-option value="Fin de contrat/projet">Fin de contrat/projet</mat-option>
-               <mat-option value="Décès">Décès</mat-option>
-               <mat-option value="Autres">Autres</mat-option>
+             <mat-select [(value)]="person.departureReasonID">
+               <mat-option *ngFor="let departureReason of departureReasonList" [value]="departureReason.id">
+                 {{ departureReason.name }}
+               </mat-option>
              </mat-select>
            </mat-form-field>
            <br>
@@ -196,9 +181,10 @@
            <br>
            <mat-form-field>
              <mat-label>Statut</mat-label>
-             <mat-select [(value)]="person.status">
-               <mat-option value="Clientèle">Clientèle</mat-option>
-               <mat-option value="Employés réguliers">Employés réguliers</mat-option>
+             <mat-select [(value)]="person.statusID">
+               <mat-option *ngFor="let status of statusList"
+                           [value]="status.id">{{status.name}}
+               </mat-option>
              </mat-select>
            </mat-form-field>
            <br>

@@ -2,7 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {PersonService} from '../../../services/person/person.service';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
-import {City} from '../../../enum/city';
+import {StatusService} from '../../../services/status/status.service';
+import {Gender} from '../../../enum/gender.enum';
+import {ReferenceService} from '../../../services/reference/reference.service';
+import {WorkCityService} from '../../../services/workCity/work-city.service';
+import {DepartureReasonService} from '../../../services/departureReason/departure-reason.service';
+import {EducationLevelService} from '../../../services/educationLevel/education-level.service';
+import {ResidenceTypeService} from '../../../services/residenceType/residence-type.service';
+import {SectorService} from '../../../services/sector/sector.service';
 
 
 @Component({
@@ -15,7 +22,14 @@ export class AddPersonComponent implements OnInit {
   addPersonForm: FormGroup;
   personInvalid: boolean;
   intervenants = this.intervenantService.intervenants;
-  cities = Object.entries(City).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
+  statusList = this.statusService.status;
+  referenceList =this.refererenceService.reference;
+  cities = this.workCityService.workCity;
+  departureReasonList =this.departureReasonService.departureReason;
+  educationLevelList =this.educationLevelService.educationLevel;
+  residenceTypeList =this.residenceTypeService.residenceType;
+  sectorList =this.sectorService.sector;
+  genderEnum = Object.entries(Gender).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
 
 
   isLinear = true;
@@ -26,7 +40,16 @@ export class AddPersonComponent implements OnInit {
   fifthFormGroup: FormGroup;
 
 
-  constructor(private formBuilder: FormBuilder, private personService: PersonService, private intervenantService: IntervenantService) { }
+  constructor(private formBuilder: FormBuilder,
+              private personService: PersonService,
+              private intervenantService: IntervenantService,
+              private statusService: StatusService,
+              private refererenceService: ReferenceService,
+              private workCityService: WorkCityService,
+              private departureReasonService: DepartureReasonService,
+              private educationLevelService: EducationLevelService,
+              private residenceTypeService: ResidenceTypeService,
+              private sectorService: SectorService) { }
 
   ngOnInit(): void {
     this.initForm();

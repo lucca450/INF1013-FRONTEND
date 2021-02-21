@@ -25,20 +25,10 @@
           <p>{{person.phone  | phone}}</p>
 
         <div>
-
           <label>NAS:</label>
           <mat-slide-toggle [checked]="isSlideChecked" (change)="toggleChanges($event)"> <p class="toggle-p">{{isSlideChecked ? person.NAS : 'Information cachée'}}</p>
           </mat-slide-toggle>
-
-
-
-
         </div>
-
-
-
-
-
 
           <label>Problèmes de santé/allergies:</label>
           <textarea matInput
@@ -58,13 +48,13 @@
           <p>{{person.programEndDate | date:'d MMMM  y'}}</p>
 
           <label>Motifs de départ:</label>
-          <p>{{person.departureReason}}</p>
+          <p>{{departureReason.getDepartureReasonFromID(person.departureReasonID).name}}</p>
 
           <label>Heures travaillées par jour:</label>
           <p>{{person.hoursPerDay}} heures</p>
 
           <label>Statut:</label>
-          <p>{{person.status}}</p>
+          <p>{{status.getStatusFromID(person.statusID).name}}</p>
 
           <label>Suivi en itinérance:</label>
           <p #followRoaming [innerText]="person.roamingTracking|convertBoolean">{{person.roamingTracking | convertBoolean}}</p>
@@ -102,7 +92,7 @@
         <h1 class = "header-column"> Informations sur le travail</h1>
 
           <label>Lieu de travail:</label>
-          <p>{{cities[person.workCity]}}</p>
+          <p>{{cities.getCityFromID(person.workCityID).name}}</p>
 
           <label>Date de début de la participation:</label>
           <p>{{person.startDate | date:'d MMMM  y'}}</p>
@@ -111,13 +101,13 @@
           <p>{{person.endDate | date:'d MMMM  y'}}</p>
 
           <label>Référence:</label>
-          <p>{{person.reference}}</p>
+          <p>{{reference.getReferenceFromID(person.referenceID).name}}</p>
 
           <label>Type de résidence:</label>
-          <p>{{person.residenceType}}</p>
+          <p>{{residenceType.getResidenceTypeFromID(person.residenceTypeID).name}}</p>
 
           <label>Niveau de scolarité:</label>
-          <p>{{person.educationalLevel}}</p>
+          <p>{{educationLevel.getEducationLevelFromID(person.educationalLevelID).name}}</p>
 
       </div>
 

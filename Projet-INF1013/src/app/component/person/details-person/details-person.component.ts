@@ -1,19 +1,17 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MeetingService} from '../../../services/meeting/meeting.service';
 import {ActivatedRoute} from '@angular/router';
 import {PersonService} from '../../../services/person/person.service';
-import {MatTableDataSource} from '@angular/material/table';
 import {Person} from '../../../models/person/person';
 import {Intervenant} from '../../../models/intervenant/intervenant';
-import {EmergencyContact} from '../../../models/emergency/emergency-contact';
-import {OtherPerson} from '../../../models/other-person/other-person';
-import {Doctor} from '../../../models/doctor/doctor';
-import {getClassName} from 'codelyzer/util/utils';
-import {City} from '../../../enum/city';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
 import {MatSlideToggleChange} from '@angular/material/slide-toggle';
-
-
+import {Gender} from '../../../enum/gender.enum';
+import {WorkCityService} from '../../../services/workCity/work-city.service';
+import {DepartureReasonService} from '../../../services/departureReason/departure-reason.service';
+import {StatusService} from '../../../services/status/status.service';
+import {EducationLevelService} from '../../../services/educationLevel/education-level.service';
+import {ResidenceTypeService} from '../../../services/residenceType/residence-type.service';
+import {ReferenceService} from '../../../services/reference/reference.service';
 
 @Component({
   selector: 'app-details-person',
@@ -24,10 +22,25 @@ export class DetailsPersonComponent implements OnInit {
 
   personID: number;
   person: Person;
-  cities = Object.keys(City).map(key => City[key]);
+  cities = this.workCityService;
+  gender = Object.keys(Gender).map(key => Gender[key]);
   isSlideChecked = false;
+  status = this.statusService;
+  departureReason = this.departureReasonService;
+  residenceType =this.residenceTypeService;
+  educationLevel = this.educationLevelService;
+  reference = this.referenceService;
 
-  constructor(private personService: PersonService , private intervenantService: IntervenantService, private route: ActivatedRoute) { }
+
+  constructor(private personService: PersonService ,
+              private intervenantService: IntervenantService,
+              private departureReasonService: DepartureReasonService,
+              private statusService: StatusService,
+              private workCityService: WorkCityService,
+              private residenceTypeService: ResidenceTypeService,
+              private referenceService: ReferenceService,
+              private educationLevelService: EducationLevelService,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -46,6 +59,5 @@ export class DetailsPersonComponent implements OnInit {
   toggleChanges($event: MatSlideToggleChange):  void {
     this.isSlideChecked = $event.checked;
   }
-
 }
 

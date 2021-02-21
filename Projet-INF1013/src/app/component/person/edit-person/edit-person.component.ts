@@ -3,7 +3,14 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {PersonService} from '../../../services/person/person.service';
 import {Person} from '../../../models/person/person';
 import {ActivatedRoute} from '@angular/router';
-import {City} from '../../../enum/city';
+import {WorkCityService} from '../../../services/workCity/work-city.service';
+import {Gender} from '../../../enum/gender.enum';
+import {StatusService} from '../../../services/status/status.service';
+import {ReferenceService} from '../../../services/reference/reference.service';
+import {DepartureReasonService} from '../../../services/departureReason/departure-reason.service';
+import {EducationLevelService} from '../../../services/educationLevel/education-level.service';
+import {ResidenceTypeService} from '../../../services/residenceType/residence-type.service';
+import {SectorService} from '../../../services/sector/sector.service';
 
 @Component({
   selector: 'app-edit-person',
@@ -13,9 +20,14 @@ import {City} from '../../../enum/city';
 export class EditPersonComponent implements OnInit {
   EditPersonForm: any;
   person: Person;
-  personID: number;
-  cities = Object.entries(City).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
-
+  statusList = this.statusService.status;
+  referenceList =this.refererenceService.reference;
+  cities = this.workCityService.workCity;
+  departureReasonList =this.departureReasonService.departureReason;
+  educationLevelList =this.educationLevelService.educationLevel;
+  residenceTypeList =this.residenceTypeService.residenceType;
+  sectorList =this.sectorService.sector;
+  genderEnum = Object.entries(Gender).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
 
   isLinear = true;
   firstFormGroup: FormGroup;
@@ -25,14 +37,22 @@ export class EditPersonComponent implements OnInit {
   fifthFormGroup: FormGroup;
 
 
-  constructor(private formBuilder: FormBuilder, private personService: PersonService, private route: ActivatedRoute) { }
+  constructor(private formBuilder: FormBuilder,
+              private personService: PersonService,
+              private route: ActivatedRoute,
+              private statusService: StatusService,
+              private refererenceService: ReferenceService,
+              private workCityService: WorkCityService,
+              private departureReasonService: DepartureReasonService,
+              private educationLevelService: EducationLevelService,
+              private residenceTypeService: ResidenceTypeService,
+              private sectorService: SectorService) { }
 
   ngOnInit(): void {
 
     this.route.paramMap.subscribe(params => {
       const idx =	Number(params.get('id'));
-      this.personID = idx;
-      const persons = this.personService.persons.filter(p => p.id === this.personID);
+      const persons = this.personService.persons.filter(p => p.id === idx);
       this.person = persons[0];
     });
 
@@ -56,7 +76,7 @@ export class EditPersonComponent implements OnInit {
       healthIssues: [this.person.healthIssues]
     });
     this.secondFormGroup = this.formBuilder.group({
-      city: [this.person.workCity],
+      city: [this.person.workCityID],
       picker1: [],
       picker2: [],
 

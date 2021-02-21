@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {EducationLevel} from '../../models/educationLevel/education-level';
-import {City} from '../../models/city/city';
 
 @Injectable({
   providedIn: 'root'
