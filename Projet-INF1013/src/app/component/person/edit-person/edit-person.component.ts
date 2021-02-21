@@ -18,15 +18,15 @@ import {SectorService} from '../../../services/sector/sector.service';
   styleUrls: ['./edit-person.component.css']
 })
 export class EditPersonComponent implements OnInit {
-  EditPersonForm: any;
   person: Person;
+  // Récupérer les services
   statusList = this.statusService.status;
   referenceList =this.refererenceService.reference;
   cities = this.workCityService.workCity;
   departureReasonList =this.departureReasonService.departureReason;
   educationLevelList =this.educationLevelService.educationLevel;
   residenceTypeList =this.residenceTypeService.residenceType;
-  sectorList =this.sectorService.sector;
+  //Énumération
   genderEnum = Object.entries(Gender).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
 
   isLinear = true;
@@ -45,8 +45,7 @@ export class EditPersonComponent implements OnInit {
               private workCityService: WorkCityService,
               private departureReasonService: DepartureReasonService,
               private educationLevelService: EducationLevelService,
-              private residenceTypeService: ResidenceTypeService,
-              private sectorService: SectorService) { }
+              private residenceTypeService: ResidenceTypeService) { }
 
   ngOnInit(): void {
 
@@ -131,29 +130,13 @@ export class EditPersonComponent implements OnInit {
         followPhone: [this.person.followedBy.phone],
       });
     }
-
-    /*this.EditPersonForm = this.formBuilder.group({
-      fname: [''],
-      lname: [''],
-      phone: [''],
-      address: [''],
-      NAS: [''],
-      hoursPerDay: [''],
-      hourlyRate: [''],
-      transportFees: [''],
-      ressourceFname: [''],
-      ressourceLname: [''],
-      ressourcePhone: [''],
-      followFname: [''],
-      followLname: [''],
-      followPhone: [''],
-      followEmail: [''],
-      followFax: [''],
-      followOrganism: ['']
-    });*/
   }
 
   onSubmit(): void {
 
+  }
+  // Fonction pour réagir lorsque la personne clique sur le bouton "Enregistrer"
+  OnEditPerson() {
+    this.personService.editPerson();
   }
 }

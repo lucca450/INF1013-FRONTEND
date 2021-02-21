@@ -10,7 +10,7 @@ export class ResidenceTypeService {
   constructor() {
     this.residenceType = this.mockResidenceTypeData();
   }
-
+  // Fonction pour générer les données lié aux résidences
   private mockResidenceTypeData(): ResidenceType[]{
     return[
       {interfaceName: 'ResidenceType', id : 0, name : 'Appartement'},
@@ -19,7 +19,7 @@ export class ResidenceTypeService {
       {interfaceName: 'ResidenceType', id : 3, name : 'Autres'}
     ];
   }
-
+  // Fonction pour récupérer la résidence à partir de son identifiant
   public getResidenceTypeFromID(id: number): ResidenceType {
     let residenceType: ResidenceType;
     residenceType = this.residenceType.find(function(r: ResidenceType) {

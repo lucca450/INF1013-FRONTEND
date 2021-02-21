@@ -12,6 +12,7 @@ export class MeetingService {
   constructor(private router: Router) {
     this.meetings = this.mockMeetingData();
   }
+  // Fonction pour générer les données lié aux rencontres
   private mockMeetingData(): Meeting[]{
     return [
       {
@@ -48,7 +49,7 @@ export class MeetingService {
       }
     ];
   }
-
+  // Fonction pour récupérer la rencontre selon son identifiant
   public getMeetingFromID(id: number): Meeting {
     let meeting: Meeting;
     // tslint:disable-next-line:only-arrow-functions typedef
@@ -57,14 +58,15 @@ export class MeetingService {
     });
     return meeting;
   }
-
+  // Fonction pour ajouter une rencontre
   addMeeting(): void{
     this.router.navigate(['meeting']);
   }
-
+  // Fonction pour modifié une rencontre
   editMeeting(): void{
     this.router.navigate(['meeting']);
   }
+  // Fonction pour annuler une rencontre et revenir à l'étape précédente
   cancelEditMeeting(): void{
     this.router.navigate(['meeting']);
   }

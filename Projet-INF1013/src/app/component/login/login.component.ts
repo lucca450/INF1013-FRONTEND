@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-
+  // Fonction pour réagir lorsque la personne clique sur le bouton "Connexion"
   onSignIn(): void {
     this.authService.signIn().then(  // .then Pour réagir quand le callback sera appelé parce que c'est asynchrone
       () => {

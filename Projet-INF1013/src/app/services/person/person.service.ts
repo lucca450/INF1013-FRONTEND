@@ -17,15 +17,15 @@ export class PersonService {
     /*this.doctors = this.mockDoctorData(); */
     this.persons = this.mockPersonData();
   }
-
+  // Fonction pour générer les données lié aux docteurs
   private mockDoctorData(): Doctor{
     return {interfaceName: 'Doctor', lname: 'protou', fname: 'colin', email: 'test1@doctor.ca', fax: 8888888888, phone: 9333333333};
   }
-
+  // Fonction pour générer les données lié aux contactes d'urgences
   private mockEmergencyContactData(): EmergencyContact{
     return this.emergencyContact = {interfaceName: 'EmergencyContact', lname: 'smith', fname: 'john', phone: 8190002222, relation: 'Frère'};
   }
-
+  // Fonction pour générer les données lié aux personnes
   private mockPersonData(): Person[]{
     return [
       {
@@ -141,6 +141,7 @@ export class PersonService {
       }
     ];
   }
+  // Fonction pour récupérer le nom complet de la personne
   public personFullName(id: number): string {
     let person: Person;
     // tslint:disable-next-line:only-arrow-functions typedef
@@ -149,11 +150,11 @@ export class PersonService {
     });
     return person.fname  + ' ' + person.lname;
   }
-
+  // Fonction pour ajouter une personne
   addPerson(): void{
     this.router.navigate(['person']);
   }
-
+  // Fonction pour modifier une personne
   editPerson() {
     this.router.navigate(['person']);
   }

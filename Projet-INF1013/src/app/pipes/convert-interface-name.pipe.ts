@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'convertInterfaceName'
 })
 export class ConvertInterfaceNamePipe implements PipeTransform {
-
+  // Fonction pour transformer le nom des interfaces
   transform(interfaceName: string): string {
 
     if (interfaceName == 'Intervenant ') {

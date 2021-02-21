@@ -49,11 +49,11 @@ export class EditMeetingComponent implements OnInit {
     const control = this.editMeetingForm.get('intervenant');
     control.setValue(this.meeting.idIntervenant, {onlySelf: true});
   }
-
+  // Fonction pour réagir lorsque la personne clique sur le bouton "Annuler"
   onCancelEditMeeting(): void {
     this.meetingService.cancelEditMeeting();
   }
-
+  // Fonction pour réagir lorsque la personne clique sur le bouton "Enregistrer"
   onEditMeeting(): void {
     this.meetingService.editMeeting();
   }

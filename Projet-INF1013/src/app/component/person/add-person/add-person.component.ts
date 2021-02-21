@@ -28,7 +28,6 @@ export class AddPersonComponent implements OnInit {
   departureReasonList =this.departureReasonService.departureReason;
   educationLevelList =this.educationLevelService.educationLevel;
   residenceTypeList =this.residenceTypeService.residenceType;
-  sectorList =this.sectorService.sector;
   genderEnum = Object.entries(Gender).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
 
 
@@ -48,8 +47,7 @@ export class AddPersonComponent implements OnInit {
               private workCityService: WorkCityService,
               private departureReasonService: DepartureReasonService,
               private educationLevelService: EducationLevelService,
-              private residenceTypeService: ResidenceTypeService,
-              private sectorService: SectorService) { }
+              private residenceTypeService: ResidenceTypeService) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -98,28 +96,8 @@ export class AddPersonComponent implements OnInit {
       followFax: [''/*, Validators.required*/],
       followOrganism: [''/*, Validators.required*/]
     });
-
-    /*this.addPersonForm = this.formBuilder.group({
-      fname: [''],
-      lname: [''],
-      phone: [''],
-      address: [''],
-      NAS: [''],
-      hoursPerDay: [''],
-      hourlyRate: [''],
-      transportFees: [''],
-      ressourceFname: [''],
-      ressourceLname: [''],
-      ressourcePhone: [''],
-      followFname: [''],
-      followLname: [''],
-      followPhone: [''],
-      followEmail: [''],
-      followFax: [''],
-      followOrganism: ['']
-    });*/
   }
-
+  // Fonction pour réagir lorsque la personne clique sur le bouton "Ajouter"
   onAddPerson(): void {
     this.personService.addPerson();
   }

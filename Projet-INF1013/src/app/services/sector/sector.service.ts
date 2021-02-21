@@ -10,7 +10,7 @@ export class SectorService {
   constructor() {
     this.sector = this.mockSectorData();
   }
-
+  // Fonction pour générer les données lié aux secteurs
   private mockSectorData(): Sector[]{
     return[
       {interfaceName: 'Sector', id : 0, name : 'sous-traitance'},
@@ -18,7 +18,7 @@ export class SectorService {
       {interfaceName: 'Sector', id : 2, name : 'vente de produits artistiques'}
     ];
   }
-
+  // Fonction pour récupérer le secteur à partir de son identifiant
   public getSectorFromID(id: number): Sector {
     let sector: Sector;
     sector = this.sector.find(function(s: Sector) {

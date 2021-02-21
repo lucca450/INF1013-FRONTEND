@@ -22,14 +22,17 @@ export class DetailsPersonComponent implements OnInit {
 
   personID: number;
   person: Person;
-  cities = this.workCityService;
-  gender = Object.keys(Gender).map(key => Gender[key]);
   isSlideChecked = false;
+  //Énumération
+  gender = Object.keys(Gender).map(key => Gender[key]);
+  // Récupération des services
+  cities = this.workCityService;
   status = this.statusService;
   departureReason = this.departureReasonService;
   residenceType =this.residenceTypeService;
   educationLevel = this.educationLevelService;
   reference = this.referenceService;
+  intervenant = this.intervenantService;
 
 
   constructor(private personService: PersonService ,
@@ -51,11 +54,7 @@ export class DetailsPersonComponent implements OnInit {
     });
   }
 
-  getIntervenantFromID( myID: number): Intervenant {
-    const returnOBJ = this.intervenantService.intervenants.filter(p => p.id === myID);
-    return returnOBJ[0];
-  }
-
+  // Fonction pour gèrer le slider du NAS.
   toggleChanges($event: MatSlideToggleChange):  void {
     this.isSlideChecked = $event.checked;
   }

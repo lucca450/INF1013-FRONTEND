@@ -51,7 +51,7 @@ import { ConvertInterfaceNamePipe } from './pipes/convert-interface-name.pipe';
 
 registerLocaleData(localeFr);
 
-// Définition des routes de base
+// Définition des routes
 
 const appRoutes: Routes = [
   {path : 'login', component : LoginComponent},
@@ -118,10 +118,9 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FormsModule,
     MatStepperModule
-
-    // On injecte les routes
   ],
   providers: [
+    // On injecte services (N'est plus obligatoire dans la nouvelle version d'angular)
     PersonService,
     AuthService,
     AuthGuard,

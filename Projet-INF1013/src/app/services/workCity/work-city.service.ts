@@ -10,7 +10,7 @@ export class WorkCityService {
   constructor() {
     this.workCity = this.mockWorkCityData();
   }
-
+  // Fonction pour générer les données lié aux villes
   private mockWorkCityData(): WorkCity[]{
     return[
       {interfaceName: 'WorkCity', id : 0, name : 'Trois-Rivières'},
@@ -19,7 +19,7 @@ export class WorkCityService {
       {interfaceName: 'WorkCity', id : 3, name : 'St-Tite'}
     ];
   }
-
+  // Fonction pour récupérer le la ville à partir de son identifiant
   public getCityFromID(id: number): WorkCity {
     let workCity: WorkCity;
     workCity = this.workCity.find(function(w: WorkCity) {

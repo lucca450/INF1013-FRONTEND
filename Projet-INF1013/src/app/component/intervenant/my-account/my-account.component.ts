@@ -44,7 +44,7 @@ export class MyAccountComponent implements OnInit {
       address: ['', Validators.required]*/
     });
   }
-
+  // Fonction pour réagir lorsque la personne clique sur le bouton "Enregistrer"
   onEditAccount(): void {
 
     if (this.editMyAccountForm.valid) {

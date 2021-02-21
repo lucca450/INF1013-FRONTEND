@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
 import {ActivatedRoute} from '@angular/router';
@@ -39,11 +39,11 @@ export class EditIntervenantComponent implements OnInit {
       address: [this.intervenant.address]
     });
   }
-
+  // Fonction pour réagir lorsque la personne clique sur le bouton "Enregistrer"
   onEditIntervenant(): void {
     this.intervenantService.editIntervenant();
   }
-
+  // Fonction pour réagir lorsque la personne clique sur le bouton "Annuler"
   onCancelIntervenant(): void {
     this.intervenantService.cancelIntervenant();
   }

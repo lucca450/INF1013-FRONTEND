@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
       });
   }
 
-
+  // Fonction pour déconnecter l'utilisateur.
   OnSignOut() {
     this.authService.signOut();
     this.isAuth = this.authService.isAuth;

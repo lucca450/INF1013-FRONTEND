@@ -11,7 +11,7 @@ export class ReferenceService {
   constructor() {
     this.reference = this.mockReferenceData();
   }
-
+  // Fonction pour générer les données lié aux références
   private mockReferenceData(): Reference[]{
     return[
       {interfaceName: 'Reference', id : 0, name : 'Aucune'},
@@ -27,7 +27,7 @@ export class ReferenceService {
       {interfaceName: 'Reference', id : 9, name : 'Autres'}
     ];
   }
-
+  // Fonction pour récupérer le référence à partir de son identifiant
   public getReferenceFromID(id: number): Reference {
     let reference: Reference;
     reference = this.reference.find(function(r: Reference) {

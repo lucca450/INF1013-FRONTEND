@@ -1,7 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {PersonService} from '../../../services/person/person.service';
-import {Doctor} from '../../../models/doctor/doctor';
-import {Person} from '../../../models/person/person';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 
@@ -19,7 +17,7 @@ export class ListPersonComponent implements OnInit, AfterViewInit  {
 
   dataSource = new MatTableDataSource(this.personService.persons);
 
-  // Columns qui seront affichées
+  // Colonnes qui seront affichées
   displayedColumns: string[] = [ 'fname', 'lname', 'phone', 'actions-icon' ];
 
 
@@ -27,7 +25,6 @@ export class ListPersonComponent implements OnInit, AfterViewInit  {
 
   ngOnInit(): void {
     // Nous permet de définir sur quels attributs la recherche va se faire.
-    // tslint:disable-next-line:only-arrow-functions
     this.dataSource.filterPredicate = function(data, filter: string): boolean {
       return data.fname.toLowerCase().includes(filter) ||
         data.lname.toLowerCase().includes(filter) ||
@@ -42,6 +39,7 @@ export class ListPersonComponent implements OnInit, AfterViewInit  {
     this.dataSource.sort = this.sort;
   }
 
+  // Fonction qui permet d'appliquer le filtre sur toute les colonnes du tableau selon ce que l'utilisateur à écris.
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

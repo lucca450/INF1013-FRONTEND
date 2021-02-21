@@ -1,6 +1,7 @@
 
 <mat-card>
   <h2>Modification des informations de {{person.fname}} {{person.lname}}</h2>
+  <!-- Formulaire pour modifier une personne. -->
   <mat-card-content>
     <!-- INFORMATIONS PERSONNELLES -->
     <mat-horizontal-stepper [linear]="isLinear" #stepper>
@@ -385,14 +386,14 @@
       </mat-step>
 
 
-
-
-      <mat-step>
+      <mat-step class="">
         <ng-template matStepLabel>Enregistrer</ng-template>
-        <p>Terminé</p>
-        <div>
-          <button mat-button matStepperPrevious>Étape précédente</button>
-          <button mat-button (click)="stepper.reset()">Reset</button>
+        <div class="laststep">
+          <div>
+            <button mat-button matStepperPrevious>Étape précédente</button>
+            <button mat-button (click)="stepper.reset()">Recommencer</button>
+          </div>
+          <button class ="button-add" (click) = "OnEditPerson()">Enregistrer</button>
         </div>
       </mat-step>
     </mat-horizontal-stepper>

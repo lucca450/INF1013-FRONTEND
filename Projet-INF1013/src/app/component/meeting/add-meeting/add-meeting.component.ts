@@ -44,7 +44,7 @@ export class AddMeetingComponent implements OnInit {
     const control = this.addMeetingForm.get('person');
     control.disable();
   }
-
+  // Fonction pour réagir lorsque la personne clique sur le bouton "Ajouter"
   onAddMeeting(): void {
     this.meetingService.addMeeting();
   }

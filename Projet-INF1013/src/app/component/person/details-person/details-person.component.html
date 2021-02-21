@@ -1,9 +1,13 @@
 
 <div class="contianer-row">
   <h1 id = "information_emplacement">Détails d'une personne</h1>
-  <h2 id = "intervenant_responsable" *ngIf="person.responsibleIntervenantID">Intervenant responsable : {{getIntervenantFromID(person.responsibleIntervenantID).fname}} {{getIntervenantFromID(person.responsibleIntervenantID).lname}}</h2>
+  <h2 id = "intervenant_responsable" *ngIf="person.responsibleIntervenantID">Intervenant responsable :
+    {{intervenant.intervenantFullName(person.responsibleIntervenantID)}}</h2>
+  <!-- Affichage détaillés des informations concernant la personne. -->
   <div class="row">
+    <!-- Affichage des informaations à gauche. -->
     <div class="column">
+      <!-- INFORMATIONS PERSONNELLES -->
       <div class ="container-column">
         <h1 class = "header-column"> Informations personnelles</h1>
           <label>Prénom:</label>
@@ -38,6 +42,7 @@
                     cdkAutosizeMaxRows="5">{{person.healthIssues}}</textarea>
       </div>
 
+      <!-- PARTICIPATION À UN PROGRAMME D'EMPLOYABILITÉ -->
       <div class ="container-column">
         <h1 class = "header-column"> Participation à un programme d’employabilité</h1>
 
@@ -86,8 +91,9 @@
       </div>
 
     </div>
-
+    <!-- Affichage des informations à droite. -->
     <div class="column column-right">
+      <!-- INFORMATIONS SUR LE TRAVAIL -->
       <div class ="container-column">
         <h1 class = "header-column"> Informations sur le travail</h1>
 
@@ -110,7 +116,7 @@
           <p>{{educationLevel.getEducationLevelFromID(person.educationalLevelID).name}}</p>
 
       </div>
-
+      <!-- PERSONNE RESSOURCE EN CAS D'URGENCE -->
       <div class ="container-column">
         <h1 class = "header-column"> Personne ressource en cas d'urgence</h1>
 
@@ -124,7 +130,7 @@
           <p>{{person.emergencyContact.phone  | phone}}</p>
 
       </div>
-
+      <!-- Informations de la personne de suivi -->
       <div class ="container-column">
         <h1 class = "header-column"> Informations de la personne de suivi</h1>
           <label>Type de personne:</label>

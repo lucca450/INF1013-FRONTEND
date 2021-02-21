@@ -10,7 +10,7 @@ export class DepartureReasonService {
   constructor() {
     this.departureReason = this.mockDepartureReasonData();
   }
-
+  // Fonction pour générer les données lié aux motifs de départs
   private mockDepartureReasonData(): DepartureReason[]{
     return[
       {interfaceName: 'DepartureReason', id : 0, name : 'Emploi'},
@@ -23,10 +23,9 @@ export class DepartureReasonService {
       {interfaceName: 'DepartureReason', id : 3, name : 'Autres'}
     ];
   }
-
+  // Fonction pour récupérer le motif de départ à partir de son identifiant
   public getDepartureReasonFromID(id: number): DepartureReason {
     let departureReason: DepartureReason;
-    // tslint:disable-next-line:only-arrow-functions typedef
     departureReason = this.departureReason.find(function(d: DepartureReason) {
       return d.id === id;
     });

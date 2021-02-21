@@ -32,6 +32,7 @@ export class AddIntervenantComponent implements OnInit {
     });
   }
 
+  // Fonction pour réagir lorsque la personne clique sur le bouton "Ajouter"
   onAddIntervenant(): void {
     this.submitted = true;
 

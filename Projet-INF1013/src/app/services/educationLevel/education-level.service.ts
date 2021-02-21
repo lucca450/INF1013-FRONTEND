@@ -10,7 +10,7 @@ export class EducationLevelService {
   constructor() {
     this.educationLevel = this.mockEducationLevelData();
   }
-
+  // Fonction pour générer les données lié à l'éducation
   private mockEducationLevelData(): EducationLevel[]{
     return[
       {interfaceName: 'EducationLevel', id : 0, name : 'Aucun diplôme'},
@@ -20,7 +20,7 @@ export class EducationLevelService {
       {interfaceName: 'EducationLevel', id : 3, name : 'Études universitaires'}
     ];
   }
-
+  // Fonction pour récupérer le niveau d'éducation à partir de son identifiant
   public getEducationLevelFromID(id: number): EducationLevel {
     let educationLevel: EducationLevel;
     educationLevel = this.educationLevel.find(function(e: EducationLevel) {
