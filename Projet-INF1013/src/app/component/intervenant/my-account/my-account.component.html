@@ -1,0 +1,52 @@
+<mat-card>
+  <!-- Formulaire mon compte -->
+  <mat-card-content>
+    <form [formGroup]="editMyAccountForm" (ngSubmit)="onSubmit()">
+      <h2>Modifier mes informations</h2>
+
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Prénom" formControlName="fname" required>
+        <mat-error>
+          Veuillez entrer un prénom.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Nom" formControlName="lname" required>
+        <mat-error>
+          Veuillez entrer un nom.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Courriel" formControlName="email" required>
+        <mat-error *ngIf="editMyAccountForm!.controls['email']!.dirty && editMyAccountForm!.controls['email']!.errors['required'] != null ">
+          Veuillez entrer un numéro de téléphone.
+        </mat-error>
+        <mat-error *ngIf="editMyAccountForm!.controls['email']!.dirty && editMyAccountForm!.controls['email']!.errors['email'] != null">
+          Veuillez entrer un email dans le format suivant: abc@abc.com
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width-input">
+          <input matInput placeholder="Numéro de téléphone" formControlName="phone" required>
+        <mat-error *ngIf="editMyAccountForm!.controls['phone']!.dirty && editMyAccountForm!.controls['phone']!.errors['required'] != null ">
+          Veuillez entrer un numéro de téléphone.
+        </mat-error>
+        <mat-error *ngIf="editMyAccountForm!.controls['phone']!.dirty && editMyAccountForm!.controls['phone']!.errors['pattern'] != null">
+          Veuillez entrer un numéro de téléphone sous le format suivant: 0001112222
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Adresse" formControlName="address" required>
+        <mat-error>
+          Veuillez entrer une adresse.
+        </mat-error>
+      </mat-form-field>
+
+      <button class ="button-cancel" (click) = "onCancelAccount()">Annuler</button>
+      <button class ="button-add" type="submit" (click) = "onEditAccount()">Enregistrer</button>
+    </form>
+  </mat-card-content>
+</mat-card>
