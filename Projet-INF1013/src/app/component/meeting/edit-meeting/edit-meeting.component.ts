@@ -51,7 +51,7 @@ export class EditMeetingComponent implements OnInit {
   }
   // Fonction pour réagir lorsque la personne clique sur le bouton "Annuler"
   onCancelEditMeeting(): void {
-    this.meetingService.cancelEditMeeting();
+    this.meetingService.cancelMeeting();
   }
   // Fonction pour réagir lorsque la personne clique sur le bouton "Enregistrer"
   onEditMeeting(): void {

@@ -42,4 +42,8 @@ export class AddIntervenantComponent implements OnInit {
       alert('Veuillez remplir tous les champs');
     }
   }
+
+  onCancelIntervenant() {
+    this.intervenantService.cancelIntervenant();
+  }
 }

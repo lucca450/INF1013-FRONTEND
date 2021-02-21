@@ -107,4 +107,7 @@ export class AddPersonComponent implements OnInit {
   }
 
 
+  onCancelPerson() {
+    this.personService.cancelPerson();
+  }
 }

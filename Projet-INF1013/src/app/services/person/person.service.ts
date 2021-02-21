@@ -158,4 +158,8 @@ export class PersonService {
   editPerson() {
     this.router.navigate(['person']);
   }
+
+  cancelPerson() {
+    this.router.navigate(['person']);
+  }
 }

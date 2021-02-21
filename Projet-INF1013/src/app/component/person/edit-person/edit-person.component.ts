@@ -139,4 +139,8 @@ export class EditPersonComponent implements OnInit {
   OnEditPerson() {
     this.personService.editPerson();
   }
+
+  onCancelPerson() {
+    this.personService.cancelPerson();
+  }
 }

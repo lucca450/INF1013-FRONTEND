@@ -54,4 +54,8 @@ export class MyAccountComponent implements OnInit {
       alert('Veuillez remplir tous les champs');
     }
   }
+
+  onCancelAccount() {
+    this.intervenantService.cancelIntervenant();
+  }
 }

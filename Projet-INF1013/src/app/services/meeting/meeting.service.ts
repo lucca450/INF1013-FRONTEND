@@ -66,8 +66,9 @@ export class MeetingService {
   editMeeting(): void{
     this.router.navigate(['meeting']);
   }
+
   // Fonction pour annuler une rencontre et revenir à l'étape précédente
-  cancelEditMeeting(): void{
+  cancelMeeting() {
     this.router.navigate(['meeting']);
   }
 }

@@ -52,4 +52,7 @@ export class AddMeetingComponent implements OnInit {
 
   }
 
+  onCancelMeeting() {
+    this.meetingService.cancelMeeting();
+  }
 }
