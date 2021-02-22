@@ -20,17 +20,20 @@
 
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Courriel" formControlName="email" required>
-        <mat-error>
-          Veuillez entrer un courriel valide.
+        <mat-error *ngIf="addintervenantForm.hasError('required', 'email')">
+          Veuillez entrer un email.
+        </mat-error>
+        <mat-error *ngIf="addintervenantForm.hasError('email', 'email')">
+          Veuillez entrer un email dans le format suivant: abc@abc.com
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Numéro de téléphone" formControlName="phone" required>
-        <mat-error *ngIf="addintervenantForm.controls['phone'].errors['required'] != null">
+        <mat-error *ngIf="addintervenantForm.hasError('required', 'phone')">
           Veuillez entrer un numéro de téléphone.
         </mat-error>
-        <mat-error *ngIf="addintervenantForm.controls['phone'].errors['pattern'] != null">
+        <mat-error *ngIf="addintervenantForm.hasError('pattern', 'phone')">
           Veuillez entrer un numéro de téléphone sous le format suivant: 0001112222
         </mat-error>
       </mat-form-field>

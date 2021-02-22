@@ -29,32 +29,32 @@ export class IntervenantService {
   }
 
   // Fonction pour sauvegarder les données des intervenants sur le serveur
-   saveIntervenantToServer(){
-    this.httpClient.put(this.urlIntervenantFromServer,this.intervenants)
+   saveIntervenantToServer(): void{
+    this.httpClient.put(this.urlIntervenantFromServer, this.intervenants)
       .subscribe(
         () => {
           console.log('Enregistrement réeussie');
         },
       (error) => {
-          console.log('Erreur ! : '+error);
+          console.log('Erreur ! : ' + error);
       }
     );
   }
 
   // Fonction pour récupérer les intervenants sur le serveurs
 
-   getIntervenantFromServer(){
+   getIntervenantFromServer(): void{
     this.httpClient
       .get<any[]>(this.urlIntervenantFromServer)
       .subscribe(
-        (response) =>{
+        (response) => {
           this.intervenants = response;
           this.emitIntervenantSubject();
         },
         (error) => {
-          console.log('erreur intervenant ! : '+error);
+          console.log('erreur intervenant ! : ' + error);
         }
-      )
+      );
   }
 
   // Fonction pour ajouter un intervenant
@@ -103,7 +103,7 @@ export class IntervenantService {
 
   }
 
-  private emitIntervenantSubject() {
+  private emitIntervenantSubject(): void {
     this.intervenantSubject.next(this.intervenants.slice());
   }
 }
