@@ -1,8 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatMenuTrigger} from '@angular/material/menu';
-import {AuthService} from '../../services/authentification/auth.service';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
+import {UserService} from '../../services/user/user.service';
+import {User} from '../../models/users/user';
 
 @Component({
   selector: 'app-header',
@@ -12,27 +13,44 @@ import {Subscription} from 'rxjs';
 export class HeaderComponent implements OnInit {
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   isAuth: boolean;
-  isAuthSubscription: Subscription | undefined;
+  isAuthSubscription: Subscription;
+
+  user: User;
+  userSubscription: Subscription;
+
+
   accountID: number = 0;
 
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
+    this.loadingObersable();
 
-    // @ts-ignore
-    this.isAuthSubscription = this.authService.authSubject.subscribe((value: boolean) => {
-      this.isAuth = value;
-    },
-      (value: boolean) => {
-      console.log('erreur');
-      });
   }
 
   // Fonction pour déconnecter l'utilisateur.
   OnSignOut() {
-    this.authService.signOut();
-    this.isAuth = this.authService.isAuth;
+    this.userService.signOut();
+    //this.isAuth = this.authService.isAuth;
     this.router.navigate(['/login'])
   }
+
+  private loadingObersable(){
+    this.isAuthSubscription = this.userService.authSubject.subscribe((value: boolean) => {
+        this.isAuth = value;
+      },
+      (value: boolean) => {
+        console.log('erreur');
+      });
+
+    this.userSubscription = this.userService.userSubject.subscribe((value: User) => {
+        this.user = value;
+        console.log(this.user);
+      },
+      (value: boolean) => {
+        console.log('erreur');
+      });
+  }
+
 }

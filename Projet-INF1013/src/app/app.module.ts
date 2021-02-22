@@ -26,7 +26,6 @@ import {MatSortModule} from '@angular/material/sort';
 import {PersonService} from './services/person/person.service';
 import {RouterModule, Routes} from '@angular/router';
 import { NotFoundComponent } from './component/error/not-found/not-found.component';
-import {AuthService} from './services/authentification/auth.service';
 import {AuthGuard} from './services/authentification/auth-guard.service';
 import { EditMeetingComponent } from './component/meeting/edit-meeting/edit-meeting.component';
 import {DetailsPersonComponent} from './component/person/details-person/details-person.component';
@@ -48,6 +47,10 @@ import { registerLocaleData } from '@angular/common';
 
 import localeFr from '@angular/common/locales/fr';
 import { ConvertInterfaceNamePipe } from './pipes/convert-interface-name.pipe';
+import {HttpClientModule} from '@angular/common/http';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
 
 registerLocaleData(localeFr);
 
@@ -117,12 +120,15 @@ const appRoutes: Routes = [
     MatDatepickerModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
-    MatStepperModule
+    MatStepperModule,
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase,'angularfs'),
+    AngularFirestoreModule
+
   ],
   providers: [
     // On injecte services (N'est plus obligatoire dans la nouvelle version d'angular)
     PersonService,
-    AuthService,
     AuthGuard,
     [ {provide: LOCALE_ID, useValue: 'fr-CA' } ]
   ],
