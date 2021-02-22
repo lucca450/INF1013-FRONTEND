@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "projet-angular-ecole": {
+      "hosting": {
+        "Projet-INF1030": [
+          "projet-angular-ecole"
+        ]
+      }
+    }
+  }
+}
