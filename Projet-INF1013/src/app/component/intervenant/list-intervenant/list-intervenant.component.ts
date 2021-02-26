@@ -15,7 +15,7 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit {
 
 
   intervenants = new MatTableDataSource(this.intervenantService.intervenants);
-  intervenantSubscription: Subscription;
+  //intervenantSubscription: Subscription;
   displayedColumns: string[] = [ 'fname', 'lname', 'email', 'phone', 'address', 'actions-icon']; // L'ordre des colonnes est déterminé ici
 
 
@@ -23,15 +23,26 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
 
+    this.intervenantService.intervenantFromDb$.subscribe(
+      (value:any) => {
+        this.intervenants = new MatTableDataSource(value);
+      }
+    );
+
+    /*
     // Récupérer les intervenants
     this.intervenantSubscription = this.intervenantService.intervenantSubject.subscribe(
       (intervenants: any) => {
         this.intervenants = intervenants;
       }
     )
+
+    */
+
     // Nous permet de définir sur quels attributs la recherche va se faire.
 
     // tslint:disable-next-line:only-arrow-functions
+
     this.intervenants.filterPredicate = function(data, filter: string): boolean {
       return data.fname.toLowerCase().includes(filter) ||
         data.lname.toLowerCase().includes(filter) ||
@@ -39,6 +50,7 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit {
         data.email.toLocaleLowerCase().includes(filter) ||
         data.address.toLocaleLowerCase().includes(filter)
     };
+
   }
 
   ngAfterViewInit(): void {

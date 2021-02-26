@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import {Intervenant} from '../../models/intervenant/intervenant';
 import {Router} from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {Subject} from 'rxjs';
+import {User} from '../../models/users/user';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +12,35 @@ import {Subject} from 'rxjs';
 export class IntervenantService {
 
   intervenants: Intervenant[];
+  intervenantCollection : AngularFirestoreCollection<Intervenant>
   intervenantSubject = new Subject<any[]>();
-  urlIntervenantFromServer = 'https://projet-angular-ecole-default-rtdb.firebaseio.com/intervenants.json';
-  constructor(private router: Router, private httpClient: HttpClient) {
+  intervenantFromDb$ : any;
+  constructor(private router: Router, public db: AngularFirestore) {
+
+    this.intervenantCollection = this.db.collection<Intervenant>('intervenants');
+    this.intervenantFromDb$ = this.db.collection('/intervenants').valueChanges();
+    this.intervenantFromDb$.subscribe(
+      (value:any) => {
+        this.intervenants = value;
+      }
+    );
+
+
+    /*
+
+
+    // Si on veut ajouter les intervenants à la base de données
+
+    this.intervenants = this.mockIntervenantData();
+    this.intervenants.forEach(obj => {
+      console.log(obj);
+      this.addIntervenantToServer(obj);
+    })
+  */
+
    // this.intervenants = this.mockIntervenantData();
    // this.saveIntervenantToServer();
-    this.getIntervenantFromServer();
+    //this.getIntervenantFromServer();
     console.log('all fine');
   }
 
@@ -28,6 +53,10 @@ export class IntervenantService {
     ];
   }
 
+  addIntervenantToServer(intervenant:  Intervenant){
+    this.intervenantCollection.add(intervenant);
+  }
+/*
   // Fonction pour sauvegarder les données des intervenants sur le serveur
    saveIntervenantToServer(): void{
     this.httpClient.put(this.urlIntervenantFromServer, this.intervenants)
@@ -40,8 +69,11 @@ export class IntervenantService {
       }
     );
   }
-
+*/
   // Fonction pour récupérer les intervenants sur le serveurs
+
+  getI
+  /*
 
    getIntervenantFromServer(): void{
     this.httpClient
@@ -56,10 +88,13 @@ export class IntervenantService {
         }
       );
   }
+  */
+
 
   // Fonction pour ajouter un intervenant
   addIntervenant(intervenant: any): void {
     if (this.intervenants.push(intervenant)){
+      this.addIntervenantToServer(intervenant);
       this.router.navigate(['intervenant']);
     }else{
       alert('Erreur lors de l\'ajout.');

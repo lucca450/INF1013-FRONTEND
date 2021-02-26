@@ -3,7 +3,7 @@ import {User} from '../../models/users/user';
 import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from '@angular/fire/firestore';
+import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {rejects} from 'assert';
 
 
@@ -27,7 +27,7 @@ export class UserService {
   constructor(private httpClient: HttpClient, private router: Router, public db: AngularFirestore) {
 
     this.usersRef = this.db.collection<User>('users')
-    this.getUser();
+    //this.getUser();
 
     /*
     this.db.collection('users').valueChanges()
@@ -69,11 +69,11 @@ export class UserService {
 
   }
 
-  addToServer(user: User){
+  addUserToServer(user: User){
     console.log('My users : '+user);
     this.usersRef.add(user)
   }
-
+f
 getUser(){
     /*
   const query = this.usersRef.ref.where('email', '==', 'pierro_kool@hotmail.com').where('password', '==', '123');
