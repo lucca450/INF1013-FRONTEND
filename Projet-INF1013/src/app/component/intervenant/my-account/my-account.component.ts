@@ -55,7 +55,7 @@ export class MyAccountComponent implements OnInit {
     }
   }
 
-  onCancelAccount() {
+  onCancelAccount(): void {
     this.intervenantService.cancelIntervenant();
   }
 }

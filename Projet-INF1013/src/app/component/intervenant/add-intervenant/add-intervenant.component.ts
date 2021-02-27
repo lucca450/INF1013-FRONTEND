@@ -24,7 +24,7 @@ export class AddIntervenantComponent implements OnInit {
 
   private initForm(): void {
     this.addintervenantForm = this.formBuilder.group({
-      id : [0],
+      id : this.intervenantService.intervenants.length,
       fname: ['', Validators.required],
       lname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -38,6 +38,8 @@ export class AddIntervenantComponent implements OnInit {
   onAddIntervenant(): void {
     this.submitted = true;
 
+
+
     if (this.addintervenantForm.valid) {
         this.intervenantService.addIntervenant(this.addintervenantForm.value);
     }else {
@@ -45,7 +47,7 @@ export class AddIntervenantComponent implements OnInit {
     }
   }
 
-  onCancelIntervenant() {
+  onCancelIntervenant(): void {
     this.intervenantService.cancelIntervenant();
   }
 }

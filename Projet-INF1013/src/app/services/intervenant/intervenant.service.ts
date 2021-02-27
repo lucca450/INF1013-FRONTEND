@@ -10,17 +10,12 @@ import {MatTableDataSource} from '@angular/material/table';
   providedIn: 'root'
 })
 export class IntervenantService {
-
-  intervenants: Intervenant[];
-  intervenantCollection : AngularFirestoreCollection<Intervenant> = this.db.collection<Intervenant>('intervenants');
-  intervenantSubject = new Subject<any[]>();
-  intervenantFromDb$ : any;
   constructor(private router: Router, public db: AngularFirestore) {
 
 
     this.intervenantFromDb$ = this.db.collection('/intervenants').valueChanges();
     this.intervenantFromDb$.subscribe(
-      (value:any) => {
+      (value: any) => {
         this.intervenants = value;
       }
     );
@@ -39,9 +34,42 @@ export class IntervenantService {
 
    // this.intervenants = this.mockIntervenantData();
    // this.saveIntervenantToServer();
-    //this.getIntervenantFromServer();
+    // this.getIntervenantFromServer();
     console.log('all fine');
   }
+
+
+
+
+  intervenants: Intervenant[];
+  intervenantCollection: AngularFirestoreCollection<Intervenant> = this.db.collection<Intervenant>('intervenants');
+  intervenantSubject = new Subject<any[]>();
+  intervenantFromDb$: any;
+
+
+
+
+
+  /*
+    // Fonction pour sauvegarder les données des intervenants sur le serveur
+     saveIntervenantToServer(): void{
+      this.httpClient.put(this.urlIntervenantFromServer, this.intervenants)
+        .subscribe(
+          () => {
+            console.log('Enregistrement réeussie');
+          },
+        (error) => {
+            console.log('Erreur ! : ' + error);
+        }
+      );
+    }
+  */
+  // Fonction pour récupérer les intervenants sur le serveurs
+
+  getI;
+
+
+
 
   // Fonction pour générer les données lié aux intervenants
   private mockIntervenantData(): Intervenant[]{
@@ -52,30 +80,13 @@ export class IntervenantService {
     ];
   }
 
-  addIntervenantToServer(intervenant:  Intervenant){
+  addIntervenantToServer(intervenant: Intervenant): void{
     this.intervenantCollection.add(intervenant);
   }
 
-  editIntervenantToServer(intervenant:  Intervenant){
+  editIntervenantToServer(intervenant: Intervenant): void{
     this.intervenantCollection.add(intervenant);
   }
-/*
-  // Fonction pour sauvegarder les données des intervenants sur le serveur
-   saveIntervenantToServer(): void{
-    this.httpClient.put(this.urlIntervenantFromServer, this.intervenants)
-      .subscribe(
-        () => {
-          console.log('Enregistrement réeussie');
-        },
-      (error) => {
-          console.log('Erreur ! : ' + error);
-      }
-    );
-  }
-*/
-  // Fonction pour récupérer les intervenants sur le serveurs
-
-  getI
   /*
 
    getIntervenantFromServer(): void{
@@ -103,15 +114,24 @@ export class IntervenantService {
       alert('Erreur lors de l\'ajout.');
     }
   }
+
   // Fonction pour récupérer l'intervenant à partir de son identifiant
   getIntervenantFromID(id: number): Intervenant{
    return this.intervenants.filter(p => p.id === id)[0];
-}
+  }
+
+  getIntervenantsTEST(): any{
+    return this.db.collection ('intervenants').snapshotChanges();
+  }
+
   // Fonction pour modifier un intervenant
   editIntervenant(intervenant: any): void {
+
     this.intervenants[intervenant.id] = intervenant;
-    //let intervenantToModify = this.getIntervenantFromID(intervenant.id);
-   // intervenantToModify = intervenant;
+
+   // let intervenantToModify = this.getIntervenantFromID(intervenant.id);
+    // intervenantToModify = intervenant;
+
     this.router.navigate(['intervenant']);
   }
 
@@ -124,10 +144,12 @@ export class IntervenantService {
     });
     return intervenant.fname  + ' ' + intervenant.lname;
   }
+
   // Fonction annuler l'étape concernant l'intervenant
   cancelIntervenant(): void {
     this.router.navigate(['intervenant']);
   }
+
   // Fonction pour modifier le compte de l'intervenant
   editAccount(myID: number, data: any): void {
 
@@ -139,9 +161,6 @@ export class IntervenantService {
     }catch (e) {
       alert('Erreur lors de la modification.');
     }
-
-
-
   }
 
   private emitIntervenantSubject(): void {

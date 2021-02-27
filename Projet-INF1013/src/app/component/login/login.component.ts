@@ -40,16 +40,16 @@ export class LoginComponent implements OnInit {
   }
 
   private initForm(): void {
-    this.loginForm = this.formBuilder.group({
+  /*  this.loginForm = this.formBuilder.group({
       email: [''],
       password: ['']
-    });
-/*
+    });*/
+
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
-    */
+
 
   }
 
@@ -65,14 +65,13 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       //'pierro_kool@hotmail.com3','789'/*email,password*/
 
-      this.userService.verifyUserExist('pierro_kool@hotmail.com','123'/*email,password*/).then(
+      this.userService.verifyUserExist('pierro_kool@hotmail.com', '123'/*email, password*/).then(
         (user) => {
-          console.log('he has a user');
           if (user) {
             this.userService.signIn();
           }
           else {
-            this.errorMessage = "Le courriel ou le mot de passe est invalide.";
+            this.errorMessage = 'Le courriel ou le mot de passe est invalide.';
           }
         },
         (error) => {
