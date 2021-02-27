@@ -24,11 +24,13 @@ export class AddIntervenantComponent implements OnInit {
 
   private initForm(): void {
     this.addintervenantForm = this.formBuilder.group({
+      id : [0],
       fname: ['', Validators.required],
       lname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
       address: ['', Validators.required]
+
     });
   }
 

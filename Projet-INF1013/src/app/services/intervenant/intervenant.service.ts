@@ -12,12 +12,12 @@ import {MatTableDataSource} from '@angular/material/table';
 export class IntervenantService {
 
   intervenants: Intervenant[];
-  intervenantCollection : AngularFirestoreCollection<Intervenant>
+  intervenantCollection : AngularFirestoreCollection<Intervenant> = this.db.collection<Intervenant>('intervenants');
   intervenantSubject = new Subject<any[]>();
   intervenantFromDb$ : any;
   constructor(private router: Router, public db: AngularFirestore) {
 
-    this.intervenantCollection = this.db.collection<Intervenant>('intervenants');
+
     this.intervenantFromDb$ = this.db.collection('/intervenants').valueChanges();
     this.intervenantFromDb$.subscribe(
       (value:any) => {
@@ -30,7 +30,6 @@ export class IntervenantService {
 
 
     // Si on veut ajouter les intervenants à la base de données
-
     this.intervenants = this.mockIntervenantData();
     this.intervenants.forEach(obj => {
       console.log(obj);
@@ -54,6 +53,10 @@ export class IntervenantService {
   }
 
   addIntervenantToServer(intervenant:  Intervenant){
+    this.intervenantCollection.add(intervenant);
+  }
+
+  editIntervenantToServer(intervenant:  Intervenant){
     this.intervenantCollection.add(intervenant);
   }
 /*
@@ -105,7 +108,10 @@ export class IntervenantService {
    return this.intervenants.filter(p => p.id === id)[0];
 }
   // Fonction pour modifier un intervenant
-  editIntervenant(): void {
+  editIntervenant(intervenant: any): void {
+    this.intervenants[intervenant.id] = intervenant;
+    //let intervenantToModify = this.getIntervenantFromID(intervenant.id);
+   // intervenantToModify = intervenant;
     this.router.navigate(['intervenant']);
   }
 

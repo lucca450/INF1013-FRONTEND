@@ -22,7 +22,7 @@ export class EditIntervenantComponent implements OnInit {
     // Nous permet d'aller chercher les informations selon l'id passé dans le path
     this.route.paramMap.subscribe(params => {
       index =  Number(params.get('id'));
-      this.intervenant =  this.intervenantService.intervenants[index];
+      this.intervenant =  this.intervenantService.getIntervenantFromID(index);
     });
     this.initForm();
   }
@@ -32,6 +32,7 @@ export class EditIntervenantComponent implements OnInit {
 
   private initForm(): void {
     this.editintervenantForm = this.formBuilder.group({
+      id: [this.intervenant.id],
       fname: [this.intervenant.fname],
       lname: [this.intervenant.lname],
       email: [this.intervenant.email],
@@ -41,7 +42,13 @@ export class EditIntervenantComponent implements OnInit {
   }
   // Fonction pour réagir lorsque la personne clique sur le bouton "Enregistrer"
   onEditIntervenant(): void {
-    this.intervenantService.editIntervenant();
+
+    if (this.editintervenantForm.valid) {
+      this.intervenantService.editIntervenant(this.editintervenantForm.value);
+    }else {
+      alert('Veuillez remplir tous les champs');
+    }
+
   }
   // Fonction pour réagir lorsque la personne clique sur le bouton "Annuler"
   onCancelIntervenant(): void {
