@@ -11,14 +11,14 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class IntervenantService {
   constructor(private router: Router, public db: AngularFirestore) {
-
+/*
     this.intervenantFromDb$ = this.db.collection('/intervenants').valueChanges();
     this.intervenantFromDb$.subscribe(
       (value: any) => {
         this.intervenants = value;
       }
     );
-
+*/
     /*
     // Si on veut ajouter les intervenants à la base de données
     this.intervenants = this.mockIntervenantData();
@@ -38,13 +38,14 @@ export class IntervenantService {
 
 
   intervenants: Intervenant[];
+  /*
   intervenantCollection: AngularFirestoreCollection<Intervenant> = this.db.collection<Intervenant>('intervenants');
   intervenantSubject = new Subject<any[]>();
   intervenantFromDb$: any;
 
 
 
-
+*/
 
   /*
     // Fonction pour sauvegarder les données des intervenants sur le serveur
@@ -75,7 +76,7 @@ export class IntervenantService {
       {interfaceName: 'Intervenant', id : 2, lname : 'nomIntervenant3', fname : 'prénomIntervenant3', email : 'pierro_kool@hotmail.com3', phone : '8196932093', address : '322 rue Amazone'}
     ];
   }
-
+/*
   addIntervenantToServer(intervenant: Intervenant): void{
     this.intervenantCollection.add(intervenant);
   }
@@ -83,6 +84,8 @@ export class IntervenantService {
   editIntervenantToServer(intervenant: Intervenant): void{
     this.intervenantCollection.add(intervenant);
   }
+  */
+
   /*
 
    getIntervenantFromServer(): void{
@@ -100,7 +103,7 @@ export class IntervenantService {
   }
   */
 
-
+/*
   // Fonction pour ajouter un intervenant
   addIntervenant(intervenant: any): void {
     if (this.intervenants.push(intervenant)){
@@ -110,7 +113,7 @@ export class IntervenantService {
       alert('Erreur lors de l\'ajout.');
     }
   }
-
+*/
   // Fonction pour récupérer l'intervenant à partir de son identifiant
   getIntervenantFromID(id: number): Intervenant{
    return this.intervenants.filter(p => p.id === id)[0];
@@ -158,8 +161,10 @@ export class IntervenantService {
       alert('Erreur lors de la modification.');
     }
   }
-
+/*
   private emitIntervenantSubject(): void {
     this.intervenantSubject.next(this.intervenants.slice());
   }
+
+ */
 }
