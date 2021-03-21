@@ -12,7 +12,6 @@ import {MatTableDataSource} from '@angular/material/table';
 export class IntervenantService {
   constructor(private router: Router, public db: AngularFirestore) {
 
-
     this.intervenantFromDb$ = this.db.collection('/intervenants').valueChanges();
     this.intervenantFromDb$.subscribe(
       (value: any) => {
@@ -20,10 +19,7 @@ export class IntervenantService {
       }
     );
 
-
     /*
-
-
     // Si on veut ajouter les intervenants à la base de données
     this.intervenants = this.mockIntervenantData();
     this.intervenants.forEach(obj => {
