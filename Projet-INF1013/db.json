@@ -1,0 +1,61 @@
+{
+  "Intervenants": [
+    {
+      "id": "0",
+      "lname": "nomIntervenant",
+      "fname": "prénomIntervenanttest",
+      "email": "pierro_kool@hotmail.com",
+      "phone": "8196932091",
+      "address": "320 rue Amazone"
+    },
+    {
+      "interfaceName": "Intervenant",
+      "id": "1",
+      "lname": "nomIntervenant2",
+      "fname": "prénomIntervenant2",
+      "email": "pierro_kool@hotmail.com2",
+      "phone": "8196932092",
+      "address": "321 rue Amazone"
+    },
+    {
+      "interfaceName": "Intervenant",
+      "id": "2",
+      "lname": "nomIntervenant3",
+      "fname": "prénomIntervenant3",
+      "email": "pierro_kool@hotmail.com3",
+      "phone": "8196932093",
+      "address": "322 rue Amazone"
+    },
+    {
+      "id": 3,
+      "lname": "Dubois-Nadeau",
+      "fname": "test23ht3f",
+      "email": "tttttttttttttttttttttttttttt@hotmail.com",
+      "phone": "1111111111",
+      "address": "pierro_kool@hotmail.com"
+    }
+  ],
+  "Users": [
+    {
+      "interfaceName": "User",
+      "id": 0,
+      "email": "pierro_kool@hotmail.com",
+      "password": "123",
+      "role": "A"
+    },
+    {
+      "interfaceName": "User",
+      "id": 1,
+      "email": "pierro_kool@hotmail.com2",
+      "password": "456",
+      "role": "I"
+    },
+    {
+      "interfaceName": "User",
+      "id": 2,
+      "email": "pierro_kool@hotmail.com3",
+      "password": "789",
+      "role": "I"
+    }
+  ]
+}
