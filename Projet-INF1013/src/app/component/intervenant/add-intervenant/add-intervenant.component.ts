@@ -12,6 +12,7 @@ export class AddIntervenantComponent implements OnInit {
   addintervenantForm: FormGroup;
   intervenantInvalid: boolean;
   submitted = false;
+  errorMessage: String;
 
   constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService) { }
 
@@ -37,11 +38,14 @@ export class AddIntervenantComponent implements OnInit {
   // Fonction pour réagir lorsque la personne clique sur le bouton "Ajouter"
   onAddIntervenant(): void {
     this.submitted = true;
-
-
-
     if (this.addintervenantForm.valid) {
-        this.intervenantService.addIntervenant(this.addintervenantForm.value);
+      this.intervenantService.addIntervenantToServer(this.addintervenantForm.value).then(
+        (intervenant) => {},
+        (error)=>{
+          this.errorMessage = error;
+      }
+    )
+
     }else {
       alert('Veuillez remplir tous les champs');
     }

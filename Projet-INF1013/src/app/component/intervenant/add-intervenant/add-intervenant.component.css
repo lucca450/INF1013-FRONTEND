@@ -1,3 +1,9 @@
+.validation{
+  max-width: 600px;
+  width:600px;
+  margin: 2em auto;
+}
+
 mat-card {
   max-width: 600px;
   width:600px;

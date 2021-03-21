@@ -48,9 +48,8 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { ConvertInterfaceNamePipe } from './pipes/convert-interface-name.pipe';
 import {HttpClientModule} from '@angular/common/http';
-import {AngularFireModule} from '@angular/fire';
-import {environment} from '../environments/environment';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {MatDialogModule} from '@angular/material/dialog';
+import { DeleteIntervenantComponent } from './component/intervenant/delete-intervenant/delete-intervenant.component';
 
 registerLocaleData(localeFr);
 
@@ -100,6 +99,7 @@ const appRoutes: Routes = [
     PhonePipe,
     ConvertBooleanPipe,
     ConvertInterfaceNamePipe,
+    DeleteIntervenantComponent,
   ],
   imports: [
     BrowserModule,
@@ -122,9 +122,7 @@ const appRoutes: Routes = [
     FormsModule,
     MatStepperModule,
     HttpClientModule,
-    AngularFireModule.initializeApp(environment.firebase,'angularfs'),
-    AngularFirestoreModule
-
+    MatDialogModule
   ],
   providers: [
     // On injecte services (N'est plus obligatoire dans la nouvelle version d'angular)

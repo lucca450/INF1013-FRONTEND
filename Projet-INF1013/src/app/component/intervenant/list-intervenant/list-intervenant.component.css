@@ -1,3 +1,15 @@
+.validation{
+  max-height: 500px;
+  min-width: 300px;
+  width: 77%;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.actions{
+  margin-left:10px;
+}
+
 .icons{
   padding-left: 3px;
 }

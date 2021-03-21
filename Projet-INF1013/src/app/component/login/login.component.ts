@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private userService: UserService) { }
 
   ngOnInit(): void {
+
   //  const userRef = this.userService.test();
   //  this.user = this.userService.getByUserRef(userRef).valueChanges();
 
@@ -30,8 +31,6 @@ export class LoginComponent implements OnInit {
       }
     );
     */
-
-   // this.userService.getUser();
 
     this.initForm();
   }
@@ -63,37 +62,22 @@ export class LoginComponent implements OnInit {
     let password = this.loginForm.value.password;
 
     if (this.loginForm.valid) {
-      //'pierro_kool@hotmail.com3','789'/*email,password*/
+      // Évidament, il faut mettre email et password à la place, lorsqu'on va faire la vrai connexion
+      this.userService.verifyUserExist('pierro_kool@hotmail.com', '123').then(
 
-      this.userService.verifyUserExist('pierro_kool@hotmail.com', '123'/*email, password*/).then(
         (user) => {
           if (user) {
-            this.userService.signIn();
+            this.userService.signIn(user);
           }
           else {
             this.errorMessage = 'Le courriel ou le mot de passe est invalide.';
           }
         },
         (error) => {
+          console.log("Step 3");
           this.errorMessage = error;
         }
       );
-
-      /*
-            if(this.userService.verifyUserExist('pierro_kool@hotmail.com','1234')){
-              console.log('TRUE');
-              this.userService.signIn();
-            }
-            else {
-              console.log('false');
-            }
-          }
-
-       */
-
-
     }
   }
-
-
 }

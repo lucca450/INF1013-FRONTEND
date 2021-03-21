@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatMenuTrigger} from '@angular/material/menu';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
@@ -10,7 +10,7 @@ import {User} from '../../models/users/user';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   isAuth: boolean;
   isAuthSubscription: Subscription;
@@ -32,7 +32,6 @@ export class HeaderComponent implements OnInit {
   // Fonction pour déconnecter l'utilisateur.
   OnSignOut() {
     this.userService.signOut();
-    //this.isAuth = this.authService.isAuth;
     this.router.navigate(['/login'])
   }
 
@@ -51,6 +50,11 @@ export class HeaderComponent implements OnInit {
       (value: boolean) => {
         console.log('erreur');
       });
+  }
+
+  ngOnDestroy() {
+    this.isAuthSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
   }
 
 }

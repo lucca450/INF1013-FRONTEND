@@ -13,6 +13,7 @@ export class EditIntervenantComponent implements OnInit {
 
   intervenant: Intervenant;
   editintervenantForm: FormGroup;
+  errorMessage: string;
   intervenantInvalid: boolean;
 
   constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService, private route: ActivatedRoute) { }
@@ -42,13 +43,17 @@ export class EditIntervenantComponent implements OnInit {
   }
   // Fonction pour réagir lorsque la personne clique sur le bouton "Enregistrer"
   onEditIntervenant(): void {
-
     if (this.editintervenantForm.valid) {
-      this.intervenantService.editIntervenant(this.editintervenantForm.value);
+      this.intervenantService.editIntervenantToServer(this.editintervenantForm.value).then(
+        (intervenant) => {},
+        (error)=>{
+          this.errorMessage = error;
+        }
+      )
+
     }else {
       alert('Veuillez remplir tous les champs');
     }
-
   }
   // Fonction pour réagir lorsque la personne clique sur le bouton "Annuler"
   onCancelIntervenant(): void {

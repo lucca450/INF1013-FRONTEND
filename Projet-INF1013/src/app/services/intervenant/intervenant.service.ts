@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import {Intervenant} from '../../models/intervenant/intervenant';
 import {Router} from '@angular/router';
-import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {Subject} from 'rxjs';
 import {User} from '../../models/users/user';
 import {MatTableDataSource} from '@angular/material/table';
+import {EducationLevel} from '../../models/educationLevel/education-level';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IntervenantService {
-  constructor(private router: Router, public db: AngularFirestore) {
+  intervenants: Intervenant[];
+  intervenantSubject = new Subject<any[]>();
+  constructor(private router: Router/*, public db: AngularFirestore*/) {
 /*
     this.intervenantFromDb$ = this.db.collection('/intervenants').valueChanges();
     this.intervenantFromDb$.subscribe(
@@ -31,13 +33,11 @@ export class IntervenantService {
    // this.intervenants = this.mockIntervenantData();
    // this.saveIntervenantToServer();
     // this.getIntervenantFromServer();
+    this.getIntervenants();
     console.log('all fine');
   }
 
 
-
-
-  intervenants: Intervenant[];
   /*
   intervenantCollection: AngularFirestoreCollection<Intervenant> = this.db.collection<Intervenant>('intervenants');
   intervenantSubject = new Subject<any[]>();
@@ -63,7 +63,19 @@ export class IntervenantService {
   */
   // Fonction pour récupérer les intervenants sur le serveurs
 
-  getI;
+  getIntervenants(){
+
+    fetch('http://localhost:3000/Intervenants')
+      .then((response =>
+          response.json()
+      ))
+      .then((json) =>
+      {
+        console.log('call intervenant');
+        this.intervenants = json;
+        this.emitIntervenantSubject();
+      })
+  }
 
 
 
@@ -76,10 +88,102 @@ export class IntervenantService {
       {interfaceName: 'Intervenant', id : 2, lname : 'nomIntervenant3', fname : 'prénomIntervenant3', email : 'pierro_kool@hotmail.com3', phone : '8196932093', address : '322 rue Amazone'}
     ];
   }
+  addIntervenantToServer(intervenant: Intervenant){
+    return new Promise(
+      ((resolve, reject) => {
+    fetch("http://localhost:3000/Intervenants", {
+      method: "POST",
+    body: JSON.stringify({
+      interfaceName: intervenant.interfaceName,
+      id: intervenant.id,
+      lname: intervenant.lname,
+      fname: intervenant.fname,
+      email: intervenant.email,
+      phone: intervenant.phone,
+      address: intervenant.address
+  }),
+    headers: {
+    "Content-type": "application/json; charset=UTF-8"
+    }
+  })
+      .then((result) => result.json())
+      .then((response)=> {
+        if(response)
+        {
+          this.addIntervenant(intervenant);
+          resolve(true);
+        }
+        else
+        {
+          reject("Erreur au niveau du serveur lors de l'ajout. Veuillez réessayer plus tard.")
+        }
+      })
+    })
+  )
+}
+
+editIntervenantToServer(intervenant: Intervenant){
+  return new Promise(
+    ((resolve, reject) => {
+  fetch("http://localhost:3000/Intervenants/"+intervenant.id, {
+    method: "PUT",
+    body: JSON.stringify({
+      interfaceName: intervenant.interfaceName,
+      id: intervenant.id,
+      lname: intervenant.lname,
+      fname: intervenant.fname,
+      email: intervenant.email,
+      phone: intervenant.phone,
+      address: intervenant.address
+    }),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8"
+    }
+  })
+    .then((result) => result.json())
+    .then((response)=> {
+      if(response)
+      {
+        this.editIntervenant(intervenant);
+        resolve(true);
+      }
+      else
+      {
+        reject("Erreur au niveau du serveur lors de la modification. Veuillez réessayer plus tard.")
+      }
+     })
+    })
+  )
+}
+
+deleteIntervenantToServer(id: number)
+{
+  return new Promise(
+    ((resolve, reject) => {
+  fetch("http://localhost:3000/Intervenants/"+id, {
+  method: "DELETE"
+  })
+    .then((result) => result.json())
+    .then((response)=> {
+      if(response)
+      {
+        this.deleteIntervenant(id);
+        resolve(true);
+      }
+      else
+      {
+        reject("Erreur au niveau du serveur lors de la suppression. Veuillez réessayer plus tard.")
+      }
+    })
+    })
+  )
+}
+
 /*
   addIntervenantToServer(intervenant: Intervenant): void{
     this.intervenantCollection.add(intervenant);
   }
+
 
   editIntervenantToServer(intervenant: Intervenant): void{
     this.intervenantCollection.add(intervenant);
@@ -103,35 +207,45 @@ export class IntervenantService {
   }
   */
 
-/*
-  // Fonction pour ajouter un intervenant
-  addIntervenant(intervenant: any): void {
-    if (this.intervenants.push(intervenant)){
-      this.addIntervenantToServer(intervenant);
-      this.router.navigate(['intervenant']);
-    }else{
-      alert('Erreur lors de l\'ajout.');
-    }
-  }
-*/
+
+addIntervenant(intervenant: any): void {
+
+  this.intervenants.push(intervenant);
+  this.router.navigate(['intervenant']);
+}
+
   // Fonction pour récupérer l'intervenant à partir de son identifiant
   getIntervenantFromID(id: number): Intervenant{
-   return this.intervenants.filter(p => p.id === id)[0];
+    let index = this.getIntervenantIndexFromId(id);
+    return this.intervenants[index];
   }
 
+  getIntervenantIndexFromId(id: number): any {
+
+  for(let i = 0 ; i<this.intervenants.length; i++)
+    if(this.intervenants[i].id == id)
+    return i;
+  }
+
+
+/*
   getIntervenantsTEST(): any{
     return this.db.collection ('intervenants').snapshotChanges();
   }
 
+ */
+
   // Fonction pour modifier un intervenant
   editIntervenant(intervenant: any): void {
-
-    this.intervenants[intervenant.id] = intervenant;
-
-   // let intervenantToModify = this.getIntervenantFromID(intervenant.id);
-    // intervenantToModify = intervenant;
-
+    const index = this.getIntervenantIndexFromId(intervenant.id);
+    this.intervenants[index] = intervenant;
     this.router.navigate(['intervenant']);
+  }
+
+  deleteIntervenant(id: number){
+    const index = this.getIntervenantIndexFromId(id);
+    this.intervenants.splice(index,1);
+    this.emitIntervenantSubject();
   }
 
   // Fonction pour récupérer le nom complet de l'intervenant à partir de son identifiant
@@ -161,10 +275,8 @@ export class IntervenantService {
       alert('Erreur lors de la modification.');
     }
   }
-/*
+
   private emitIntervenantSubject(): void {
     this.intervenantSubject.next(this.intervenants.slice());
   }
-
- */
 }

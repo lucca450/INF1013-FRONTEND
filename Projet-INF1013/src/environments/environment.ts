@@ -2,8 +2,6 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import {AngularFireDatabaseModule} from '@angular/fire/database';
-
 export const environment = {
   production: false,
   firebase : {

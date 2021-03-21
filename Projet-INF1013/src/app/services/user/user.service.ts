@@ -3,8 +3,8 @@ import {User} from '../../models/users/user';
 import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {rejects} from 'assert';
+import {subscribeOn} from 'rxjs/operators';
 
 
 
@@ -15,18 +15,21 @@ import {rejects} from 'assert';
 export class UserService {
 
   users: User[]; // Liste de tout les utilisateurs
-  usersRef : AngularFirestoreCollection<User>
-  userConnected : Observable<any>
   user: User; //L'utilisateur connecté
   userSubject = new Subject<any>();
-  items: Observable<User[]>
-
   isAuth : boolean = false;
   authSubject: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private httpClient: HttpClient, private router: Router, public db: AngularFirestore) {
+  /* Variable utilisé pour testeravec FIREBASE
+    usersRef : AngularFirestoreCollection<User>
+    userConnected : Observable<any><
+    items: Observable<User[]>
+  */
 
-    this.usersRef = this.db.collection<User>('users')
+  constructor(private httpClient: HttpClient, private router: Router/*, public db: AngularFirestore*/) {
+    this.getUsers();
+/* TEST FIREBASE
+    //this.usersRef = this.db.collection<User>('users')
     //this.getUser();
 
     /*
@@ -42,13 +45,20 @@ export class UserService {
       this.addToServer(obj);
     })
 */
-
   }
 
-  getItems(){
-    return this.items;
-  }
+  getUsers(){
 
+    fetch('http://localhost:3000/Users')
+      .then((response =>
+        response.json()
+      ))
+      .then((json) =>
+      {
+        console.log('call');
+        this.users = json;
+      })
+  }
   // Fonction pour générer les données lié aux utilisateurs
   private mockUserData(): User[]{
     return[
@@ -58,70 +68,6 @@ export class UserService {
     ];
 
   }
-
-  // Fonction pour sauvegarder les données des utilisateurs sur le serveur
-  saveUserToServer(){
-
-/*   // firebase.database().ref('/users123').set(this.users);
-    this.database.list('users').valueChanges();
-    .subscribe()
-*/
-
-  }
-
-  addUserToServer(user: User){
-    console.log('My users : '+user);
-    this.usersRef.add(user)
-  }
-f
-getUser(){
-    /*
-  const query = this.usersRef.ref.where('email', '==', 'pierro_kool@hotmail.com').where('password', '==', '123');
-  query.get().then(querySnapshot => {
-    if (querySnapshot.empty) {
-      console.log('no data found');
-    } else if (querySnapshot.size > 1) {
-      console.log('no unique data');
-    } else {
-      querySnapshot.forEach(documentSnapshot => {
-        this.user$ = this.db.doc(documentSnapshot.ref);
-        console.log(this.user$);
-        // this.afs.doc(documentSnapshot.ref).valueChanges().subscribe(console.log);
-      });
-    }
-  });
-  */
-
-
-}
-
-
-
-  // Fonction pour récupérer les utilisateurs sur le serveurs
-  getUsersFromServer(){
-    //this.database.co
-    /*
-    firebase.database().ref('/users')
-      .on('value',(data: DataSnapshot) => {
-        this.users = data.val() ? data.val(): [];
-        }
-      )
-      */
-
-  }
-/*
-  // Fonction pour récupérer les utilisateurs sur le serveurs
-  getUsersFromServer2(){
-    this.item$ = this.db.collection('users').valueChanges();
-  }
-*/
-/*
-  // Fonction pour récupérer l'utilisateur à partir de son identifiant
-  getUserFromID(id: number): User{
-    return this.users.filter(p => p.id === id)[0];
-  }
-  */
-
   // Fonction pour gèrer lorsqu'on émet les données pour que les autres qui écoute le sujet soit au courant de quel utilisateur qui est connecté.
   private emitUserSubject() {
     this.userSubject.next(this.user);
@@ -141,7 +87,31 @@ getUser(){
   // Fonction pour se connecter
    verifyUserExist(email: String, password: String){
 
-    /*
+    return new Promise(
+      ((resolve, reject) => {
+        console.log("Les users : "+this.users);
+        const randomUser = Math.floor(Math.random() * this.users.length);
+        const randomSituation = Math.floor(Math.random() * 3) + 1;
+
+        if(randomSituation == 1)
+        {
+          resolve(this.users[0]); // Connexion en tant qu'administrateur, mais on pourrait le simuler aléatoirement anvec la variable "randomUser"
+        }
+
+        else if(randomSituation == 2)
+        {
+          reject("Le nom d'utilisateur ou le mot de passe est invalide.");
+        }
+
+        else if(randomSituation == 3)
+        {
+          reject("Erreur de communication avec le serveur ! veuillez réessayer plus tard.")
+        }
+
+      })
+    )
+
+    /* TEST AVEC FIREBASE
     return new Promise(
       (resolve,reject) => {
         this.httpClient
@@ -178,6 +148,7 @@ getUser(){
       */
 
    // return false;
+     /*
  return new Promise(
  (resolve,reject) => {
      this.db.collection('/users', ref => ref.where('email', '==', email)
@@ -210,24 +181,85 @@ getUser(){
 
    );
 
+      */
+
   }
 
-  test()
-  {
-    return this.db.collection('/users',ref => ref.
-    where('email','==','test')
-      .where('password','==','wtf'))
-  }
-
-  signIn(/*user: any*/){
+  signIn(user: any){
     this.isAuth = true;
-    //this.user = user;
+    this.user = user;
     this.emitAuthSubject();
     this.emitUserSubject();
     this.router.navigate(['person']);
   }
+}
 
-  getReferenceUser() {
+/*
+TEST FIREBASE
+
+
+  // Fonction pour sauvegarder les données des utilisateurs sur le serveur
+  /*
+  saveUserToServer(){
+
+   // firebase.database().ref('/users123').set(this.users);
+    this.database.list('users').valueChanges();
+    .subscribe()
+
 
   }
+  */
+
+/*
+  addUserToServer(user: User){
+    console.log('My users : '+user);
+    this.usersRef.add(user)
+  }
+
+ */
+/*
+getUser(){
+
+  const query = this.usersRef.ref.where('email', '==', 'pierro_kool@hotmail.com').where('password', '==', '123');
+  query.get().then(querySnapshot => {
+    if (querySnapshot.empty) {
+      console.log('no data found');
+    } else if (querySnapshot.size > 1) {
+      console.log('no unique data');
+    } else {
+      querySnapshot.forEach(documentSnapshot => {
+        this.user$ = this.db.doc(documentSnapshot.ref);
+        console.log(this.user$);
+        // this.afs.doc(documentSnapshot.ref).valueChanges().subscribe(console.log);
+      });
+    }
+  });
+
 }
+
+
+
+// Fonction pour récupérer les utilisateurs sur le serveurs
+getUsersFromServer(){
+  //this.database.co
+  /*
+  firebase.database().ref('/users')
+    .on('value',(data: DataSnapshot) => {
+      this.users = data.val() ? data.val(): [];
+      }
+    )
+
+
+}
+/*
+  // Fonction pour récupérer les utilisateurs sur le serveurs
+  getUsersFromServer2(){
+    this.item$ = this.db.collection('users').valueChanges();
+  }
+*/
+/*
+  // Fonction pour récupérer l'utilisateur à partir de son identifiant
+  getUserFromID(id: number): User{
+    return this.users.filter(p => p.id === id)[0];
+  }
+  */

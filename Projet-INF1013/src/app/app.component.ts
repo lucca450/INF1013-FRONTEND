@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import firebase from 'firebase';
-import {AngularFireModule} from '@angular/fire';
 
 @Component({
   selector: 'app-root',

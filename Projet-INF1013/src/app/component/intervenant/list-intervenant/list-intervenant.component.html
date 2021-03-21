@@ -1,5 +1,7 @@
+<div *ngIf="errorMessage" class="validation">
+  <div>{{errorMessage}}</div>
+</div>
 <div class="container-intervenant">
-
   <!-- La recherche -->
   <div class ="container-search">
     <mat-form-field>
@@ -59,6 +61,8 @@
         <span class="mobile-label"></span>
         <img class="table-icon icons-click" src="assets/edit-icon.png" alt="Icone modifier" title="Modifier"
              [routerLink]="['/intervenant/edit',row.id]" routerLinkActive="active"/>
+        <img class="table-icon icons-click actions" src="assets/icons8-trash-can-52.png" alt="Icone supprimer" title="Supprimer"
+             (click)="onDelete(row.id)"/>
       </mat-cell>
     </ng-container>
 
@@ -70,7 +74,6 @@
     </tr>
 
   </mat-table>
-
 
   <div class ="container-button">
     <button  [routerLink] = "['/intervenant/add/']"  mat-fab color="basic" class="button-add-icon" aria-label="Ajouter un intervenant">
