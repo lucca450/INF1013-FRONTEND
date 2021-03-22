@@ -41,10 +41,10 @@ export class AddIntervenantComponent implements OnInit {
     if (this.addintervenantForm.valid) {
       this.intervenantService.addIntervenantToServer(this.addintervenantForm.value).then(
         (intervenant) => {},
-        (error)=>{
+        (error) => {
           this.errorMessage = error;
       }
-    )
+    );
 
     }else {
       alert('Veuillez remplir tous les champs');

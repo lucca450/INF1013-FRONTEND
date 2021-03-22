@@ -74,7 +74,7 @@ export class IntervenantService {
         console.log('call intervenant');
         this.intervenants = json;
         this.emitIntervenantSubject();
-      })
+      });
   }
 
 
@@ -91,10 +91,10 @@ export class IntervenantService {
   addIntervenantToServer(intervenant: Intervenant){
     return new Promise(
       ((resolve, reject) => {
-    fetch("http://localhost:3000/Intervenants", {
-      method: "POST",
+    fetch('http://localhost:3000/Intervenants', {
+      method: 'POST',
     body: JSON.stringify({
-      interfaceName: intervenant.interfaceName,
+      interfaceName: 'Intervenant',
       id: intervenant.id,
       lname: intervenant.lname,
       fname: intervenant.fname,
@@ -103,32 +103,32 @@ export class IntervenantService {
       address: intervenant.address
   }),
     headers: {
-    "Content-type": "application/json; charset=UTF-8"
+    'Content-type': 'application/json; charset=UTF-8'
     }
   })
       .then((result) => result.json())
-      .then((response)=> {
-        if(response)
+      .then((response) => {
+        if (response)
         {
           this.addIntervenant(intervenant);
           resolve(true);
         }
         else
         {
-          reject("Erreur au niveau du serveur lors de l'ajout. Veuillez réessayer plus tard.")
+          reject('Erreur au niveau du serveur lors de l\'ajout. Veuillez réessayer plus tard.');
         }
-      })
+      });
     })
-  )
+  );
 }
 
 editIntervenantToServer(intervenant: Intervenant){
   return new Promise(
     ((resolve, reject) => {
-  fetch("http://localhost:3000/Intervenants/"+intervenant.id, {
-    method: "PUT",
+  fetch('http://localhost:3000/Intervenants/' + intervenant.id, {
+    method: 'PUT',
     body: JSON.stringify({
-      interfaceName: intervenant.interfaceName,
+      interfaceName: 'Intervenant',
       id: intervenant.id,
       lname: intervenant.lname,
       fname: intervenant.fname,
@@ -137,46 +137,46 @@ editIntervenantToServer(intervenant: Intervenant){
       address: intervenant.address
     }),
     headers: {
-      "Content-type": "application/json; charset=UTF-8"
+      'Content-type': 'application/json; charset=UTF-8'
     }
   })
     .then((result) => result.json())
-    .then((response)=> {
-      if(response)
+    .then((response) => {
+      if (response)
       {
         this.editIntervenant(intervenant);
         resolve(true);
       }
       else
       {
-        reject("Erreur au niveau du serveur lors de la modification. Veuillez réessayer plus tard.")
+        reject('Erreur au niveau du serveur lors de la modification. Veuillez réessayer plus tard.');
       }
-     })
+     });
     })
-  )
+  );
 }
 
 deleteIntervenantToServer(id: number)
 {
   return new Promise(
     ((resolve, reject) => {
-  fetch("http://localhost:3000/Intervenants/"+id, {
-  method: "DELETE"
+  fetch('http://localhost:3000/Intervenants/' + id, {
+  method: 'DELETE'
   })
     .then((result) => result.json())
-    .then((response)=> {
-      if(response)
+    .then((response) => {
+      if (response)
       {
         this.deleteIntervenant(id);
         resolve(true);
       }
       else
       {
-        reject("Erreur au niveau du serveur lors de la suppression. Veuillez réessayer plus tard.")
+        reject('Erreur au niveau du serveur lors de la suppression. Veuillez réessayer plus tard.');
       }
+    });
     })
-    })
-  )
+  );
 }
 
 /*
@@ -216,15 +216,17 @@ addIntervenant(intervenant: any): void {
 
   // Fonction pour récupérer l'intervenant à partir de son identifiant
   getIntervenantFromID(id: number): Intervenant{
-    let index = this.getIntervenantIndexFromId(id);
+    const index = this.getIntervenantIndexFromId(id);
     return this.intervenants[index];
   }
 
   getIntervenantIndexFromId(id: number): any {
 
-  for(let i = 0 ; i<this.intervenants.length; i++)
-    if(this.intervenants[i].id == id)
+  for (let i = 0 ; i < this.intervenants.length; i++) {
+    if (this.intervenants[i].id == id) {
     return i;
+    }
+  }
   }
 
 
@@ -244,7 +246,7 @@ addIntervenant(intervenant: any): void {
 
   deleteIntervenant(id: number){
     const index = this.getIntervenantIndexFromId(id);
-    this.intervenants.splice(index,1);
+    this.intervenants.splice(index, 1);
     this.emitIntervenantSubject();
   }
 

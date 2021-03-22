@@ -30,9 +30,17 @@
       "id": 3,
       "lname": "Dubois-Nadeau",
       "fname": "test23ht3f",
-      "email": "tttttttttttttttttttttttttttt@hotmail.com",
+      "email": "aaaaaaaaa@hotmail.com",
       "phone": "1111111111",
       "address": "pierro_kool@hotmail.com"
+    },
+    {
+      "id": 4,
+      "lname": "Silva",
+      "fname": "Lucca",
+      "email": "luccapossa450@gmail.com",
+      "phone": "5555555555",
+      "address": "5 rue du cinq"
     }
   ],
   "Users": [

@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
           }
         },
         (error) => {
-          console.log("Step 3");
+          console.log('Step 3');
           this.errorMessage = error;
         }
       );

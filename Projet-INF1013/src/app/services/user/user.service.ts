@@ -15,9 +15,9 @@ import {subscribeOn} from 'rxjs/operators';
 export class UserService {
 
   users: User[]; // Liste de tout les utilisateurs
-  user: User; //L'utilisateur connecté
+  user: User; // L'utilisateur connecté
   userSubject = new Subject<any>();
-  isAuth : boolean = false;
+  isAuth: boolean = false;
   authSubject: Subject<boolean> = new Subject<boolean>();
 
   /* Variable utilisé pour testeravec FIREBASE
@@ -57,7 +57,7 @@ export class UserService {
       {
         console.log('call');
         this.users = json;
-      })
+      });
   }
   // Fonction pour générer les données lié aux utilisateurs
   private mockUserData(): User[]{
