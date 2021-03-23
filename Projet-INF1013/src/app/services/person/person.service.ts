@@ -15,18 +15,18 @@ export class PersonService {
   constructor(private router: Router)
   {
     /*this.doctors = this.mockDoctorData(); */
-    this.persons = this.mockPersonData();
+   // this.persons = this.mockPersonData();
   }
   // Fonction pour générer les données lié aux docteurs
-  private mockDoctorData(): Doctor{
+/*  private mockDoctorData(): Doctor{
     return {interfaceName: 'Doctor', lname: 'protou', fname: 'colin', email: 'test1@doctor.ca', fax: 8888888888, phone: 9333333333};
-  }
+  }*/
   // Fonction pour générer les données lié aux contactes d'urgences
-  private mockEmergencyContactData(): EmergencyContact{
+/*  private mockEmergencyContactData(): EmergencyContact{
     return this.emergencyContact = {interfaceName: 'EmergencyContact', lname: 'smith', fname: 'john', phone: 8190002222, relation: 'Frère'};
-  }
+  }*/
   // Fonction pour générer les données lié aux personnes
-  private mockPersonData(): Person[]{
+ /* private mockPersonData(): Person[]{
     return [
       {
         interfaceName: 'Person',
@@ -140,7 +140,7 @@ export class PersonService {
         followedBy: this.mockDoctorData()
       }
     ];
-  }
+  }*/
   // Fonction pour récupérer le nom complet de la personne
   public personFullName(id: number): string {
     let person: Person;

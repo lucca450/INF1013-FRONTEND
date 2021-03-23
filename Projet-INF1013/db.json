@@ -65,5 +65,197 @@
       "password": "789",
       "role": "I"
     }
+  ],
+  "Person": [
+    {
+      "interfaceName": "Person",
+      "id": 0,
+      "active": "Oui",
+      "lname": "blo",
+      "fname": "joe",
+      "birthday": "1990-01-24",     //"birthday": new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+      "sexe",: "Homme",
+      "address": "1000 rue des forges",
+      "phone": 8195554455 ,
+      "NAS": 123456789 ,
+      "healthIssues": "Diabète",
+      "workCityID": 0,
+      "startDate": "2020-01-24",    //new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+      "endDate": "2020-06-24",      //new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+      "referenceID": 1,
+      "residenceTypeID": 0,
+      "educationalLevelID": 0,
+
+      "programStartDate": "2019-06-24",      //new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+      "programEndDate":   "2020-06-24",      //new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+
+      "departureReasonID": 1,
+      "hoursPerDay": 8,
+      "statusID": 1,
+      "roamingTracking": true,
+      "roamingStartDate":  "2021-01-20",         //new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+      "roamingEndDate":  "2021-02-15",           //new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+      "communityWork": true,
+      "communityStartDate":  "2021-02-05",       //new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+      "communityEndDate":  "2021-03-09",         //new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+      "hourlyRate": 20,
+      "transportFees": 5,
+      "responsibleIntervenantID": 1,
+      "emergencyContact":
+      [{
+        "interfaceName": "EmergencyContact",
+        "lname": "smith",
+        "fname": "john",
+        "phone": 8190002222,
+        "relation": "Frère"
+      }],//this.mockEmergencyContactData(),
+      "followedBy":
+      [{
+        "interfaceName": "Doctor",
+        "lname": "protou",
+        "fname": "colin",
+        "email": "test1@doctor.ca",
+        "fax": 8888888888,
+        "phone": 9333333333
+      }]//this.mockDoctorData()
+    },
+    {
+      "interfaceName": "Person",
+      "id": 1,
+      "active": "Oui",
+      "lname": "plante",
+      "fname": "marcel",
+      "birthday": "1990-02-24", //new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+      "sexe": "Homme",
+      "address": "200 rue saint-jean",
+      "phone": 5142229999 ,
+      "NAS": 987654321 ,
+      "healthIssues": "Aucun",
+      "workCityID": 2,
+      "startDate": "2020-01-08",    //new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+      "endDate": "2020-06-14",      //new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+      "referenceID": 2,
+      "residenceTypeID": 1,
+      "educationalLevelID": 1,
+
+      "programStartDate": "2019-06-24",      //new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+      "programEndDate":   "2020-07-24",      //new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+
+      "departureReasonID": 2,
+      "hoursPerDay": 3,
+      "statusID": 2,
+      "roamingTracking": true,
+      "roamingStartDate":  "2021-01-15",         //new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+      "roamingEndDate":  "2021-02-28",           //new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+      "communityWork": false,
+      "communityStartDate": null,
+      "communityEndDate": null,
+      "hourlyRate": 22,
+      "transportFees": 5,
+      "responsibleIntervenantID": 2,
+      "emergencyContact":
+      [{
+        "interfaceName": "EmergencyContact",
+        "lname": "smith",
+        "fname": "john",
+        "phone": 8190002222,
+        "relation": "Frère"
+      }],//this.mockEmergencyContactData(),
+      "followedBy":
+      [{
+        "interfaceName": "Doctor",
+        "lname": "protou",
+        "fname": "colin",
+        "email": "test1@doctor.ca",
+        "fax": 8888888888,
+        "phone": 9333333333
+      }]//this.mockDoctorData()
+    },
+    {
+      "interfaceName": "Person",
+      "id": 2,
+      "active": "Oui",
+      "lname": "boucher",
+      "fname": "Linette",
+      "birthday": "1995-01-08",  //new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+      "sexe": "Femme",
+      "address": "200 rue saint-jean",
+      "phone": 4508886666 ,
+      "NAS": 456789123 ,
+      "healthIssues": "Aucun",
+      "workCityID": 1,
+      "startDate": "2020-05-14",    //new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+      "endDate": "2020-09-08",      //new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+      "referenceID": 0,
+      "residenceTypeID": 2,
+      "educationalLevelID": 2,
+
+      "programStartDate": "2019-06-12",      //new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+      "programEndDate":   "2020-08-14",      //new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)),
+
+      "departureReasonID": 0,
+      "hoursPerDay": 6,
+      "statusID": 0,
+      "roamingTracking": false,
+      "roamingStartDate": null,
+      "roamingEndDate": null,
+      "communityWork": false,
+      "communityStartDate": null,
+      "communityEndDate": null,
+      "hourlyRate": 25.75,
+      "transportFees": 5,
+      "responsibleIntervenantID": 1,
+      "emergencyContact":
+        [{
+          "interfaceName": "EmergencyContact",
+          "lname": "smith",
+          "fname": "john",
+          "phone": 8190002222,
+          "relation": "Frère"
+        }],//this.mockEmergencyContactData(),
+      "followedBy":
+        [{
+          "interfaceName": "Doctor",
+          "lname": "protou",
+          "fname": "colin",
+          "email": "test1@doctor.ca",
+          "fax": 8888888888,
+          "phone": 9333333333
+        }]//this.mockDoctorData()
+    }
+  ],
+  "Meeting": [
+    {
+      "id": 0,
+      "notes": "Meeting sur le développement",
+      "followup": "followup0",
+      "idPerson": 0,
+      "goals": "Avancer le développement",
+      "idIntervenant": 0
+    },
+    {
+      "id": 1,
+      "notes": "Meeting sur l analyse",
+      "followup": "followup1",
+      "goals": "Avancer l analyse",
+      "idPerson": 1,
+      "idIntervenant": 0
+    },
+    {
+      "id": 2,
+      "notes": "Meeting sur la recherche",
+      "followup": "followup2",
+      "goals": "Faire des recherches",
+      "idPerson": 0,
+      "idIntervenant": 0
+    },
+    {
+      "id": 3,
+      "notes": "Meeting avec le client",
+      "followup": "followup3",
+      "goals": "Faire un contract avec le client",
+      "idPerson": 1,
+      "idIntervenant": 0
+    }
   ]
 }
