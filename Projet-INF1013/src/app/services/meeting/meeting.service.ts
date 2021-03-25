@@ -2,16 +2,38 @@ import { Injectable } from '@angular/core';
 import {Meeting} from '../../models/meeting/meeting';
 import {Router} from '@angular/router';
 import {Person} from '../../models/person/person';
+import {Intervenant} from '../../models/intervenant/intervenant';
+import {Subject} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MeetingService {
 
-  meetings: Meeting[];
-  constructor(private router: Router) {
-    this.meetings = this.mockMeetingData();
+
+  constructor(private router: Router, private httpClient: HttpClient) {
+    // this.meetings = this.mockMeetingData();
+    console.log('constructeur');
+    this.getAllMeetings();
   }
+
+  meetings: any[] = [];
+  meetingsSubject = new Subject<any[]>();
+
+  meeting: any =
+    [
+      {
+        id: '',
+        notes: '',
+        followup: '',
+        idPerson: '',
+        goals: '',
+        idIntervenant: ''
+      }
+    ];
+
+  /*
   // Fonction pour générer les données lié aux rencontres
   private mockMeetingData(): Meeting[]{
     return [
@@ -49,6 +71,8 @@ export class MeetingService {
       }
     ];
   }
+  */
+
   // Fonction pour récupérer la rencontre selon son identifiant
   public getMeetingFromID(id: number): Meeting {
     let meeting: Meeting;
@@ -70,5 +94,38 @@ export class MeetingService {
   // Fonction pour annuler une rencontre et revenir à l'étape précédente
   cancelMeeting() {
     this.router.navigate(['meeting']);
+  }
+
+  private getAllMeetings(): void {
+    console.log('Get all meetings --- DEBUT');
+    const url = 'http://localhost:3000/Meeting';
+    this.httpClient.get(url).subscribe(meet => {
+
+      console.log('meet ' + JSON.stringify(meet));
+
+      // this.meetings.push( meet as Meeting);
+      this.meeting = meet;
+
+      for (let i = 0; i < this.meeting.length; i++) {
+
+        console.log('ID MEETING : ' + this.meeting[i].id);
+        this.meetings.push(
+            {
+              id: this.meeting[i].id,
+              notes: this.meeting[i].notes,
+              followup: this.meeting[i].followup,
+              idPerson: this.meeting[i].idPerson,
+              goals: this.meeting[i].goals,
+              idIntervenant: this.meeting[i].idIntervenant
+            }
+          );
+      }
+      console.log('Get all meetings --- END');
+      this.emitMeetingSubject();
+    });
+  }
+
+  private emitMeetingSubject(): void {
+    this.meetingsSubject.next(this.meetings.slice());
   }
 }
