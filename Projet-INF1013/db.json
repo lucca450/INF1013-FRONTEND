@@ -25,6 +25,14 @@
       "email": "pierro_kool@hotmail.com3",
       "phone": "8196932093",
       "address": "322 rue Amazone"
+    },
+    {
+      "id": 3,
+      "fname": "test",
+      "lname": "test123",
+      "email": "test@hotmail.com",
+      "phone": "8888888888",
+      "address": "fewfwe"
     }
   ],
   "users": [

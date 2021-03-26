@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
 import {ActivatedRoute} from '@angular/router';
 import {Intervenant} from '../../../models/intervenant/intervenant';
+ import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-edit-intervenant',
@@ -13,6 +14,7 @@ export class EditIntervenantComponent implements OnInit {
 
   intervenant: Intervenant;
   editintervenantForm: FormGroup;
+  errorsSubscription: Subscription;
   errorMessage: string;
   intervenantInvalid: boolean;
 
@@ -25,7 +27,14 @@ export class EditIntervenantComponent implements OnInit {
       index =  Number(params.get('id'));
       this.intervenant =  this.intervenantService.getIntervenantFromID(index);
     });
+
     this.initForm();
+
+    this.errorsSubscription = this.intervenantService.errorsSubject.subscribe(
+      (error: any) => {
+        this.errorMessage = error;
+      }
+    )
   }
 
   onSubmit(): void {
@@ -44,12 +53,7 @@ export class EditIntervenantComponent implements OnInit {
   // Fonction pour réagir lorsque la personne clique sur le bouton "Enregistrer"
   onEditIntervenant(): void {
     if (this.editintervenantForm.valid) {
-      this.intervenantService.editIntervenantToServer(this.editintervenantForm.value).then(
-        (intervenant) => {},
-        (error)=>{
-          this.errorMessage = error;
-        }
-      )
+      this.intervenantService.editIntervenantToServer(this.editintervenantForm.value);
 
     }else {
       alert('Veuillez remplir tous les champs');
@@ -58,5 +62,6 @@ export class EditIntervenantComponent implements OnInit {
   // Fonction pour réagir lorsque la personne clique sur le bouton "Annuler"
   onCancelIntervenant(): void {
     this.intervenantService.cancelIntervenant();
+    this.errorsSubscription.unsubscribe();
   }
 }

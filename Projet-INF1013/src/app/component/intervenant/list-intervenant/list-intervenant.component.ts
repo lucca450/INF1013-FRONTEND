@@ -18,6 +18,7 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
   errorMessage: any;
   intervenants = new MatTableDataSource(this.intervenantService.intervenants);
   intervenantSubscription: Subscription;
+  errorsSubscription: Subscription;
   displayedColumns: string[] = [ 'fname', 'lname', 'email', 'phone', 'address', 'actions-icon']; // L'ordre des colonnes est déterminé ici
 
 
@@ -31,8 +32,13 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
         this.intervenants = intervenants;
       }
     )
+
+    this.errorsSubscription = this.intervenantService.errorsSubject.subscribe(
+      (error: any) => {
+        this.errorMessage = error;
+      }
+    )
     // Nous permet de définir sur quels attributs la recherche va se faire.
-    // tslint:disable-next-line:only-arrow-functions
 
     this.intervenants.filterPredicate = function(data, filter: string): boolean {
       return data.fname.toLowerCase().includes(filter) ||
@@ -41,24 +47,6 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
         data.email.toLocaleLowerCase().includes(filter) ||
         data.address.toLocaleLowerCase().includes(filter)
     };
-
-    /* AVANT AVEC FIREBASE
-    this.intervenantService.intervenantFromDb$.subscribe(
-      (value:any) => {
-        this.intervenants = new MatTableDataSource(value);
-      }
-    );
- */
-    /*
-    // Récupérer les intervenants
-    this.intervenantSubscription = this.intervenantService.intervenantSubject.subscribe(
-      (intervenants: any) => {
-        this.intervenants = intervenants;
-      }
-    )
-
-    */
-
   }
 
   ngAfterViewInit(): void {
@@ -74,18 +62,13 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
 
     dialogRef.afterClosed().subscribe(result => {
       if(result == true){
-        this.intervenantService.deleteIntervenantToServer(id).then(
-        (response) => {
-
-        },
-        (error) => {
-          this.errorMessage = error;
-        });
+        this.intervenantService.deleteIntervenantToServer(id);
       }
     });
   }
 
   ngOnDestroy() {
     this.intervenantSubscription.unsubscribe();
+    this.errorsSubscription.unsubscribe();
   }
 }

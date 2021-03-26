@@ -1,7 +1,8 @@
 export interface User {
   interfaceName: 'User';
   id: number;
-  email: string;
+  username: string;
   password: string;
   role: 'A' |'I';
+  idReference: number;
 }

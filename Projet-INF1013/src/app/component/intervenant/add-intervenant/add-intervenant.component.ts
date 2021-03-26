@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-add-intervenant',
@@ -12,12 +13,19 @@ export class AddIntervenantComponent implements OnInit {
   addintervenantForm: FormGroup;
   intervenantInvalid: boolean;
   submitted = false;
+  errorsSubscription: Subscription;
   errorMessage: String;
 
   constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService) { }
 
   ngOnInit(): void {
     this.initForm();
+
+    this.errorsSubscription = this.intervenantService.errorsSubject.subscribe(
+      (error: any) => {
+        this.errorMessage = error;
+      }
+    )
   }
 
   onSubmit(): void {
@@ -39,13 +47,7 @@ export class AddIntervenantComponent implements OnInit {
   onAddIntervenant(): void {
     this.submitted = true;
     if (this.addintervenantForm.valid) {
-      this.intervenantService.addIntervenantToServer(this.addintervenantForm.value).then(
-        (intervenant) => {},
-        (error) => {
-          this.errorMessage = error;
-      }
-    );
-
+      this.intervenantService.addIntervenantToServer(this.addintervenantForm.value);
     }else {
       alert('Veuillez remplir tous les champs');
     }
@@ -53,5 +55,6 @@ export class AddIntervenantComponent implements OnInit {
 
   onCancelIntervenant(): void {
     this.intervenantService.cancelIntervenant();
+    this.errorsSubscription.unsubscribe();
   }
 }
