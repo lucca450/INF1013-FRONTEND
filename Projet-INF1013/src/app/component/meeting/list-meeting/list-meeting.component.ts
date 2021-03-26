@@ -17,7 +17,7 @@ export class ListMeetingComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @Input() personID: number;
 
-  //dataSource: MatTableDataSource<Meeting>;
+  // dataSource: MatTableDataSource<Meeting>;
   meetings = new MatTableDataSource(this.meetingService.meetings);
   meetingSubscription: Subscription;
 
@@ -28,7 +28,7 @@ export class ListMeetingComponent implements OnInit, AfterViewInit {
     /*this.route.paramMap.subscribe(params => {
       const idx =	Number(params.get('id'));
       this.personID = idx;
-      this.dataSource = new MatTableDataSource(this.meetingService.meetings.filter(meeting => meeting.idPerson === this.personID));
+      this.meetings = new MatTableDataSource(this.meetingService.meetings.filter(meeting => meeting.idPerson === this.personID));
     });*/
 
     this.meetingSubscription = this.meetingService.meetingsSubject.subscribe(

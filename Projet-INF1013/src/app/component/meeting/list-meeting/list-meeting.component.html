@@ -9,7 +9,7 @@
 
 
   <!-- Lister les rencontres de l'intervenant -->
-  <mat-table [dataSource]="dataSource" matSort matSortActive="notes" matSortDirection="asc" class="mat-elevation-z8" >
+  <mat-table [dataSource]="meetings" matSort matSortActive="notes" matSortDirection="asc" class="mat-elevation-z8" >
     <ng-container matColumnDef="notes">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Notes </mat-header-cell>
       <mat-cell *matCellDef="let row">

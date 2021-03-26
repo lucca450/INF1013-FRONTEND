@@ -55,14 +55,14 @@
       "interfaceName": "User",
       "id": 1,
       "email": "pierro_kool@hotmail.com2",
-      "password": "456",
+      "password": "123",
       "role": "I"
     },
     {
       "interfaceName": "User",
       "id": 2,
       "email": "pierro_kool@hotmail.com3",
-      "password": "789",
+      "password": "123",
       "role": "I"
     }
   ],
@@ -97,7 +97,7 @@
       "followup": "followup3",
       "goals": "Faire un contract avec le client",
       "idPerson": 1,
-      "idIntervenant": 0
+      "idIntervenant": 1
     }
   ],
   "Person": [
