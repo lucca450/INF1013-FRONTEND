@@ -3,7 +3,7 @@ import {Meeting} from '../../models/meeting/meeting';
 import {Router} from '@angular/router';
 import {Person} from '../../models/person/person';
 import {Intervenant} from '../../models/intervenant/intervenant';
-import {Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
@@ -18,9 +18,12 @@ export class MeetingService {
     this.getAllMeetings();
   }
 
-  meetings: any[] = [];
-  meetingsSubject = new Subject<any[]>();
+  //meetings: any[] = [];
 
+  public meetings = [];
+
+  meetingsSubject = new Subject<any[]>();
+/*
   meeting: any =
     [
       {
@@ -31,7 +34,7 @@ export class MeetingService {
         goals: '',
         idIntervenant: ''
       }
-    ];
+    ];*/
 
 
   // Fonction pour récupérer la rencontre selon son identifiant
@@ -44,9 +47,9 @@ export class MeetingService {
     return meeting;
   }
   // Fonction pour ajouter une rencontre
-  addMeeting(): void{
+ /* addMeeting(): void{
     this.router.navigate(['meeting']);
-  }
+  }*/
   // Fonction pour modifié une rencontre
   editMeeting(): void{
     this.router.navigate(['meeting']);
@@ -57,6 +60,22 @@ export class MeetingService {
     this.router.navigate(['meeting']);
   }
 
+  public getAllMeetings(): Observable<Meeting> {
+    const url = 'http://localhost:3000/Meeting';
+    return this.httpClient.get<Meeting>(url);
+  }
+
+  public addMeeting(meeting: Meeting): Observable<any> {
+    const headers = { 'content-type': 'application/json'};
+    const body = JSON.stringify(meeting);
+    console.log(body);
+    return this.httpClient.post('http://localhost:3000/Meeting', body, {'headers': headers});
+
+  }
+
+
+
+/*
   private getAllMeetings(): void {
     console.log('Get all meetings --- DEBUT');
     const url = 'http://localhost:3000/Meeting';
@@ -64,7 +83,7 @@ export class MeetingService {
 
       console.log('meet ' + JSON.stringify(meet));
 
-      // this.meetings.push( meet as Meeting);
+
       this.meeting = meet;
 
       for (let i = 0; i < this.meeting.length; i++) {
@@ -89,4 +108,5 @@ export class MeetingService {
   private emitMeetingSubject(): void {
     this.meetingsSubject.next(this.meetings.slice());
   }
+ */
 }

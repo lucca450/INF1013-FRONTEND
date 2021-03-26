@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MeetingService} from '../../../services/meeting/meeting.service';
 import {FormBuilder, Validators} from '@angular/forms';
 import {ListMeetingComponent} from '../list-meeting/list-meeting.component';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {PersonService} from '../../../services/person/person.service';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
 
@@ -23,12 +23,14 @@ export class AddMeetingComponent implements OnInit {
     person: [null, Validators.compose([Validators.required])],
     intervenant: [null, Validators.compose([Validators.required])]
   });
-  constructor(private intervenantService: IntervenantService, private personService: PersonService, private meetingService: MeetingService, private formBuilder: FormBuilder , private route: ActivatedRoute) { }
+  constructor(private router: Router, private intervenantService: IntervenantService, private personService: PersonService, private meetingService: MeetingService, private formBuilder: FormBuilder , private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const idx =	Number(params.get('id'));
       this.personID = idx;
+
+      this.intervenants.push(this.intervenantService.getIntervenantFromID(idx));
       this.initForm();
     });
   }
@@ -39,15 +41,20 @@ export class AddMeetingComponent implements OnInit {
       followup: [''/*, Validators.required*/],
       goals: [''/*, Validators.required*/],
       person: [this.personService.personFullName(this.personID)/*, Validators.required*/],
-      intervenant: [''/*, Validators.required*/]
+      intervenant: [/*, Validators.required*/]
     });
     const control = this.addMeetingForm.get('person');
     control.disable();
   }
+
   // Fonction pour réagir lorsque la personne clique sur le bouton "Ajouter"
   onAddMeeting(): void {
-    this.meetingService.addMeeting();
+    // this.meetingService.addMeeting();
+    this.meetingService.addMeeting(this.addMeetingForm.value)
+      .subscribe(data => {console.log(data); });
+    this.router.navigate(['meeting']);
   }
+
   onSubmit(): void {
 
   }

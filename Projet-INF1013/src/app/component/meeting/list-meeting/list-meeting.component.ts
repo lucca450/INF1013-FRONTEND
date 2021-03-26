@@ -31,11 +31,18 @@ export class ListMeetingComponent implements OnInit, AfterViewInit {
       this.meetings = new MatTableDataSource(this.meetingService.meetings.filter(meeting => meeting.idPerson === this.personID));
     });*/
 
-    this.meetingSubscription = this.meetingService.meetingsSubject.subscribe(
+   /* this.meetingSubscription = this.meetingService.meetingsSubject.subscribe(
       (meet: any) => {
         this.meetings = meet;
       }
-    );
+    );*/
+
+    this.meetingService.getAllMeetings()
+      .subscribe( (meet: any) => {
+        this.meetings = meet;
+      });
+
+
 
     // Nous permet de définir sur quels attributs la recherche va se faire.
     // tslint:disable-next-line:only-arrow-functions
@@ -45,6 +52,8 @@ export class ListMeetingComponent implements OnInit, AfterViewInit {
         data.goals.toString().includes(filter);
     };
   }
+
+
 
 
   ngAfterViewInit(): void {
