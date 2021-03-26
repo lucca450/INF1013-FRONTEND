@@ -33,10 +33,14 @@
       </mat-form-field>
 
       <mat-form-field class="full-width-input">
-        <mat-select placeholder="Intervenant">
+   <!-- <mat-select placeholder="intervenant" formControlName="intervenant">
           <mat-option *ngFor="let inter of intervenants" [value]="inter.id">
             {{ inter.fname + ' ' + inter.lname}}
           </mat-option>
+        </mat-select> -->
+        <mat-select placeholder="intervenant" formControlName="intervenant">
+          <!--<mat-option [value]="loggedUser.id">{{this.intervenantService.intervenantFullName(loggedUser.id)}}</mat-option>-->
+          <mat-option [value]="loggedUser.id">{{loggedUser.id}}</mat-option>
         </mat-select>
         <mat-error>
           Veuillez choisir un intervenant.

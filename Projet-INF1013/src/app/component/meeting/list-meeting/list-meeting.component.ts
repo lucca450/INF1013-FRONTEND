@@ -39,6 +39,7 @@ export class ListMeetingComponent implements OnInit, AfterViewInit {
 
     this.meetingService.getAllMeetings()
       .subscribe( (meet: any) => {
+        console.log('updated');
         this.meetings = meet;
       });
 

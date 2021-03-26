@@ -254,9 +254,12 @@ addIntervenant(intervenant: any): void {
   public intervenantFullName(id: number): string {
     let intervenant: Intervenant;
     // tslint:disable-next-line:only-arrow-functions typedef
+
+
     intervenant = this.intervenants.find(function(i: Intervenant) {
       return i.id === id;
     });
+    console.log(intervenant.fname + ' ' + intervenant.lname);
     return intervenant.fname  + ' ' + intervenant.lname;
   }
 

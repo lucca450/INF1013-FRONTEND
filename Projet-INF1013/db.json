@@ -1,5 +1,5 @@
 {
-  "Intervenants": [
+  "intervenants": [
     {
       "id": "0",
       "lname": "nomIntervenant",
@@ -25,48 +25,35 @@
       "email": "pierro_kool@hotmail.com3",
       "phone": "8196932093",
       "address": "322 rue Amazone"
-    },
-    {
-      "id": 3,
-      "lname": "Dubois-Nadeau",
-      "fname": "test23ht3f",
-      "email": "aaaaaaaaa@hotmail.com",
-      "phone": "1111111111",
-      "address": "pierro_kool@hotmail.com"
-    },
-    {
-      "id": 4,
-      "lname": "Silva",
-      "fname": "Lucca",
-      "email": "luccapossa450@gmail.com",
-      "phone": "5555555555",
-      "address": "5 rue du cinq"
     }
   ],
-  "Users": [
+  "users": [
     {
       "interfaceName": "User",
       "id": 0,
       "email": "pierro_kool@hotmail.com",
       "password": "123",
-      "role": "A"
+      "role": "A",
+      "idReference": 0
     },
     {
       "interfaceName": "User",
       "id": 1,
       "email": "pierro_kool@hotmail.com2",
       "password": "123",
-      "role": "I"
+      "role": "I",
+      "idReference": 1
     },
     {
       "interfaceName": "User",
       "id": 2,
       "email": "pierro_kool@hotmail.com3",
       "password": "123",
-      "role": "I"
+      "role": "I",
+      "idReference": 2
     }
   ],
-  "Meeting": [
+  "meeting": [
     {
       "id": 0,
       "notes": "Meeting sur le développement",
@@ -100,15 +87,23 @@
       "idIntervenant": 1
     },
     {
-      "notes": "ddd",
-      "followup": "ddd",
-      "goals": "ddd",
-      "person": "ddd",
-      "intervenant": null,
+      "notes": "toto",
+      "followup": "toto",
+      "goals": "toto",
+      "person": "toto",
+      "intervenant": 0,
       "id": 4
+    },
+    {
+      "notes": "j",
+      "followup": "j",
+      "goals": "j",
+      "person": "jk",
+      "intervenant": 0,
+      "id": 5
     }
   ],
-  "Person": [
+  "person": [
     {
       "interfaceName": "Person",
       "id": 0,

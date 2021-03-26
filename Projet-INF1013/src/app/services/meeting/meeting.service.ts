@@ -61,15 +61,14 @@ export class MeetingService {
   }
 
   public getAllMeetings(): Observable<Meeting> {
-    const url = 'http://localhost:3000/Meeting';
-    return this.httpClient.get<Meeting>(url);
+    return this.httpClient.get<Meeting>(`http://localhost:3000/meeting`);
   }
 
   public addMeeting(meeting: Meeting): Observable<any> {
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(meeting);
     console.log(body);
-    return this.httpClient.post('http://localhost:3000/Meeting', body, {'headers': headers});
+    return this.httpClient.post('http://localhost:3000/meeting', body, {'headers': headers});
 
   }
 
