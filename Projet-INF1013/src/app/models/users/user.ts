@@ -4,5 +4,4 @@ export interface User {
   username: string;
   password: string;
   role: 'A' |'I';
-  idReference: number;
 }

@@ -3,6 +3,8 @@ import {Intervenant} from '../../models/intervenant/intervenant';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
 import {HttpClient} from "@angular/common/http";
+import {User} from '../../models/users/user';
+import {UserService} from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,7 @@ export class IntervenantService {
   intervenants: Intervenant[];
   intervenantSubject = new Subject<any[]>();
   errorsSubject: Subject<string> = new Subject<string>();
-  constructor(private router: Router, private httpClient: HttpClient) {
+  constructor(private router: Router, private httpClient: HttpClient, private userService: UserService) {
     this.getIntervenants().subscribe(
       (intervenants: any) => {
         this.intervenants = intervenants;
@@ -29,13 +31,23 @@ export class IntervenantService {
     return this.httpClient.get<Intervenant>(`http://localhost:3000/intervenants`);
   }
 
-  addIntervenantToServer(intervenant: Intervenant){
-
+  addIntervenantToServer(intervenant: Intervenant, user: User){
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(intervenant);
     this.httpClient.post('http://localhost:3000/intervenants', body, {'headers': headers}).subscribe(
       (intervenant: any) => {
-        this.addIntervenant(intervenant);
+
+        this.userService.addUserToServer(user).subscribe(
+          (user: any) => {
+            this.addIntervenant(intervenant);
+            this.userService.addUser(user);
+          },
+          (error) => {
+            const message = 'Un erreur au niveau du serveur est survenu lors de l\'ajout de l\'intervenant. Veuillez réessayer plus tard';
+            this.emitErrorsSubject(message);
+          }
+        )
+
       },
       (error) => {
         const message = 'Un erreur au niveau du serveur est survenu lors de l\'ajout de l\'intervenant. Veuillez réessayer plus tard';

@@ -37,21 +37,16 @@ export class UserService {
     return this.httpClient.get<User>(`http://localhost:3000/users`);
   }
 
-  /*
-  getUsers(){
-
-    fetch('http://localhost:3000/Users')
-      .then((response =>
-          response.json()
-      ))
-      .then((json) =>
-      {
-        console.log('call');
-        this.users = json;
-      });
+  addUserToServer(user: User) {
+    const headers = { 'content-type': 'application/json'};
+    const body = JSON.stringify(user);
+    return this.httpClient.post('http://localhost:3000/users', body, {'headers': headers});
   }
 
-   */
+  addUser(user: any) {
+  this.users.push(user);
+  }
+
   // Fonction pour gèrer lorsqu'on émet les données pour que les autres qui écoute le sujet soit au courant de quel utilisateur qui est connecté.
   private emitUserSubject() {
     this.userSubject.next(this.user);
@@ -75,7 +70,9 @@ export class UserService {
       ((resolve, reject) => {
         console.log("Les users : "+this.users);
         const randomUser = Math.floor(Math.random() * this.users.length);
-        const randomSituation = Math.floor(Math.random() * 3) + 1;
+      //  const randomSituation = Math.floor(Math.random() * 3) + 1;
+
+      const  randomSituation = 1; // Pour éviter de se connecter à chaque fois (Évidament, faut remettre la ligne du haut avant la remise)
 
         if(randomSituation == 1)
         {
@@ -103,4 +100,6 @@ export class UserService {
     this.emitUserSubject();
     this.router.navigate(['person']);
   }
+
+
 }

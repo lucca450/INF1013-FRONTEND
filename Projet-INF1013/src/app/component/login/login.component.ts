@@ -39,15 +39,28 @@ export class LoginComponent implements OnInit {
   }
 
   private initForm(): void {
-  /*  this.loginForm = this.formBuilder.group({
+
+    // Pour se connecter automatiquement. Évidament, il faudra activer celui enbas
+   this.loginForm = this.formBuilder.group({
       email: [''],
       password: ['']
-    });*/
-
+    });
+/*
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
+
+*/
+
+
+    // Permet de s'auto connecter :)
+    /*
+    setTimeout( ()=>{
+      this.onSignIn();
+    }, 500)
+
+     */
 
 
   }

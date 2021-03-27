@@ -28,11 +28,12 @@
     },
     {
       "id": 3,
-      "fname": "test",
-      "lname": "test123",
-      "email": "test@hotmail.com",
-      "phone": "8888888888",
-      "address": "fewfwe"
+      "interfaceName": "intervenants",
+      "fname": "Pierre-olivier",
+      "lname": "Dubois-Nadeau",
+      "email": "tttttttttttttttttttttttttttt@hotmai.com",
+      "phone": "1111111111",
+      "address": "freferfre"
     }
   ],
   "users": [
@@ -41,24 +42,28 @@
       "id": 0,
       "email": "pierro_kool@hotmail.com",
       "password": "123",
-      "role": "A",
-      "idReference": 0
+      "role": "A"
     },
     {
       "interfaceName": "User",
       "id": 1,
       "email": "pierro_kool@hotmail.com2",
       "password": "123",
-      "role": "I",
-      "idReference": 1
+      "role": "I"
     },
     {
       "interfaceName": "User",
       "id": 2,
       "email": "pierro_kool@hotmail.com3",
       "password": "123",
-      "role": "I",
-      "idReference": 2
+      "role": "I"
+    },
+    {
+      "id": 3,
+      "interfaceName": "Users",
+      "username": "ttt@hotmail.com",
+      "password": "123123",
+      "role": "Intervenant"
     }
   ],
   "meeting": [

@@ -42,7 +42,6 @@ import { ConvertBooleanPipe } from './pipes/convert-boolean.pipe';
 import {MatStepperModule} from '@angular/material/stepper';
 
 
-
 import { registerLocaleData } from '@angular/common';
 
 import localeFr from '@angular/common/locales/fr';
@@ -50,6 +49,7 @@ import { ConvertInterfaceNamePipe } from './pipes/convert-interface-name.pipe';
 import {HttpClientModule} from '@angular/common/http';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DeleteIntervenantComponent } from './component/intervenant/delete-intervenant/delete-intervenant.component';
+import {MatFormFieldControl, MatFormFieldModule, MatSuffix} from '@angular/material/form-field';
 
 registerLocaleData(localeFr);
 
@@ -122,7 +122,9 @@ const appRoutes: Routes = [
     FormsModule,
     MatStepperModule,
     HttpClientModule,
-    MatDialogModule
+    MatDialogModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
   providers: [
     // On injecte services (N'est plus obligatoire dans la nouvelle version d'angular)
