@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {PersonService} from '../../../services/person/person.service';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
 import {UserService} from '../../../services/user/user.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-add-meeting',
@@ -17,6 +18,9 @@ export class AddMeetingComponent implements OnInit {
  @ViewChild(ListMeetingComponent) personID: number;
   loggedUser = this.userService.user;  /*this.intervenantService.intervenants;*/
   meetings = this.meetingService.meetings;
+  errorsSubscription: Subscription;
+  errorMessage: String;
+
   addMeetingForm = this.formBuilder.group({
     notes: [null, Validators.compose([Validators.required])],
     followup: [null, Validators.compose([Validators.required])],
@@ -51,7 +55,7 @@ export class AddMeetingComponent implements OnInit {
 
   // Fonction pour réagir lorsque la personne clique sur le bouton "Ajouter"
   onAddMeeting(): void {
-    // this.meetingService.addMeeting();
+
     console.log('form ' + this.addMeetingForm.value.intervenant);
     this.meetingService.addMeeting(this.addMeetingForm.value)
       .subscribe(data => {console.log(data); });

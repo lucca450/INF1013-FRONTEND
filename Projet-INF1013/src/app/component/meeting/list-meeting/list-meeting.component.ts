@@ -33,18 +33,6 @@ export class ListMeetingComponent implements OnInit, AfterViewInit {
   constructor(private meetingService: MeetingService , private route: ActivatedRoute, private userService: UserService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    /*this.route.paramMap.subscribe(params => {
-      const idx =	Number(params.get('id'));
-      this.personID = idx;
-      this.meetings = new MatTableDataSource(this.meetingService.meetings.filter(meeting => meeting.idPerson === this.personID));
-    });*/
-
-   /* this.meetingSubscription = this.meetingService.meetingsSubject.subscribe(
-      (meet: any) => {
-        this.meetings = meet;
-      }
-    );*/
-
 
     this.meetingSubscription = this.meetingService.meetingSubject.subscribe(
       (meet: any) => {
@@ -62,13 +50,11 @@ export class ListMeetingComponent implements OnInit, AfterViewInit {
     if (this.loggedUser.role === 'A'){
       this.meetingService.getAllMeetings()
         .subscribe( (meet: any) => {
-          console.log('updating ALL meeting data');
           this.meetings = meet;
         });
     }else{
-      this.meetingService.getAllMeetings()
+      this.meetingService.getMeetingsFromID(this.loggedUser.id)
         .subscribe( (meet: any) => {
-          console.log('updating meeting data with ID');
           this.meetings = meet;
         });
     }

@@ -12,7 +12,7 @@ import {UserService} from '../user/user.service';
 })
 export class MeetingService {
 
-  public meetings = [];
+  meetings: Meeting[];
   //meetings: any[] = [];
   loggedUser = this.userService.user;
   meetingSubject = new Subject<any[]>();
@@ -23,30 +23,30 @@ export class MeetingService {
     console.log('constructeur');
 
     console.log(this.loggedUser.role);
+    console.log(this.loggedUser.id);
     if (this.loggedUser.role === 'A'){
-      this.getAllMeetings();
+      this.getAllMeetings().subscribe(
+        (meeting: any) => {
+          this.meetings = meeting;
+          this.emitMeetingSubject();
+        },
+        (error) => {
+          console.log('Erreur ! : ' + error);
+        }
+      );
     }else{
-      this.getMeetingsFromID(this.loggedUser.id);
+      this.getMeetingsFromID(this.loggedUser.id).subscribe(
+        (meeting: any) => {
+          this.meetings = meeting;
+          this.emitMeetingSubject();
+        },
+        (error) => {
+          console.log('Erreur ! : ' + error);
+        }
+      );
     }
 
   }
-
-
-
-
-/*
-  meeting: any =
-    [
-      {
-        id: '',
-        notes: '',
-        followup: '',
-        idPerson: '',
-        goals: '',
-        idIntervenant: ''
-      }
-    ];*/
-
 
   editMeeting(): void{
     this.router.navigate(['meeting']);
@@ -64,14 +64,7 @@ export class MeetingService {
 
   // Retourne tous les meetings d'un intervenant
   public getMeetingsFromID(id: number): Observable<Meeting> {
-    console.log('in');
     return this.httpClient.get<Meeting>(`http://localhost:3000/meeting?idIntervenant=` + id);
-  /*  let meeting: Meeting;
-    // tslint:disable-next-line:only-arrow-functions typedef
-    meeting = this.meetings.find(function(m: Meeting) {
-      return m.id === id;
-    });
-    return meeting;*/
   }
 
   public addMeeting(meeting: Meeting): Observable<any> {
@@ -82,5 +75,13 @@ export class MeetingService {
 
   }
 
+
+  private emitMeetingSubject(): void {
+    this.meetingSubject.next(this.meetings.slice());
+  }
+
+  private emitErrorsSubject(message: string): void {
+    this.errorsSubject.next(message);
+  }
 
 }

@@ -70,7 +70,7 @@
       "username": "ttt@hotmail.com",
       "email": "pierro_kool@hotmail.com",
       "password": "123",
-      "role": "I"
+      "role": "A"
     },
     {
       "id": 1,
@@ -173,6 +173,22 @@
       "person": "fds",
       "intervenant": 0,
       "id": 6
+    },
+    {
+      "notes": "test",
+      "followup": "test",
+      "goals": "test",
+      "person": "test",
+      "intervenant": 0,
+      "id": 7
+    },
+    {
+      "notes": "z",
+      "followup": "z",
+      "goals": "z",
+      "person": "z",
+      "intervenant": 0,
+      "id": 8
     }
   ],
   "person": [
