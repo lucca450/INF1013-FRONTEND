@@ -34,9 +34,12 @@ export class ListMeetingComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
 
+    console.log('onINIT');
+    this.meetingService.loadAllMeetings();
+
     this.meetingSubscription = this.meetingService.meetingSubject.subscribe(
       (meet: any) => {
-        this.meetings = meet;
+        this.meetings = new MatTableDataSource(meet);;
       }
     );
 
@@ -46,7 +49,7 @@ export class ListMeetingComponent implements OnInit, AfterViewInit {
       }
     );
 
-
+/*
     if (this.loggedUser.role === 'A'){
       this.meetingService.getAllMeetings()
         .subscribe( (meet: any) => {
@@ -57,7 +60,9 @@ export class ListMeetingComponent implements OnInit, AfterViewInit {
         .subscribe( (meet: any) => {
           this.meetings = meet;
         });
+
     }
+*/
 
 
 

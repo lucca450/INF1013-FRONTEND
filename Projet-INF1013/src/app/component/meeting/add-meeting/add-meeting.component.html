@@ -4,10 +4,25 @@
     <form [formGroup]="addMeetingForm" (ngSubmit)="onSubmit()">
       <h2>Ajout d'une rencontre</h2>
 
-      <mat-form-field class="full-width-input">
+  <!--    <mat-form-field class="full-width-input">
         <input matInput placeholder="Personne" formControlName="person">
         <mat-error>
           Veuillez choisir une personne.
+        </mat-error>
+      </mat-form-field>
+-->
+      <mat-form-field class="full-width-input">
+         <mat-select placeholder="Personne" formControlName="idPerson">
+               <mat-option *ngFor="let person of this.personService.persons" [value]="person.id">
+                 {{ person.fname + ' ' + person.lname}}
+               </mat-option>
+         </mat-select>
+     <!--   <mat-select placeholder="Personne" formControlName="person">
+       <mat-option [value]="loggedUser.id">{{this.intervenantService.intervenantFullName(loggedUser.id)}}</mat-option>
+          <mat-option [value]="this.personService.">{{this.personService.}}</mat-option>
+        </mat-select>  -->
+        <mat-error>
+          Veuillez choisir un intervenant.
         </mat-error>
       </mat-form-field>
 
@@ -32,20 +47,42 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field class="full-width-input">
-   <!-- <mat-select placeholder="intervenant" formControlName="intervenant">
-          <mat-option *ngFor="let inter of intervenants" [value]="inter.id">
-            {{ inter.fname + ' ' + inter.lname}}
-          </mat-option>
-        </mat-select> -->
-        <mat-select placeholder="intervenant" formControlName="intervenant">
-          <!--   <mat-option [value]="loggedUser.id">{{this.intervenantService.intervenantFullName(loggedUser.id)}}</mat-option>-->
-          <mat-option [value]="loggedUser.id">{{loggedUser.id}}</mat-option>
-        </mat-select>
-        <mat-error>
-          Veuillez choisir un intervenant.
-        </mat-error>
-      </mat-form-field>
+
+      <div *ngIf="loggedUser.role == 'I'">
+        <mat-form-field class="full-width-input">
+          <!-- <mat-select placeholder="intervenant" formControlName="intervenant">
+                 <mat-option *ngFor="let inter of intervenants" [value]="inter.id">
+                   {{ inter.fname + ' ' + inter.lname}}
+                 </mat-option>
+               </mat-select> -->
+          <mat-select placeholder="intervenant" formControlName="idIntervenant">
+            <!--   <mat-option [value]="loggedUser.id">{{this.intervenantService.intervenantFullName(loggedUser.id)}}</mat-option>-->
+            <mat-option [value]="loggedUser.id">{{loggedUser.id}}</mat-option>
+          </mat-select>
+          <mat-error>
+            Veuillez choisir un intervenant.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="loggedUser.role == 'A'">
+        <mat-form-field class="full-width-input">
+          <!-- <mat-select placeholder="intervenant" formControlName="intervenant">
+                 <mat-option *ngFor="let inter of intervenants" [value]="inter.id">
+                   {{ inter.fname + ' ' + inter.lname}}
+                 </mat-option>
+               </mat-select> -->
+          <mat-select placeholder="intervenant" formControlName="idIntervenant">
+            <mat-option *ngFor="let intervenant of this.intervenantService.intervenants" [value]="intervenant.id">
+              {{ intervenant.fname + ' ' + intervenant.lname}}
+            </mat-option>
+          </mat-select>
+          <mat-error>
+            Veuillez choisir un intervenant.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
 
       <button class ="button-cancel" (click) = "onCancelMeeting()">Annuler</button>
       <button class ="button-add" (click) = "onAddMeeting()">Ajouter</button>

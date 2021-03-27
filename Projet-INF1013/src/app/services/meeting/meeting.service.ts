@@ -24,32 +24,36 @@ export class MeetingService {
 
     console.log(this.loggedUser.role);
     console.log(this.loggedUser.id);
-    if (this.loggedUser.role === 'A'){
-      this.getAllMeetings().subscribe(
-        (meeting: any) => {
-          this.meetings = meeting;
-          this.emitMeetingSubject();
-        },
-        (error) => {
-          console.log('Erreur ! : ' + error);
-        }
-      );
-    }else{
-      this.getMeetingsFromID(this.loggedUser.id).subscribe(
-        (meeting: any) => {
-          this.meetings = meeting;
-          this.emitMeetingSubject();
-        },
-        (error) => {
-          console.log('Erreur ! : ' + error);
-        }
-      );
-    }
+    this.loadAllMeetings();
 
   }
 
-  editMeeting(): void{
-    this.router.navigate(['meeting']);
+  getMeetingIndexFromId(id: number): any {
+
+    for (let i = 0 ; i < this.meetings.length; i++) {
+      if (this.meetings[i].id === id) {
+        return i;
+      }
+    }
+  }
+
+  editMeeting(meeting: Meeting): void{
+    const headers = { 'content-type': 'application/json'};
+    const body = JSON.stringify(meeting);
+    console.log(body);
+    console.log(meeting.id);
+    this.httpClient.put('http://localhost:3000/meeting/' + meeting.id, body, {'headers': headers}).subscribe(
+      (meet: any) => {
+        const index = this.getMeetingIndexFromId(meet.id);
+        this.meetings[index] = meeting;
+        this.emitMeetingSubject();
+        this.router.navigate(['meeting']);
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de la modification de la rencontre. Veuillez réessayer plus tard';
+        this.emitErrorsSubject(message);
+      }
+    );
   }
 
   // Fonction pour annuler une rencontre et revenir à l'étape précédente
@@ -63,16 +67,32 @@ export class MeetingService {
   }
 
   // Retourne tous les meetings d'un intervenant
-  public getMeetingsFromID(id: number): Observable<Meeting> {
+  public getMeetingsFromIntervenantId(id: number): Observable<Meeting> {
     return this.httpClient.get<Meeting>(`http://localhost:3000/meeting?idIntervenant=` + id);
   }
 
-  public addMeeting(meeting: Meeting): Observable<any> {
+  // Retourne un meeting spécifique
+  public getMeetingFromId(id: number): Meeting {
+    const index = this.getMeetingIndexFromId(id);
+    return this.meetings[index];
+  }
+
+  public addMeeting(meeting: Meeting): void{
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(meeting);
     console.log(body);
-    return this.httpClient.post('http://localhost:3000/meeting', body, {'headers': headers});
 
+    this.httpClient.post('http://localhost:3000/meeting', body, {'headers': headers}).subscribe(
+      (meet: any) => {
+            this.meetings.push(meet);
+            this.emitMeetingSubject();
+            this.router.navigate(['meeting']);
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de l\'ajout de l\'intervenant. Veuillez réessayer plus tard';
+        this.emitErrorsSubject(message);
+      }
+    );
   }
 
 
@@ -83,5 +103,31 @@ export class MeetingService {
   private emitErrorsSubject(message: string): void {
     this.errorsSubject.next(message);
   }
+
+  public loadAllMeetings(): void{
+    if (this.loggedUser.role === 'A'){
+      this.getAllMeetings().subscribe(
+        (meeting: any) => {
+          this.meetings = meeting;
+          this.emitMeetingSubject();
+        },
+        (error) => {
+          console.log('Erreur ! : ' + error);
+        }
+      );
+    }else{
+      this.getMeetingsFromIntervenantId(this.loggedUser.id).subscribe(
+        (meeting: any) => {
+          this.meetings = meeting;
+          this.emitMeetingSubject();
+        },
+        (error) => {
+          console.log('Erreur ! : ' + error);
+        }
+      );
+    }
+  }
+
+
 
 }
