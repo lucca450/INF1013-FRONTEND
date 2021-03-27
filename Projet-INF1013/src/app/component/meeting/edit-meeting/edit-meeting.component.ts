@@ -59,7 +59,8 @@ export class EditMeetingComponent implements OnInit {
       followup: [this.meeting.followup/*, Validators.required*/],
       goals: [this.meeting.goals/*, Validators.required*/],
       idPerson: [this.meeting.idPerson/*, Validators.required*/],
-      idIntervenant: [this.meeting.idIntervenant /*, Validators.required*/]
+      idIntervenant: [this.meeting.idIntervenant /*, Validators.required*/],
+      id: [this.meetingID]
     });
 
    /* const control = this.editMeetingForm.get('intervenant');

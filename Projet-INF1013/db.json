@@ -95,7 +95,7 @@
       "username": "ttt@hotmail.com3",
       "email": "pierro_kool@hotmail.com3",
       "password": "123",
-      "role": "I"
+      "role": "A"
     },
     {
       "id": 3,
@@ -169,7 +169,7 @@
     {
       "notes": "123",
       "followup": "123",
-      "goals": "123",
+      "goals": "556",
       "idPerson": 2,
       "idIntervenant": 0,
       "id": 4
