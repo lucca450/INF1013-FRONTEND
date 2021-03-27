@@ -24,7 +24,7 @@ export class UserService {
     this.getUsers().subscribe(
       (users: any) => {
         this.users = users;
-        //this.emitUserSubject();
+        this.emitUserSubject();
       },
       (error) => {
         console.log('Erreur ! : ' + error);
@@ -105,7 +105,6 @@ export class UserService {
     this.verifyError.next({ error:  error});
   }
 
-
   // Fonction pour gèrer lorsqu'on émet les données pour que les autres qui écoute le sujet soit au courant lorsque l'utilisateur est connecté ou déconnecté.
   emitAuthSubject() {
     this.authSubject.next(this.isAuth);
@@ -154,6 +153,7 @@ export class UserService {
     this.emitUserSubject();
     this.router.navigate(['person']);
   }
-
-
+  getUserConnectedId() {
+    return this.user.id;
+  }
 }

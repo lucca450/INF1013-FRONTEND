@@ -5,6 +5,7 @@ import {Subject, Subscription} from 'rxjs';
 import {HttpClient} from "@angular/common/http";
 import {User} from '../../models/users/user';
 import {UserService} from '../user/user.service';
+import formatErrorMsg = jasmine.formatErrorMsg;
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class IntervenantService {
   errorsSubject: Subject<string> = new Subject<string>();
   userSubscrition: Subscription;
   constructor(private router: Router, private httpClient: HttpClient, private userService: UserService) {
+/*
     this.getIntervenants().subscribe(
       (intervenants: any) => {
         this.intervenants = intervenants;
@@ -24,6 +26,49 @@ export class IntervenantService {
         console.log('Erreur ! : ' + error);
       }
     )
+
+ */
+  }
+
+  getActiveInternants(){
+/*
+    let data: any = [
+      {
+        id: '',
+        fname: '',
+        lname: '',
+        email: '',
+        phone: '',
+        address: '',
+        active: ''
+      }
+    ];
+
+ */
+
+    this.intervenants = [];
+  this.httpClient.get<User>('http://localhost:3000/users?active=true').subscribe(
+      (users: any) => {
+
+        users.forEach( (user) => {
+
+          this.httpClient.get<Intervenant>('http://localhost:3000/intervenants?id='+user.id).subscribe(
+            (intervenant: any) => {
+              console.log(intervenant[0]);
+              this.intervenants.push(intervenant[0]);
+              this.emitIntervenantSubject();
+            },
+            (error) => {
+              console.log('Erreur ! : ' + error);
+            }
+          )
+          // this.intervenants = intervenants;
+        });
+      },
+      (error) => {
+        console.log('Erreur ! : ' + error);
+      }
+      )
   }
 
   // Fonction pour récupérer les intervenants sur le serveurs
@@ -81,13 +126,26 @@ editIntervenantToServer(intervenant: Intervenant, user: User){
 
 deleteIntervenantToServer(id: number)
 {
+  const user = this.userService.getUserFromID(id);
+  user.active = !user.active;
   const headers = { 'content-type': 'application/json'};
-  this.httpClient.delete('http://localhost:3000/intervenants/'+id).subscribe(
+  const body = JSON.stringify(user);
+  this.httpClient.put('http://localhost:3000/users/'+user.id, body, {'headers': headers}).subscribe(
     (intervenant: any) => {
-      this.deleteIntervenant(id);
+      this.userService.editUserToServer(user);
+      this.userSubscrition = this.userService.verifyError.subscribe(
+        (user: any) => {
+          this.editIntervenant(intervenant);
+          this.goToMainRoute();
+        },
+        (error) => {
+          const message = 'Un erreur au niveau du serveur est survenu lors de la modification de l\'intervenant. Veuillez réessayer plus tard';
+          this.emitErrorsSubject(message);
+        }
+      )
     },
     (error) => {
-      const message = 'Un erreur au niveau du serveur est survenu lors de la suppression de l\'intervenant. Veuillez réessayer plus tard';
+      const message = 'Un erreur au niveau du serveur est survenu lors de la modification de l\'intervenant. Veuillez réessayer plus tard';
       this.emitErrorsSubject(message);
     }
   )
@@ -135,12 +193,8 @@ private  deleteIntervenant(id: number){
   // Fonction pour récupérer le nom complet de l'intervenant à partir de son identifiant
   public intervenantFullName(id: number): string {
     let intervenant: Intervenant;
-    // tslint:disable-next-line:only-arrow-functions typedef
 
-
-    intervenant = this.intervenants.find(function(i: Intervenant) {
-      return i.id === id;
-    });
+    intervenant = this.getIntervenantFromID(id);
     console.log(intervenant.fname + ' ' + intervenant.lname);
     return intervenant.fname  + ' ' + intervenant.lname;
   }
@@ -162,7 +216,7 @@ private  deleteIntervenant(id: number){
       alert('Erreur lors de la modification.');
     }
   }
-
+/*
   getMaxId(){
     let max = 0;
     this.intervenants.forEach(character => {
@@ -172,6 +226,8 @@ private  deleteIntervenant(id: number){
     });
     return max+1;
   }
+
+ */
 
   private emitIntervenantSubject(): void {
     this.intervenantSubject.next(this.intervenants.slice());
