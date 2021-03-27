@@ -5,24 +5,35 @@ import {Person} from '../../models/person/person';
 import {Intervenant} from '../../models/intervenant/intervenant';
 import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
+import {UserService} from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MeetingService {
 
+  public meetings = [];
+  //meetings: any[] = [];
+  loggedUser = this.userService.user;
+  meetingSubject = new Subject<any[]>();
+  errorsSubject: Subject<string> = new Subject<string>();
 
-  constructor(private router: Router, private httpClient: HttpClient) {
+  constructor(private router: Router, private userService: UserService,  private httpClient: HttpClient) {
     // this.meetings = this.mockMeetingData();
     console.log('constructeur');
-    this.getAllMeetings();
+
+    console.log(this.loggedUser.role);
+    if (this.loggedUser.role === 'A'){
+      this.getAllMeetings();
+    }else{
+      this.getMeetingsFromID(this.loggedUser.id);
+    }
+
   }
 
-  //meetings: any[] = [];
 
-  public meetings = [];
 
-  meetingsSubject = new Subject<any[]>();
+
 /*
   meeting: any =
     [
@@ -37,20 +48,6 @@ export class MeetingService {
     ];*/
 
 
-  // Fonction pour récupérer la rencontre selon son identifiant
-  public getMeetingFromID(id: number): Meeting {
-    let meeting: Meeting;
-    // tslint:disable-next-line:only-arrow-functions typedef
-    meeting = this.meetings.find(function(m: Meeting) {
-      return m.id === id;
-    });
-    return meeting;
-  }
-  // Fonction pour ajouter une rencontre
- /* addMeeting(): void{
-    this.router.navigate(['meeting']);
-  }*/
-  // Fonction pour modifié une rencontre
   editMeeting(): void{
     this.router.navigate(['meeting']);
   }
@@ -60,8 +57,21 @@ export class MeetingService {
     this.router.navigate(['meeting']);
   }
 
+  // Retourne tous les meetings
   public getAllMeetings(): Observable<Meeting> {
     return this.httpClient.get<Meeting>(`http://localhost:3000/meeting`);
+  }
+
+  // Retourne tous les meetings d'un intervenant
+  public getMeetingsFromID(id: number): Observable<Meeting> {
+    console.log('in');
+    return this.httpClient.get<Meeting>(`http://localhost:3000/meeting?idIntervenant=` + id);
+  /*  let meeting: Meeting;
+    // tslint:disable-next-line:only-arrow-functions typedef
+    meeting = this.meetings.find(function(m: Meeting) {
+      return m.id === id;
+    });
+    return meeting;*/
   }
 
   public addMeeting(meeting: Meeting): Observable<any> {
@@ -73,39 +83,4 @@ export class MeetingService {
   }
 
 
-
-/*
-  private getAllMeetings(): void {
-    console.log('Get all meetings --- DEBUT');
-    const url = 'http://localhost:3000/Meeting';
-    this.httpClient.get(url).subscribe(meet => {
-
-      console.log('meet ' + JSON.stringify(meet));
-
-
-      this.meeting = meet;
-
-      for (let i = 0; i < this.meeting.length; i++) {
-
-        console.log('ID MEETING : ' + this.meeting[i].id);
-        this.meetings.push(
-            {
-              id: this.meeting[i].id,
-              notes: this.meeting[i].notes,
-              followup: this.meeting[i].followup,
-              idPerson: this.meeting[i].idPerson,
-              goals: this.meeting[i].goals,
-              idIntervenant: this.meeting[i].idIntervenant
-            }
-          );
-      }
-      console.log('Get all meetings --- END');
-      this.emitMeetingSubject();
-    });
-  }
-
-  private emitMeetingSubject(): void {
-    this.meetingsSubject.next(this.meetings.slice());
-  }
- */
 }

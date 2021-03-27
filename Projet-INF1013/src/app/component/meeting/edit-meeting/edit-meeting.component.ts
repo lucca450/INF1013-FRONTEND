@@ -37,7 +37,7 @@ export class EditMeetingComponent implements OnInit {
   }
 
   private initForm(): void {
-    this.meeting = this.meetingService.getMeetingFromID(this.meetingID);
+    this.meeting = this.meetingService.getMeetingsFromID(this.meetingID);
     this.editMeetingForm = this.formBuilder.group({
       notes: [this.meeting.notes/*, Validators.email*/],
       followup: [this.meeting.followup/*, Validators.required*/],
