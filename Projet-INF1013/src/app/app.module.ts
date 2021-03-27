@@ -50,6 +50,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DeleteIntervenantComponent } from './component/intervenant/delete-intervenant/delete-intervenant.component';
 import {MatFormFieldControl, MatFormFieldModule, MatSuffix} from '@angular/material/form-field';
+import { ConvertRoleNamePipe } from './pipes/convert-role-name.pipe';
 
 registerLocaleData(localeFr);
 
@@ -100,6 +101,7 @@ const appRoutes: Routes = [
     ConvertBooleanPipe,
     ConvertInterfaceNamePipe,
     DeleteIntervenantComponent,
+    ConvertRoleNamePipe,
   ],
   imports: [
     BrowserModule,

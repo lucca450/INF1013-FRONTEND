@@ -3,8 +3,6 @@ import {User} from '../../models/users/user';
 import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {rejects} from 'assert';
-import {subscribeOn} from 'rxjs/operators';
 
 
 
@@ -17,6 +15,7 @@ export class UserService {
   users: User[]; // Liste de tout les utilisateurs
   user: User; // L'utilisateur connecté
   userSubject = new Subject<any>();
+  verifyError = new Subject<any>();
   isAuth: boolean = false;
   authSubject: Subject<boolean> = new Subject<boolean>();
 
@@ -40,17 +39,72 @@ export class UserService {
   addUserToServer(user: User) {
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(user);
-    return this.httpClient.post('http://localhost:3000/users', body, {'headers': headers});
+    this.httpClient.post('http://localhost:3000/users', body, {'headers': headers}).subscribe(
+      (intervenant: any) => {
+        this.addUser(user);
+        this.emitNoError();
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de l\'ajout de l\'utilisateur. Veuillez réessayer plus tard';
+        this.emitError(message);
+      }
+    )
   }
 
   addUser(user: any) {
   this.users.push(user);
+  this.emitUserSubject();
+  }
+
+  editUserToServer(user: User) {
+    const headers = { 'content-type': 'application/json'};
+    const body = JSON.stringify(user);
+    return this.httpClient.put('http://localhost:3000/users/'+user.id, body, {'headers': headers}).subscribe(
+      (intervenant: any) => {
+        this.editUser(user);
+        this.emitNoError();
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de l\'ajout de l\'utilisateur. Veuillez réessayer plus tard';
+        this.emitError(message);
+      }
+    )
+  }
+
+  editUser(user: any) {
+    const index = this.getUserIndexFromId(user.id);
+    this.users[index] = user;
+    this.emitUserSubject();
+  }
+
+  // Fonction pour récupérer l'utilisateur à partir de son identifiant
+  getUserFromID(id: number): User{
+    const index = this.getUserIndexFromId(id);
+    return this.users[index];
+  }
+
+  getUserIndexFromId(id: number): any {
+
+    for (let i = 0 ; i < this.users.length; i++) {
+      if (this.users[i].id == id) {
+        return i;
+      }
+    }
   }
 
   // Fonction pour gèrer lorsqu'on émet les données pour que les autres qui écoute le sujet soit au courant de quel utilisateur qui est connecté.
   private emitUserSubject() {
     this.userSubject.next(this.user);
   }
+
+  private emitNoError(){
+    this.verifyError.next();
+  }
+
+  private emitError(error: String){
+    this.verifyError.next({ error:  error});
+  }
+
 
   // Fonction pour gèrer lorsqu'on émet les données pour que les autres qui écoute le sujet soit au courant lorsque l'utilisateur est connecté ou déconnecté.
   emitAuthSubject() {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Intervenant} from '../../models/intervenant/intervenant';
 import {Router} from '@angular/router';
-import {Subject} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 import {HttpClient} from "@angular/common/http";
 import {User} from '../../models/users/user';
 import {UserService} from '../user/user.service';
@@ -13,6 +13,7 @@ export class IntervenantService {
   intervenants: Intervenant[];
   intervenantSubject = new Subject<any[]>();
   errorsSubject: Subject<string> = new Subject<string>();
+  userSubscrition: Subscription;
   constructor(private router: Router, private httpClient: HttpClient, private userService: UserService) {
     this.getIntervenants().subscribe(
       (intervenants: any) => {
@@ -36,18 +37,16 @@ export class IntervenantService {
     const body = JSON.stringify(intervenant);
     this.httpClient.post('http://localhost:3000/intervenants', body, {'headers': headers}).subscribe(
       (intervenant: any) => {
-
-        this.userService.addUserToServer(user).subscribe(
-          (user: any) => {
+        this.userService.addUserToServer(user);
+        this.userSubscrition = this.userService.verifyError.subscribe(
+          (response: any) => {
             this.addIntervenant(intervenant);
-            this.userService.addUser(user);
+            this.goToMainRoute();
           },
-          (error) => {
-            const message = 'Un erreur au niveau du serveur est survenu lors de l\'ajout de l\'intervenant. Veuillez réessayer plus tard';
-            this.emitErrorsSubject(message);
+          (error: any) => {
+            this.emitErrorsSubject(error);
           }
         )
-
       },
       (error) => {
         const message = 'Un erreur au niveau du serveur est survenu lors de l\'ajout de l\'intervenant. Veuillez réessayer plus tard';
@@ -56,12 +55,22 @@ export class IntervenantService {
     )
 }
 
-editIntervenantToServer(intervenant: Intervenant){
+editIntervenantToServer(intervenant: Intervenant, user: User){
   const headers = { 'content-type': 'application/json'};
   const body = JSON.stringify(intervenant);
   this.httpClient.put('http://localhost:3000/intervenants/'+intervenant.id, body, {'headers': headers}).subscribe(
     (intervenant: any) => {
-      this.editIntervenant(intervenant);
+      this.userService.editUserToServer(user);
+      this.userSubscrition = this.userService.verifyError.subscribe(
+        (user: any) => {
+          this.editIntervenant(intervenant);
+          this.goToMainRoute();
+        },
+        (error) => {
+          const message = 'Un erreur au niveau du serveur est survenu lors de la modification de l\'intervenant. Veuillez réessayer plus tard';
+          this.emitErrorsSubject(message);
+        }
+      )
     },
     (error) => {
       const message = 'Un erreur au niveau du serveur est survenu lors de la modification de l\'intervenant. Veuillez réessayer plus tard';
@@ -72,7 +81,6 @@ editIntervenantToServer(intervenant: Intervenant){
 
 deleteIntervenantToServer(id: number)
 {
-
   const headers = { 'content-type': 'application/json'};
   this.httpClient.delete('http://localhost:3000/intervenants/'+id).subscribe(
     (intervenant: any) => {
@@ -87,8 +95,11 @@ deleteIntervenantToServer(id: number)
 
 
 addIntervenant(intervenant: any): void {
-
   this.intervenants.push(intervenant);
+  this.emitIntervenantSubject();
+}
+
+private goToMainRoute(){
   this.router.navigate(['intervenant']);
 }
 
@@ -109,13 +120,13 @@ addIntervenant(intervenant: any): void {
 
 
   // Fonction pour modifier un intervenant
-  editIntervenant(intervenant: any): void {
+ private editIntervenant(intervenant: any): void {
     const index = this.getIntervenantIndexFromId(intervenant.id);
     this.intervenants[index] = intervenant;
-    this.router.navigate(['intervenant']);
+    this.emitIntervenantSubject();
   }
 
-  deleteIntervenant(id: number){
+private  deleteIntervenant(id: number){
     const index = this.getIntervenantIndexFromId(id);
     this.intervenants.splice(index, 1);
     this.emitIntervenantSubject();
@@ -150,6 +161,16 @@ addIntervenant(intervenant: any): void {
     }catch (e) {
       alert('Erreur lors de la modification.');
     }
+  }
+
+  getMaxId(){
+    let max = 0;
+    this.intervenants.forEach(character => {
+      if (character.id > max) {
+        max = character.id;
+      }
+    });
+    return max+1;
   }
 
   private emitIntervenantSubject(): void {

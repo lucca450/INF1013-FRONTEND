@@ -14,11 +14,9 @@ export class AddIntervenantComponent implements OnInit {
   addintervenantForm: FormGroup;
   addUserForm: FormGroup;
   roleEnum = Object.entries(Role).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
-  intervenantInvalid: boolean;
- // submitted = false;
   errorsSubscription: Subscription;
   errorMessage: String;
-  defaultRole: String = "Intervenant";
+  defaultRole: String = "I";
   hide = true;
 
   constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService) { }
@@ -39,8 +37,8 @@ export class AddIntervenantComponent implements OnInit {
   private initForm(): void {
 
     this.addintervenantForm = this.formBuilder.group({
-      id : this.intervenantService.intervenants.length, // Prendre le max plutot (Get a la bd)
-      interfaceName:'intervenants',
+      id : this.intervenantService.getMaxId(),
+      interfaceName:'Intervenant',
       fname: ['', Validators.required],
       lname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -49,8 +47,8 @@ export class AddIntervenantComponent implements OnInit {
     });
 
     this.addUserForm = this.formBuilder.group({
-      id : this.intervenantService.intervenants.length,
-      interfaceName:'Users',
+      id : this.intervenantService.getMaxId(),
+      interfaceName:'User',
       username: ['', Validators.required],
       password: ['', Validators.required],
       role: ['', Validators.required]
@@ -61,14 +59,10 @@ export class AddIntervenantComponent implements OnInit {
 
   // Fonction pour réagir lorsque la personne clique sur le bouton "Ajouter"
   onAddIntervenant(): void {
-    console.log('HELLO')
 
     let element: HTMLElement = document.getElementById('buttonintervenant') as HTMLElement;
     element.click();
 
-
-
-   // this.submitted = true;
     if (this.addintervenantForm.valid && this.addUserForm.valid) {
       this.intervenantService.addIntervenantToServer(this.addintervenantForm.value,this.addUserForm.value);
     }else {

@@ -9,61 +9,112 @@
       "address": "320 rue Amazone"
     },
     {
-      "interfaceName": "Intervenant",
       "id": "1",
-      "lname": "nomIntervenant2",
+      "interfaceName": "Intervenant",
       "fname": "prénomIntervenant2",
+      "lname": "nomIntervenant2",
       "email": "pierro_kool@hotmail.com2",
       "phone": "8196932092",
       "address": "321 rue Amazone"
     },
     {
-      "interfaceName": "Intervenant",
       "id": "2",
-      "lname": "nomIntervenant3",
+      "interfaceName": "Intervenant",
       "fname": "prénomIntervenant3",
+      "lname": "nomIntervenant3",
       "email": "pierro_kool@hotmail.com3",
       "phone": "8196932093",
       "address": "322 rue Amazone"
     },
     {
       "id": 3,
-      "interfaceName": "intervenants",
-      "fname": "Pierre-olivier",
-      "lname": "Dubois-Nadeau",
+      "interfaceName": "Intervenant",
+      "fname": "whuttt123",
+      "lname": "Dubois-Nadeau3",
       "email": "tttttttttttttttttttttttttttt@hotmai.com",
       "phone": "1111111111",
       "address": "freferfre"
+    },
+    {
+      "id": 4,
+      "interfaceName": "Intervenant",
+      "fname": "prenommodif",
+      "lname": "nommodif",
+      "email": "courrielmodif@hotmail.com",
+      "phone": "9999999999",
+      "address": "courrielmodif@hotmail.com"
+    },
+    {
+      "id": 5,
+      "interfaceName": "Intervenant",
+      "fname": "Pierre-olivier1234",
+      "lname": "Dubois-Nadeau1234",
+      "email": "pierro_kool@hotmail.com1234",
+      "phone": "1111111114",
+      "address": "8196932094"
+    },
+    {
+      "id": 6,
+      "interfaceName": "Intervenant",
+      "fname": "addtest1234",
+      "lname": "Dubois-Nadeau334",
+      "email": "pierro_kool@hotmail.com45",
+      "phone": "8199959353",
+      "address": "355 rue d'adrano"
     }
   ],
   "users": [
     {
-      "interfaceName": "User",
       "id": 0,
+      "interfaceName": "User",
+      "username": "ttt@hotmail.com",
       "email": "pierro_kool@hotmail.com",
       "password": "123",
       "role": "A"
     },
     {
-      "interfaceName": "User",
       "id": 1,
+      "interfaceName": "User",
+      "username": "ttt@hotmail.com2",
       "email": "pierro_kool@hotmail.com2",
       "password": "123",
       "role": "I"
     },
     {
-      "interfaceName": "User",
       "id": 2,
+      "interfaceName": "User",
+      "username": "ttt@hotmail.com3",
       "email": "pierro_kool@hotmail.com3",
       "password": "123",
       "role": "I"
     },
     {
       "id": 3,
-      "interfaceName": "Users",
-      "username": "ttt@hotmail.com",
-      "password": "123123",
-      "role": "Intervenant"
+      "interfaceName": "User",
+      "username": "ttt@hotmail.com344",
+      "password": "123",
+      "role": "I"
+    },
+    {
+      "id": 4,
+      "interfaceName": "User",
+      "username": "nommodif",
+      "password": "passwordmodif",
+      "role": "A"
+    },
+    {
+      "id": 5,
+      "interfaceName": "User",
+      "username": "testaddintervenantrole12",
+      "password": "test",
+      "role": "I"
+    },
+    {
+      "id": 6,
+      "interfaceName": "User",
+      "username": "addtest12345",
+      "password": "123",
+      "role": "I"
     }
   ],
   "meeting": [

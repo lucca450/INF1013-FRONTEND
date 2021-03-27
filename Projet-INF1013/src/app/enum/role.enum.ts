@@ -1,4 +1,4 @@
 export enum Role {
-  "Intervenant",
-  "Administrateur",
+  "I",
+  "A",
 }
