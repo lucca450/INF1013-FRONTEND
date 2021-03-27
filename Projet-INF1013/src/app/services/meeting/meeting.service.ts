@@ -5,54 +5,55 @@ import {Person} from '../../models/person/person';
 import {Intervenant} from '../../models/intervenant/intervenant';
 import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
+import {UserService} from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MeetingService {
 
+  meetings: Meeting[];
+  //meetings: any[] = [];
+  loggedUser = this.userService.user;
+  meetingSubject = new Subject<any[]>();
+  errorsSubject: Subject<string> = new Subject<string>();
 
-  constructor(private router: Router, private httpClient: HttpClient) {
+  constructor(private router: Router, private userService: UserService,  private httpClient: HttpClient) {
     // this.meetings = this.mockMeetingData();
     console.log('constructeur');
-    this.getAllMeetings();
+
+    console.log(this.loggedUser.role);
+    console.log(this.loggedUser.id);
+    this.loadAllMeetings();
+
   }
 
-  //meetings: any[] = [];
+  getMeetingIndexFromId(id: number): any {
 
-  public meetings = [];
-
-  meetingsSubject = new Subject<any[]>();
-/*
-  meeting: any =
-    [
-      {
-        id: '',
-        notes: '',
-        followup: '',
-        idPerson: '',
-        goals: '',
-        idIntervenant: ''
+    for (let i = 0 ; i < this.meetings.length; i++) {
+      if (this.meetings[i].id === id) {
+        return i;
       }
-    ];*/
-
-
-  // Fonction pour récupérer la rencontre selon son identifiant
-  public getMeetingFromID(id: number): Meeting {
-    let meeting: Meeting;
-    // tslint:disable-next-line:only-arrow-functions typedef
-    meeting = this.meetings.find(function(m: Meeting) {
-      return m.id === id;
-    });
-    return meeting;
+    }
   }
-  // Fonction pour ajouter une rencontre
- /* addMeeting(): void{
-    this.router.navigate(['meeting']);
-  }*/
-  // Fonction pour modifié une rencontre
-  editMeeting(): void{
-    this.router.navigate(['meeting']);
+
+  editMeeting(meeting: Meeting): void{
+    const headers = { 'content-type': 'application/json'};
+    const body = JSON.stringify(meeting);
+    console.log(body);
+    console.log(meeting.id);
+    this.httpClient.put('http://localhost:3000/meeting/' + meeting.id, body, {'headers': headers}).subscribe(
+      (meet: any) => {
+        const index = this.getMeetingIndexFromId(meet.id);
+        this.meetings[index] = meeting;
+        this.emitMeetingSubject();
+        this.router.navigate(['meeting']);
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de la modification de la rencontre. Veuillez réessayer plus tard';
+        this.emitErrorsSubject(message);
+      }
+    );
   }
 
   // Fonction pour annuler une rencontre et revenir à l'étape précédente
@@ -60,52 +61,73 @@ export class MeetingService {
     this.router.navigate(['meeting']);
   }
 
+  // Retourne tous les meetings
   public getAllMeetings(): Observable<Meeting> {
     return this.httpClient.get<Meeting>(`http://localhost:3000/meeting`);
   }
 
-  public addMeeting(meeting: Meeting): Observable<any> {
+  // Retourne tous les meetings d'un intervenant
+  public getMeetingsFromIntervenantId(id: number): Observable<Meeting> {
+    return this.httpClient.get<Meeting>(`http://localhost:3000/meeting?idIntervenant=` + id);
+  }
+
+  // Retourne un meeting spécifique
+  public getMeetingFromId(id: number): Meeting {
+    const index = this.getMeetingIndexFromId(id);
+    return this.meetings[index];
+  }
+
+  public addMeeting(meeting: Meeting): void{
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(meeting);
     console.log(body);
-    return this.httpClient.post('http://localhost:3000/meeting', body, {'headers': headers});
 
-  }
-
-
-
-/*
-  private getAllMeetings(): void {
-    console.log('Get all meetings --- DEBUT');
-    const url = 'http://localhost:3000/Meeting';
-    this.httpClient.get(url).subscribe(meet => {
-
-      console.log('meet ' + JSON.stringify(meet));
-
-
-      this.meeting = meet;
-
-      for (let i = 0; i < this.meeting.length; i++) {
-
-        console.log('ID MEETING : ' + this.meeting[i].id);
-        this.meetings.push(
-            {
-              id: this.meeting[i].id,
-              notes: this.meeting[i].notes,
-              followup: this.meeting[i].followup,
-              idPerson: this.meeting[i].idPerson,
-              goals: this.meeting[i].goals,
-              idIntervenant: this.meeting[i].idIntervenant
-            }
-          );
+    this.httpClient.post('http://localhost:3000/meeting', body, {'headers': headers}).subscribe(
+      (meet: any) => {
+            this.meetings.push(meet);
+            this.emitMeetingSubject();
+            this.router.navigate(['meeting']);
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de l\'ajout de l\'intervenant. Veuillez réessayer plus tard';
+        this.emitErrorsSubject(message);
       }
-      console.log('Get all meetings --- END');
-      this.emitMeetingSubject();
-    });
+    );
   }
+
 
   private emitMeetingSubject(): void {
-    this.meetingsSubject.next(this.meetings.slice());
+    this.meetingSubject.next(this.meetings.slice());
   }
- */
+
+  private emitErrorsSubject(message: string): void {
+    this.errorsSubject.next(message);
+  }
+
+  public loadAllMeetings(): void{
+    if (this.loggedUser.role === 'A'){
+      this.getAllMeetings().subscribe(
+        (meeting: any) => {
+          this.meetings = meeting;
+          this.emitMeetingSubject();
+        },
+        (error) => {
+          console.log('Erreur ! : ' + error);
+        }
+      );
+    }else{
+      this.getMeetingsFromIntervenantId(this.loggedUser.id).subscribe(
+        (meeting: any) => {
+          this.meetings = meeting;
+          this.emitMeetingSubject();
+        },
+        (error) => {
+          console.log('Erreur ! : ' + error);
+        }
+      );
+    }
+  }
+
+
+
 }
