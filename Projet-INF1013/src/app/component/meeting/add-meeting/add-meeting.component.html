@@ -73,8 +73,8 @@
                  </mat-option>
                </mat-select> -->
           <mat-select placeholder="intervenant" formControlName="idIntervenant">
-            <mat-option *ngFor="let intervenant of this.intervenantService.intervenants" [value]="intervenant.id">
-              {{ intervenant.fname + ' ' + intervenant.lname}}
+            <mat-option *ngFor="let i of this.intervenants" [value]="i.id">
+              {{ i["fname"] + ' ' + i["lname"]}}
             </mat-option>
           </mat-select>
           <mat-error>

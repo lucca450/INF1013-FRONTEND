@@ -46,9 +46,8 @@
       <div *ngIf="loggedUser.role == 'A'">
         <mat-form-field class="full-width-input">
           <mat-select placeholder="Intervenant" formControlName="idIntervenant">
-            <mat-option *ngFor="let intervenant of this.intervenantService.intervenants" [value]="intervenant.id">
-              <!--{{ inter.fname + ' ' + inter.lname}}-->
-              {{ intervenant.fname + ' ' + intervenant.lname}}
+            <mat-option *ngFor="let i of this.intervenants" [value]="i.id">
+              {{ i["fname"] + ' ' + i["lname"]}}
             </mat-option>
           </mat-select>
           <mat-error>

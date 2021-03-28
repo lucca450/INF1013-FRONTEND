@@ -139,22 +139,6 @@
       "goals": "Faire un contract avec le client",
       "idPerson": 1,
       "idIntervenant": 1
-    },
-    {
-      "notes": "toto",
-      "followup": "toto",
-      "goals": "toto",
-      "person": "toto",
-      "intervenant": 0,
-      "id": 4
-    },
-    {
-      "notes": "j",
-      "followup": "j",
-      "goals": "j",
-      "person": "jk",
-      "intervenant": 0,
-      "id": 5
     }
   ],
   "persons": [
