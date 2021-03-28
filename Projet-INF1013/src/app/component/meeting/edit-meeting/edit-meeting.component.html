@@ -8,7 +8,7 @@
       <h2>Modification d'une rencontre</h2>
 
       <mat-form-field class="full-width-input">
-        <mat-select placeholder="Personne" formControlName="idPerson">
+        <mat-select placeholder="Personne" formControlName="idPerson" required>
           <mat-option *ngFor="let p of this.persons" [value]="p.id">
             {{ p["fname"] + ' ' + p["lname"]}}
           </mat-option>
@@ -19,21 +19,21 @@
       </mat-form-field>
 
       <mat-form-field class="full-width-input">
-        <textarea matInput placeholder="Notes" formControlName="notes"></textarea>
+        <textarea matInput placeholder="Notes" formControlName="notes" required></textarea>
         <mat-error>
           Veuillez entrer des notes.
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="full-width-input">
-        <textarea matInput placeholder="Suivi" formControlName="followup"></textarea>
+        <textarea matInput placeholder="Suivi" formControlName="followup" required></textarea>
         <mat-error>
           Veuillez entrer un suivi.
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="full-width-input">
-        <textarea matInput placeholder="Buts" formControlName="goals"></textarea>
+        <textarea matInput placeholder="Buts" formControlName="goals" required></textarea>
         <mat-error>
           Veuillez entrer des buts.
         </mat-error>
@@ -41,7 +41,7 @@
 
       <div *ngIf="loggedUser.role == 'A'">
         <mat-form-field class="full-width-input">
-          <mat-select placeholder="Intervenant" formControlName="idIntervenant">
+          <mat-select placeholder="Intervenant" formControlName="idIntervenant" required>
             <mat-option *ngFor="let i of this.intervenants" [value]="i.id">
               {{ i["fname"] + ' ' + i["lname"]}}
             </mat-option>
@@ -54,7 +54,7 @@
 
       <div *ngIf="loggedUser.role == 'I'">
         <mat-form-field class="full-width-input">
-          <mat-select placeholder="Intervenant" formControlName="idIntervenant">
+          <mat-select placeholder="Intervenant" formControlName="idIntervenant" required>
             <mat-option [value]="loggedUser.id">
              {{ intervenants.fname + ' ' + intervenants.lname }}
               <!--  {{loggedUser.id}}-->
