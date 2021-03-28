@@ -1,8 +1,22 @@
+<div *ngIf="errorMessage" class="validation">
+  <div>{{errorMessage}}</div>
+</div>
 <mat-card>
   <!-- Formulaire pour modifier une rencontre entre l'intervenant et le client -->
   <mat-card-content>
     <form [formGroup]="editMeetingForm" (ngSubmit)="onSubmit()">
       <h2>Modification d'une rencontre</h2>
+
+      <mat-form-field class="full-width-input">
+        <mat-select placeholder="Personne" formControlName="idPerson">
+          <mat-option *ngFor="let p of this.persons" [value]="p.id">
+            {{ p["fname"] + ' ' + p["lname"]}}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          Veuillez choisir une personne.
+        </mat-error>
+      </mat-form-field>
 
       <mat-form-field class="full-width-input">
         <textarea matInput placeholder="Notes" formControlName="notes"></textarea>
@@ -24,24 +38,6 @@
           Veuillez entrer des buts.
         </mat-error>
       </mat-form-field>
-<!--
-      <mat-form-field class="full-width-input">
-        <textarea matInput placeholder="Personne" formControlName="idPerson"></textarea>
-        <mat-error>
-          Veuillez choisir une personne.
-        </mat-error>
-      </mat-form-field>
--->
-      <mat-form-field class="full-width-input">
-        <mat-select placeholder="Personne" formControlName="idPerson">
-          <mat-option *ngFor="let person of this.personService.persons" [value]="person.id">
-            {{ person.fname + ' ' + person.lname}}
-          </mat-option>
-        </mat-select>
-        <mat-error>
-          Veuillez choisir une personne.
-        </mat-error>
-      </mat-form-field>
 
       <div *ngIf="loggedUser.role == 'A'">
         <mat-form-field class="full-width-input">
@@ -60,20 +56,20 @@
         <mat-form-field class="full-width-input">
           <mat-select placeholder="Intervenant" formControlName="idIntervenant">
             <mat-option [value]="loggedUser.id">
-              <!--{{ inter.fname + ' ' + inter.lname}}-->
-              {{loggedUser.id}}
-            </mat-option>
-          </mat-select>
-          <mat-error>
-            Veuillez choisir un intervenant.
-          </mat-error>
-        </mat-form-field>
-      </div>
+             {{ intervenants.fname + ' ' + intervenants.lname }}
+              <!--  {{loggedUser.id}}-->
+             </mat-option>
+           </mat-select>
+           <mat-error>
+             Veuillez choisir un intervenant.
+           </mat-error>
+         </mat-form-field>
+       </div>
 
 
 
-      <button class ="button-cancel" (click) = "onCancelEditMeeting()">Annuler</button>
-      <button class ="button-edit" (click) = "onEditMeeting()">Enregistrer</button>
-    </form>
-  </mat-card-content>
-</mat-card>
+       <button class ="button-cancel" (click) = "onCancelEditMeeting()">Annuler</button>
+       <button class ="button-edit" (click) = "onEditMeeting()">Enregistrer</button>
+     </form>
+   </mat-card-content>
+ </mat-card>

@@ -61,7 +61,7 @@
       "interfaceName": "User",
       "username": "pierro_kool@hotmail.com",
       "password": "123",
-      "role": "A",
+      "role": "I",
       "active": true
     },
     {
@@ -139,6 +139,22 @@
       "goals": "Faire un contract avec le client",
       "idPerson": 1,
       "idIntervenant": 1
+    },
+    {
+      "notes": "test1234",
+      "followup": "test1234",
+      "goals": "test1234",
+      "idPerson": 1,
+      "idIntervenant": 0,
+      "id": 4
+    },
+    {
+      "notes": "toto",
+      "followup": "toto",
+      "goals": "toto",
+      "idPerson": 1,
+      "idIntervenant": 0,
+      "id": 5
     }
   ],
   "persons": [
