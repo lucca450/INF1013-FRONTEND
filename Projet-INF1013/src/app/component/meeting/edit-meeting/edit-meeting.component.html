@@ -20,22 +20,40 @@
 
       <mat-form-field class="full-width-input">
         <textarea matInput placeholder="Notes" formControlName="notes" required></textarea>
-        <mat-error>
+        <mat-error *ngIf="editMeetingForm.hasError('required', 'notes')">
           Veuillez entrer des notes.
+        </mat-error>
+        <mat-error *ngIf="editMeetingForm.hasError('minlength', 'notes')">
+          Les notes doivent avoir au moins 5 caractères.
+        </mat-error>
+        <mat-error *ngIf="editMeetingForm.hasError('maxlength', 'notes')">
+          Les notes doivent avoir au maximum 4000 caractères.
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="full-width-input">
         <textarea matInput placeholder="Suivi" formControlName="followup" required></textarea>
-        <mat-error>
+        <mat-error *ngIf="editMeetingForm.hasError('required', 'followup')">
           Veuillez entrer un suivi.
+        </mat-error>
+        <mat-error *ngIf="editMeetingForm.hasError('minlength', 'followup')">
+          Le suivi doit avoir au moins 5 caractères.
+        </mat-error>
+        <mat-error *ngIf="editMeetingForm.hasError('maxlength', 'followup')">
+          Le suivi doit avoir au maximum 4000 caractères.
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="full-width-input">
         <textarea matInput placeholder="Buts" formControlName="goals" required></textarea>
-        <mat-error>
+        <mat-error *ngIf="editMeetingForm.hasError('required', 'goals')">
           Veuillez entrer des buts.
+        </mat-error>
+        <mat-error *ngIf="editMeetingForm.hasError('minlength', 'goals')">
+          Les buts doivent avoir au moins 5 caractères.
+        </mat-error>
+        <mat-error *ngIf="editMeetingForm.hasError('maxlength', 'goals')">
+          Les buts doivent avoir au maximum 4000 caractères.
         </mat-error>
       </mat-form-field>
 
