@@ -68,8 +68,8 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
         }
       );
     }else {
-      this.intervenantService.intervenantFullName(this.loggedUser.id);
-      this.intervenantSubscription = this.intervenantService.intervenantsFullnameSubject.subscribe(
+      this.intervenantService.getIntervenantFromId(this.loggedUser.id);
+      this.intervenantSubscription = this.intervenantService.intervenantsSubject.subscribe(
         (inter: any) => {
           console.log(inter);
           this.intervenants = inter;
