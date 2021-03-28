@@ -225,25 +225,21 @@
       "hourlyRate": 22,
       "transportFees": 5,
       "responsibleIntervenantID": 2,
-      "emergencyContact": [
-        {
-          "interfaceName": "EmergencyContact",
-          "lname": "smith",
-          "fname": "john",
-          "phone": 8190002222,
-          "relation": "Frère"
-        }
-      ],
-      "followedBy": [
-        {
-          "interfaceName": "Doctor",
-          "lname": "protou",
-          "fname": "colin",
-          "email": "test1@doctor.ca",
-          "fax": 8888888888,
-          "phone": 9333333333
-        }
-      ],
+      "emergencyContact": {
+        "interfaceName": "EmergencyContact",
+        "lname": "smith",
+        "fname": "john",
+        "phone": 8190002222,
+        "relation": "Frère"
+      },
+      "followedBy": {
+        "interfaceName": "Doctor",
+        "lname": "protou",
+        "fname": "colin",
+        "email": "test1@doctor.ca",
+        "fax": 8888888888,
+        "phone": 9333333333
+      },
       "active": true
     },
     {

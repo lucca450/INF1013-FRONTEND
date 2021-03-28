@@ -58,7 +58,7 @@ export class AddPersonComponent implements OnInit {
     this.firstFormGroup = this.formBuilder.group({
       fname: [''/*, Validators.email*/],
       lname: [''/*, Validators.required*/],
-      picker : [],
+      birthday : [],
       sexe: [],
       address: [''/*, Validators.required*/],
       phone: [''/*, Validators.required*/],
@@ -66,44 +66,68 @@ export class AddPersonComponent implements OnInit {
       healthIssues: []
     });
     this.secondFormGroup = this.formBuilder.group({
-      city: [],
-      picker1: [],
-      picker2: [],
+      workCityID: [],
+      startDate: [],
+      endDate: [],
 
     });
     this.thirdFormGroup = this.formBuilder.group({
-      picker3: [],
-      picker4: [],
+      programStartDate: [],
+      programEndDate: [],
       hoursPerDay: [''/*, Validators.required*/],
-      picker5: [],
-      picker6: [],
+      roamingStartDate: [],
+      roamingEndDate: [],
       communityWork: [],
-      picker7: [],
-      picker8: [],
+      communityStartDate: [],
+      communityEndDate: [],
       hourlyRate: [''/*, Validators.required*/],
       transportFees: [''/*, Validators.required*/],
     });
     this.fourthFormGroup = this.formBuilder.group({
-      ressourceFname: [''/*, Validators.required*/],
-      ressourceLname: [''/*, Validators.required*/],
-      ressourcePhone: [''/*, Validators.required*/],
+      lname: [''/*, Validators.required*/],
+      fname: [''/*, Validators.required*/],
+      phone: [''/*, Validators.required*/],
     });
     this.fifthFormGroup = this.formBuilder.group({
-      followFname: [''/*, Validators.required*/],
-      followLname: [''/*, Validators.required*/],
-      followPhone: [''/*, Validators.required*/],
-      followEmail: [''/*, Validators.required*/],
-      followFax: [''/*, Validators.required*/],
-      followOrganism: [''/*, Validators.required*/]
+      lname: [''/*, Validators.required*/],
+      fname: [''/*, Validators.required*/],
+      phone: [''/*, Validators.required*/],
+      email: [''/*, Validators.required*/],
+      fax: [''/*, Validators.required*/],
+      organism: [''/*, Validators.required*/],
     });
   }
   // Fonction pour réagir lorsque la personne clique sur le bouton "Ajouter"
   onAddPerson(): void {
-    let element: HTMLElement = document.getElementById('buttonintervenant') as HTMLElement;
-    element.click();
-
     if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.thirdFormGroup.valid && this.fourthFormGroup.valid && this.fifthFormGroup.valid) {
-      this.formAddPerson = new FormGroup({form1:this.firstFormGroup,form2:this.secondFormGroup,form3:this.thirdFormGroup,form4:this.fourthFormGroup,form5:this.fifthFormGroup});
+     // let formAddPersonTempo;
+      this.formAddPerson = this.formBuilder.group({
+        interfaceName: 'Person',
+        lname: [this.firstFormGroup.value.lname],
+        fname: [this.firstFormGroup.value.fname],
+        birthday : [this.firstFormGroup.value.picker],
+        sexe: [this.firstFormGroup.value.sexe],
+        address: [this.firstFormGroup.value.address],
+        phone: [this.firstFormGroup.value.phone],
+        NAS: [this.firstFormGroup.value.NAS],
+        healthIssues: [this.firstFormGroup.value.healthIssues],
+        workCityID: [this.secondFormGroup.value.city],
+        startDate: [this.secondFormGroup.value.startDate],
+        endDate: [this.secondFormGroup.value.endDate],
+        programStartDate: [this.thirdFormGroup.value.programStartDate],
+        programEndDate: [this.thirdFormGroup.value.programEndDate],
+        hoursPerDay: [this.thirdFormGroup.value.hoursPerDay],
+        roamingStartDate: [this.thirdFormGroup.value.roamingStartDate],
+        roamingEndDate: [this.thirdFormGroup.value.roamingEndDate],
+        communityWork: [this.thirdFormGroup.value.communityWork],
+        communityStartDate: [this.thirdFormGroup.value.communityStartDate],
+        communityEndDate: [this.thirdFormGroup.value.communityEndDate],
+        hourlyRate: [this.thirdFormGroup.value.hourlyRate],
+        transportFees: [this.thirdFormGroup.value.transportFees],
+        emergencyContact: [this.fourthFormGroup.value],
+        followedBy: [this.fifthFormGroup.value],
+        active: true
+      });
       this.personService.addPerson(this.formAddPerson.value);
     }else {
       alert('Veuillez remplir tous les champs');

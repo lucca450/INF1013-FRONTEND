@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {PersonService} from '../../../services/person/person.service';
 import {Person} from '../../../models/person/person';
@@ -12,15 +12,16 @@ import {StatusService} from '../../../services/status/status.service';
 import {EducationLevelService} from '../../../services/educationLevel/education-level.service';
 import {ResidenceTypeService} from '../../../services/residenceType/residence-type.service';
 import {ReferenceService} from '../../../services/reference/reference.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-details-person',
   templateUrl: './details-person.component.html',
   styleUrls: ['./details-person.component.css']
 })
-export class DetailsPersonComponent implements OnInit {
+export class DetailsPersonComponent implements OnInit, OnDestroy {
 
-  personID: number;
+  errorMessage: String;
   person: Person;
   isSlideChecked = false;
   //Énumération
@@ -34,6 +35,8 @@ export class DetailsPersonComponent implements OnInit {
   reference = this.referenceService;
   intervenant = this.intervenantService;
 
+  errorsSubscription: Subscription;
+  personSubscription: Subscription;
 
   constructor(private personService: PersonService ,
               private intervenantService: IntervenantService,
@@ -47,16 +50,35 @@ export class DetailsPersonComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      const idx =	Number(params.get('id'));
-      this.personID = idx;
-    //  const persons = this.personService.persons.filter(p => p.id === this.personID);
-     // this.person = persons[0];
+
+      this.errorsSubscription = this.personService.errorsSubject.subscribe(
+        (error: any) => {
+          this.errorMessage = error;
+        }
+      )
+      const id =	Number(params.get('id'));
+
+      this.personService.getPersonFromId(id);
+
+      this.personSubscription = this.personService.personSubject.subscribe(
+        (person: any) => {
+          this.person = person;
+        },
+        (error: any) => {
+          this.errorMessage = error;
+        }
+      )
     });
   }
 
   // Fonction pour gèrer le slider du NAS.
   toggleChanges($event: MatSlideToggleChange):  void {
     this.isSlideChecked = $event.checked;
+  }
+
+  ngOnDestroy(): void {
+    this.errorsSubscription.unsubscribe();
+    this.personSubscription.unsubscribe();
   }
 }
 

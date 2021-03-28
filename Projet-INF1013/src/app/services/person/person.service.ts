@@ -238,10 +238,8 @@ export class PersonService {
   }
 
   getActivePersons() {
-    let persons : Person[] = [];
     this.httpClient.get<User>('http://localhost:3000/persons?active=true').subscribe(
       (persons: any) => {
-        persons.push(persons);
         this.emitpersonsSubject(persons);
       },
       (error) => {
@@ -250,7 +248,6 @@ export class PersonService {
       }
     )
   }
-
   getPersonFromId(id: number) {
     this.httpClient.get<Person>(`http://localhost:3000/persons/`+id).subscribe(
       (person: any) => {

@@ -5,6 +5,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {DeleteIntervenantComponent} from '../../intervenant/delete-intervenant/delete-intervenant.component';
 import {MatDialog} from '@angular/material/dialog';
 import {Subscription} from 'rxjs';
+import {DeletePersonComponent} from '../delete-person/delete-person.component';
 
 
 
@@ -34,6 +35,7 @@ export class ListPersonComponent implements OnInit, AfterViewInit, OnDestroy{
 
     this.personSubscription = this.personService.personsSubject.subscribe(
       (persons: any) => {
+        //console.log(persons);
         this.dataSource = new MatTableDataSource(persons);
       }
     )
@@ -63,7 +65,7 @@ export class ListPersonComponent implements OnInit, AfterViewInit, OnDestroy{
   }
 
   onDelete(id: number){
-    const dialogRef = this.dialog.open(DeleteIntervenantComponent);
+    const dialogRef = this.dialog.open(DeletePersonComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if(result == true){

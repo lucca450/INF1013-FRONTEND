@@ -138,7 +138,7 @@ private goToMainRoute(){
 
 // Fonction pour récupérer le nom complet de l'intervenant à partir de son identifiant
 public intervenantFullName(id: number): void {
-  this.httpClient.get<Intervenant>(`http://localhost:3000/intervenants`).subscribe(
+  this.httpClient.get<Intervenant>(`http://localhost:3000/intervenants`+id).subscribe(
     (intervenant: any) => {
       let fullname = intervenant.fname + ' ' + intervenant.lname;
       this.intervenantsFullnameSubject.next(fullname);
