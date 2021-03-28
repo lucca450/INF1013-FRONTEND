@@ -10,6 +10,7 @@ import {DepartureReasonService} from '../../../services/departureReason/departur
 import {EducationLevelService} from '../../../services/educationLevel/education-level.service';
 import {ResidenceTypeService} from '../../../services/residenceType/residence-type.service';
 import {SectorService} from '../../../services/sector/sector.service';
+import {Intervenant} from '../../../models/intervenant/intervenant';
 
 
 @Component({
@@ -19,6 +20,7 @@ import {SectorService} from '../../../services/sector/sector.service';
 })
 export class AddPersonComponent implements OnInit {
 
+  intervenants: Intervenant[];
   formAddPerson:FormGroup;
   statusList = this.statusService.status;
   referenceList =this.refererenceService.reference;

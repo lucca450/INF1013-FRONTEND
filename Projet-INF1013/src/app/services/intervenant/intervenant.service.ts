@@ -11,6 +11,7 @@ import {UserService} from '../user/user.service';
 })
 export class IntervenantService {
 
+  intervenants: Intervenant[]; // Temporaire
   activateDesactivateSubject = new Subject<any>();
   intervenantsSubject = new Subject<any>();
   intervenantSubject = new Subject<any>();

@@ -37,7 +37,6 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
   });
 
   constructor(private intervenantService: IntervenantService, private userService: UserService, public personService: PersonService, private meetingService: MeetingService, private formBuilder: FormBuilder , private route: ActivatedRoute) {
-
   }
 
    ngOnInit(): void {

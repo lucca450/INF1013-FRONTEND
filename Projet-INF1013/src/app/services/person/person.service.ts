@@ -13,7 +13,7 @@ import {User} from '../../models/users/user';
 })
 export class PersonService {
  // doctors: Doctor[];
- //  persons: Person[];
+   persons: Person[]; // Temporaire, a supprimer
 //  emergencyContact: EmergencyContact;
   personFullnameSubject = new Subject<any>();
   errorsSubject: Subject<string> = new Subject<string>();
