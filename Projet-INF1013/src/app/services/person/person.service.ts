@@ -3,21 +3,30 @@ import {Doctor} from '../../models/doctor/doctor';
 import {Person} from '../../models/person/person';
 import {EmergencyContact} from '../../models/emergency/emergency-contact';
 import {Router} from '@angular/router';
+import {HttpClient} from '@angular/common/http';
+import {Intervenant} from '../../models/intervenant/intervenant';
+import {Subject} from 'rxjs';
+import {User} from '../../models/users/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonService {
-  doctors: Doctor[];
-  persons: Person[];
-  emergencyContact: EmergencyContact;
+ // doctors: Doctor[];
+ //  persons: Person[];
+//  emergencyContact: EmergencyContact;
+  personFullnameSubject = new Subject<any>();
+  errorsSubject: Subject<string> = new Subject<string>();
+  activateDesactivateSubject = new Subject<any>();
+  personsSubject = new Subject<any>();
+  personSubject = new Subject<any>();
 
 
-  constructor(private router: Router)
+  constructor(private router: Router, private httpClient: HttpClient)
   {
-   /* this.doctors = this.mockDoctorData();*/
-    this.persons = this.mockPersonData();
+
   }
+  /*
   // Fonction pour générer les données lié aux docteurs
   private mockDoctorData(): Doctor{
     return {interfaceName: 'Doctor', lname: 'protou', fname: 'colin', email: 'test1@doctor.ca', fax: 8888888888, phone: 9333333333};
@@ -142,25 +151,115 @@ export class PersonService {
       }
     ];
   }
+  */
+
   // Fonction pour récupérer le nom complet de la personne
-  public personFullName(id: number): string {
-    let person: Person;
-    // tslint:disable-next-line:only-arrow-functions typedef
-    person = this.persons.find(function(p: Person) {
-      return p.id === id;
-    });
-    return person.fname  + ' ' + person.lname;
+  public personFullName(id: number): void {
+    this.httpClient.get<Person>(`http://localhost:3000/persons`).subscribe(
+      (person: any) => {
+        let fullname = person.fname + ' ' + person.lname;
+        this.personFullnameSubject.next(fullname);
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des personnes';
+        this.emitErrorsSubject(error.error);
+      }
+    )
   }
   // Fonction pour ajouter une personne
-  addPerson(): void{
+  addPerson(person: Person): void{
+    const headers = { 'content-type': 'application/json'};
+    const body = JSON.stringify(person);
+    this.httpClient.post('http://localhost:3000/persons', body, {'headers': headers}).subscribe(
+      (person: any) => {
+        this.emitpersonsSubject(person);
+        this.goToMainRoute();
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de l\'ajout de la personne. Veuillez réessayer plus tard';
+        this.emitErrorsSubject(message);
+      }
+    )
+  }
+
+  goToMainRoute(){
     this.router.navigate(['person']);
   }
   // Fonction pour modifier une personne
-  editPerson() {
-    this.router.navigate(['person']);
+  editPerson(person: Person) {
+    const headers = { 'content-type': 'application/json'};
+    const body = JSON.stringify(person);
+    this.httpClient.put('http://localhost:3000/persons/'+person.id, body, {'headers': headers}).subscribe(
+      (person: any) => {
+        this.emitpersonsSubject(person);
+        this.goToMainRoute();
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de la modification de la personne. Veuillez réessayer plus tard.';
+        this.emitErrorsSubject(message);
+      }
+    )
+  }
+
+  ActiveDesactivePerson(id: number, activeDesactive: boolean)
+  {
+    const headers = { 'content-type': 'application/json'};
+    const body = JSON.stringify({"active": activeDesactive});
+    console.log(body);
+    this.httpClient.patch('http://localhost:3000/persons/'+id, body, {'headers': headers}).subscribe(
+      (user: any) => {
+        this.emitActivateDesactive(0);
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de la suppression de la personne. Veuillez réessayer plus tard';
+        this.emitErrorsSubject(message);
+      }
+    )
   }
 
   cancelPerson() {
-    this.router.navigate(['person']);
+    this.goToMainRoute();
+  }
+
+  private emitErrorsSubject(message: string): void {
+    this.errorsSubject.next(message);
+  }
+
+  private emitActivateDesactive(id: number): void {
+    this.activateDesactivateSubject.next(id);
+  }
+
+  private emitpersonsSubject(message: string): void {
+    this.personsSubject.next(message);
+  }
+
+  private emitpersonSubject(message: string): void {
+    this.personSubject.next(message);
+  }
+
+  getActivePersons() {
+    let persons : Person[] = [];
+    this.httpClient.get<User>('http://localhost:3000/persons?active=true').subscribe(
+      (persons: any) => {
+        persons.push(persons);
+        this.emitpersonsSubject(persons);
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des personnes. Veuillez réessayer plus tard.';
+        this.emitErrorsSubject(message);
+      }
+    )
+  }
+
+  getPersonFromId(id: number) {
+    this.httpClient.get<Person>(`http://localhost:3000/persons/`+id).subscribe(
+      (person: any) => {
+        this.emitpersonSubject(person)
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de la récupération de la personne';
+        this.emitErrorsSubject(error.error);
+      }
+    )
   }
 }

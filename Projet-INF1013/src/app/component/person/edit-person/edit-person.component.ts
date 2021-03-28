@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {PersonService} from '../../../services/person/person.service';
 import {Person} from '../../../models/person/person';
@@ -11,13 +11,17 @@ import {DepartureReasonService} from '../../../services/departureReason/departur
 import {EducationLevelService} from '../../../services/educationLevel/education-level.service';
 import {ResidenceTypeService} from '../../../services/residenceType/residence-type.service';
 import {SectorService} from '../../../services/sector/sector.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-edit-person',
   templateUrl: './edit-person.component.html',
   styleUrls: ['./edit-person.component.css']
 })
-export class EditPersonComponent implements OnInit {
+export class EditPersonComponent implements OnInit, OnDestroy {
+
+  formEditPerson:FormGroup;
+  errorMessage: String;
   person: Person;
   // Récupérer les services
   statusList = this.statusService.status;
@@ -36,6 +40,9 @@ export class EditPersonComponent implements OnInit {
   fourthFormGroup: FormGroup;
   fifthFormGroup: FormGroup;
 
+  errorsSubscription: Subscription;
+  personSubscription: Subscription;
+
 
   constructor(private formBuilder: FormBuilder,
               private personService: PersonService,
@@ -50,19 +57,31 @@ export class EditPersonComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.paramMap.subscribe(params => {
-      const idx =	Number(params.get('id'));
-      const persons = this.personService.persons.filter(p => p.id === idx);
-      this.person = persons[0];
+      const id =	Number(params.get('id'));
+
+      this.personService.getPersonFromId(id);
+
+      this.personSubscription = this.personService.personSubject.subscribe(
+        (person: any) => {
+          this.person = person;
+          this.initForm();
+        },
+        (error: any) => {
+          this.errorMessage = error;
+        }
+      )
     });
-
-    this.initForm();
   }
-
   onEditPerson(): void {
-
-    this.personService.editPerson();
+    let element: HTMLElement = document.getElementById('buttonintervenant') as HTMLElement;
+    element.click();
+    if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.thirdFormGroup.valid && this.fourthFormGroup.valid && this.fifthFormGroup.valid) {
+      this.formEditPerson = new FormGroup({form1:this.firstFormGroup,form2:this.secondFormGroup,form3:this.thirdFormGroup,form4:this.fourthFormGroup,form5:this.fifthFormGroup});
+      this.personService.editPerson(this.formEditPerson.value);
+    }else {
+      alert('Veuillez remplir tous les champs');
+    }
   }
-
   private initForm(): void {
     this.firstFormGroup = this.formBuilder.group({
       fname: [this.person.fname],
@@ -135,12 +154,12 @@ export class EditPersonComponent implements OnInit {
   onSubmit(): void {
 
   }
-  // Fonction pour réagir lorsque la personne clique sur le bouton "Enregistrer"
-  OnEditPerson() {
-    this.personService.editPerson();
-  }
-
   onCancelPerson() {
     this.personService.cancelPerson();
+  }
+
+  ngOnDestroy(): void {
+    this.errorsSubscription.unsubscribe();
+    this.personSubscription.unsubscribe();
   }
 }

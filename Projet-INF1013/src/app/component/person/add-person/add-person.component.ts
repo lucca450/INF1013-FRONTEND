@@ -19,10 +19,7 @@ import {SectorService} from '../../../services/sector/sector.service';
 })
 export class AddPersonComponent implements OnInit {
 
-  addPersonForm: FormGroup;
-  personInvalid: boolean;
-  //intervenants = this.intervenantService.intervenants;
-  intervenants =  null;
+  formAddPerson:FormGroup;
   statusList = this.statusService.status;
   referenceList =this.refererenceService.reference;
   cities = this.workCityService.workCity;
@@ -100,7 +97,15 @@ export class AddPersonComponent implements OnInit {
   }
   // Fonction pour réagir lorsque la personne clique sur le bouton "Ajouter"
   onAddPerson(): void {
-    this.personService.addPerson();
+    let element: HTMLElement = document.getElementById('buttonintervenant') as HTMLElement;
+    element.click();
+
+    if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.thirdFormGroup.valid && this.fourthFormGroup.valid && this.fifthFormGroup.valid) {
+      this.formAddPerson = new FormGroup({form1:this.firstFormGroup,form2:this.secondFormGroup,form3:this.thirdFormGroup,form4:this.fourthFormGroup,form5:this.fifthFormGroup});
+      this.personService.addPerson(this.formAddPerson.value);
+    }else {
+      alert('Veuillez remplir tous les champs');
+    }
   }
 
   onSubmit(): void {

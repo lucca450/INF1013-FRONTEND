@@ -108,7 +108,6 @@ export class EditIntervenantComponent implements OnInit {
 
     if (this.editintervenantForm.valid) {
       this.intervenantService.editIntervenant(this.editintervenantForm.value, this.editUserForm.value);
-
     }else {
       alert('Veuillez remplir tous les champs');
     }

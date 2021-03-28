@@ -6,7 +6,7 @@ import {OtherPerson} from '../other-person/other-person';
 export interface Person {
   interfaceName: 'Person';
   id: number;
-  active: 'Oui' | 'Non';
+  active: boolean;
   lname: string;
   fname: string;
   birthday: Date;

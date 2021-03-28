@@ -57,7 +57,6 @@ export class AddIntervenantComponent implements OnInit {
 
   // Fonction pour réagir lorsque la personne clique sur le bouton "Ajouter"
   onAddIntervenant(): void {
-
     let element: HTMLElement = document.getElementById('buttonintervenant') as HTMLElement;
     element.click();
 

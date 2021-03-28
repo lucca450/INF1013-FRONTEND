@@ -49,8 +49,8 @@ export class DetailsPersonComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       const idx =	Number(params.get('id'));
       this.personID = idx;
-      const persons = this.personService.persons.filter(p => p.id === this.personID);
-      this.person = persons[0];
+    //  const persons = this.personService.persons.filter(p => p.id === this.personID);
+     // this.person = persons[0];
     });
   }
 

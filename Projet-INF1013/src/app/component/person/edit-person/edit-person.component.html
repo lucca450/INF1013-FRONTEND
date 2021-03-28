@@ -1,4 +1,6 @@
-
+<div *ngIf="errorMessage" class="validation">
+  <div>{{errorMessage}}</div>
+</div>
 <mat-card>
   <h2>Modification des informations de {{person.fname}} {{person.lname}}</h2>
   <!-- Formulaire pour modifier une personne. -->

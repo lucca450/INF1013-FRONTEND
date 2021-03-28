@@ -150,8 +150,6 @@ public intervenantFullName(id: number): void {
 }
 
   editAccount(myID: number, data: any): void {
-
-
   }
 
   // Fonction annuler l'étape concernant l'intervenant
