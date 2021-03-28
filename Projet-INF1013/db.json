@@ -79,7 +79,7 @@
       "username": "ttt@hotmail.com",
       "email": "pierro_kool@hotmail.com",
       "password": "123",
-      "role": "I"
+      "role": "A"
     },
     {
       "id": 1,
@@ -168,11 +168,27 @@
     },
     {
       "notes": "123",
-      "followup": "123",
+      "followup": "444",
       "goals": "556",
       "idPerson": 2,
       "idIntervenant": 0,
       "id": 4
+    },
+    {
+      "notes": "toto",
+      "followup": "toto",
+      "goals": "toto22",
+      "idPerson": 0,
+      "idIntervenant": 4,
+      "id": 5
+    },
+    {
+      "notes": "gfd",
+      "followup": "gfd",
+      "goals": "gfdrrrr",
+      "idPerson": 1,
+      "idIntervenant": "1",
+      "id": 6
     }
   ],
   "person": [

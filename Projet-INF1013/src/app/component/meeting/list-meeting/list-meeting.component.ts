@@ -39,7 +39,7 @@ export class ListMeetingComponent implements OnInit, AfterViewInit {
 
     this.meetingSubscription = this.meetingService.meetingSubject.subscribe(
       (meet: any) => {
-        this.meetings = new MatTableDataSource(meet);;
+        this.meetings = new MatTableDataSource(meet);
       }
     );
 
