@@ -11,6 +11,7 @@ import {UserService} from '../user/user.service';
 })
 export class IntervenantService {
 
+  intervenants: Intervenant[]; // Temporaire
   activateDesactivateSubject = new Subject<any>();
   intervenantsSubject = new Subject<any>();
   intervenantSubject = new Subject<any>();
@@ -136,13 +137,14 @@ private goToMainRoute(){
 }
 
 // Fonction pour récupérer le nom complet de l'intervenant à partir de son identifiant
-public intervenantFullName(id: number): void {
-  this.httpClient.get<Intervenant>(`http://localhost:3000/intervenants`).subscribe(
+public intervenantFullName(id: number):void {
+  this.httpClient.get<Intervenant>(`http://localhost:3000/intervenants/`+id).subscribe(
     (intervenant: any) => {
       let fullname = intervenant.fname + ' ' + intervenant.lname;
       this.intervenantsFullnameSubject.next(fullname);
     },
     (error) => {
+
       const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des intervenants';
       this.emitErrorsSubject(error.error);
     }
@@ -150,8 +152,6 @@ public intervenantFullName(id: number): void {
 }
 
   editAccount(myID: number, data: any): void {
-
-
   }
 
   // Fonction annuler l'étape concernant l'intervenant
