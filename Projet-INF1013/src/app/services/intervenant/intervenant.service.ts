@@ -138,16 +138,27 @@ private goToMainRoute(){
 
 // Fonction pour récupérer le nom complet de l'intervenant à partir de son identifiant
 public intervenantFullName(id: number): void {
-  this.httpClient.get<Intervenant>(`http://localhost:3000/intervenants`+id).subscribe(
+  /*this.httpClient.get<Intervenant>(`http://localhost:3000/intervenants/` + id).subscribe(
     (intervenant: any) => {
       let fullname = intervenant.fname + ' ' + intervenant.lname;
       this.intervenantsFullnameSubject.next(fullname);
     },
     (error) => {
       const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des intervenants';
-      this.emitErrorsSubject(error.error);
+      this.emitErrorsSubject(message);
     }
-  )
+  );*/
+
+        this.httpClient.get<Intervenant>('http://localhost:3000/intervenants?id=' + id).subscribe(
+          (intervenant: any) => {
+            this.intervenantsFullnameSubject.next(intervenant[0]);
+          },
+          (error) => {
+            const message = 'Une erreur au niveau du serveur est survenu lors de la récupération de l\'intervenant. Veuillez réessayer plus tard.';
+            this.emitErrorsSubject(message);
+          }
+        );
+
 }
 
   editAccount(myID: number, data: any): void {

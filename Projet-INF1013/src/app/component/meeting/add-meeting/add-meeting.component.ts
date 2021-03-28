@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
 import {MeetingService} from '../../../services/meeting/meeting.service';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ListMeetingComponent} from '../list-meeting/list-meeting.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PersonService} from '../../../services/person/person.service';
@@ -18,31 +18,59 @@ import {Intervenant} from '../../../models/intervenant/intervenant';
 export class AddMeetingComponent implements OnInit, OnDestroy {
 
  @ViewChild(ListMeetingComponent) personID: number;
-  loggedUser = this.userService.user;  /*this.intervenantService.intervenants;*/
- // meetings = this.meetingService.meetings;
+  loggedUser = this.userService.user;
   errorsSubscription: Subscription;
   errorMessage: String;
   intervenantSubscription: Subscription;
   intervenants: Intervenant;
-
-  addMeetingForm = this.formBuilder.group({
+  personsSubscription: Subscription;
+  persons: Intervenant;
+  addMeetingForm: FormGroup;
+  /*addMeetingForm = this.formBuilder.group({
     notes: [null, Validators.compose([Validators.required])],
     followup: [null, Validators.compose([Validators.required])],
     goals: [null, Validators.compose([Validators.required])],
     idPerson: [null, Validators.compose([Validators.required])],
     idIntervenant: [null, Validators.compose([Validators.required])]
-  });
+  });*/
+
 
   constructor(private router: Router, private userService: UserService, private intervenantService: IntervenantService, public personService: PersonService, private meetingService: MeetingService, private formBuilder: FormBuilder , private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.initForm();
 
-    this.intervenantService.getActiveIntervenants();
+  /*  this.intervenantService.getActiveIntervenants();
     this.intervenantSubscription = this.intervenantService.intervenantsSubject.subscribe(
       (inter: any) => {
         console.log(inter);
         this.intervenants = inter;
+      }
+    );*/
+
+    if (this.loggedUser.role === 'A') {
+      this.intervenantService.getActiveIntervenants();
+      this.intervenantSubscription = this.intervenantService.intervenantsSubject.subscribe(
+        (inter: any) => {
+          console.log(inter);
+          this.intervenants = inter;
+        }
+      );
+    }else {
+      this.intervenantService.intervenantFullName(this.loggedUser.id);
+      this.intervenantSubscription = this.intervenantService.intervenantsFullnameSubject.subscribe(
+        (inter: any) => {
+          console.log(inter);
+          this.intervenants = inter;
+        }
+      );
+    }
+
+    this.personService.getActivePersons();
+    this.personsSubscription = this.personService.personsSubject.subscribe(
+      (person: any) => {
+        console.log(person);
+        this.persons = person;
       }
     );
 
@@ -55,11 +83,11 @@ export class AddMeetingComponent implements OnInit, OnDestroy {
 
   private initForm(): void {
     this.addMeetingForm = this.formBuilder.group({
-      notes: [''/*, Validators.email*/],
-      followup: [''/*, Validators.required*/],
-      goals: [''/*, Validators.required*/],
-      idPerson: [/*, Validators.required*/],
-      idIntervenant: [/*, Validators.required*/]
+      notes: ['', Validators.required],
+      followup: ['', Validators.required],
+      goals: ['', Validators.required],
+      idPerson: ['', Validators.required],
+      idIntervenant: ['', Validators.required]
     });
    /* const control = this.addMeetingForm.get('person');
     control.disable();*/
@@ -67,13 +95,6 @@ export class AddMeetingComponent implements OnInit, OnDestroy {
 
   // Fonction pour réagir lorsque la personne clique sur le bouton "Ajouter"
   onAddMeeting(): void {
-/*
-    console.log('form ' + this.addMeetingForm.value.intervenant);
-    this.meetingService.addMeeting(this.addMeetingForm.value)
-      .subscribe(data => {console.log(data); });
-    this.router.navigate(['meeting']);
-*/
-
     if (this.addMeetingForm.valid) {
       this.meetingService.addMeeting(this.addMeetingForm.value);
     }else {
@@ -88,11 +109,13 @@ export class AddMeetingComponent implements OnInit, OnDestroy {
   onCancelMeeting(): void {
     this.meetingService.cancelMeeting();
     this.intervenantSubscription.unsubscribe();
+    this.personsSubscription.unsubscribe();
     this.errorsSubscription.unsubscribe();
   }
 
   ngOnDestroy(){
     this.intervenantSubscription.unsubscribe();
+    this.personsSubscription.unsubscribe();
     this.errorsSubscription.unsubscribe();
   }
 }

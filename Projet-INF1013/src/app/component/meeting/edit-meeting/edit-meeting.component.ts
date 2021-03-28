@@ -27,7 +27,8 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
   errorMessage: string;
   intervenantSubscription: Subscription;
   intervenants: Intervenant;
-
+  personsSubscription: Subscription;
+  persons: Intervenant;
   editMeetingForm = this.formBuilder.group({
     notes: [null, Validators.compose([Validators.required])],
     followup: [null, Validators.compose([Validators.required])],
@@ -46,10 +47,10 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
       console.log(idx);
     });
 
-    /*this.meeting = */ this.meetingService.getMeetingFromId(this.meetingID);
+    this.meetingService.getMeetingFromId(this.meetingID);
 
 
-     this.meetingSubscription = this.meetingService.meetingSubject.subscribe(
+    this.meetingSubscription = this.meetingService.meetingSubject.subscribe(
       (meet: any) => {
         this.meeting = meet[0];
         this.initForm();
@@ -58,11 +59,29 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
       }
     );
 
-     this.intervenantService.getActiveIntervenants();
-     this.intervenantSubscription = this.intervenantService.intervenantsSubject.subscribe(
-       (inter: any) => {
-         console.log(inter);
-         this.intervenants = inter;
+    if (this.loggedUser.role === 'A') {
+      this.intervenantService.getActiveIntervenants();
+      this.intervenantSubscription = this.intervenantService.intervenantsSubject.subscribe(
+        (inter: any) => {
+          console.log(inter);
+          this.intervenants = inter;
+        }
+      );
+    }else {
+      this.intervenantService.intervenantFullName(this.loggedUser.id);
+      this.intervenantSubscription = this.intervenantService.intervenantsFullnameSubject.subscribe(
+        (inter: any) => {
+          console.log(inter);
+          this.intervenants = inter;
+        }
+      );
+    }
+
+    this.personService.getActivePersons();
+    this.personsSubscription = this.personService.personsSubject.subscribe(
+       (person: any) => {
+         console.log(person);
+         this.persons = person;
        }
      );
 
@@ -72,19 +91,17 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
         }
       );
 
-
-
   }
 
   private initForm(): void {
-console.log(this.meeting);
-   // this.meeting = this.meetingService.getMeetingsFromID(this.meetingID);
+    console.log(this.meeting);
+    // this.meeting = this.meetingService.getMeetingsFromID(this.meetingID);
     this.editMeetingForm = this.formBuilder.group({
-      notes: [this.meeting.notes/*, Validators.email*/],
-      followup: [this.meeting.followup/*, Validators.required*/],
-      goals: [this.meeting.goals/*, Validators.required*/],
-      idPerson: [this.meeting.idPerson/*, Validators.required*/],
-      idIntervenant: [this.meeting.idIntervenant /*, Validators.required*/],
+      notes: [this.meeting.notes, Validators.required],
+      followup: [this.meeting.followup, Validators.required],
+      goals: [this.meeting.goals, Validators.required],
+      idPerson: [this.meeting.idPerson, Validators.required],
+      idIntervenant: [this.meeting.idIntervenant, Validators.required],
       id: [this.meeting.id]
     });
 
@@ -112,11 +129,13 @@ console.log(this.meeting);
     this.meetingSubscription.unsubscribe();
     this.errorsSubscription.unsubscribe();
     this.intervenantSubscription.unsubscribe();
+    this.personsSubscription.unsubscribe();
   }
 
   ngOnDestroy(){
   this.meetingSubscription.unsubscribe();
   this.errorsSubscription.unsubscribe();
   this.intervenantSubscription.unsubscribe();
+  this.personsSubscription.unsubscribe();
   }
 }
