@@ -1,45 +1,48 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild, OnDestroy} from '@angular/core';
-import {MatSort} from '@angular/material/sort';
+import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
-import {MeetingService} from '../../../services/meeting/meeting.service';
-import {ActivatedRoute, Router} from '@angular/router';
 import {Meeting} from '../../../models/meeting/meeting';
-import {Subscription} from 'rxjs';
-import {IntervenantService} from '../../../services/intervenant/intervenant.service';
-import {MatDialog} from '@angular/material/dialog';
-import {DeleteIntervenantComponent} from '../../intervenant/delete-intervenant/delete-intervenant.component';
+import {MeetingService} from '../../../services/meeting/meeting.service';
+import {ActivatedRoute} from '@angular/router';
 import {UserService} from '../../../services/user/user.service';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSort} from '@angular/material/sort';
+import {Subscription} from 'rxjs';
+import {PersonService} from '../../../services/person/person.service';
 
 @Component({
-  selector: 'app-list-meeting',
-  templateUrl: './list-meeting.component.html',
-  styleUrls: ['./list-meeting.component.css']
+  selector: 'app-list-person-meetings',
+  templateUrl: './list-person-meetings.component.html',
+  styleUrls: ['./list-person-meetings.component.css']
 })
-export class ListMeetingComponent implements OnInit, AfterViewInit {
+export class ListPersonMeetingsComponent implements OnInit, OnDestroy {
 
 
   @ViewChild(MatSort) sort: MatSort;
-  @Input() personID: number;
   loggedUser = this.userService.user;
-  meetings = new MatTableDataSource(/*this.meetingService.meetings*/);
+  personID: number;
+  meetings = new MatTableDataSource();
   meetingSubscription: Subscription;
   errorsSubscription: Subscription;
   errorMessage: any;
   displayedColumns: string[] = [ 'notes', 'followup', 'goals', 'actions-icon'];
-  // dataSource: MatTableDataSource<Meeting>;
 
-
-
-  constructor(private meetingService: MeetingService , private route: ActivatedRoute, private userService: UserService, private dialog: MatDialog) {
+  constructor(private meetingService: MeetingService, private personService: PersonService, private route: ActivatedRoute, private userService: UserService) {
 
   }
 
+
   ngOnInit(): void {
 
-    console.log('onINIT');
-    this.meetingService.loadAllMeetings();
+    this.route.paramMap.subscribe(params => {
+      const idx =	Number(params.get('id'));
+      this.personID = idx;
+      console.log(idx);
+    });
 
-    this.meetingSubscription = this.meetingService.meetingSubject.subscribe(
+
+    this.meetingService.loadPersonMeetings(this.personID);
+
+    this.meetingSubscription = this.meetingService.PersonMeetingsSubject.subscribe(
       (meet: any) => {
         this.meetings = new MatTableDataSource(meet);
       }
@@ -50,24 +53,6 @@ export class ListMeetingComponent implements OnInit, AfterViewInit {
         this.errorMessage = error;
       }
     );
-
-/*
-    if (this.loggedUser.role === 'A'){
-      this.meetingService.getAllMeetings()
-        .subscribe( (meet: any) => {
-          this.meetings = meet;
-        });
-    }else{
-      this.meetingService.getMeetingsFromID(this.loggedUser.id)
-        .subscribe( (meet: any) => {
-          this.meetings = meet;
-        });
-
-    }
-*/
-
-
-
 
     // Nous permet de définir sur quels attributs la recherche va se faire.
     // tslint:disable-next-line:only-arrow-functions

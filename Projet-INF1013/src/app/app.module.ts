@@ -52,6 +52,7 @@ import { DeleteIntervenantComponent } from './component/intervenant/delete-inter
 import {MatFormFieldControl, MatFormFieldModule, MatSuffix} from '@angular/material/form-field';
 import { ConvertRoleNamePipe } from './pipes/convert-role-name.pipe';
 import { DeletePersonComponent } from './component/person/delete-person/delete-person.component';
+import { ListPersonMeetingsComponent } from './component/meeting/list-person-meetings/list-person-meetings.component';
 
 registerLocaleData(localeFr);
 
@@ -69,7 +70,7 @@ const appRoutes: Routes = [
   {path : 'meeting', canActivate : [AuthGuard], component : ListMeetingComponent},
   {path : 'meeting/add/:id', canActivate : [AuthGuard], component : AddMeetingComponent},
   {path : 'meeting/edit/:id', canActivate : [AuthGuard], component : EditMeetingComponent},
-  {path : 'meeting/:id', canActivate : [AuthGuard], component : ListMeetingComponent},
+  {path : 'meeting/:id', canActivate : [AuthGuard], component : ListPersonMeetingsComponent},
   {path : 'account/:id', canActivate : [AuthGuard], component : MyAccountComponent},
   {path : '', component : LoginComponent},
   {path : 'not-found', component : NotFoundComponent},
@@ -104,6 +105,7 @@ const appRoutes: Routes = [
     DeleteIntervenantComponent,
     ConvertRoleNamePipe,
     DeletePersonComponent,
+    ListPersonMeetingsComponent,
   ],
   imports: [
     BrowserModule,

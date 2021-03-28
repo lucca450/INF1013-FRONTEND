@@ -14,6 +14,7 @@ export class MeetingService {
 
   loggedUser = this.userService.user;
   meetingSubject = new Subject<any[]>();
+  PersonMeetingsSubject = new Subject<any[]>();
   errorsSubject: Subject<string> = new Subject<string>();
 
   constructor(private router: Router, private userService: UserService,  private httpClient: HttpClient) {
@@ -111,5 +112,21 @@ export class MeetingService {
   }
 
 
+  // Retourne tous les meetings d'un intervenant
+  public getPersonMeetings(id: number): Observable<Meeting> {
+    return this.httpClient.get<Meeting>(`http://localhost:3000/meeting?idPerson=` + id);
+  }
+
+  public loadPersonMeetings(id: number): void{
+      this.getPersonMeetings(id).subscribe(
+        (meeting: any) => {
+          this.PersonMeetingsSubject.next(meeting);
+        },
+        (error) => {
+          const message = 'Une erreur au niveau du serveur est survenu lors du chargement des rencontres. Veuillez réessayer plus tard';
+          this.errorsSubject.next(message);
+        }
+      );
+  }
 
 }
