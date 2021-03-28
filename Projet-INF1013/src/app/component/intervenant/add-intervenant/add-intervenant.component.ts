@@ -17,6 +17,7 @@ export class AddIntervenantComponent implements OnInit {
   errorsSubscription: Subscription;
   errorMessage: String;
   defaultRole: String = "I";
+  defaultActiveInnactif : String = "true";
   hide = true;
 
   constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService) { }
@@ -37,7 +38,6 @@ export class AddIntervenantComponent implements OnInit {
   private initForm(): void {
 
     this.addintervenantForm = this.formBuilder.group({
-      id : this.intervenantService.getMaxId(),
       interfaceName:'Intervenant',
       fname: ['', Validators.required],
       lname: ['', Validators.required],
@@ -47,14 +47,12 @@ export class AddIntervenantComponent implements OnInit {
     });
 
     this.addUserForm = this.formBuilder.group({
-      id : this.intervenantService.getMaxId(),
       interfaceName:'User',
       username: ['', Validators.required],
       password: ['', Validators.required],
-      role: ['', Validators.required]
+      role: ['', Validators.required],
+      active: [true, Validators.required]
     });
-
-
   }
 
   // Fonction pour réagir lorsque la personne clique sur le bouton "Ajouter"

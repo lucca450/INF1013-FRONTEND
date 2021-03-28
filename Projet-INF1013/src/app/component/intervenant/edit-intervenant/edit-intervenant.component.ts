@@ -23,6 +23,7 @@ export class EditIntervenantComponent implements OnInit {
   errorsSubscription: Subscription;
   errorMessage: string;
   hide = true;
+  sameAccount = false;
 
   constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService, private userService: UserService, private route: ActivatedRoute) { }
 
@@ -33,6 +34,10 @@ export class EditIntervenantComponent implements OnInit {
       index =  Number(params.get('id'));
       this.intervenant =  this.intervenantService.getIntervenantFromID(index);
       this.user = this.userService.getUserFromID(index);
+
+      if(this.userService.getUserConnectedId() == this.user.id){
+        this.sameAccount = true;
+      }
     });
 
     this.initForm();
@@ -49,21 +54,22 @@ export class EditIntervenantComponent implements OnInit {
 
   private initForm(): void {
     this.editintervenantForm = this.formBuilder.group({
-      id: [this.intervenant.id],
       interfaceName: [this.intervenant.interfaceName],
       fname: [this.intervenant.fname, Validators.required],
       lname: [this.intervenant.lname, Validators.required],
       email: [this.intervenant.email, [Validators.required, Validators.email]],
       phone: [this.intervenant.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
-      address: [this.intervenant.address, Validators.required]
+      address: [this.intervenant.address, Validators.required],
+      id: [this.intervenant.id],
     });
 
     this.editUserForm = this.formBuilder.group({
-      id : [this.intervenant.id],
       interfaceName:[this.user.interfaceName],
       username: [this.user.username, Validators.required],
       password: [this.user.password, Validators.required],
-      role: [this.user.role, Validators.required]
+      role: [this.user.role, Validators.required],
+      active: [this.user.active, Validators.required],
+      id: [this.user.id],
     });
   }
   // Fonction pour réagir lorsque la personne clique sur le bouton "Enregistrer"

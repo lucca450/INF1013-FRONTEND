@@ -1,15 +1,16 @@
 {
   "intervenants": [
     {
-      "id": "0",
-      "lname": "nomIntervenant",
+      "id": 0,
+      "interfaceName": null,
       "fname": "prénomIntervenanttest",
+      "lname": "nomIntervenant",
       "email": "pierro_kool@hotmail.com",
-      "phone": "8196932091",
+      "phone": "8196932090",
       "address": "320 rue Amazone"
     },
     {
-      "id": "1",
+      "id": 1,
       "interfaceName": "Intervenant",
       "fname": "prénomIntervenant2",
       "lname": "nomIntervenant2",
@@ -18,7 +19,7 @@
       "address": "321 rue Amazone"
     },
     {
-      "id": "2",
+      "id": 2,
       "interfaceName": "Intervenant",
       "fname": "prénomIntervenant3",
       "lname": "nomIntervenant3",
@@ -27,49 +28,22 @@
       "address": "322 rue Amazone"
     },
     {
-      "id": 3,
       "interfaceName": "Intervenant",
-      "fname": "whuttt123",
-      "lname": "Dubois-Nadeau3",
-      "email": "tttttttttttttttttttttttttttt@hotmai.com",
+      "fname": "test",
+      "lname": "test",
+      "email": "tttttttttttttttttttttttttttt@hotmail.com",
       "phone": "1111111111",
-      "address": "freferfre"
+      "address": "test",
+      "id": 3
     },
     {
-      "id": 4,
       "interfaceName": "Intervenant",
-      "fname": "prenommodif",
-      "lname": "nommodif",
-      "email": "courrielmodif@hotmail.com",
-      "phone": "9999999999",
-      "address": "courrielmodif@hotmail.com"
-    },
-    {
-      "id": 5,
-      "interfaceName": "Intervenant",
-      "fname": "Pierre-olivier1234",
-      "lname": "Dubois-Nadeau1234",
-      "email": "pierro_kool@hotmail.com1234",
-      "phone": "1111111114",
-      "address": "8196932094"
-    },
-    {
-      "id": 6,
-      "interfaceName": "Intervenant",
-      "fname": "addtest1234",
-      "lname": "Dubois-Nadeau334",
-      "email": "pierro_kool@hotmail.com45",
-      "phone": "8199959353",
-      "address": "355 rue d'adrano"
-    },
-    {
-      "id": 7,
-      "interfaceName": "Intervenant",
-      "fname": "aa",
-      "lname": "aa",
-      "email": "aa@aa.com",
-      "phone": "1231231233",
-      "address": "aa"
+      "fname": "test2",
+      "lname": "Dubois-Nadeau",
+      "email": "pierro_kool@hotmail.com",
+      "phone": "5555555555",
+      "address": "test2",
+      "id": 4
     }
   ],
   "users": [
@@ -77,9 +51,9 @@
       "id": 0,
       "interfaceName": "User",
       "username": "ttt@hotmail.com",
-      "email": "pierro_kool@hotmail.com",
       "password": "123",
-      "role": "A"
+      "role": "A",
+      "active": true
     },
     {
       "id": 1,
@@ -87,7 +61,8 @@
       "username": "ttt@hotmail.com2",
       "email": "pierro_kool@hotmail.com2",
       "password": "123",
-      "role": "I"
+      "role": "I",
+      "active": true
     },
     {
       "id": 2,
@@ -95,42 +70,24 @@
       "username": "ttt@hotmail.com3",
       "email": "pierro_kool@hotmail.com3",
       "password": "123",
-      "role": "A"
+      "role": "I",
+      "active": false
     },
     {
-      "id": 3,
       "interfaceName": "User",
-      "username": "ttt@hotmail.com344",
-      "password": "123",
-      "role": "I"
-    },
-    {
-      "id": 4,
-      "interfaceName": "User",
-      "username": "nommodif",
-      "password": "passwordmodif",
-      "role": "A"
-    },
-    {
-      "id": 5,
-      "interfaceName": "User",
-      "username": "testaddintervenantrole12",
+      "username": "test",
       "password": "test",
-      "role": "I"
+      "role": "I",
+      "active": false,
+      "id": 3
     },
     {
-      "id": 6,
       "interfaceName": "User",
-      "username": "addtest12345",
-      "password": "123",
-      "role": "I"
-    },
-    {
-      "id": 7,
-      "interfaceName": "User",
-      "username": "aaa",
-      "password": "aa",
-      "role": "I"
+      "username": "test2",
+      "password": "test2",
+      "role": "I",
+      "active": false,
+      "id": 4
     }
   ],
   "meeting": [
@@ -167,28 +124,20 @@
       "idIntervenant": 1
     },
     {
-      "notes": "444",
-      "followup": "444",
-      "goals": "444",
-      "idPerson": 2,
-      "idIntervenant": 7,
+      "notes": "toto",
+      "followup": "toto",
+      "goals": "toto",
+      "person": "toto",
+      "intervenant": 0,
       "id": 4
     },
     {
-      "notes": "toto",
-      "followup": "toto",
-      "goals": "toto23",
-      "idPerson": 0,
-      "idIntervenant": 4,
+      "notes": "j",
+      "followup": "j",
+      "goals": "j",
+      "person": "jk",
+      "intervenant": 0,
       "id": 5
-    },
-    {
-      "notes": "gf",
-      "followup": "gf",
-      "goals": "gf",
-      "idPerson": 2,
-      "idIntervenant": 3,
-      "id": 6
     }
   ],
   "person": [

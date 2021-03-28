@@ -19,7 +19,7 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
   intervenants = new MatTableDataSource(this.intervenantService.intervenants);
   intervenantSubscription: Subscription;
   errorsSubscription: Subscription;
-  displayedColumns: string[] = [ 'fname', 'lname', 'email', 'phone', 'address', 'actions-icon']; // L'ordre des colonnes est déterminé ici
+  displayedColumns: string[] = [ 'fname', 'lname', 'email', 'phone', 'address','actions-icon']; // L'ordre des colonnes est déterminé ici
 
 
 
@@ -27,9 +27,12 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
 
   ngOnInit(): void {
 
+  this.intervenantService.getActiveInternants();
+
     this.intervenantSubscription = this.intervenantService.intervenantSubject.subscribe(
       (intervenants: any) => {
-        this.intervenants = intervenants;
+        console.log(intervenants);
+        this.intervenants = new MatTableDataSource(intervenants);
       }
     )
 
@@ -46,6 +49,7 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
         data.phone.includes(filter) ||
         data.email.toLocaleLowerCase().includes(filter) ||
         data.address.toLocaleLowerCase().includes(filter)
+
     };
   }
 
@@ -63,6 +67,7 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
     dialogRef.afterClosed().subscribe(result => {
       if(result == true){
         this.intervenantService.deleteIntervenantToServer(id);
+        this.intervenantService.getActiveInternants();
       }
     });
   }

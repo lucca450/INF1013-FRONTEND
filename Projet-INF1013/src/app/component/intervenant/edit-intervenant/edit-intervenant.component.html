@@ -22,7 +22,7 @@
       </mat-form-field>
 
       <mat-form-field>
-        <mat-select placeholder="Rôle" formControlName="role" [(ngModel)]="user.role" required>
+        <mat-select placeholder="Rôle" formControlName="role" [(ngModel)]="user.role" [disabled]="sameAccount ? 'true' : 'false'" required>
           <mat-option *ngFor="let role of roleEnum" [value]="role.name">
             {{role.name | convertRoleName}}
           </mat-option>
@@ -69,7 +69,6 @@
           Veuillez entrer un numéro de téléphone sous le format suivant: 0001112222
         </mat-error>
       </mat-form-field>
-
 
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Adresse" formControlName="address" required>
