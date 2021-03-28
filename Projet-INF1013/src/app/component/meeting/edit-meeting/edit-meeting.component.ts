@@ -9,6 +9,7 @@ import {Meeting} from '../../../models/meeting/meeting';
 import {Subscription} from 'rxjs';
 import {UserService} from '../../../services/user/user.service';
 
+
 @Component({
   selector: 'app-management-meeting',
   templateUrl: './edit-meeting.component.html',
@@ -21,6 +22,7 @@ export class EditMeetingComponent implements OnInit {
  // intervenants = this.intervenantService.intervenants;
   loggedUser = this.userService.user;
   errorsSubscription: Subscription;
+  meetingSubscription: Subscription;
   errorMessage: string;
 
   editMeetingForm = this.formBuilder.group({
@@ -30,29 +32,45 @@ export class EditMeetingComponent implements OnInit {
     idPerson: [null, Validators.compose([Validators.required])],
     idIntervenant: [null, Validators.compose([Validators.required])]
   });
+
   constructor(private intervenantService: IntervenantService, private userService: UserService, public personService: PersonService, private meetingService: MeetingService, private formBuilder: FormBuilder , private route: ActivatedRoute) {
 
   }
 
-  ngOnInit(): void {
+   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const idx =	Number(params.get('id'));
       this.meetingID = idx;
-      this.meeting =  this.meetingService.getMeetingFromId(idx);
+      console.log(idx);
+    });
 
-      console.log(this.meeting.id + ' ' + this.meeting.notes);
+    /*this.meeting = */ this.meetingService.getMeetingFromId(this.meetingID);
 
-      this.initForm();
 
-      this.errorsSubscription = this.meetingService.errorsSubject.subscribe(
+     this.meetingSubscription = this.meetingService.meetingSubject.subscribe(
+      (meet: any) => {
+        this.meeting = meet[0];
+        this.initForm();
+      }, (error: any) => {
+         this.errorMessage = error;
+      }
+    );
+
+    console.log('devrait etre apres');
+
+
+    this.errorsSubscription = this.meetingService.errorsSubject.subscribe(
         (error: any) => {
           this.errorMessage = error;
         }
       );
-    });
+
+
+
   }
 
   private initForm(): void {
+console.log(this.meeting);
    // this.meeting = this.meetingService.getMeetingsFromID(this.meetingID);
     this.editMeetingForm = this.formBuilder.group({
       notes: [this.meeting.notes/*, Validators.email*/],
@@ -60,7 +78,7 @@ export class EditMeetingComponent implements OnInit {
       goals: [this.meeting.goals/*, Validators.required*/],
       idPerson: [this.meeting.idPerson/*, Validators.required*/],
       idIntervenant: [this.meeting.idIntervenant /*, Validators.required*/],
-      id: [this.meetingID]
+      id: [this.meeting.id]
     });
 
    /* const control = this.editMeetingForm.get('intervenant');
