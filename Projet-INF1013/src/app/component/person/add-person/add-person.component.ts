@@ -21,7 +21,8 @@ export class AddPersonComponent implements OnInit {
 
   addPersonForm: FormGroup;
   personInvalid: boolean;
-  intervenants = this.intervenantService.intervenants;
+  //intervenants = this.intervenantService.intervenants;
+  intervenants =  null;
   statusList = this.statusService.status;
   referenceList =this.refererenceService.reference;
   cities = this.workCityService.workCity;

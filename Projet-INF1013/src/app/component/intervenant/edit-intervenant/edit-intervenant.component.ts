@@ -16,11 +16,14 @@ import {Intervenant} from '../../../models/intervenant/intervenant';
 export class EditIntervenantComponent implements OnInit {
 
   intervenant: Intervenant;
+  intervenantSubscription: Subscription
+  userSubscription: Subscription;
   user: User;
   editintervenantForm: FormGroup;
   roleEnum = Object.entries(Role).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
   editUserForm: FormGroup;
   errorsSubscription: Subscription;
+  errorUserSubscription: Subscription;
   errorMessage: string;
   hide = true;
   sameAccount = false;
@@ -28,25 +31,50 @@ export class EditIntervenantComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService, private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    let index = 0;
-    // Nous permet d'aller chercher les informations selon l'id passé dans le path
-    this.route.paramMap.subscribe(params => {
-      index =  Number(params.get('id'));
-      this.intervenant =  this.intervenantService.getIntervenantFromID(index);
-      this.user = this.userService.getUserFromID(index);
-
-      if(this.userService.getUserConnectedId() == this.user.id){
-        this.sameAccount = true;
-      }
-    });
-
-    this.initForm();
-
     this.errorsSubscription = this.intervenantService.errorsSubject.subscribe(
       (error: any) => {
         this.errorMessage = error;
       }
     )
+
+    this.errorUserSubscription = this.userService.verifySubjectError.subscribe(
+      (error: any) => {
+        this.errorMessage = error;
+      }
+    )
+
+    let id = 0;
+    // Nous permet d'aller chercher les informations selon l'id passé dans le path
+    this.route.paramMap.subscribe(params => {
+      id =  Number(params.get('id'));
+      this.intervenantService.getIntervenantFromId(id);
+
+      this.userSubscription = this.intervenantService.intervenantSubject.subscribe(
+
+        (intervenant: any) => {
+          console.log('get subscribeeeee');
+          this.intervenant = intervenant;
+          this.userService.getUserFromId(id);
+
+          this.intervenantSubscription = this.userService.UserFromIdSubject.subscribe(
+            (user: any) => {
+              this.user = user;
+
+              if(this.userService.user.id == this.user.id){
+                this.sameAccount = true;
+              }
+              this.initForm();
+            },
+            (error: any) => {
+              this.errorMessage = error;
+            }
+          )
+        },
+        (error: any) => {
+          this.errorMessage = error;
+        }
+      )
+    });
   }
 
   onSubmit(): void {
@@ -79,7 +107,7 @@ export class EditIntervenantComponent implements OnInit {
     element.click();
 
     if (this.editintervenantForm.valid) {
-      this.intervenantService.editIntervenantToServer(this.editintervenantForm.value, this.editUserForm.value);
+      this.intervenantService.editIntervenant(this.editintervenantForm.value, this.editUserForm.value);
 
     }else {
       alert('Veuillez remplir tous les champs');
@@ -89,5 +117,8 @@ export class EditIntervenantComponent implements OnInit {
   onCancelIntervenant(): void {
     this.intervenantService.cancelIntervenant();
     this.errorsSubscription.unsubscribe();
+    this.intervenantSubscription.unsubscribe();
+    this.errorUserSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
   }
 }

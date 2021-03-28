@@ -20,7 +20,7 @@ export class ListMeetingComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatSort) sort: MatSort;
   @Input() personID: number;
-  loggedUser = this.userService.user;
+ // loggedUser = this.userService.user;
   meetings = new MatTableDataSource(this.meetingService.meetings);
   meetingSubscription: Subscription;
   errorsSubscription: Subscription;

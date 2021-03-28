@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
 import {Subscription} from "rxjs";
@@ -62,7 +62,7 @@ export class AddIntervenantComponent implements OnInit {
     element.click();
 
     if (this.addintervenantForm.valid && this.addUserForm.valid) {
-      this.intervenantService.addIntervenantToServer(this.addintervenantForm.value,this.addUserForm.value);
+      this.intervenantService.addIntervenant(this.addintervenantForm.value,this.addUserForm.value);
     }else {
       alert('Veuillez remplir tous les champs');
     }

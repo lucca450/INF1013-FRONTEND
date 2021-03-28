@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
     });
 /*
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required]],
       password: ['', Validators.required]
     });
 
@@ -70,24 +70,19 @@ export class LoginComponent implements OnInit {
   }
   // Fonction pour réagir lorsque la personne clique sur le bouton "Connexion"
   onSignIn(): void {
-
-    let email = this.loginForm.value.email;
-    let password = this.loginForm.value.password;
-
     if (this.loginForm.valid) {
-      // Évidament, il faut mettre email et password à la place, lorsqu'on va faire la vrai connexion
-      this.userService.verifyUserExist('pierro_kool@hotmail.com', '123').then(
+      let email = this.loginForm.value.email;
+      let password = this.loginForm.value.password;
 
-        (user) => {
-          if (user) {
-            this.userService.signIn(user);
-          }
-          else {
-            this.errorMessage = 'Le courriel ou le mot de passe est invalide.';
-          }
+      // Évidament, il faut mettre email et password à la place, lorsqu'on va faire la vrai connexion
+      this.userService.verifyUserExist('pierro_kool@hotmail.com', '123');
+
+      this.userService.verifySubjectError.subscribe(
+        (errorResponse)=>{
+          console.log(errorResponse);
+            this.errorMessage = errorResponse;
         },
         (error) => {
-          console.log('Step 3');
           this.errorMessage = error;
         }
       );

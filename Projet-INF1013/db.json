@@ -1,13 +1,13 @@
 {
   "intervenants": [
     {
-      "id": 0,
-      "interfaceName": null,
+      "interfaceName": "Intervenant",
       "fname": "prénomIntervenanttest",
       "lname": "nomIntervenant",
       "email": "pierro_kool@hotmail.com",
       "phone": "8196932090",
-      "address": "320 rue Amazone"
+      "address": "320 rue Amazone",
+      "id": 0
     },
     {
       "id": 1,
@@ -44,13 +44,22 @@
       "phone": "5555555555",
       "address": "test2",
       "id": 4
+    },
+    {
+      "interfaceName": "Intervenant",
+      "fname": "prénomintervenant4",
+      "lname": "Dubois-Nadeau4",
+      "email": "tttttttttttttttttttttttttttt@hotmail.com4",
+      "phone": "1111111114",
+      "address": "testadd4",
+      "id": 5
     }
   ],
   "users": [
     {
       "id": 0,
       "interfaceName": "User",
-      "username": "ttt@hotmail.com",
+      "username": "pierro_kool@hotmail.com",
       "password": "123",
       "role": "A",
       "active": true
@@ -71,14 +80,14 @@
       "email": "pierro_kool@hotmail.com3",
       "password": "123",
       "role": "I",
-      "active": false
+      "active": true
     },
     {
       "interfaceName": "User",
       "username": "test",
       "password": "test",
       "role": "I",
-      "active": false,
+      "active": true,
       "id": 3
     },
     {
@@ -86,8 +95,16 @@
       "username": "test2",
       "password": "test2",
       "role": "I",
-      "active": false,
+      "active": true,
       "id": 4
+    },
+    {
+      "interfaceName": "User",
+      "username": "nomutilisateur4",
+      "password": "testadd",
+      "role": "A",
+      "active": true,
+      "id": 5
     }
   ],
   "meeting": [

@@ -1,6 +1,6 @@
 <ul *ngIf="isAuth">
   <!-- Les routes -->
-  <li *ngIf="user.role == 'A'" routerLinkActive = "active"><a routerLink = "intervenant">Intervenants</a></li>
+  <li *ngIf="user!.role! == 'A'" routerLinkActive = "active"><a routerLink = "intervenant">Intervenants</a></li>
   <li routerLinkActive = "active"><a routerLink = "person">Personnes</a></li>
   <li routerLinkActive = "active"><a routerLink = "meeting">Rencontres</a></li>
 

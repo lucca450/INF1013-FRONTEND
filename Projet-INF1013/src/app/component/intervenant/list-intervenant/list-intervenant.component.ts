@@ -5,6 +5,7 @@ import {IntervenantService} from '../../../services/intervenant/intervenant.serv
 import {Subscription} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import {DeleteIntervenantComponent} from '../delete-intervenant/delete-intervenant.component';
+import {UserService} from '../../../services/user/user.service';
 
 
 @Component({
@@ -16,20 +17,21 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
 
   @ViewChild(MatSort) sort: MatSort;
   errorMessage: any;
-  intervenants = new MatTableDataSource(this.intervenantService.intervenants);
+  intervenants = new MatTableDataSource();
   intervenantSubscription: Subscription;
   errorsSubscription: Subscription;
+  accountid: number = this.userService.user.id;
   displayedColumns: string[] = [ 'fname', 'lname', 'email', 'phone', 'address','actions-icon']; // L'ordre des colonnes est déterminé ici
 
 
 
-  constructor(private intervenantService: IntervenantService, private dialog: MatDialog) { }
+  constructor(private intervenantService: IntervenantService, private dialog: MatDialog, private userService: UserService) { }
 
   ngOnInit(): void {
 
-  this.intervenantService.getActiveInternants();
+  this.intervenantService.getActiveIntervenants();
 
-    this.intervenantSubscription = this.intervenantService.intervenantSubject.subscribe(
+    this.intervenantSubscription = this.intervenantService.intervenantsSubject.subscribe(
       (intervenants: any) => {
         console.log(intervenants);
         this.intervenants = new MatTableDataSource(intervenants);
@@ -43,7 +45,7 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
     )
     // Nous permet de définir sur quels attributs la recherche va se faire.
 
-    this.intervenants.filterPredicate = function(data, filter: string): boolean {
+    this.intervenants.filterPredicate = function(data:any, filter: string): boolean {
       return data.fname.toLowerCase().includes(filter) ||
         data.lname.toLowerCase().includes(filter) ||
         data.phone.includes(filter) ||
@@ -66,8 +68,16 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
 
     dialogRef.afterClosed().subscribe(result => {
       if(result == true){
-        this.intervenantService.deleteIntervenantToServer(id);
-        this.intervenantService.getActiveInternants();
+        this.intervenantService.ActiveDesactiveIntervenant(id,false);
+        this.intervenantService.activateDesactivateSubject.subscribe(
+          (intervenants: any) => {
+            console.log('can i get please')
+            this.intervenantService.getActiveIntervenants();
+          },
+          (error)=>{
+            this.errorMessage = error;
+        }
+        )
       }
     });
   }

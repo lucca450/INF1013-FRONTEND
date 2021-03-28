@@ -16,7 +16,8 @@ import {Subscription} from 'rxjs';
 export class AddMeetingComponent implements OnInit {
 
  @ViewChild(ListMeetingComponent) personID: number;
-  loggedUser = this.userService.user;  /*this.intervenantService.intervenants;*/
+ // loggedUser = this.userService.user;  /*this.intervenantService.intervenants;*/
+  loggedUser = null;
   meetings = this.meetingService.meetings;
   errorsSubscription: Subscription;
   errorMessage: String;

@@ -3,6 +3,7 @@ import {Intervenant} from '../../../models/intervenant/intervenant';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
 import {ActivatedRoute} from '@angular/router';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-my-account',
@@ -12,16 +13,34 @@ import {ActivatedRoute} from '@angular/router';
 export class MyAccountComponent implements OnInit {
 
   intervenant: Intervenant;
+  intervenantSubscription: Subscription;
   editMyAccountForm: FormGroup;
+  errorsSubscription: Subscription;
+  errorMessage: String;
 
   constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    let index = 0;
+
+    this.errorsSubscription = this.intervenantService.errorsSubject.subscribe(
+      (error: any) => {
+        this.errorMessage = error;
+      }
+    )
+
+    let id = 0;
     // Nous permet d'aller chercher les informations selon l'id passé dans le path
     this.route.paramMap.subscribe(params => {
-      index =  Number(params.get('id'));
-      this.intervenant =  this.intervenantService.intervenants[index];
+      id =  Number(params.get('id'));
+
+      this.intervenantSubscription = this.intervenantService.intervenantSubject.subscribe(
+        (intervenant: any) => {
+          this.intervenant = intervenant;
+        },
+        (error: any) => {
+          this.errorMessage = error;
+        }
+      )
     });
     this.initForm();
   }
