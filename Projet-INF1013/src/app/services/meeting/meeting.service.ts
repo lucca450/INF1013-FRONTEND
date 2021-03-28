@@ -27,7 +27,7 @@ export class MeetingService {
     this.loadAllMeetings();
 
   }
-
+/*
   getMeetingIndexFromId(id: number): any {
 
     for (let i = 0 ; i < this.meetings.length; i++) {
@@ -36,7 +36,7 @@ export class MeetingService {
       }
     }
   }
-
+*/
   editMeeting(meeting: Meeting): void{
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(meeting);

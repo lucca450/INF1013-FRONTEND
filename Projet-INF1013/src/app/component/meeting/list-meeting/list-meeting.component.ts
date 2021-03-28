@@ -21,7 +21,7 @@ export class ListMeetingComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @Input() personID: number;
   loggedUser = this.userService.user;
-  meetings = new MatTableDataSource(this.meetingService.meetings);
+  meetings = new MatTableDataSource(/*this.meetingService.meetings*/);
   meetingSubscription: Subscription;
   errorsSubscription: Subscription;
   errorMessage: any;
@@ -69,7 +69,7 @@ export class ListMeetingComponent implements OnInit, AfterViewInit {
 
     // Nous permet de définir sur quels attributs la recherche va se faire.
     // tslint:disable-next-line:only-arrow-functions
-    this.meetings.filterPredicate = function(data, filter: string): boolean {
+    this.meetings.filterPredicate = function(data: Meeting, filter: string): boolean {
       return data.notes.toLowerCase().includes(filter) ||
         data.followup.toLowerCase().includes(filter) ||
         data.goals.toString().includes(filter);

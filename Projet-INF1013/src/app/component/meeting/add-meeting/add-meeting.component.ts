@@ -17,7 +17,7 @@ export class AddMeetingComponent implements OnInit {
 
  @ViewChild(ListMeetingComponent) personID: number;
   loggedUser = this.userService.user;  /*this.intervenantService.intervenants;*/
-  meetings = this.meetingService.meetings;
+ // meetings = this.meetingService.meetings;
   errorsSubscription: Subscription;
   errorMessage: String;
 
