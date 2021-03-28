@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
 import {MeetingService} from '../../../services/meeting/meeting.service';
 import {FormBuilder, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
@@ -8,6 +8,7 @@ import {IntervenantService} from '../../../services/intervenant/intervenant.serv
 import {Meeting} from '../../../models/meeting/meeting';
 import {Subscription} from 'rxjs';
 import {UserService} from '../../../services/user/user.service';
+import {Intervenant} from '../../../models/intervenant/intervenant';
 
 
 @Component({
@@ -15,7 +16,7 @@ import {UserService} from '../../../services/user/user.service';
   templateUrl: './edit-meeting.component.html',
   styleUrls: ['./edit-meeting.component.css']
 })
-export class EditMeetingComponent implements OnInit {
+export class EditMeetingComponent implements OnInit, OnDestroy {
 
   @ViewChild(ListMeetingComponent) meetingID: number;
   meeting: Meeting;
@@ -24,6 +25,8 @@ export class EditMeetingComponent implements OnInit {
   errorsSubscription: Subscription;
   meetingSubscription: Subscription;
   errorMessage: string;
+  intervenantSubscription: Subscription;
+  intervenants: Intervenant;
 
   editMeetingForm = this.formBuilder.group({
     notes: [null, Validators.compose([Validators.required])],
@@ -56,8 +59,13 @@ export class EditMeetingComponent implements OnInit {
       }
     );
 
-    console.log('devrait etre apres');
-
+     this.intervenantService.getActiveIntervenants();
+     this.intervenantSubscription = this.intervenantService.intervenantsSubject.subscribe(
+       (inter: any) => {
+         console.log(inter);
+         this.intervenants = inter;
+       }
+     );
 
     this.errorsSubscription = this.meetingService.errorsSubject.subscribe(
         (error: any) => {
@@ -102,6 +110,14 @@ console.log(this.meeting);
   // Fonction pour réagir lorsque la personne clique sur le bouton "Annuler"
   onCancelEditMeeting(): void {
     this.meetingService.cancelMeeting();
+    this.meetingSubscription.unsubscribe();
     this.errorsSubscription.unsubscribe();
+    this.intervenantSubscription.unsubscribe();
+  }
+
+  ngOnDestroy(){
+  this.meetingSubscription.unsubscribe();
+  this.errorsSubscription.unsubscribe();
+  this.intervenantSubscription.unsubscribe();
   }
 }
