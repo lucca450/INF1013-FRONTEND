@@ -6,4 +6,5 @@ export interface Intervenant {
   email: string;
   phone: string;
   address: string;
+  organism: string;
 }

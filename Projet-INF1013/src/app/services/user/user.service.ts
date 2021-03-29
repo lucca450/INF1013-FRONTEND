@@ -38,10 +38,11 @@ export class UserService {
   }
 
   addUserToServer(user: User) {
+    console.log('Add user from user service');
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(user);
     this.httpClient.post('http://localhost:3000/users', body, {'headers': headers}).subscribe(
-      (intervenant: any) => {
+      (user: any) => {
         this.emitUsersSubject(user);
         this.emitNoError();
       },
@@ -55,13 +56,14 @@ export class UserService {
   editUserToServer(user: User) {
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(user);
-    return this.httpClient.put('http://localhost:3000/users/'+user.id, body, {'headers': headers}).subscribe(
+    this.httpClient.put('http://localhost:3000/users/'+user.id, body, {'headers': headers}).subscribe(
       (intervenant: any) => {
-        this.emitUsersSubject(user);
+        //this.emitUsersSubject(user);
         this.emitNoError();
       },
       (error) => {
-        const message = 'Un erreur au niveau du serveur est survenu lors de l\'ajout de l\'utilisateur. Veuillez réessayer plus tard';
+        console.log(error.error);
+        const message = 'Un erreur au niveau du serveur est survenu lors de la modification de l\'utilisateur. Veuillez réessayer plus tard';
         this.emitError(message);
       }
     )

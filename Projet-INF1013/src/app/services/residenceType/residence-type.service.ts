@@ -1,30 +1,40 @@
 import { Injectable } from '@angular/core';
 import {ResidenceType} from '../../models/residenceType/residence-type';
+import {Subject} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResidenceTypeService {
 
-  residenceType: ResidenceType[];
-  constructor() {
-    this.residenceType = this.mockResidenceTypeData();
+  residencesTypeSubject = new Subject<any>();
+  residenceTypeSubject = new Subject<any>();
+  errorsSubject: Subject<string> = new Subject<string>();
+  constructor(private httpClient: HttpClient) {
   }
-  // Fonction pour générer les données lié aux résidences
-  private mockResidenceTypeData(): ResidenceType[]{
-    return[
-      {interfaceName: 'ResidenceType', id : 0, name : 'Appartement'},
-      {interfaceName: 'ResidenceType', id : 1, name : 'Famille d\'accueil'},
-      {interfaceName: 'ResidenceType', id : 2, name : 'Logement supervisé'},
-      {interfaceName: 'ResidenceType', id : 3, name : 'Autres'}
-    ];
+
+  getResidencesType(){
+    this.httpClient.get<ResidenceType>(`http://localhost:3000/residencesType`).subscribe(
+      (residencesType: any) => {
+        this.residencesTypeSubject.next(residencesType);
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des résidences';
+        this.errorsSubject.next(message);
+      }
+    )
   }
-  // Fonction pour récupérer la résidence à partir de son identifiant
-  public getResidenceTypeFromID(id: number): ResidenceType {
-    let residenceType: ResidenceType;
-    residenceType = this.residenceType.find(function(r: ResidenceType) {
-      return r.id === id;
-    });
-    return residenceType;
+
+  getResidencesTypeName(id: number){
+    this.httpClient.get<ResidenceType>(`http://localhost:3000/residencesType/`+id).subscribe(
+      (residenceType: any) => {
+        this.residenceTypeSubject.next(residenceType.name);
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de la récupération de la résidence';
+        this.errorsSubject.next(message);
+      }
+    )
   }
 }

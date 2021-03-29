@@ -1,4 +1,4 @@
- import { Component, OnInit } from '@angular/core';
+ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
 import {ActivatedRoute} from '@angular/router';
@@ -13,7 +13,7 @@ import {Intervenant} from '../../../models/intervenant/intervenant';
   templateUrl: './edit-intervenant.component.html',
   styleUrls: ['./edit-intervenant.component.css']
 })
-export class EditIntervenantComponent implements OnInit {
+export class EditIntervenantComponent implements OnInit, OnDestroy {
 
   intervenant: Intervenant;
   intervenantSubscription: Subscription
@@ -102,11 +102,13 @@ export class EditIntervenantComponent implements OnInit {
   }
   // Fonction pour réagir lorsque la personne clique sur le bouton "Enregistrer"
   onEditIntervenant(): void {
+    console.log('Click on edit');
 
     let element: HTMLElement = document.getElementById('buttonintervenant') as HTMLElement;
     element.click();
 
-    if (this.editintervenantForm.valid) {
+    if (this.editintervenantForm.valid && this.editUserForm.valid) {
+      console.log('ok validation');
       this.intervenantService.editIntervenant(this.editintervenantForm.value, this.editUserForm.value);
     }else {
       alert('Veuillez remplir tous les champs');
@@ -114,7 +116,15 @@ export class EditIntervenantComponent implements OnInit {
   }
   // Fonction pour réagir lorsque la personne clique sur le bouton "Annuler"
   onCancelIntervenant(): void {
+    this.errorsSubscription.unsubscribe();
+    this.intervenantSubscription.unsubscribe();
+    this.errorUserSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
     this.intervenantService.cancelIntervenant();
+
+  }
+
+  ngOnDestroy(){
     this.errorsSubscription.unsubscribe();
     this.intervenantSubscription.unsubscribe();
     this.errorUserSubscription.unsubscribe();

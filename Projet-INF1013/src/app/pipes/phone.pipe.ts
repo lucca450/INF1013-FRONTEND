@@ -7,6 +7,9 @@ export class PhonePipe implements PipeTransform {
   // Fonction pour gèrer l'affichage des numéro de téléphones.
   transform(phone: number): string {
 
+    if(phone){
+
+
     let pipedPhone = '';
     const str = phone.toString();
 
@@ -14,6 +17,7 @@ export class PhonePipe implements PipeTransform {
     pipedPhone += str.substr(3, 3) + '-';
     pipedPhone += str.substr(6, 4);
     return pipedPhone;
+    }
   }
 
 }

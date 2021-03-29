@@ -1,8 +1,40 @@
+<div *ngIf="errorMessage" class="validation">
+  <div>{{errorMessage}}</div>
+</div>
 <mat-card>
-  <!-- Formulaire mon compte -->
+  <!-- Formulaire pour modifier les informations de l'utilisateur -->
   <mat-card-content>
-    <form [formGroup]="editMyAccountForm" (ngSubmit)="onSubmit()">
-      <h2>Modifier mes informations</h2>
+    <form *ngIf="editAccountUserForm" [formGroup]="editAccountUserForm" (ngSubmit)="onSubmit()">
+      <h2>Modification d'un intervenant</h2>
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Nom d'utilisateur" formControlName="username" required>
+        <mat-error *ngIf="editAccountUserForm.hasError('required', 'username')">
+          Veuillez entrer un nom d'utilisateur.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Mot de passe" formControlName="password" required [type]="hide ? 'password' : 'text'">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error *ngIf="editAccountUserForm.hasError('required', 'password')">
+          Veuillez entrer un mot de passe
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Rôle" formControlName="role" [(ngModel)]="user.role" disabled>
+          <mat-option [value]="user.role">
+            {{user.role | convertRoleName}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="editAccountUserForm.hasError('required', 'role')">
+          Veuillez entrer un rôle.
+        </mat-error>
+      </mat-form-field>
+      <button class ="button-add" type="submit" id = "buttonintervenant" class = "HideOtherButton">Ajouter</button>
+    </form>
+    <!-- Formulaire pour modifier les informations de l'intervenant. -->
+    <form *ngIf="editAccountintervenantForm" [formGroup]="editAccountintervenantForm" (ngSubmit)="onSubmit()">
 
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Prénom" formControlName="fname" required>
@@ -20,25 +52,21 @@
 
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Courriel" formControlName="email" required>
- <!--       <mat-error *ngIf="editMyAccountForm!.controls['email']!.dirty && editMyAccountForm!.controls['email']!.errors['required'] != null "> -->
-        <mat-error *ngIf="editMyAccountForm.hasError('required', 'email')">
-          Veuillez entrer un numéro de téléphone.
+        <mat-error *ngIf="editAccountintervenantForm.hasError('required', 'email')">
+          Veuillez entrer un email.
         </mat-error>
-   <!--     <mat-error *ngIf="editMyAccountForm!.controls['email']!.dirty && editMyAccountForm!.controls['email']!.errors['email'] != null"> -->
-        <mat-error *ngIf="editMyAccountForm.hasError('email', 'email')">
+        <mat-error *ngIf="editAccountintervenantForm.hasError('email', 'email')">
           Veuillez entrer un email dans le format suivant: abc@abc.com
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="full-width-input">
-          <input matInput placeholder="Numéro de téléphone" formControlName="phone" required>
-        <!--       <mat-error *ngIf="editMyAccountForm!.controls['phone']!.dirty && editMyAccountForm!.controls['phone']!.errors['required'] != null "> -->
-        <mat-error *ngIf="editMyAccountForm.hasError('required', 'phone')">
-                Veuillez entrer un numéro de téléphone.
+        <input matInput placeholder="Numéro de téléphone" formControlName="phone" required>
+        <mat-error *ngIf="editAccountintervenantForm.hasError('required', 'phone')">
+          Veuillez entrer un numéro de téléphone.
         </mat-error>
-     <!--          <mat-error *ngIf="editMyAccountForm!.controls['phone']!.dirty && editMyAccountForm!.controls['phone']!.errors['pattern'] != null"> -->
-        <mat-error *ngIf="editMyAccountForm.hasError('pattern', 'phone')">
-                Veuillez entrer un numéro de téléphone sous le format suivant: 0001112222
+        <mat-error *ngIf="editAccountintervenantForm.hasError('pattern', 'phone')">
+          Veuillez entrer un numéro de téléphone sous le format suivant: 0001112222
         </mat-error>
       </mat-form-field>
 
@@ -49,8 +77,9 @@
         </mat-error>
       </mat-form-field>
 
-            <button class ="button-cancel" (click) = "onCancelAccount()">Annuler</button>
-            <button class ="button-add" type="submit" (click) = "onEditAccount()">Enregistrer</button>
-          </form>
-        </mat-card-content>
-      </mat-card>
+      <button class ="button-cancel" (click) = "onCancelAccount()">Annuler</button>
+      <button class ="button-add" type="submit" (click) = "onEditAccount()">Enregistrer</button>
+
+    </form>
+  </mat-card-content>
+</mat-card>

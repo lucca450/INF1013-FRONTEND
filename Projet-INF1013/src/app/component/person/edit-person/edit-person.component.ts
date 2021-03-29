@@ -24,12 +24,12 @@ export class EditPersonComponent implements OnInit, OnDestroy {
   errorMessage: String;
   person: Person;
   // Récupérer les services
-  statusList = this.statusService.status;
-  referenceList =this.refererenceService.reference;
-  cities = this.workCityService.workCity;
-  departureReasonList =this.departureReasonService.departureReason;
-  educationLevelList =this.educationLevelService.educationLevel;
-  residenceTypeList =this.residenceTypeService.residenceType;
+  statusList = []
+  referenceList = []
+  cities = []
+  departureReasonList = []
+  educationLevelList = []
+  residenceTypeList = []
   //Énumération
   genderEnum = Object.entries(Gender).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
 
@@ -42,6 +42,12 @@ export class EditPersonComponent implements OnInit, OnDestroy {
 
   errorsSubscription: Subscription;
   personSubscription: Subscription;
+  departureReasonSubscription: Subscription;
+  statusSubscription: Subscription;
+  workCitySubscription: Subscription;
+  residenceTypeSubscription: Subscription;
+  educationLevelSubscription: Subscription;
+  referenceSubscription: Subscription;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -69,9 +75,8 @@ export class EditPersonComponent implements OnInit, OnDestroy {
 
       this.personSubscription = this.personService.personSubject.subscribe(
         (person: any) => {
-          console.log(person);
           this.person = person;
-          this.initForm();
+          this.setAllAttributes()
         },
         (error: any) => {
           this.errorMessage = error;
@@ -79,11 +84,85 @@ export class EditPersonComponent implements OnInit, OnDestroy {
       )
     });
   }
+
+  private setAllAttributes(){
+
+    // On observe les requêtes qu'on va faire.
+
+    this.departureReasonSubscription = this.departureReasonService.departureReasonsSubject.subscribe(
+      (departureReasons: any) => {
+        this.departureReasonList = departureReasons;
+      },
+      (error: any) => {
+        this.errorMessage = error;
+
+      }
+    )
+    this.statusSubscription = this.statusService.allStatusSubject.subscribe(
+      (allStatus: any) => {
+        this.statusList = allStatus;
+      },
+      (error: any) => {
+        this.errorMessage = error;
+      }
+    )
+
+    this.workCitySubscription = this.workCityService.workCitiesSubject.subscribe(
+      (workCities: any) => {
+        this.cities = workCities;
+      },
+      (error: any) => {
+        this.errorMessage = error;
+      }
+    )
+
+    this.residenceTypeSubscription = this.residenceTypeService.residencesTypeSubject.subscribe(
+      (residencesType: any) => {
+        this.residenceTypeList = residencesType;
+      },
+      (error: any) => {
+        this.errorMessage = error;
+      }
+    )
+
+    this.educationLevelSubscription = this.educationLevelService.educationLevelsSubject.subscribe(
+      (educationLevels: any) => {
+        this.educationLevelList = educationLevels;
+      },
+      (error: any) => {
+        this.errorMessage = error;
+      }
+    )
+
+    this.referenceSubscription = this.refererenceService.referencesSubject.subscribe(
+      (references: any) => {
+        this.referenceList = references;
+        this.initForm();
+      },
+      (error: any) => {
+        this.errorMessage = error;
+        this.initForm();
+      }
+    )
+
+    // On fait nos requêtes
+    this.departureReasonService.getDeparturesReason();
+    this.statusService.getStatus();
+    this.workCityService.getWorkCities();
+    this.residenceTypeService.getResidencesType();
+    this.educationLevelService.getEducationLevels();
+    this.refererenceService.getReferences();
+
+
+
+
+  }
+
   private initForm(): void {
     this.firstFormGroup = this.formBuilder.group({
       fname: [this.person.fname],
       lname: [this.person.lname],
-      birthday : [],
+      birthday : [this.person.birthday],
       sexe: [this.person.sexe],
       address: [this.person.address],
       phone: [this.person.phone],
@@ -92,58 +171,79 @@ export class EditPersonComponent implements OnInit, OnDestroy {
     });
     this.secondFormGroup = this.formBuilder.group({
       workCityID: [this.person.workCityID],
-      startDate: [],
-      endDate: [],
+      startDate: [this.person.startDate],
+      endDate: [this.person.endDate],
+      referenceID: [this.person.referenceID],
+      residenceTypeID: [this.person.residenceTypeID],
+      educationalLevelID: [this.person.educationalLevelID]
 
     });
     this.thirdFormGroup = this.formBuilder.group({
-      programStartDate: [],
-      programEndDate: [],
+      programStartDate: [this.person.programStartDate],
+      programEndDate: [this.person.programEndDate],
+      departureReasonID: [this.person.departureReasonID],
       hoursPerDay: [this.person.hoursPerDay/*, Validators.required*/],
-      roamingStartDate: [],
-      roamingEndDate: [],
+      statusID: [this.person.statusID],
+      roamingTracking: [this.person.roamingTracking],
+      roamingStartDate: [this.person.roamingStartDate],
+      roamingEndDate: [this.person.roamingEndDate],
       communityWork: [this.person.communityWork],
-      communityStartDate: [],
-      communityEndDate: [],
+      communityStartDate: [this.person.communityStartDate],
+      communityEndDate: [this.person.communityEndDate],
       hourlyRate: [this.person.hourlyRate/*, Validators.required*/],
       transportFees: [this.person.transportFees/*, Validators.required*/],
+      responsibleIntervenantID: [this.person.responsibleIntervenantID]
     });
     this.fourthFormGroup = this.formBuilder.group({
+      interfaceName:[this.person.emergencyContact.interfaceName],
       lname: [this.person.emergencyContact.lname],
       fname: [this.person.emergencyContact.fname],
-      phone: [this.person.emergencyContact.phone]
+      phone: [this.person.emergencyContact.phone],
+      relation: [this.person.emergencyContact.relation/*, Validators.required*/]
     });
 
-    if (this.person.followedBy[0].interfaceName === 'Doctor') {
+    if (this.person.followedBy.interfaceName === 'Doctor') {
         this.fifthFormGroup = this.formBuilder.group({
-          lname: [this.person.followedBy[0].lname],
-          fname: [this.person.followedBy[0].fname],
-          phone: [this.person.followedBy[0].phone],
-          email: [this.person.followedBy[0].email],
-          fax: [this.person.followedBy[0].fax]
+          interfaceName:[this.person.followedBy.interfaceName],
+          lname: [this.person.followedBy.lname],
+          fname: [this.person.followedBy.fname],
+          phone: [this.person.followedBy.phone],
+          email: [this.person.followedBy.email],
+          fax: [this.person.followedBy.fax],
+          organism: ['']
         });
     }
-    if (this.person.followedBy[0].interfaceName === 'OtherPerson') {
+    if (this.person.followedBy.interfaceName === 'OtherPerson') {
       this.fifthFormGroup = this.formBuilder.group({
-        lname: [this.person.followedBy[0].lname],
-        fname: [this.person.followedBy[0].fname],
-        phone: [this.person.followedBy[0].phone],
-        organism: [this.person.followedBy[0].organism]
+        interfaceName:[this.person.followedBy.interfaceName],
+        lname: [this.person.followedBy.lname],
+        fname: [this.person.followedBy.fname],
+        phone: [this.person.followedBy.phone],
+        email: [''],
+        fax: [''],
+        organism: [this.person.followedBy.organism]
       });
     }
-    if (this.person.followedBy[0].interfaceName === 'Intervenant') {
+    if (this.person.followedBy.interfaceName === 'Intervenant') {
       this.fifthFormGroup = this.formBuilder.group({
-        lname: [this.person.followedBy[0].lname],
-        fname: [this.person.followedBy[0].fname],
-        phone: [this.person.followedBy[0].phone],
-        followEmail: [this.person.followedBy[0].email]
+        interfaceName:[this.person.followedBy.interfaceName],
+        lname: [this.person.followedBy.lname],
+        fname: [this.person.followedBy.fname],
+        phone: [this.person.followedBy.phone],
+        email: [this.person.followedBy.email],
+        fax: [''],
+        organism: ['']
       });
     }
     if (this.person.followedBy.interfaceName === 'EmergencyContact') {
       this.fifthFormGroup = this.formBuilder.group({
+        interfaceName:[this.person.followedBy.interfaceName],
         lname: [this.person.followedBy.lname],
         fname: [this.person.followedBy.fname],
-        phone: [this.person.followedBy.phone]
+        phone: [this.person.followedBy.phone],
+        email: [''],
+        fax: [''],
+        organism: ['']
       });
     }
   }
@@ -155,18 +255,24 @@ export class EditPersonComponent implements OnInit, OnDestroy {
         id: [this.person.id],
         lname: [this.firstFormGroup.value.lname],
         fname: [this.firstFormGroup.value.fname],
-        birthday : [this.firstFormGroup.value.picker],
+        birthday : [this.firstFormGroup.value.birthday],
         sexe: [this.firstFormGroup.value.sexe],
         address: [this.firstFormGroup.value.address],
         phone: [this.firstFormGroup.value.phone],
         NAS: [this.firstFormGroup.value.NAS],
         healthIssues: [this.firstFormGroup.value.healthIssues],
-        workCityID: [this.secondFormGroup.value.city],
+        workCityID: [this.secondFormGroup.value.workCityID],
         startDate: [this.secondFormGroup.value.startDate],
         endDate: [this.secondFormGroup.value.endDate],
+        referenceID: [this.secondFormGroup.value.referenceID],
+        residenceTypeID: [this.secondFormGroup.value.residenceTypeID],
+        educationalLevelID: [this.secondFormGroup.value.educationalLevelID],
         programStartDate: [this.thirdFormGroup.value.programStartDate],
         programEndDate: [this.thirdFormGroup.value.programEndDate],
+        departureReasonID: [this.thirdFormGroup.value.departureReasonID],
         hoursPerDay: [this.thirdFormGroup.value.hoursPerDay],
+        statusID: [this.thirdFormGroup.value.statusID],
+        roamingTracking: [this.thirdFormGroup.value.roamingTracking],
         roamingStartDate: [this.thirdFormGroup.value.roamingStartDate],
         roamingEndDate: [this.thirdFormGroup.value.roamingEndDate],
         communityWork: [this.thirdFormGroup.value.communityWork],
@@ -174,6 +280,7 @@ export class EditPersonComponent implements OnInit, OnDestroy {
         communityEndDate: [this.thirdFormGroup.value.communityEndDate],
         hourlyRate: [this.thirdFormGroup.value.hourlyRate],
         transportFees: [this.thirdFormGroup.value.transportFees],
+        responsibleIntervenantID: [this.thirdFormGroup.value.responsibleIntervenantID],
         emergencyContact: [this.fourthFormGroup.value],
         followedBy: [this.fifthFormGroup.value],
         active: true
@@ -194,5 +301,11 @@ export class EditPersonComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.errorsSubscription.unsubscribe();
     this.personSubscription.unsubscribe();
+    this.departureReasonSubscription.unsubscribe();
+    this.statusSubscription.unsubscribe();
+    this.workCitySubscription.unsubscribe();
+    this.residenceTypeSubscription.unsubscribe();
+    this.educationLevelSubscription.unsubscribe();
+    this.referenceSubscription.unsubscribe();
   }
 }

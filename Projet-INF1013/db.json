@@ -1,8 +1,8 @@
 {
   "intervenants": [
     {
-      "interfaceName": "Intervenant",
-      "fname": "prénomIntervenanttest",
+      "interfaceName": null,
+      "fname": "prénomIntervenanttest1237774444",
       "lname": "nomIntervenant",
       "email": "pierro_kool@hotmail.com",
       "phone": "8196932090",
@@ -10,22 +10,22 @@
       "id": 0
     },
     {
-      "id": 1,
       "interfaceName": "Intervenant",
       "fname": "prénomIntervenant2",
       "lname": "nomIntervenant2",
       "email": "pierro_kool@hotmail.com2",
       "phone": "8196932092",
-      "address": "321 rue Amazone"
+      "address": "321 rue Amazone",
+      "id": 1
     },
     {
-      "id": 2,
       "interfaceName": "Intervenant",
       "fname": "prénomIntervenant3",
       "lname": "nomIntervenant3",
       "email": "pierro_kool@hotmail.com3",
       "phone": "8196932093",
-      "address": "322 rue Amazone"
+      "address": "322 rue Amazone",
+      "id": 2
     },
     {
       "interfaceName": "Intervenant",
@@ -57,30 +57,28 @@
   ],
   "users": [
     {
-      "id": 0,
       "interfaceName": "User",
       "username": "pierro_kool@hotmail.com",
       "password": "123",
-      "role": "I",
-      "active": true
+      "role": "A",
+      "active": true,
+      "id": 0
     },
     {
-      "id": 1,
       "interfaceName": "User",
-      "username": "ttt@hotmail.com2",
-      "email": "pierro_kool@hotmail.com2",
-      "password": "123",
+      "username": "ttt@hotmail.com24700",
+      "password": "12345",
       "role": "I",
-      "active": true
+      "active": true,
+      "id": 1
     },
     {
-      "id": 2,
       "interfaceName": "User",
       "username": "ttt@hotmail.com3",
-      "email": "pierro_kool@hotmail.com3",
       "password": "123",
       "role": "I",
-      "active": true
+      "active": true,
+      "id": 2
     },
     {
       "interfaceName": "User",
@@ -163,7 +161,7 @@
       "id": 0,
       "lname": "blo",
       "fname": "joe",
-      "birthday": "1990-01-24",
+      "birthday": "1990-01-23",
       "sexe": "Homme",
       "address": "1000 rue des forges",
       "phone": 8195554455,
@@ -189,25 +187,22 @@
       "hourlyRate": 20,
       "transportFees": 5,
       "responsibleIntervenantID": 1,
-      "emergencyContact": [
-        {
-          "interfaceName": "EmergencyContact",
-          "lname": "smith",
-          "fname": "john",
-          "phone": 8190002222,
-          "relation": "Frère"
-        }
-      ],
-      "followedBy": [
-        {
-          "interfaceName": "Doctor",
-          "lname": "protou",
-          "fname": "colin",
-          "email": "test1@doctor.ca",
-          "fax": 8888888888,
-          "phone": 9333333333
-        }
-      ],
+      "emergencyContact": {
+        "interfaceName": "EmergencyContact",
+        "lname": "smith",
+        "fname": "john",
+        "phone": 8190002222,
+        "relation": "Frère"
+      },
+      "followedBy": {
+        "interfaceName": "Doctor",
+        "lname": "protou",
+        "fname": "colin",
+        "phone": 9333333333,
+        "email": "test1@doctor.ca",
+        "fax": 8888888888,
+        "organism": ""
+      },
       "active": true
     },
     {
@@ -252,9 +247,10 @@
         "interfaceName": "Doctor",
         "lname": "protou",
         "fname": "colin",
+        "phone": 9333333333,
         "email": "test1@doctor.ca",
         "fax": 8888888888,
-        "phone": 9333333333
+        "organism": ""
       },
       "active": true
     },
@@ -289,26 +285,222 @@
       "hourlyRate": 25.75,
       "transportFees": 5,
       "responsibleIntervenantID": 1,
-      "emergencyContact": [
-        {
-          "interfaceName": "EmergencyContact",
-          "lname": "smith",
-          "fname": "john",
-          "phone": 8190002222,
-          "relation": "Frère"
-        }
-      ],
-      "followedBy": [
-        {
-          "interfaceName": "Doctor",
-          "lname": "protou",
-          "fname": "colin",
-          "email": "test1@doctor.ca",
-          "fax": 8888888888,
-          "phone": 9333333333
-        }
-      ],
-      "active": false
+      "emergencyContact": {
+        "interfaceName": "EmergencyContact",
+        "lname": "smith",
+        "fname": "john",
+        "phone": 8190002222,
+        "relation": "Frère"
+      },
+      "followedBy": {
+        "interfaceName": "Doctor",
+        "lname": "protou",
+        "fname": "colin",
+        "phone": 9333333333,
+        "email": "test1@doctor.ca",
+        "fax": 8888888888,
+        "organism": ""
+      },
+      "active": true
+    }
+  ],
+  "departureReasons": [
+    {
+      "interfaceName:": "DepartureReason",
+      "id": 0,
+      "name": "Emploi"
+    },
+    {
+      "interfaceName:": "DepartureReason",
+      "id": 1,
+      "name": "Retour aux études"
+    },
+    {
+      "interfaceName:": "DepartureReason",
+      "id": 2,
+      "name": "Problèmes de santé mentale"
+    },
+    {
+      "interfaceName:": "DepartureReason",
+      "id": 3,
+      "name": "Problèmes de santé physique"
+    },
+    {
+      "interfaceName:": "DepartureReason",
+      "id": 4,
+      "name": "Déménagement"
+    },
+    {
+      "interfaceName:": "DepartureReason",
+      "id": 5,
+      "name": "Fin de contrat/projet"
+    },
+    {
+      "interfaceName:": "DepartureReason",
+      "id": 6,
+      "name": "Décès"
+    },
+    {
+      "interfaceName:": "DepartureReason",
+      "id": 7,
+      "name": "Autres"
+    }
+  ],
+  "educationLevels": [
+    {
+      "interfaceName:": "EducationLevel",
+      "id": 0,
+      "name": "Aucun diplôme"
+    },
+    {
+      "interfaceName:": "EducationLevel",
+      "id": 1,
+      "name": "Études secondaires"
+    },
+    {
+      "interfaceName:": "EducationLevel",
+      "id": 2,
+      "name": "Études professionnelles"
+    },
+    {
+      "interfaceName:": "EducationLevel",
+      "id": 3,
+      "name": "Études collégiales"
+    },
+    {
+      "interfaceName:": "EducationLevel",
+      "id": 4,
+      "name": "Études universitaires"
+    }
+  ],
+  "references": [
+    {
+      "interfaceName:": "Reference",
+      "id": 0,
+      "name": "Aucune"
+    },
+    {
+      "interfaceName:": "Reference",
+      "id": 1,
+      "name": "CIUSSS"
+    },
+    {
+      "interfaceName:": "Reference",
+      "id": 2,
+      "name": "SIV"
+    },
+    {
+      "interfaceName:": "Reference",
+      "id": 3,
+      "name": "SI"
+    },
+    {
+      "interfaceName:": "Reference",
+      "id": 4,
+      "name": "Organismes communautaires"
+    },
+    {
+      "interfaceName:": "Reference",
+      "id": 5,
+      "name": "Centre local d’emploi"
+    },
+    {
+      "interfaceName:": "Reference",
+      "id": 6,
+      "name": "SEMO"
+    },
+    {
+      "interfaceName:": "Reference",
+      "id": 7,
+      "name": "Personne elle-même"
+    },
+    {
+      "interfaceName:": "Reference",
+      "id": 8,
+      "name": "Ami"
+    },
+    {
+      "interfaceName:": "Reference",
+      "id": 9,
+      "name": "Famille"
+    },
+    {
+      "interfaceName:": "Reference",
+      "id": 10,
+      "name": "Autres"
+    }
+  ],
+  "residencesType": [
+    {
+      "interfaceName:": "ResidenceType",
+      "id": 0,
+      "name": "Appartement"
+    },
+    {
+      "interfaceName:": "ResidenceType",
+      "id": 1,
+      "name": "Famille d'accueil"
+    },
+    {
+      "interfaceName:": "ResidenceType",
+      "id": 2,
+      "name": "Logement supervisé"
+    },
+    {
+      "interfaceName:": "ResidenceType",
+      "id": 3,
+      "name": "Autres"
+    }
+  ],
+  "sectors": [
+    {
+      "interfaceName:": "Sector",
+      "id": 0,
+      "name": "sous-traitance"
+    },
+    {
+      "interfaceName:": "Sector",
+      "id": 1,
+      "name": "récupération-recyclage"
+    },
+    {
+      "interfaceName:": "Sector",
+      "id": 2,
+      "name": "vente de produits artistiques"
+    }
+  ],
+  "status": [
+    {
+      "interfaceName:": "Status",
+      "id": 0,
+      "name": "Clientèle"
+    },
+    {
+      "interfaceName:": "Status",
+      "id": 1,
+      "name": "Employés réguliers"
+    }
+  ],
+  "workCities": [
+    {
+      "interfaceName:": "WorkCity",
+      "id": 0,
+      "name": "Trois-Rivières"
+    },
+    {
+      "interfaceName:": "WorkCity",
+      "id": 1,
+      "name": "Shawinigan"
+    },
+    {
+      "interfaceName:": "WorkCity",
+      "id": 2,
+      "name": "Louiseville"
+    },
+    {
+      "interfaceName:": "WorkCity",
+      "id": 3,
+      "name": "St-Tite"
     }
   ]
 }

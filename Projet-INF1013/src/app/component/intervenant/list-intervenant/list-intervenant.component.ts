@@ -33,7 +33,7 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
 
     this.intervenantSubscription = this.intervenantService.intervenantsSubject.subscribe(
       (intervenants: any) => {
-        console.log(intervenants);
+        console.log('On recoit un intervenant');
         this.intervenants = new MatTableDataSource(intervenants);
       }
     )

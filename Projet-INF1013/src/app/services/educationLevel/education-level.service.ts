@@ -1,31 +1,40 @@
 import { Injectable } from '@angular/core';
 import {EducationLevel} from '../../models/educationLevel/education-level';
+import {Subject} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EducationLevelService {
 
-  educationLevel: EducationLevel[];
-  constructor() {
-    this.educationLevel = this.mockEducationLevelData();
+  educationLevelsSubject = new Subject<any>();
+  educationLevelSubject = new Subject<any>();
+  errorsSubject: Subject<string> = new Subject<string>();
+  constructor(private httpClient: HttpClient) {
   }
-  // Fonction pour générer les données lié à l'éducation
-  private mockEducationLevelData(): EducationLevel[]{
-    return[
-      {interfaceName: 'EducationLevel', id : 0, name : 'Aucun diplôme'},
-      {interfaceName: 'EducationLevel', id : 1, name : 'Études secondaires'},
-      {interfaceName: 'EducationLevel', id : 2, name : 'Études professionnelles'},
-      {interfaceName: 'EducationLevel', id : 3, name : 'Études collégiales'},
-      {interfaceName: 'EducationLevel', id : 3, name : 'Études universitaires'}
-    ];
+
+  getEducationLevels(){
+    this.httpClient.get<EducationLevel>(`http://localhost:3000/educationLevels`).subscribe(
+      (educationLevels: any) => {
+        this.educationLevelsSubject.next(educationLevels);
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des éducations';
+        this.errorsSubject.next(message);
+      }
+    )
   }
-  // Fonction pour récupérer le niveau d'éducation à partir de son identifiant
-  public getEducationLevelFromID(id: number): EducationLevel {
-    let educationLevel: EducationLevel;
-    educationLevel = this.educationLevel.find(function(e: EducationLevel) {
-      return e.id === id;
-    });
-    return educationLevel;
+
+  getEducationLevelName(id: number){
+    this.httpClient.get<EducationLevel>(`http://localhost:3000/educationLevels/`+id).subscribe(
+      (educationLevel: any) => {
+        this.educationLevelSubject.next(educationLevel.name);
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de la récupération de l\'éducation';
+        this.errorsSubject.next(message);
+      }
+    )
   }
 }

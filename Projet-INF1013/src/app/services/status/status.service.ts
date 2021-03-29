@@ -1,28 +1,40 @@
 import { Injectable } from '@angular/core';
 import {Status} from '../../models/status/status';
+import {Subject} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StatusService {
 
-  status: Status[];
-  constructor() {
-    this.status = this.mockStatusData();
+  allStatusSubject = new Subject<any>();
+  statusSubject = new Subject<any>();
+  errorsSubject: Subject<string> = new Subject<string>();
+  constructor(private httpClient: HttpClient) {
   }
-  // Fonction pour générer les données lié aux status
-  private mockStatusData(): Status[]{
-    return[
-      {interfaceName: 'Status', id : 0, name : 'Clientèle'},
-      {interfaceName: 'Status', id : 1, name : 'Employés réguliers'}
-    ];
+
+  getStatus(){
+    this.httpClient.get<Status>(`http://localhost:3000/status`).subscribe(
+      (allStatus: any) => {
+        this.allStatusSubject.next(allStatus);
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des status';
+        this.errorsSubject.next(message);
+      }
+    )
   }
-  // Fonction pour récupérer le statut à partir de son identifiant
-  public getStatusFromID(id: number): Status {
-    let status: Status;
-    status = this.status.find(function(s: Status) {
-      return s.id === id;
-    });
-    return status;
+
+  getStatusName(id: number){
+    this.httpClient.get<Status>(`http://localhost:3000/status/`+id).subscribe(
+      (status: any) => {
+        this.statusSubject.next(status.name);
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de la récupération du status';
+        this.errorsSubject.next(message);
+      }
+    )
   }
 }

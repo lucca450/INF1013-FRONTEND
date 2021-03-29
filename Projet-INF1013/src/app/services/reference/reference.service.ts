@@ -1,38 +1,41 @@
 import { Injectable } from '@angular/core';
 import {Reference} from '../../models/reference/reference';
+import {Subject} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {DepartureReason} from '../../models/departureReason/departure-reason';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReferenceService {
 
-  reference: Reference[];
+  referencesSubject = new Subject<any>();
+  referenceSubject = new Subject<any>();
+  errorsSubject: Subject<string> = new Subject<string>();
+  constructor(private httpClient: HttpClient) {
+  }
 
-  constructor() {
-    this.reference = this.mockReferenceData();
+  getReferences(){
+    this.httpClient.get<Reference>(`http://localhost:3000/references`).subscribe(
+      (references: any) => {
+        this.referencesSubject.next(references);
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des références';
+        this.errorsSubject.next(message);
+      }
+    )
   }
-  // Fonction pour générer les données lié aux références
-  private mockReferenceData(): Reference[]{
-    return[
-      {interfaceName: 'Reference', id : 0, name : 'Aucune'},
-      {interfaceName: 'Reference', id : 1, name : 'CIUSSS'},
-      {interfaceName: 'Reference', id : 2, name : 'SIV'},
-      {interfaceName: 'Reference', id : 3, name : 'SI'},
-      {interfaceName: 'Reference', id : 4, name : 'Organismes communautaires'},
-      {interfaceName: 'Reference', id : 5, name : 'Centre local d’emploi'},
-      {interfaceName: 'Reference', id : 6, name : 'SEMO'},
-      {interfaceName: 'Reference', id : 7, name : 'Personne elle-même'},
-      {interfaceName: 'Reference', id : 8, name : 'Ami'},
-      {interfaceName: 'Reference', id : 9, name : 'Famille'},
-      {interfaceName: 'Reference', id : 9, name : 'Autres'}
-    ];
-  }
-  // Fonction pour récupérer le référence à partir de son identifiant
-  public getReferenceFromID(id: number): Reference {
-    let reference: Reference;
-    reference = this.reference.find(function(r: Reference) {
-      return r.id === id;
-    });
-    return reference;
+
+  getReferenceName(id: number){
+    this.httpClient.get<Reference>(`http://localhost:3000/references/`+id).subscribe(
+      (reference: any) => {
+        this.referenceSubject.next(reference.name);
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de la récupération de la référence';
+        this.errorsSubject.next(message);
+      }
+    )
   }
 }

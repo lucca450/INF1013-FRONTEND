@@ -23,20 +23,30 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
 
   errorMessage: String;
   person: Person;
+  departureReasonName: string;
+  status: String;
+  city: string;
+  residenceType: string;
+  educationLevel: string;
+  reference: string;
+  workCity: string;
   isSlideChecked = false;
   //Énumération
   gender = Object.keys(Gender).map(key => Gender[key]);
   // Récupération des services
-  cities = this.workCityService;
-  status = this.statusService;
-  departureReason = this.departureReasonService;
-  residenceType =this.residenceTypeService;
-  educationLevel = this.educationLevelService;
-  reference = this.referenceService;
+
   intervenant = this.intervenantService;
+  fullname: String;
 
   errorsSubscription: Subscription;
   personSubscription: Subscription;
+  personFullNameSubscription: Subscription;
+  departureReasonSubscription: Subscription;
+  statusSubscription: Subscription;
+  workCitySubscription: Subscription;
+  residenceTypeSubscription: Subscription;
+  educationLevelSubscription: Subscription;
+  referenceSubscription: Subscription;
 
   constructor(private personService: PersonService ,
               private intervenantService: IntervenantService,
@@ -63,6 +73,7 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
       this.personSubscription = this.personService.personSubject.subscribe(
         (person: any) => {
           this.person = person;
+          this.SetAllAttributes(person);
         },
         (error: any) => {
           this.errorMessage = error;
@@ -71,7 +82,83 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
     });
   }
 
+  private SetAllAttributes(person: Person){
+
+    // On observe les requêtes qu'on va faire.
+    this.personFullNameSubscription = this.intervenantService.intervenantsFullnameSubject.subscribe(
+      (fullname: any) => {
+        this.fullname = fullname;
+      },
+      (error: any) => {
+        this.errorMessage = error;
+      }
+    )
+
+    this.departureReasonSubscription = this.departureReasonService.departureReasonSubject.subscribe(
+      (name: any) => {
+        this.departureReasonName = name;
+      },
+      (error: any) => {
+        this.errorMessage = error;
+      }
+    )
+    this.statusSubscription = this.statusService.statusSubject.subscribe(
+      (name: any) => {
+        this.status = name;
+      },
+      (error: any) => {
+        this.errorMessage = error;
+      }
+    )
+
+    this.workCitySubscription = this.workCityService.workCitySubject.subscribe(
+      (name: any) => {
+        this.workCity = name;
+      },
+      (error: any) => {
+        this.errorMessage = error;
+      }
+    )
+
+    this.residenceTypeSubscription = this.residenceTypeService.residenceTypeSubject.subscribe(
+      (name: any) => {
+        this.residenceType = name;
+      },
+      (error: any) => {
+        this.errorMessage = error;
+      }
+    )
+
+    this.educationLevelSubscription = this.educationLevelService.educationLevelSubject.subscribe(
+      (name: any) => {
+        this.educationLevel = name;
+      },
+      (error: any) => {
+        this.errorMessage = error;
+      }
+    )
+
+    this.referenceSubscription = this.referenceService.referenceSubject.subscribe(
+      (name: any) => {
+        this.reference = name;
+      },
+      (error: any) => {
+        this.errorMessage = error;
+      }
+    )
+
+    // On fait nos requêtes
+    this.intervenantService.intervenantFullName(person.responsibleIntervenantID);
+    this.departureReasonService.getDepartureReasonName(person.departureReasonID);
+    this.statusService.getStatusName(person.departureReasonID);
+    this.workCityService.getWorkCityName(person.departureReasonID);
+    this.residenceTypeService.getResidencesTypeName(person.departureReasonID);
+    this.educationLevelService.getEducationLevelName(person.departureReasonID);
+    this.referenceService.getReferenceName(person.departureReasonID);
+  }
+
   // Fonction pour gèrer le slider du NAS.
+
   toggleChanges($event: MatSlideToggleChange):  void {
     this.isSlideChecked = $event.checked;
   }
@@ -79,6 +166,13 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.errorsSubscription.unsubscribe();
     this.personSubscription.unsubscribe();
+    this.personFullNameSubscription.unsubscribe();
+    this.departureReasonSubscription.unsubscribe();
+    this.statusSubscription.unsubscribe();
+    this.workCitySubscription.unsubscribe();
+    this.residenceTypeSubscription.unsubscribe();
+    this.educationLevelSubscription.unsubscribe();
+    this.referenceSubscription.unsubscribe();
   }
 }
 

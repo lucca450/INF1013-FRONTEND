@@ -1,30 +1,41 @@
 import { Injectable } from '@angular/core';
 import {Sector} from '../../models/sector/sector';
+import {Subject} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SectorService {
 
-  sector: Sector[];
-  constructor() {
-    this.sector = this.mockSectorData();
+  sectorsSubject = new Subject<any>();
+  sectorSubject = new Subject<any>();
+  errorsSubject: Subject<string> = new Subject<string>();
+  constructor(private httpClient: HttpClient) {
   }
-  // Fonction pour générer les données lié aux secteurs
-  private mockSectorData(): Sector[]{
-    return[
-      {interfaceName: 'Sector', id : 0, name : 'sous-traitance'},
-      {interfaceName: 'Sector', id : 1, name : 'récupération-recyclage'},
-      {interfaceName: 'Sector', id : 2, name : 'vente de produits artistiques'}
-    ];
+
+  getSectors(){
+    this.httpClient.get<Sector>(`http://localhost:3000/sectors`).subscribe(
+      (sectors: any) => {
+        this.sectorsSubject.next(sectors);
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des secteurs';
+        this.errorsSubject.next(message);
+      }
+    )
   }
-  // Fonction pour récupérer le secteur à partir de son identifiant
-  public getSectorFromID(id: number): Sector {
-    let sector: Sector;
-    sector = this.sector.find(function(s: Sector) {
-      return s.id === id;
-    });
-    return sector;
+
+  getSectorName(id: number){
+    this.httpClient.get<Sector>(`http://localhost:3000/sectors/`+id).subscribe(
+      (sector: any) => {
+        this.sectorSubject.next(sector.name);
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de la récupération du secteur';
+        this.errorsSubject.next(message);
+      }
+    )
   }
 
 

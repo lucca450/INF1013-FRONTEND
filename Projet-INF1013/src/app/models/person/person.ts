@@ -6,7 +6,6 @@ import {OtherPerson} from '../other-person/other-person';
 export interface Person {
   interfaceName: 'Person';
   id: number;
-  active: boolean;
   lname: string;
   fname: string;
   birthday: Date;
@@ -21,11 +20,9 @@ export interface Person {
   referenceID: number;
   residenceTypeID: number; // appartement, famille d’accueil, logement supervisé
   educationalLevelID: number; // aucun diplôme, études secondaires, études professionnelles, études collégiales, études universitaires
-
   programStartDate: Date;
   programEndDate: Date;
-
-  departureReasonID: number,
+  departureReasonID: number;
   hoursPerDay: number;
   statusID: number,
   roamingTracking: boolean;
@@ -39,4 +36,5 @@ export interface Person {
   responsibleIntervenantID: number;
   emergencyContact: EmergencyContact;
   followedBy: Intervenant | EmergencyContact | Doctor | OtherPerson;
+  active: boolean;
 }

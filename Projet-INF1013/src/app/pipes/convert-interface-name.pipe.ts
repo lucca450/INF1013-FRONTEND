@@ -12,7 +12,7 @@ export class ConvertInterfaceNamePipe implements PipeTransform {
     }
     else if(interfaceName == 'EmergencyContact')
     {
-      return 'ContacteUrgence'
+      return 'Contacte d\'urgence'
     }
 
     else if (interfaceName == 'Doctor') {

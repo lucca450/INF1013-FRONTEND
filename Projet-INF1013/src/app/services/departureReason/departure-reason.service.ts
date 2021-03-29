@@ -1,34 +1,41 @@
 import { Injectable } from '@angular/core';
 import {DepartureReason} from '../../models/departureReason/departure-reason';
+import {Subject} from 'rxjs';
+import {Intervenant} from '../../models/intervenant/intervenant';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DepartureReasonService {
 
-  departureReason: DepartureReason[];
-  constructor() {
-    this.departureReason = this.mockDepartureReasonData();
+  departureReasonsSubject = new Subject<any>();
+  departureReasonSubject = new Subject<any>();
+  errorsSubject: Subject<string> = new Subject<string>();
+  constructor(private httpClient: HttpClient) {
   }
-  // Fonction pour générer les données lié aux motifs de départs
-  private mockDepartureReasonData(): DepartureReason[]{
-    return[
-      {interfaceName: 'DepartureReason', id : 0, name : 'Emploi'},
-      {interfaceName: 'DepartureReason', id : 1, name : 'Retour aux études'},
-      {interfaceName: 'DepartureReason', id : 2, name : 'Problèmes de santé mentale'},
-      {interfaceName: 'DepartureReason', id : 3, name : 'Problèmes de santé physique'},
-      {interfaceName: 'DepartureReason', id : 3, name : 'Déménagement'},
-      {interfaceName: 'DepartureReason', id : 3, name : 'Fin de contrat/projet'},
-      {interfaceName: 'DepartureReason', id : 3, name : 'Décès'},
-      {interfaceName: 'DepartureReason', id : 3, name : 'Autres'}
-    ];
+
+  getDeparturesReason(){
+    this.httpClient.get<DepartureReason>(`http://localhost:3000/departureReasons`).subscribe(
+      (departureReasons: any) => {
+        this.departureReasonsSubject.next(departureReasons);
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des raisons de départ';
+        this.errorsSubject.next(message);
+      }
+    )
   }
-  // Fonction pour récupérer le motif de départ à partir de son identifiant
-  public getDepartureReasonFromID(id: number): DepartureReason {
-    let departureReason: DepartureReason;
-    departureReason = this.departureReason.find(function(d: DepartureReason) {
-      return d.id === id;
-    });
-    return departureReason;
+
+  getDepartureReasonName(id: number){
+    this.httpClient.get<DepartureReason>(`http://localhost:3000/DepartureReason/`+id).subscribe(
+      (departureReason: any) => {
+        this.departureReasonSubject.next(departureReason.name);
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de la récupération de la raison de départ';
+        this.errorsSubject.next(message);
+      }
+    )
   }
 }

@@ -5,18 +5,19 @@ import {Subject, Subscription} from 'rxjs';
 import {HttpClient} from "@angular/common/http";
 import {User} from '../../models/users/user';
 import {UserService} from '../user/user.service';
+import {delay} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IntervenantService {
 
-  intervenants: Intervenant[]; // Temporaire
   activateDesactivateSubject = new Subject<any>();
   intervenantsSubject = new Subject<any>();
   intervenantSubject = new Subject<any>();
   intervenantsFullnameSubject = new Subject<any>();
   errorsSubject: Subject<string> = new Subject<string>();
+  verifySubjectSubscription: Subscription
   constructor(private router: Router, private httpClient: HttpClient, private userService: UserService) {
   }
 
@@ -27,7 +28,7 @@ export class IntervenantService {
       },
       (error) => {
         const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des intervenants';
-        this.emitErrorsSubject(error.error);
+        this.emitErrorsSubject(message);
       }
     )
   }
@@ -62,13 +63,14 @@ export class IntervenantService {
         });
       },
       (error) => {
-        const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des utilisateurs. Veuillez réessayer plus tard.';
+        const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des utilisateurs. Veuillez réessayer plus tard (getActiveIntervenants).';
         this.emitErrorsSubject(message);
       }
       )
   }
 
   addIntervenant(intervenant: Intervenant, user: User){
+    console.log('Ajout intervenant from internvenant');
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(intervenant);
     this.httpClient.post('http://localhost:3000/intervenants', body, {'headers': headers}).subscribe(
@@ -92,24 +94,30 @@ export class IntervenantService {
 }
 
 editIntervenant(intervenant: Intervenant, user: User){
+    console.log('Entrer dans edit');
+    let ctr = 0;
   const headers = { 'content-type': 'application/json'};
   const body = JSON.stringify(intervenant);
   this.httpClient.put('http://localhost:3000/intervenants/'+intervenant.id, body, {'headers': headers}).subscribe(
     (intervenant: any) => {
-      this.userService.editUserToServer(user);
-      this.userService.verifySubjectError.subscribe(
+
+      this.userService.editUserToServer(user)
+
+      this.verifySubjectSubscription = this.userService.verifySubjectError.subscribe(
         (user: any) => {
-          this.emitIntervenantsSubject(intervenant);
-          this.goToMainRoute();
+          this.verifySubjectSubscription.unsubscribe();
+          console.log('test');
+          //this.emitIntervenantsSubject(intervenant);
+          //this.goToMainRoute();
         },
         (error) => {
-          const message = 'Un erreur au niveau du serveur est survenu lors de la modification de l\'intervenant. Veuillez réessayer plus tard';
+          const message = 'Un erreur au niveau du serveur est survenu lors de la modification de l\'intervenant. Veuillez réessayer plus tard1';
           this.emitErrorsSubject(message);
         }
       )
     },
     (error) => {
-      const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des intervenants';
+      const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des intervenants2';
       this.emitErrorsSubject(message);
     }
   )
@@ -117,10 +125,8 @@ editIntervenant(intervenant: Intervenant, user: User){
 
 ActiveDesactiveIntervenant(id: number, activeDesactive: boolean)
 {
-  console.log('i am call');
   const headers = { 'content-type': 'application/json'};
   const body = JSON.stringify({"active": activeDesactive});
-  console.log(body);
   this.httpClient.patch('http://localhost:3000/users/'+id, body, {'headers': headers}).subscribe(
     (user: any) => {
       this.emitActivateDesactivateSubject(0);
@@ -150,10 +156,6 @@ public intervenantFullName(id: number):void {
     }
   )
 }
-
-  editAccount(myID: number, data: any): void {
-  }
-
   // Fonction annuler l'étape concernant l'intervenant
   cancelIntervenant(): void {
     this.router.navigate(['intervenant']);

@@ -27,7 +27,7 @@
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Date de naissance</mat-label>
-            <input matInput [matDatepicker]="birthday" [value]="person.birthday">
+            <input matInput [matDatepicker]="birthday" [value]="person.birthday" formControlName="birthday">
            <!-- {{person.birthday | date:'d MMMM  y':'d MMMM  y'}}  -->
             <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
             <mat-datepicker #birthday></mat-datepicker>
@@ -83,17 +83,17 @@
           <ng-template matStepLabel>Informations sur le travail</ng-template>
 
           <mat-form-field>
-            <mat-label>Lieu de travail :</mat-label>
-            <mat-select [(value)]="person.workCityID">
+            <mat-label>Lieu de travail</mat-label>
+            <mat-select [(value)]="person.workCityID" formControlName="workCityID">
               <mat-option *ngFor="let city of cities" [value]="city.id">
-                {{ city.name }}
+                {{ city.name}}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Date de début de la participation</mat-label>
-            <input matInput [matDatepicker]="startDate" [value]="person.startDate">
+            <input matInput [matDatepicker]="startDate" [value]="person.startDate" formControlName="startDate">
             <!--  {{person.startDate | date:'d MMMM  y':'d MMMM  y'}}-->
               <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
               <mat-datepicker #startDate></mat-datepicker>
@@ -101,7 +101,7 @@
             <br>
             <mat-form-field appearance="fill">
               <mat-label>Date de fin de la participation</mat-label>
-              <input matInput [matDatepicker]="endDate" [value]="person.endDate">
+              <input matInput [matDatepicker]="endDate" [value]="person.endDate" formControlName="endDate">
               <!--  {{person.endDate | date:'d MMMM  y':'d MMMM  y'}}-->
                 <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
                 <mat-datepicker #endDate></mat-datepicker>
@@ -109,7 +109,7 @@
               <br>
               <mat-form-field>
                 <mat-label>Référence</mat-label>
-                <mat-select [(value)]="person.referenceID">
+                <mat-select [(value)]="person.referenceID" formControlName="referenceID">
                   <mat-option *ngFor="let reference of referenceList" [value]="reference.id">
                     {{ reference.name }}
                   </mat-option>
@@ -118,7 +118,7 @@
               <br>
               <mat-form-field>
                 <mat-label>Type de résidence</mat-label>
-                <mat-select [(value)]="person.residenceTypeID">
+                <mat-select [(value)]="person.residenceTypeID" formControlName="residenceTypeID">
                   <mat-option *ngFor="let residenceType of residenceTypeList" [value]="residenceType.id">
                     {{ residenceType.name }}
                   </mat-option>
@@ -127,7 +127,7 @@
               <br>
               <mat-form-field>
                 <mat-label>Niveau de scolarité</mat-label>
-                <mat-select [(value)]="person.educationalLevelID">
+                <mat-select [(value)]="person.educationalLevelID" formControlName="educationalLevelID">
                   <mat-option *ngFor="let educationLevel of educationLevelList" [value]="educationLevel.id">
                     {{ educationLevel.name }}
                   </mat-option>
@@ -152,7 +152,7 @@
 
           <mat-form-field appearance="fill">
             <mat-label>Date de début</mat-label>
-            <input matInput [matDatepicker]="programStartDate" [value]="person.programStartDate">
+            <input matInput [matDatepicker]="programStartDate" [value]="person.programStartDate" formControlName="programStartDate">
             <!-- {{person.programStartDate | date:'d MMMM  y':'d MMMM  y'}}-->
              <mat-datepicker-toggle matSuffix [for]="programStartDate"></mat-datepicker-toggle>
              <mat-datepicker #programStartDate></mat-datepicker>
@@ -160,7 +160,7 @@
            <br>
            <mat-form-field appearance="fill">
              <mat-label>Date de fin</mat-label>
-             <input matInput [matDatepicker]="programEndDate" [value]="person.programEndDate">
+             <input matInput [matDatepicker]="programEndDate" [value]="person.programEndDate" formControlName="programEndDate">
            <!--  {{person.programEndDate | date:'d MMMM  y':'d MMMM  y'}}-->
              <mat-datepicker-toggle matSuffix [for]="programEndDate"></mat-datepicker-toggle>
              <mat-datepicker #programEndDate></mat-datepicker>
@@ -168,7 +168,7 @@
            <br>
            <mat-form-field>
              <mat-label>Motifs de départ</mat-label>
-             <mat-select [(value)]="person.departureReasonID">
+             <mat-select [(value)]="person.departureReasonID" formControlName="departureReasonID">
                <mat-option *ngFor="let departureReason of departureReasonList" [value]="departureReason.id">
                  {{ departureReason.name }}
                </mat-option>
@@ -184,7 +184,7 @@
            <br>
            <mat-form-field>
              <mat-label>Statut</mat-label>
-             <mat-select [(value)]="person.statusID">
+             <mat-select [(value)]="person.statusID" formControlName="statusID">
                <mat-option *ngFor="let status of statusList"
                            [value]="status.id">{{status.name}}
                </mat-option>
@@ -194,7 +194,7 @@
            <mat-form-field>
              <mat-label>Suivi en itinérance</mat-label>
              <mat-select #followRoaming [value]="person.roamingTracking|convertBoolean"
-                         (valueChange)="followRoaming.value = $event">
+                         (valueChange)="followRoaming.value = $event" formControlName="roamingTracking">
                <mat-option value="Oui">Oui</mat-option>
                <mat-option value="Non">Non</mat-option>
              </mat-select>
@@ -204,7 +204,7 @@
              <p>Dates du suivi d'itinérance</p>
              <mat-form-field appearance="fill">
                <mat-label>Date de début</mat-label>
-               <input matInput [matDatepicker]="roamingStartDate" [value]="person.roamingStartDate">
+               <input matInput [matDatepicker]="roamingStartDate" [value]="person.roamingStartDate" formControlName="roamingStartDate">
                <!-- {{person.roamingStartDate | date:'d MMMM  y':'d MMMM  y'}}-->
                 <mat-datepicker-toggle matSuffix [for]="roamingStartDate"></mat-datepicker-toggle>
                 <mat-datepicker #roamingStartDate></mat-datepicker>
@@ -212,7 +212,7 @@
               <br>
               <mat-form-field appearance="fill">
                 <mat-label>Date de fin</mat-label>
-                <input matInput [matDatepicker]="roamingEndDate" [value]="person.roamingEndDate">
+                <input matInput [matDatepicker]="roamingEndDate" [value]="person.roamingEndDate" formControlName="roamingEndDate">
               <!--  {{person.roamingStartDate | date:'d MMMM  y':'d MMMM  y'}} -->
                 <mat-datepicker-toggle matSuffix [for]="roamingEndDate"></mat-datepicker-toggle>
                 <mat-datepicker #roamingEndDate></mat-datepicker>
@@ -222,7 +222,7 @@
             <mat-form-field>
               <mat-label>Travaux communautaires</mat-label>
               <mat-select #communityWork [value]="person.communityWork|convertBoolean"
-                          (valueChange)="communityWork.value = $event">
+                          (valueChange)="communityWork.value = $event" formControlName="communityWork">
                 <mat-option value="Oui">Oui</mat-option>
                 <mat-option value="Non">Non</mat-option>
               </mat-select>
@@ -232,7 +232,7 @@
               <p>Dates des travaux communautaires</p>
               <mat-form-field appearance="fill">
                 <mat-label>Date de début</mat-label>
-                <input matInput [matDatepicker]="communityStartDate" [value]="person.communityStartDate">
+                <input matInput [matDatepicker]="communityStartDate" [value]="person.communityStartDate" formControlName="communityStartDate">
                 <!--  {{person.communityStartDate | date:'d MMMM  y':'d MMMM  y'}}-->
                   <mat-datepicker-toggle matSuffix [for]="communityStartDate"></mat-datepicker-toggle>
                   <mat-datepicker #communityStartDate></mat-datepicker>
@@ -240,7 +240,7 @@
                 <br>
                 <mat-form-field appearance="fill">
                   <mat-label>Date de fin</mat-label>
-                  <input matInput [matDatepicker]="communityEndDate" [value]="person.communityEndDate">
+                  <input matInput [matDatepicker]="communityEndDate" [value]="person.communityEndDate" formControlName="communityEndDate">
                <!--   {{person.communityEndDate | date:'d MMMM  y':'d MMMM  y'}}-->
                   <mat-datepicker-toggle matSuffix [for]="communityEndDate"></mat-datepicker-toggle>
                   <mat-datepicker #communityEndDate></mat-datepicker>
@@ -294,6 +294,13 @@
             </mat-error>
           </mat-form-field>
 
+          <mat-form-field class="full-width-input">
+            <input matInput placeholder="Relation avec la personne" formControlName="relation">
+            <mat-error>
+              Veuillez entrer le type de relation que vous avez avec la personne.
+            </mat-error>
+          </mat-form-field>
+
           <div>
             <button mat-button matStepperPrevious>Étape précédente</button>
             <button mat-button matStepperNext>Prochaine étape</button>
@@ -308,12 +315,12 @@
 
           <mat-form-field>
             <mat-label>Suivi par</mat-label>
-            <mat-select #followedBy [value]="person.followedBy.interfaceName|convertInterfaceName"
-                        (valueChange)="followedBy.value =$event">
+            <mat-select #followedBy [value]="person.followedBy.interfaceName"
+                        (valueChange)="followedBy.value =$event" formControlName="interfaceName">
               <mat-option value="Intervenant">Intervenant</mat-option>
-              <mat-option value="Médecin">Médecin</mat-option>
-              <mat-option value="ContacteUrgence">Contacte d'urgence</mat-option>
-              <mat-option value="Autres">Autres</mat-option>
+              <mat-option value="Doctor">Médecin</mat-option>
+              <mat-option value="EmergencyContact">Contacte d'urgence</mat-option>
+              <mat-option value="OtherPerson">Autres</mat-option>
             </mat-select>
           </mat-form-field>
 
@@ -340,21 +347,21 @@
             </mat-error>
           </mat-form-field>
           <br>
-          <mat-form-field *ngIf="followedBy.value == 'Médecin' || followedBy.value == 'Intervenant'" class="full-width-input">
+          <mat-form-field *ngIf="followedBy.value == 'Doctor' || followedBy.value == 'Intervenant'" class="full-width-input">
             <input matInput placeholder="Email de la personne de suivi." formControlName="email">
             <mat-error>
               Veuillez entrer l'email de la personne de suivi.
             </mat-error>
           </mat-form-field>
           <br>
-          <mat-form-field *ngIf="followedBy.value == 'Médecin'" class="full-width-input">
+          <mat-form-field *ngIf="followedBy.value == 'Doctor'" class="full-width-input">
             <input matInput placeholder="Numéro de fax de la personne de suivi." formControlName="fax">
             <mat-error>
               Veuillez entrer le numéro de fax de la personne de suivi.
             </mat-error>
           </mat-form-field>
           <br>
-          <mat-form-field *ngIf="followedBy.value == 'Autres' || followedBy.value == 'Intervenant'" class="full-width-input">
+          <mat-form-field *ngIf="followedBy.value == 'OtherPerson' || followedBy.value == 'Intervenant'" class="full-width-input">
             <input matInput placeholder="Organisme de la personne de suivi." formControlName="organism">
             <mat-error>
               Veuillez entrer l'organisme de la personne de suivi.'
