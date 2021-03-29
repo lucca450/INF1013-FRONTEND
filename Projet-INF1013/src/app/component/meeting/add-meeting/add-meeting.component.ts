@@ -83,9 +83,9 @@ export class AddMeetingComponent implements OnInit, OnDestroy {
 
   private initForm(): void {
     this.addMeetingForm = this.formBuilder.group({
-      notes: ['', Validators.required],
-      followup: ['', Validators.required],
-      goals: ['', Validators.required],
+      notes: ['', [Validators.required , Validators.minLength(5), Validators.maxLength(4000)]],
+      followup: ['', [Validators.required , Validators.minLength(5), Validators.maxLength(4000)]],
+      goals: ['', [Validators.required , Validators.minLength(5), Validators.maxLength(4000)]],
       idPerson: ['', Validators.required],
       idIntervenant: ['', Validators.required]
     });

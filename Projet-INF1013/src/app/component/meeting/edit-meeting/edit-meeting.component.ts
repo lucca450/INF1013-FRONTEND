@@ -68,8 +68,8 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
         }
       );
     }else {
-      this.intervenantService.intervenantFullName(this.loggedUser.id);
-      this.intervenantSubscription = this.intervenantService.intervenantsFullnameSubject.subscribe(
+      this.intervenantService.getIntervenantFromId(this.loggedUser.id);
+      this.intervenantSubscription = this.intervenantService.intervenantsSubject.subscribe(
         (inter: any) => {
           console.log(inter);
           this.intervenants = inter;
@@ -94,12 +94,11 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
   }
 
   private initForm(): void {
-    console.log(this.meeting);
     // this.meeting = this.meetingService.getMeetingsFromID(this.meetingID);
     this.editMeetingForm = this.formBuilder.group({
-      notes: [this.meeting.notes, Validators.required],
-      followup: [this.meeting.followup, Validators.required],
-      goals: [this.meeting.goals, Validators.required],
+      notes: [this.meeting.notes, [Validators.required, Validators.minLength(5), Validators.maxLength(4000)]],
+      followup: [this.meeting.followup, [Validators.required, Validators.minLength(5), Validators.maxLength(4000)]],
+      goals: [this.meeting.goals, [Validators.required, Validators.minLength(5), Validators.maxLength(4000)]],
       idPerson: [this.meeting.idPerson, Validators.required],
       idIntervenant: [this.meeting.idIntervenant, Validators.required],
       id: [this.meeting.id]
@@ -114,7 +113,10 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
     if (this.editMeetingForm.valid) {
       console.log(this.editMeetingForm.value);
       this.meetingService.editMeeting(this.editMeetingForm.value);
-
+      this.meetingSubscription.unsubscribe();
+      this.errorsSubscription.unsubscribe();
+      this.intervenantSubscription.unsubscribe();
+      this.personsSubscription.unsubscribe();
     }else {
       alert('Veuillez remplir tous les champs');
     }
