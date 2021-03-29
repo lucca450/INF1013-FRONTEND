@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PersonService} from '../../../services/person/person.service';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
 import {StatusService} from '../../../services/status/status.service';
@@ -81,7 +81,8 @@ export class AddPersonComponent implements OnInit, OnDestroy{
       (error: any) => {
         this.errorMessage = error;
       }
-    )
+    );
+
     this.statusSubscription = this.statusService.allStatusSubject.subscribe(
       (allStatus: any) => {
         this.statusList = allStatus;
@@ -89,7 +90,7 @@ export class AddPersonComponent implements OnInit, OnDestroy{
       (error: any) => {
         this.errorMessage = error;
       }
-    )
+    );
 
     this.workCitySubscription = this.workCityService.workCitiesSubject.subscribe(
       (workCities: any) => {
@@ -98,7 +99,7 @@ export class AddPersonComponent implements OnInit, OnDestroy{
       (error: any) => {
         this.errorMessage = error;
       }
-    )
+    );
 
     this.residenceTypeSubscription = this.residenceTypeService.residencesTypeSubject.subscribe(
       (residencesType: any) => {
@@ -107,7 +108,7 @@ export class AddPersonComponent implements OnInit, OnDestroy{
       (error: any) => {
         this.errorMessage = error;
       }
-    )
+    );
 
     this.educationLevelSubscription = this.educationLevelService.educationLevelsSubject.subscribe(
       (educationLevels: any) => {
@@ -116,7 +117,7 @@ export class AddPersonComponent implements OnInit, OnDestroy{
       (error: any) => {
         this.errorMessage = error;
       }
-    )
+    );
 
     this.referenceSubscription = this.refererenceService.referencesSubject.subscribe(
       (references: any) => {
@@ -125,7 +126,7 @@ export class AddPersonComponent implements OnInit, OnDestroy{
       (error: any) => {
         this.errorMessage = error;
       }
-    )
+    );
 
     // On fait nos requêtes
     this.departureReasonService.getDeparturesReason();
@@ -139,14 +140,14 @@ export class AddPersonComponent implements OnInit, OnDestroy{
   private initForm(): void {
 
     this.firstFormGroup = this.formBuilder.group({
-      fname: [''/*, Validators.email*/],
-      lname: [''/*, Validators.required*/],
-      birthday : [],
-      sexe: [],
-      address: [''/*, Validators.required*/],
-      phone: [''/*, Validators.required*/],
-      NAS: [''/*, Validators.required*/],
-      healthIssues: []
+      fname: ['', [Validators.required, Validators.maxLength(40)]],
+      lname: ['', [Validators.required, Validators.maxLength(40)]],
+      birthday : ['', Validators.required],
+      sexe: ['', Validators.required],
+      address: ['', [Validators.required, Validators.maxLength(50)]],
+      phone: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
+      NAS: ['', [Validators.required, Validators.pattern('[0-9]{9}')]],
+      healthIssues: ['', [Validators.required, Validators.maxLength(4000)]],
     });
     this.secondFormGroup = this.formBuilder.group({
       workCityID: [],
