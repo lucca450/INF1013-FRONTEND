@@ -11,6 +11,12 @@
         <mat-error *ngIf="editUserForm.hasError('required', 'username')">
           Veuillez entrer un nom d'utilisateur.
         </mat-error>
+        <mat-error *ngIf="editUserForm.hasError('minlength', 'username')">
+          Le nom d'utilisateur doit avoir au moins 4 caractères.
+        </mat-error>
+        <mat-error *ngIf="editUserForm.hasError('maxlength', 'username')">
+          Le nom d'utilisateur doit avoir au maximum 40 caractères.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field class="full-width-input">
@@ -18,6 +24,12 @@
         <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         <mat-error *ngIf="editUserForm.hasError('required', 'password')">
           Veuillez entrer un mot de passe
+        </mat-error>
+        <mat-error *ngIf="editUserForm.hasError('minlength', 'password')">
+          Le mot de passe doit avoir au moins 4 caractères.
+        </mat-error>
+        <mat-error *ngIf="editUserForm.hasError('maxlength', 'password')">
+          Le mot de passe doit avoir au maximum 40 caractères.
         </mat-error>
       </mat-form-field>
 
@@ -38,15 +50,21 @@
 
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Prénom" formControlName="fname" required>
-        <mat-error>
+        <mat-error *ngIf="editintervenantForm.hasError('required', 'fname')">
           Veuillez entrer un prénom.
+        </mat-error>
+        <mat-error *ngIf="editintervenantForm.hasError('maxlength', 'fname')">
+          Le nom doit avoir au maximum 40 caractères.
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Nom" formControlName="lname" required>
-        <mat-error>
+        <mat-error *ngIf="editintervenantForm.hasError('required', 'lname')">
           Veuillez entrer un nom.
+        </mat-error>
+        <mat-error *ngIf="editintervenantForm.hasError('maxlength', 'lname')">
+          Le nom doit avoir au maximum 40 caractères.
         </mat-error>
       </mat-form-field>
 

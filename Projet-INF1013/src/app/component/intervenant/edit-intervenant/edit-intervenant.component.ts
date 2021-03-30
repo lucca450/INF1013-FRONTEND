@@ -35,13 +35,13 @@ export class EditIntervenantComponent implements OnInit, OnDestroy {
       (error: any) => {
         this.errorMessage = error;
       }
-    )
+    );
 
     this.errorUserSubscription = this.userService.verifySubjectError.subscribe(
       (error: any) => {
         this.errorMessage = error;
       }
-    )
+    );
 
     let id = 0;
     // Nous permet d'aller chercher les informations selon l'id passé dans le path
@@ -68,12 +68,12 @@ export class EditIntervenantComponent implements OnInit, OnDestroy {
             (error: any) => {
               this.errorMessage = error;
             }
-          )
+          );
         },
         (error: any) => {
           this.errorMessage = error;
         }
-      )
+      );
     });
   }
 
@@ -83,18 +83,18 @@ export class EditIntervenantComponent implements OnInit, OnDestroy {
   private initForm(): void {
     this.editintervenantForm = this.formBuilder.group({
       interfaceName: [this.intervenant.interfaceName],
-      fname: [this.intervenant.fname, Validators.required],
-      lname: [this.intervenant.lname, Validators.required],
+      fname: [this.intervenant.fname,  [Validators.required, Validators.maxLength(30)]],
+      lname: [this.intervenant.lname, [Validators.required, Validators.maxLength(30)]],
       email: [this.intervenant.email, [Validators.required, Validators.email]],
       phone: [this.intervenant.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
-      address: [this.intervenant.address, Validators.required],
+      address: [this.intervenant.address, [Validators.required, Validators.maxLength(50)]],
       id: [this.intervenant.id],
     });
 
     this.editUserForm = this.formBuilder.group({
       interfaceName:[this.user.interfaceName],
-      username: [this.user.username, Validators.required],
-      password: [this.user.password, Validators.required],
+      username: [this.user.username, [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
+      password: [this.user.password, [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
       role: [this.user.role, Validators.required],
       active: [this.user.active, Validators.required],
       id: [this.user.id],

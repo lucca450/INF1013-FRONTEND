@@ -38,6 +38,7 @@ export class IntervenantService {
       (intervenant: any) => {
         console.log(intervenant[0]);
         this.intervenantsSubject.next(intervenant[0]);
+
       },
       (error) => {
         const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des intervenants';
