@@ -57,8 +57,8 @@ export class UserService {
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(user);
     this.httpClient.put('http://localhost:3000/users/'+user.id, body, {'headers': headers}).subscribe(
-      (intervenant: any) => {
-        //this.emitUsersSubject(user);
+      (data: any) => {
+        this.emitUsersSubject(data);
         this.emitNoError();
       },
       (error) => {
