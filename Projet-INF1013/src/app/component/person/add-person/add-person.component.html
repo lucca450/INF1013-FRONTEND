@@ -11,15 +11,21 @@
 
           <mat-form-field class="full-width-input">
             <input matInput placeholder="Prénom" formControlName="fname">
-            <mat-error>
+            <mat-error *ngIf="firstFormGroup.hasError('required', 'fname')">
               Veuillez entrer un prénom.
+            </mat-error>
+            <mat-error *ngIf="firstFormGroup.hasError('maxlength', 'fname')">
+              Le prénom doit avoir au maximum 40 caractères.
             </mat-error>
           </mat-form-field>
           <br>
           <mat-form-field class="full-width-input">
             <input matInput placeholder="Nom" formControlName="lname">
-            <mat-error>
+            <mat-error *ngIf="firstFormGroup.hasError('required', 'lname')">
               Veuillez entrer un nom.
+            </mat-error>
+            <mat-error *ngIf="firstFormGroup.hasError('maxlength', 'lname')">
+              Le nom doit avoir au maximum 40 caractères.
             </mat-error>
           </mat-form-field>
           <br>
@@ -28,42 +34,64 @@
             <input matInput [matDatepicker]="birthday" formControlName="birthday">
             <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
             <mat-datepicker #birthday></mat-datepicker>
+            <mat-error *ngIf="firstFormGroup.hasError('required', 'birthday')">
+              Veuillez entrer une date de naissance.
+            </mat-error>
           </mat-form-field>
           <br>
           <mat-form-field>
             <mat-label>Sexe</mat-label>
-            <mat-select >
-              <mat-option *ngFor="let gender of genderEnum" [value]="gender.id">
+            <mat-select formControlName="sexe">
+              <mat-option *ngFor="let gender of genderEnum" [value]="gender.id" >
                 {{ gender.name }}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="firstFormGroup.hasError('required', 'sexe')">
+              Veuillez sélectionner un sexe.
+            </mat-error>
           </mat-form-field>
           <br>
           <mat-form-field class="full-width-input">
             <input matInput placeholder="Adresse" formControlName="address">
-            <mat-error>
+            <mat-error *ngIf="firstFormGroup.hasError('required', 'address')">
               Veuillez entrer une adresse.
+            </mat-error>
+            <mat-error *ngIf="firstFormGroup.hasError('maxlength', 'address')">
+              L'adresse doit avoir au maximum 50 caractères.
             </mat-error>
           </mat-form-field>
           <br>
           <mat-form-field class="full-width-input">
             <input matInput placeholder="Numéro de téléphone" formControlName="phone">
-            <mat-error>
+            <mat-error *ngIf="firstFormGroup.hasError('required', 'phone')">
               Veuillez entrer un numéro de téléphone.
+            </mat-error>
+            <mat-error *ngIf="firstFormGroup.hasError('pattern', 'phone')">
+              Veuillez entrer un numéro de téléphone sous le format suivant: 0001112222.
             </mat-error>
           </mat-form-field>
           <br>
           <mat-form-field class="full-width-input">
             <input matInput placeholder="NAS" formControlName="NAS">
-            <mat-error>
+            <mat-error *ngIf="firstFormGroup.hasError('required', 'NAS')">
               Veuillez entrer un NAS.
+            </mat-error>
+            <mat-error *ngIf="firstFormGroup.hasError('pattern', 'NAS')">
+              Veuillez entrer un NAS sous le format suivant: 000111333.
             </mat-error>
           </mat-form-field>
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Problèmes de santé/allergies</mat-label>
             <textarea matInput placeholder="Problèmes de santé/allergies" formControlName="healthIssues" ></textarea>
+            <mat-error *ngIf="firstFormGroup.hasError('required', 'healthIssues')">
+              Veuillez entrer un/des problèmes de santé/allergies.
+            </mat-error>
+            <mat-error *ngIf="firstFormGroup.hasError('maxlength', 'healthIssues')">
+              Cette section doit avoir au maximum 4000 caractères.
+            </mat-error>
           </mat-form-field>
+
 
           <div>
             <button mat-button matStepperNext>Prochaine étape</button>
