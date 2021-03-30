@@ -37,7 +37,7 @@ export class IntervenantService {
     this.httpClient.get<Intervenant>(`http://localhost:3000/intervenants?id=` + id).subscribe(
       (intervenant: any) => {
         console.log(intervenant[0]);
-        this.intervenantsSubject.next(intervenant[0]);
+        this.intervenantSubject.next(intervenant[0]);
       },
       (error) => {
         const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des intervenants';
@@ -105,11 +105,11 @@ editIntervenant(intervenant: Intervenant, user: User){
       this.userService.editUserToServer(user)
 
       this.verifySubjectSubscription = this.userService.verifySubjectError.subscribe(
-        (user: any) => {
+        (data: any) => {
           this.verifySubjectSubscription.unsubscribe();
           console.log('test');
-          //this.emitIntervenantsSubject(intervenant);
-          //this.goToMainRoute();
+          this.emitIntervenantsSubject(intervenant);
+          this.goToMainRoute();
         },
         (error) => {
           const message = 'Un erreur au niveau du serveur est survenu lors de la modification de l\'intervenant. Veuillez réessayer plus tard1';
