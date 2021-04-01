@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {PersonService} from '../../../services/person/person.service';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
 import {StatusService} from '../../../services/status/status.service';
@@ -23,13 +23,13 @@ import {Person} from '../../../models/person/person';
 export class AddPersonComponent implements OnInit, OnDestroy{
 
   intervenants: Intervenant[];
-  formAddPerson:FormGroup;
-  statusList = []
-  referenceList = []
-  cities = []
-  departureReasonList = []
-  educationLevelList = []
-  residenceTypeList = []
+  formAddPerson: FormGroup;
+  statusList = [];
+  referenceList = [];
+  cities = [];
+  departureReasonList = [];
+  educationLevelList = [];
+  residenceTypeList = [];
   genderEnum = Object.entries(Gender).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
   errorMessage: String;
 
@@ -137,9 +137,30 @@ export class AddPersonComponent implements OnInit, OnDestroy{
     this.refererenceService.getReferences();
   }
 
+
+  setValidator(): void {
+    const fname = this.firstFormGroup.get('fname');
+
+    this.firstFormGroup.get('test').valueChanges
+      .subscribe(test => {
+
+        if (test === 'Oui') {
+          fname.setValidators([Validators.required, Validators.maxLength(40)]);
+        }
+
+        if (test === 'Non') {
+          fname.setValidators(null);
+        }
+        fname.updateValueAndValidity();
+      });
+  }
+
+
   private initForm(): void {
 
     this.firstFormGroup = this.formBuilder.group({
+      /*
+      test: ['', [Validators.required]],
       fname: ['', [Validators.required, Validators.maxLength(40)]],
       lname: ['', [Validators.required, Validators.maxLength(40)]],
       birthday : ['', Validators.required],
@@ -148,15 +169,36 @@ export class AddPersonComponent implements OnInit, OnDestroy{
       phone: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
       NAS: ['', [Validators.required, Validators.pattern('[0-9]{9}')]],
       healthIssues: ['', [Validators.required, Validators.maxLength(4000)]],
-    });
+      */
+      test: ['', []],
+      fname: ['', []],
+      lname: ['', []],
+      birthday : ['', []],
+      sexe: ['', []],
+      address: ['', []],
+      phone: ['', []],
+      NAS: ['', []],
+      healthIssues: ['', []],
+      });
+
+
+    this.setValidator();
     this.secondFormGroup = this.formBuilder.group({
+
       workCityID: [],
       startDate: [],
       endDate: [],
       referenceID: [],
       residenceTypeID: [],
       educationalLevelID: []
-
+      /*
+      workCityID: ['', [Validators.required]],
+      startDate: ['', [Validators.required]],
+      endDate: ['', [Validators.required]],
+      referenceID: ['', [Validators.required]],
+      residenceTypeID: ['', [Validators.required]],
+      educationalLevelID: ['', [Validators.required]]
+      */
     });
     this.thirdFormGroup = this.formBuilder.group({
       programStartDate: [],
@@ -191,6 +233,8 @@ export class AddPersonComponent implements OnInit, OnDestroy{
       organism: [''/*, Validators.required*/],
     });
   }
+
+
   // Fonction pour réagir lorsque la personne clique sur le bouton "Ajouter"
   onAddPerson(): void {
     if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.thirdFormGroup.valid && this.fourthFormGroup.valid && this.fifthFormGroup.valid) {

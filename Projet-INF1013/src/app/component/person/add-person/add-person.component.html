@@ -8,7 +8,6 @@
       <mat-step [stepControl]="firstFormGroup">
         <form [formGroup]="firstFormGroup">
           <ng-template matStepLabel>Informations personnelles</ng-template>
-
           <mat-form-field class="full-width-input">
             <input matInput placeholder="Prénom" formControlName="fname">
             <mat-error *ngIf="firstFormGroup.hasError('required', 'fname')">
@@ -103,7 +102,6 @@
       <mat-step [stepControl]="secondFormGroup">
         <form [formGroup]="secondFormGroup">
           <ng-template matStepLabel>Informations sur le travail</ng-template>
-
           <mat-form-field>
             <mat-label>Lieu de travail :</mat-label>
             <mat-select formControlName="workCityID">
@@ -111,6 +109,9 @@
                 {{ city.name }}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="secondFormGroup.hasError('required', 'workCityID')">
+              Veuillez sélectionner un lieu de travail.
+            </mat-error>
           </mat-form-field>
           <br>
           <mat-form-field appearance="fill">
@@ -118,6 +119,9 @@
             <input matInput [matDatepicker]="startDate" formControlName="startDate">
             <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
             <mat-datepicker #startDate></mat-datepicker>
+            <mat-error *ngIf="secondFormGroup.hasError('required', 'startDate')">
+              Veuillez sélectionner un date de début.
+            </mat-error>
           </mat-form-field>
           <br>
           <mat-form-field appearance="fill">
@@ -125,6 +129,9 @@
             <input matInput [matDatepicker]="endDate" formControlName="endDate">
             <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
             <mat-datepicker #endDate></mat-datepicker>
+            <mat-error *ngIf="secondFormGroup.hasError('required', 'endDate')">
+              Veuillez sélectionner un date de fin.
+            </mat-error>
           </mat-form-field>
           <br>
           <mat-form-field>
@@ -134,6 +141,9 @@
                 {{ reference.name }}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="secondFormGroup.hasError('required', 'referenceID')">
+              Veuillez sélectionner une référence.
+            </mat-error>
           </mat-form-field>
           <br>
           <mat-form-field>
@@ -143,6 +153,9 @@
                 {{ residenceType.name }}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="secondFormGroup.hasError('required', 'residenceTypeID')">
+              Veuillez sélectionner un type de résidence.
+            </mat-error>
           </mat-form-field>
           <br>
           <mat-form-field>
@@ -152,6 +165,9 @@
                 {{ educationLevel.name }}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="secondFormGroup.hasError('required', 'educationalLevelID')">
+              Veuillez sélectionner un niveau de scolarité.
+            </mat-error>
           </mat-form-field>
           <br>
 
