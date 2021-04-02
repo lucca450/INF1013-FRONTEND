@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       let password = this.loginForm.value.password;
 
       // Évidament, il faut mettre email et password à la place, lorsqu'on va faire la vrai connexion
-      this.userService.verifyUserExist('pierro_kool@hotmail.com', '123');
+      this.userService.verifyUserExist('pierro_kool@hotmail.com', '1234');
 
       this.verifyErrorSubscription = this.userService.verifySubjectError.subscribe(
         (errorResponse)=>{

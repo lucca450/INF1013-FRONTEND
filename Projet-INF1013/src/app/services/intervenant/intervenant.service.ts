@@ -5,8 +5,8 @@ import {Subject, Subscription} from 'rxjs';
 import {HttpClient} from "@angular/common/http";
 import {User} from '../../models/users/user';
 import {UserService} from '../user/user.service';
-import {delay} from 'rxjs/operators';
 
+// @ts-ignore
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +22,7 @@ export class IntervenantService {
   }
 
   getAllIntervenants(){
-    this.httpClient.get<Intervenant>(`http://localhost:3000/intervenants`).subscribe(
+    this.httpClient.get<Intervenant>(`http://localhost:3000/users`).subscribe(
       (intervenants: any) => {
         this.emitIntervenantsSubject(intervenants);
       },
@@ -34,7 +34,7 @@ export class IntervenantService {
   }
 
   getIntervenantFromId(id: number){
-    this.httpClient.get<Intervenant>(`http://localhost:3000/intervenants?id=` + id).subscribe(
+    this.httpClient.get<User>(`http://localhost:3000/users?id=` + id).subscribe(
       (intervenant: any) => {
         console.log(intervenant[0]);
         this.intervenantSubject.next(intervenant[0]);
@@ -47,21 +47,11 @@ export class IntervenantService {
   }
 
   getActiveIntervenants(){
-    let intervenants : Intervenant[] = [];
+    //let intervenants : Intervenant[] = [];
   this.httpClient.get<User>('http://localhost:3000/users?active=true').subscribe(
       (users: any) => {
-        users.forEach( (user) => {
-          this.httpClient.get<Intervenant>('http://localhost:3000/intervenants?id='+user.id).subscribe(
-            (intervenant: any) => {
-                intervenants.push(intervenant[0]);
-                this.emitIntervenantsSubject(intervenants);
-            },
-            (error) => {
-              const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des intervenants. Veuillez réessayer plus tard.';
-              this.emitErrorsSubject(message);
-            }
-          )
-        });
+        //intervenants.push(intervenant[0]);
+        this.emitIntervenantsSubject(users);
       },
       (error) => {
         const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des utilisateurs. Veuillez réessayer plus tard (getActiveIntervenants).';
@@ -70,22 +60,14 @@ export class IntervenantService {
       )
   }
 
-  addIntervenant(intervenant: Intervenant, user: User){
+  addIntervenant(intervenant: User){
     console.log('Ajout intervenant from internvenant');
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(intervenant);
-    this.httpClient.post('http://localhost:3000/intervenants', body, {'headers': headers}).subscribe(
+    this.httpClient.post('http://localhost:3000/users', body, {'headers': headers}).subscribe(
       (intervenant: any) => {
-        this.userService.addUserToServer(user);
-         this.userService.verifySubjectError.subscribe(
-          (response: any) => {
-            this.emitIntervenantsSubject(intervenant);
-            this.goToMainRoute();
-          },
-          (error: any) => {
-            this.emitErrorsSubject(error);
-          }
-        )
+        this.emitIntervenantsSubject(intervenant);
+        this.goToMainRoute();
       },
       (error) => {
         const message = 'Un erreur au niveau du serveur est survenu lors de l\'ajout de l\'intervenant. Veuillez réessayer plus tard';
@@ -94,28 +76,15 @@ export class IntervenantService {
     )
 }
 
-editIntervenant(intervenant: Intervenant, user: User){
+editIntervenant(intervenant: User){
     console.log('Entrer dans edit');
     let ctr = 0;
   const headers = { 'content-type': 'application/json'};
   const body = JSON.stringify(intervenant);
-  this.httpClient.put('http://localhost:3000/intervenants/'+intervenant.id, body, {'headers': headers}).subscribe(
+  this.httpClient.put('http://localhost:3000/users/'+intervenant.id, body, {'headers': headers}).subscribe(
     (intervenant: any) => {
-
-      this.userService.editUserToServer(user)
-
-      this.verifySubjectSubscription = this.userService.verifySubjectError.subscribe(
-        (data: any) => {
-          this.verifySubjectSubscription.unsubscribe();
-          console.log('test');
-          this.emitIntervenantsSubject(intervenant);
-          //this.goToMainRoute();
-        },
-        (error) => {
-          const message = 'Un erreur au niveau du serveur est survenu lors de la modification de l\'intervenant. Veuillez réessayer plus tard1';
-          this.emitErrorsSubject(message);
-        }
-      )
+      this.emitIntervenantsSubject(intervenant);
+      this.goToMainRoute();
     },
     (error) => {
       const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des intervenants2';
@@ -145,7 +114,7 @@ private goToMainRoute(){
 
 // Fonction pour récupérer le nom complet de l'intervenant à partir de son identifiant
 public intervenantFullName(id: number):void {
-  this.httpClient.get<Intervenant>(`http://localhost:3000/intervenants/`+id).subscribe(
+  this.httpClient.get<User>(`http://localhost:3000/users/`+id).subscribe(
     (intervenant: any) => {
       let fullname = intervenant.fname + ' ' + intervenant.lname;
       this.intervenantsFullnameSubject.next(fullname);

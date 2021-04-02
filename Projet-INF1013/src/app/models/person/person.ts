@@ -2,6 +2,7 @@ import {EmergencyContact} from '../emergency/emergency-contact';
 import {Intervenant} from '../intervenant/intervenant';
 import {Doctor} from '../doctor/doctor';
 import {OtherPerson} from '../other-person/other-person';
+import {User} from '../users/user';
 
 export interface Person {
   interfaceName: 'Person';
@@ -35,6 +36,7 @@ export interface Person {
   transportFees: number;
   responsibleIntervenantID: number;
   emergencyContact: EmergencyContact;
-  followedBy: Intervenant | EmergencyContact | Doctor | OtherPerson;
+  //followedBy: Intervenant | EmergencyContact | Doctor | OtherPerson;
+  followedBy: User | EmergencyContact | Doctor | OtherPerson;
   active: boolean;
 }

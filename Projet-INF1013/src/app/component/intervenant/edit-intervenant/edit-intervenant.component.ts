@@ -15,29 +15,22 @@ import {Intervenant} from '../../../models/intervenant/intervenant';
 })
 export class EditIntervenantComponent implements OnInit, OnDestroy {
 
-  intervenant: Intervenant;
+  // intervenant: Intervenant;
   intervenantSubscription: Subscription
-  userSubscription: Subscription;
   user: User;
   editintervenantForm: FormGroup;
   roleEnum = Object.entries(Role).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
   editUserForm: FormGroup;
   errorsSubscription: Subscription;
-  errorUserSubscription: Subscription;
   errorMessage: string;
   hide = true;
   sameAccount = false;
+
 
   constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService, private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.errorsSubscription = this.intervenantService.errorsSubject.subscribe(
-      (error: any) => {
-        this.errorMessage = error;
-      }
-    );
-
-    this.errorUserSubscription = this.userService.verifySubjectError.subscribe(
       (error: any) => {
         this.errorMessage = error;
       }
@@ -49,26 +42,15 @@ export class EditIntervenantComponent implements OnInit, OnDestroy {
       id =  Number(params.get('id'));
       this.intervenantService.getIntervenantFromId(id);
 
-      this.userSubscription = this.intervenantService.intervenantSubject.subscribe(
+      this.intervenantSubscription = this.intervenantService.intervenantSubject.subscribe(
 
-        (intervenant: any) => {
-          console.log('get subscribeeeee');
-          this.intervenant = intervenant;
-          this.userService.getUserFromId(id);
+        (user: any) => {
+          this.user = user;
 
-          this.intervenantSubscription = this.userService.UserFromIdSubject.subscribe(
-            (user: any) => {
-              this.user = user;
-
-              if(this.userService.user.id == this.user.id){
-                this.sameAccount = true;
-              }
-              this.initForm();
-            },
-            (error: any) => {
-              this.errorMessage = error;
-            }
-          );
+          if(this.userService.user.id == this.user.id){
+            this.sameAccount = true;
+          }
+          this.initForm();
         },
         (error: any) => {
           this.errorMessage = error;
@@ -82,15 +64,21 @@ export class EditIntervenantComponent implements OnInit, OnDestroy {
 
   private initForm(): void {
     this.editintervenantForm = this.formBuilder.group({
-      interfaceName: [this.intervenant.interfaceName],
-      fname: [this.intervenant.fname,  [Validators.required, Validators.maxLength(30)]],
-      lname: [this.intervenant.lname, [Validators.required, Validators.maxLength(30)]],
-      email: [this.intervenant.email, [Validators.required, Validators.email]],
-      phone: [this.intervenant.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
-      address: [this.intervenant.address, [Validators.required, Validators.maxLength(50)]],
-      id: [this.intervenant.id],
-    });
+      interfaceName: [this.user.interfaceName],
+      fname: [this.user.fname,  [Validators.required, Validators.maxLength(30)]],
+      lname: [this.user.lname, [Validators.required, Validators.maxLength(30)]],
+      email: [this.user.email, [Validators.required, Validators.email]],
+      phone: [this.user.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
+      address: [this.user.address, [Validators.required, Validators.maxLength(50)]],
+      username: [this.user.username, [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
+      password: [this.user.password, [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
+      role: [this.user.role, Validators.required],
+      active: [this.user.active, Validators.required],
+      id: [this.user.id],
 
+    });
+/*
+    Fusion avec intervenant
     this.editUserForm = this.formBuilder.group({
       interfaceName:[this.user.interfaceName],
       username: [this.user.username, [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
@@ -99,17 +87,22 @@ export class EditIntervenantComponent implements OnInit, OnDestroy {
       active: [this.user.active, Validators.required],
       id: [this.user.id],
     });
+
+ */
   }
   // Fonction pour réagir lorsque la personne clique sur le bouton "Enregistrer"
   onEditIntervenant(): void {
-    console.log('Click on edit');
 
+/*
+Fusion avec user
     let element: HTMLElement = document.getElementById('buttonintervenant') as HTMLElement;
     element.click();
 
-    if (this.editintervenantForm.valid && this.editUserForm.valid) {
+ */
+
+    if (this.editintervenantForm.valid) {
       console.log('ok validation');
-      this.intervenantService.editIntervenant(this.editintervenantForm.value, this.editUserForm.value);
+      this.intervenantService.editIntervenant(this.editintervenantForm.value);
     }else {
       alert('Veuillez remplir tous les champs');
     }
@@ -118,8 +111,6 @@ export class EditIntervenantComponent implements OnInit, OnDestroy {
   onCancelIntervenant(): void {
     this.errorsSubscription.unsubscribe();
     this.intervenantSubscription.unsubscribe();
-    this.errorUserSubscription.unsubscribe();
-    this.userSubscription.unsubscribe();
     this.intervenantService.cancelIntervenant();
 
   }
@@ -127,7 +118,5 @@ export class EditIntervenantComponent implements OnInit, OnDestroy {
   ngOnDestroy(){
     this.errorsSubscription.unsubscribe();
     this.intervenantSubscription.unsubscribe();
-    this.errorUserSubscription.unsubscribe();
-    this.userSubscription.unsubscribe();
   }
 }

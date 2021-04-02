@@ -321,7 +321,7 @@ export class EditPersonComponent implements OnInit, OnDestroy {
         organism: [this.person.followedBy.organism, [Validators.required, Validators.maxLength(100)]]
       });
     }
-    if (this.person.followedBy.interfaceName === 'Intervenant') {
+    if (this.person.followedBy.interfaceName === 'User') {
       this.fifthFormGroup = this.formBuilder.group({
         interfaceName: [this.person.followedBy.interfaceName],
         lname: [this.person.followedBy.lname, [Validators.required, Validators.maxLength(40)]],

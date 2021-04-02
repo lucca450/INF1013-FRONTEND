@@ -1,4 +1,6 @@
+// tslint:disable-next-line:no-empty-interface
 export interface Intervenant {
+  /* Fusion avec user
   interfaceName: 'Intervenant';
   id: number;
   lname: string;
@@ -7,4 +9,6 @@ export interface Intervenant {
   phone: string;
   address: string;
   organism: string;
+
+   */
 }

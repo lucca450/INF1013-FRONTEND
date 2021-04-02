@@ -4,6 +4,7 @@ import {IntervenantService} from '../../../services/intervenant/intervenant.serv
 import {Subscription} from 'rxjs';
 import {Role} from '../../../enum/role.enum';
 
+// @ts-ignore
 @Component({
   selector: 'app-add-intervenant',
   templateUrl: './add-intervenant.component.html',
@@ -12,7 +13,7 @@ import {Role} from '../../../enum/role.enum';
 export class AddIntervenantComponent implements OnInit {
 
   addintervenantForm: FormGroup;
-  addUserForm: FormGroup;
+  //addUserForm: FormGroup;
   roleEnum = Object.entries(Role).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
   errorsSubscription: Subscription;
   errorMessage: String;
@@ -43,9 +44,13 @@ export class AddIntervenantComponent implements OnInit {
       lname: ['', [Validators.required, Validators.maxLength(30)]],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
-      address: ['', [Validators.required, Validators.maxLength(50)]]
+      address: ['', [Validators.required, Validators.maxLength(50)]],
+      username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
+      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
+      role: ['', Validators.required],
+      active: [true, Validators.required]
     });
-
+/* Fusion avec intervenant
     this.addUserForm = this.formBuilder.group({
       interfaceName: 'User',
       username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
@@ -54,15 +59,19 @@ export class AddIntervenantComponent implements OnInit {
       active: [true, Validators.required]
     });
 
+ */
+
   }
 
   // Fonction pour réagir lorsque la personne clique sur le bouton "Ajouter"
   onAddIntervenant(): void {
+    /* Fusion avec intervenant
     const element: HTMLElement = document.getElementById('buttonintervenant') as HTMLElement;
     element.click();
+     */
 
-    if (this.addintervenantForm.valid && this.addUserForm.valid) {
-      this.intervenantService.addIntervenant(this.addintervenantForm.value, this.addUserForm.value);
+    if (this.addintervenantForm.valid) {
+      this.intervenantService.addIntervenant(this.addintervenantForm.value);
     }else {
       alert('Veuillez remplir tous les champs');
     }
