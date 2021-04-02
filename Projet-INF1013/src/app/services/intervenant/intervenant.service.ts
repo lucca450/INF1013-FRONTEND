@@ -109,7 +109,7 @@ editIntervenant(intervenant: Intervenant, user: User){
           this.verifySubjectSubscription.unsubscribe();
           console.log('test');
           this.emitIntervenantsSubject(intervenant);
-          this.goToMainRoute();
+          //this.goToMainRoute();
         },
         (error) => {
           const message = 'Un erreur au niveau du serveur est survenu lors de la modification de l\'intervenant. Veuillez réessayer plus tard1';
