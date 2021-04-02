@@ -73,7 +73,6 @@ export class AddPersonComponent implements OnInit, OnDestroy{
   private SetAllAttributes(){
 
     // On observe les requêtes qu'on va faire.
-
     this.departureReasonSubscription = this.departureReasonService.departureReasonsSubject.subscribe(
       (departureReasons: any) => {
         this.departureReasonList = departureReasons;
@@ -180,9 +179,9 @@ export class AddPersonComponent implements OnInit, OnDestroy{
 
   setFifthFormGroupValidators(): void {
 
-    const email = this.thirdFormGroup.get('roamingStartDate');
-    const fax = this.thirdFormGroup.get('roamingEndDate');
-    const organism = this.thirdFormGroup.get('communityStartDate');
+    const email = this.fifthFormGroup.get('email');
+    const fax = this.fifthFormGroup.get('fax');
+    const organism = this.fifthFormGroup.get('organism');
 
 
     this.fifthFormGroup.get('interfaceName').valueChanges
@@ -224,7 +223,6 @@ export class AddPersonComponent implements OnInit, OnDestroy{
 
     this.firstFormGroup = this.formBuilder.group({
 
-      test: ['', [Validators.required]],
       fname: ['', [Validators.required, Validators.maxLength(40)]],
       lname: ['', [Validators.required, Validators.maxLength(40)]],
       birthday : ['', Validators.required],
@@ -234,7 +232,6 @@ export class AddPersonComponent implements OnInit, OnDestroy{
       NAS: ['', [Validators.required, Validators.pattern('[0-9]{9}')]],
       healthIssues: ['', [Validators.required, Validators.maxLength(4000)]],
       /*
-      test: ['', []],
       fname: ['', []],
       lname: ['', []],
       birthday : ['', []],
@@ -279,8 +276,8 @@ export class AddPersonComponent implements OnInit, OnDestroy{
       hourlyRate: ['', [Validators.required,  Validators.min(0), Validators.max(999)]],
       transportFees: ['', [Validators.required,  Validators.min(0), Validators.max(999)]],
       responsibleIntervenantID: ['', []] //Validators.required
-
-   /*   programStartDate: [],
+/*
+      programStartDate: [],
       programEndDate: [],
       departureReasonID: [],
       hoursPerDay: [],

@@ -8,6 +8,7 @@
       <mat-step [stepControl]="firstFormGroup">
         <form [formGroup]="firstFormGroup">
           <ng-template matStepLabel>Informations personnelles</ng-template>
+          <p>Informations personnelles</p>
           <mat-form-field class="full-width-input">
             <input matInput placeholder="Prénom" formControlName="fname">
             <mat-error *ngIf="firstFormGroup.hasError('required', 'fname')">
@@ -102,6 +103,7 @@
       <mat-step [stepControl]="secondFormGroup">
         <form [formGroup]="secondFormGroup">
           <ng-template matStepLabel>Informations sur le travail</ng-template>
+          <p>Informations sur le travail</p>
           <mat-form-field>
             <mat-label>Lieu de travail :</mat-label>
             <mat-select formControlName="workCityID">
@@ -182,7 +184,7 @@
     <mat-step [stepControl]="thirdFormGroup">
       <form [formGroup]="thirdFormGroup">
         <ng-template matStepLabel>Participation à un programme d'employabilité</ng-template>
-
+        <p>Participation à un programme d'employabilité</p>
         <mat-form-field appearance="fill">
           <mat-label>Date de début</mat-label>
           <input matInput [matDatepicker]="programStartDate" formControlName="programStartDate">
@@ -354,7 +356,7 @@
     <mat-step [stepControl]="fourthFormGroup">
       <form [formGroup]="fourthFormGroup">
         <ng-template matStepLabel>Personne ressource en cas d'urgence</ng-template>
-
+        <p>Personne ressource en cas d'urgence</p>
         <mat-form-field class="full-width-input">
           <input matInput placeholder="Prénom de la personne ressource en cas d'urgence" formControlName="fname" >
           <mat-error *ngIf="fourthFormGroup.hasError('required', 'fname')">
@@ -406,6 +408,7 @@
     <mat-step [stepControl]="fifthFormGroup">
       <form [formGroup]="fifthFormGroup">
         <ng-template matStepLabel>Informations de la personne de suivi</ng-template>
+        <p>Informations de la personne de suivi</p>
 
         <mat-form-field>
           <mat-label>Suivi par</mat-label>
@@ -420,8 +423,6 @@
           </mat-error>
         </mat-form-field>
 
-
-        <p>Informations de la personne de suivi</p>
         <mat-form-field class="full-width-input" >
           <input matInput placeholder="Prénom de la personne de suivi." formControlName="fname" >
           <mat-error *ngIf="fifthFormGroup.hasError('required', 'fname')">
@@ -452,7 +453,6 @@
           </mat-error>
         </mat-form-field>
         <br>
-
         <mat-form-field *ngIf="followedBy.value == 'Doctor' || followedBy.value == 'Intervenant'" class="full-width-input">
           <input matInput placeholder="Email de la personne de suivi." formControlName="email" >
           <mat-error *ngIf="fifthFormGroup.hasError('required', 'email')">
@@ -461,8 +461,8 @@
           <mat-error *ngIf="fifthFormGroup.hasError('email', 'email')">
             Veuillez entrer un email dans le format suivant: abc@abc.com
           </mat-error>
+          <br>
         </mat-form-field>
-        <br>
         <mat-form-field *ngIf="followedBy.value == 'Doctor'" class="full-width-input">
           <input matInput placeholder="Numéro de fax de la personne de suivi." formControlName="fax" >
           <mat-error *ngIf="fifthFormGroup.hasError('required', 'fax')">
@@ -471,8 +471,8 @@
           <mat-error *ngIf="fifthFormGroup.hasError('pattern', 'fax')">
             Veuillez entrer un numéro de fax sous le format suivant: 0001112222.
           </mat-error>
+          <br>
         </mat-form-field>
-        <br>
         <mat-form-field *ngIf="followedBy.value == 'OtherPerson' || followedBy.value == 'Intervenant'" class="full-width-input">
           <input matInput placeholder="Organisme de la personne de suivi." formControlName="organism" >
 

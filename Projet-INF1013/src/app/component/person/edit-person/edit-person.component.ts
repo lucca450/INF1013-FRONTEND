@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PersonService} from '../../../services/person/person.service';
 import {Person} from '../../../models/person/person';
 import {ActivatedRoute} from '@angular/router';
@@ -158,94 +158,192 @@ export class EditPersonComponent implements OnInit, OnDestroy {
 
   }
 
+  setThirdFormGroupValidators(): void {
+    const roamingStartDate = this.thirdFormGroup.get('roamingStartDate');
+    const roamingEndDate = this.thirdFormGroup.get('roamingEndDate');
+
+    const communityStartDate = this.thirdFormGroup.get('communityStartDate');
+    const communityEndDate = this.thirdFormGroup.get('communityEndDate');
+
+    this.thirdFormGroup.get('roamingTracking').valueChanges
+      .subscribe(roamingTracking => {
+
+        if (roamingTracking === 'true') {
+          roamingStartDate.setValidators([Validators.required]);
+          roamingEndDate.setValidators([Validators.required]);
+        }
+
+        if (roamingTracking === 'false') {
+          roamingStartDate.setValidators(null);
+          roamingEndDate.setValidators(null);
+        }
+        roamingStartDate.updateValueAndValidity();
+        roamingEndDate.updateValueAndValidity();
+      });
+
+    this.thirdFormGroup.get('communityWork').valueChanges
+      .subscribe(communityWork => {
+
+        if (communityWork === 'true') {
+          communityStartDate.setValidators([Validators.required]);
+          communityEndDate.setValidators([Validators.required]);
+        }
+
+        if (communityWork === 'false') {
+          communityStartDate.setValidators(null);
+          communityEndDate.setValidators(null);
+        }
+        communityStartDate.updateValueAndValidity();
+        communityEndDate.updateValueAndValidity();
+      });
+  }
+
+  setFifthFormGroupValidators(): void {
+
+    const email = this.fifthFormGroup.get('email');
+    const fax = this.fifthFormGroup.get('fax');
+    const organism = this.fifthFormGroup.get('organism');
+
+
+    this.fifthFormGroup.get('interfaceName').valueChanges
+      .subscribe(interfaceName => {
+
+        if (interfaceName === 'Intervenant') {
+          fax.setValidators(null);
+          fax.setValue(null);
+          email.setValidators([Validators.required, Validators.email]);
+          organism.setValidators([Validators.required, Validators.maxLength(100)]);
+        }
+
+        if (interfaceName === 'Doctor') {
+          organism.setValidators(null);
+          organism.setValue(null);
+          fax.setValidators([Validators.required, Validators.pattern('[0-9]{10}')]);
+          email.setValidators([Validators.required, Validators.email]);
+        }
+
+        if (interfaceName === 'EmergencyContact') {
+          email.setValidators(null);
+          fax.setValidators(null);
+          organism.setValidators(null);
+          organism.setValue(null);
+          email.setValue(null);
+          fax.setValue(null);
+        }
+
+        if (interfaceName === 'OtherPerson') {
+          email.setValidators(null);
+          fax.setValidators(null);
+          email.setValue(null);
+          fax.setValue(null);
+          organism.setValidators([Validators.required, Validators.maxLength(100)]);
+        }
+
+
+        organism.updateValueAndValidity();
+        fax.updateValueAndValidity();
+        email.updateValueAndValidity();
+      });
+  }
+
   private initForm(): void {
     this.firstFormGroup = this.formBuilder.group({
-      fname: [this.person.fname],
-      lname: [this.person.lname],
-      birthday : [this.person.birthday],
-      sexe: [this.person.sexe],
-      address: [this.person.address],
-      phone: [this.person.phone],
-      NAS: [this.person.NAS],
-      healthIssues: [this.person.healthIssues]
+      fname: [this.person.fname, [Validators.required, Validators.maxLength(40)]],
+      lname: [this.person.lname, [Validators.required, Validators.maxLength(40)]],
+      birthday : [this.person.birthday, Validators.required],
+      sexe: [this.person.sexe, Validators.required],
+      address: [this.person.address, [Validators.required, Validators.maxLength(50)]],
+      phone: [this.person.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
+      NAS: [this.person.NAS, [Validators.required, Validators.pattern('[0-9]{9}')]],
+      healthIssues: [this.person.healthIssues, [Validators.required, Validators.maxLength(4000)]]
     });
     this.secondFormGroup = this.formBuilder.group({
-      workCityID: [this.person.workCityID],
-      startDate: [this.person.startDate],
-      endDate: [this.person.endDate],
-      referenceID: [this.person.referenceID],
-      residenceTypeID: [this.person.residenceTypeID],
-      educationalLevelID: [this.person.educationalLevelID]
+      workCityID: [this.person.workCityID, [Validators.required]],
+      startDate: [this.person.startDate, [Validators.required]],
+      endDate: [this.person.endDate, [Validators.required]],
+      referenceID: [this.person.referenceID, [Validators.required]],
+      residenceTypeID: [this.person.residenceTypeID, [Validators.required]],
+      educationalLevelID: [this.person.educationalLevelID, [Validators.required]]
 
     });
     this.thirdFormGroup = this.formBuilder.group({
-      programStartDate: [this.person.programStartDate],
-      programEndDate: [this.person.programEndDate],
-      departureReasonID: [this.person.departureReasonID],
-      hoursPerDay: [this.person.hoursPerDay/*, Validators.required*/],
-      statusID: [this.person.statusID],
-      roamingTracking: [this.person.roamingTracking],
+      programStartDate: [this.person.programStartDate, [Validators.required]],
+      programEndDate: [this.person.programEndDate, [Validators.required]],
+      departureReasonID: [this.person.departureReasonID, [Validators.required]],
+      hoursPerDay: [this.person.hoursPerDay, [Validators.required, Validators.min(0), Validators.max(24)]],
+      statusID: [this.person.statusID, [Validators.required]],
+      roamingTracking: [this.person.roamingTracking, [Validators.required]],
       roamingStartDate: [this.person.roamingStartDate],
       roamingEndDate: [this.person.roamingEndDate],
-      communityWork: [this.person.communityWork],
+      communityWork: [this.person.communityWork, [Validators.required]],
       communityStartDate: [this.person.communityStartDate],
       communityEndDate: [this.person.communityEndDate],
-      hourlyRate: [this.person.hourlyRate/*, Validators.required*/],
-      transportFees: [this.person.transportFees/*, Validators.required*/],
+      hourlyRate: [this.person.hourlyRate, [Validators.required,  Validators.min(0), Validators.max(999)]],
+      transportFees: [this.person.transportFees, [Validators.required,  Validators.min(0), Validators.max(999)]],
       responsibleIntervenantID: [this.person.responsibleIntervenantID]
     });
+
+    this.setThirdFormGroupValidators();
+
     this.fourthFormGroup = this.formBuilder.group({
-      interfaceName:[this.person.emergencyContact.interfaceName],
+/*
       lname: [this.person.emergencyContact.lname],
       fname: [this.person.emergencyContact.fname],
       phone: [this.person.emergencyContact.phone],
-      relation: [this.person.emergencyContact.relation/*, Validators.required*/]
+      relation: [this.person.emergencyContact.relation]
+      */
+      interfaceName: [this.person.emergencyContact.interfaceName],
+      lname: [this.person.emergencyContact.lname, [Validators.required, Validators.maxLength(40)]],
+      fname: [this.person.emergencyContact.fname, [Validators.required, Validators.maxLength(40)]],
+      phone: [this.person.emergencyContact.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
+      relation: [this.person.emergencyContact.relation, [Validators.required, Validators.maxLength(40)]]
     });
 
     if (this.person.followedBy.interfaceName === 'Doctor') {
         this.fifthFormGroup = this.formBuilder.group({
-          interfaceName:[this.person.followedBy.interfaceName],
-          lname: [this.person.followedBy.lname],
-          fname: [this.person.followedBy.fname],
-          phone: [this.person.followedBy.phone],
-          email: [this.person.followedBy.email],
-          fax: [this.person.followedBy.fax],
+          interfaceName: [this.person.followedBy.interfaceName],
+          lname: [this.person.followedBy.lname, [Validators.required, Validators.maxLength(40)]],
+          fname: [this.person.followedBy.fname, [Validators.required, Validators.maxLength(40)]],
+          phone: [this.person.followedBy.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
+          email: [this.person.followedBy.email, [Validators.required, Validators.email]],
+          fax: [this.person.followedBy.fax, [Validators.required, Validators.pattern('[0-9]{10}')]],
           organism: ['']
         });
     }
     if (this.person.followedBy.interfaceName === 'OtherPerson') {
       this.fifthFormGroup = this.formBuilder.group({
-        interfaceName:[this.person.followedBy.interfaceName],
-        lname: [this.person.followedBy.lname],
-        fname: [this.person.followedBy.fname],
-        phone: [this.person.followedBy.phone],
+        interfaceName: [this.person.followedBy.interfaceName],
+        lname: [this.person.followedBy.lname, [Validators.required, Validators.maxLength(40)]],
+        fname: [this.person.followedBy.fname, [Validators.required, Validators.maxLength(40)]],
+        phone: [this.person.followedBy.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
         email: [''],
         fax: [''],
-        organism: [this.person.followedBy.organism]
+        organism: [this.person.followedBy.organism, [Validators.required, Validators.maxLength(100)]]
       });
     }
     if (this.person.followedBy.interfaceName === 'Intervenant') {
       this.fifthFormGroup = this.formBuilder.group({
-        interfaceName:[this.person.followedBy.interfaceName],
-        lname: [this.person.followedBy.lname],
-        fname: [this.person.followedBy.fname],
-        phone: [this.person.followedBy.phone],
-        email: [this.person.followedBy.email],
+        interfaceName: [this.person.followedBy.interfaceName],
+        lname: [this.person.followedBy.lname, [Validators.required, Validators.maxLength(40)]],
+        fname: [this.person.followedBy.fname, [Validators.required, Validators.maxLength(40)]],
+        phone: [this.person.followedBy.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
+        email: [this.person.followedBy.email, [Validators.required, Validators.email]],
         fax: [''],
         organism: ['']
       });
     }
     if (this.person.followedBy.interfaceName === 'EmergencyContact') {
       this.fifthFormGroup = this.formBuilder.group({
-        interfaceName:[this.person.followedBy.interfaceName],
-        lname: [this.person.followedBy.lname],
-        fname: [this.person.followedBy.fname],
-        phone: [this.person.followedBy.phone],
+        interfaceName: [this.person.followedBy.interfaceName],
+        lname: [this.person.followedBy.lname, [Validators.required, Validators.maxLength(40)]],
+        fname: [this.person.followedBy.fname, [Validators.required, Validators.maxLength(40)]],
+        phone: [this.person.followedBy.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
         email: [''],
         fax: [''],
         organism: ['']
       });
     }
+    this.setFifthFormGroupValidators();
   }
 
   onEditPerson(): void {
