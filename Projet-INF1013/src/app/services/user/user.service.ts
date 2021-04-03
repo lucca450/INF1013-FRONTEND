@@ -27,7 +27,7 @@ export class UserService {
   }
 
   getUsers(){
-    this.httpClient.get<User>(`http://localhost:3000/users`).subscribe(
+    this.httpClient.get<User>(`https://angular-deploiement-default-rtdb.firebaseio.com/users`).subscribe(
       (users: any) => {
         this.emitUsersSubject(users);
       },
@@ -41,7 +41,7 @@ export class UserService {
     console.log('Add user from user service');
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(user);
-    this.httpClient.post('http://localhost:3000/users', body, {'headers': headers}).subscribe(
+    this.httpClient.post('https://angular-deploiement-default-rtdb.firebaseio.com/users', body, {'headers': headers}).subscribe(
       (user: any) => {
         this.emitUsersSubject(user);
         this.emitNoError();
@@ -56,7 +56,7 @@ export class UserService {
   editUserToServer(user: User) {
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(user);
-    this.httpClient.put('http://localhost:3000/users/'+user.id, body, {'headers': headers}).subscribe(
+    this.httpClient.put('https://angular-deploiement-default-rtdb.firebaseio.com/users/'+user.id, body, {'headers': headers}).subscribe(
       (data: any) => {
         this.emitUsersSubject(data);
         this.emitNoError();
@@ -71,7 +71,7 @@ export class UserService {
 
   // Fonction pour se connecter
   verifyUserExist(username: String, password: String){
-    this.httpClient.get<User>(`http://localhost:3000/users?active=true&username=`+username+'&password='+password).subscribe(
+    this.httpClient.get<User>(`https://angular-deploiement-default-rtdb.firebaseio.com/users?active=true&username=`+username+'&password='+password).subscribe(
       (user: any) => {
         if(user.length>0){
           this.signIn(user[0]);
@@ -88,7 +88,7 @@ export class UserService {
   }
 
   getUserFromId(id: number){
-    this.httpClient.get<User>(`http://localhost:3000/users/`+id).subscribe(
+    this.httpClient.get<User>(`https://angular-deploiement-default-rtdb.firebaseio.com/users/`+id).subscribe(
       (user: any) => {
         this.emitUserFromIdSubject(user)
       },
