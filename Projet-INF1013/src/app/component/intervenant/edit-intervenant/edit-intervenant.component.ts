@@ -1,14 +1,12 @@
  import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {IntervenantService} from '../../../services/intervenant/intervenant.service';
-import {ActivatedRoute} from '@angular/router';
-import {Intervenant} from '../../../models/intervenant/intervenant';
- import {Subscription} from "rxjs";
+ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+ import {IntervenantService} from '../../../services/intervenant/intervenant.service';
+ import {ActivatedRoute} from '@angular/router';
  import {Role} from '../../../enum/role.enum';
  import {UserService} from '../../../services/user/user.service';
  import {User} from '../../../models/users/user';
-
-@Component({
+ import {Subscription} from 'rxjs';
+ @Component({
   selector: 'app-edit-intervenant',
   templateUrl: './edit-intervenant.component.html',
   styleUrls: ['./edit-intervenant.component.css']
@@ -16,7 +14,7 @@ import {Intervenant} from '../../../models/intervenant/intervenant';
 export class EditIntervenantComponent implements OnInit, OnDestroy {
 
   // intervenant: Intervenant;
-  intervenantSubscription: Subscription
+  intervenantSubscription: Subscription;
   user: User;
   editintervenantForm: FormGroup;
   roleEnum = Object.entries(Role).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
@@ -27,7 +25,8 @@ export class EditIntervenantComponent implements OnInit, OnDestroy {
   sameAccount = false;
 
 
-  constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService, private userService: UserService, private route: ActivatedRoute) { }
+  constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService, private userService: UserService,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.errorsSubscription = this.intervenantService.errorsSubject.subscribe(
@@ -47,7 +46,7 @@ export class EditIntervenantComponent implements OnInit, OnDestroy {
         (user: any) => {
           this.user = user;
 
-          if(this.userService.user.id == this.user.id){
+          if (this.userService.user.id === this.user.id){
             this.sameAccount = true;
           }
           this.initForm();
@@ -115,7 +114,7 @@ Fusion avec user
 
   }
 
-  ngOnDestroy(){
+  ngOnDestroy(): void{
     this.errorsSubscription.unsubscribe();
     this.intervenantSubscription.unsubscribe();
   }

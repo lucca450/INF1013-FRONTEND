@@ -21,7 +21,7 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
   intervenantSubscription: Subscription;
   errorsSubscription: Subscription;
   accountid: number = this.userService.user.id;
-  displayedColumns: string[] = [ 'fname', 'lname', 'email', 'phone', 'address','actions-icon']; // L'ordre des colonnes est déterminé ici
+  displayedColumns: string[] = [ 'fname', 'lname', 'email', 'phone', 'address', 'actions-icon']; // L'ordre des colonnes est déterminé ici
 
 
 
@@ -31,30 +31,37 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
 
   this.intervenantService.getActiveIntervenants();
 
-    this.intervenantSubscription = this.intervenantService.intervenantsSubject.subscribe(
+  this.intervenantSubscription = this.intervenantService.intervenantsSubject.subscribe(
       (intervenants: any) => {
         console.log('On recoit un intervenant');
         this.intervenants = new MatTableDataSource(intervenants);
-      }
-    )
+      },
+    );
 
-    this.errorsSubscription = this.intervenantService.errorsSubject.subscribe(
+  this.errorsSubscription = this.intervenantService.errorsSubject.subscribe(
       (error: any) => {
         this.errorMessage = error;
-      }
-    )
+      },
+    );
     // Nous permet de définir sur quels attributs la recherche va se faire.
 
-    this.intervenants.filterPredicate = function(data:any, filter: string): boolean {
-      return data.fname.toLowerCase().includes(filter) ||
-        data.lname.toLowerCase().includes(filter) ||
-        data.phone.includes(filter) ||
-        data.email.toLocaleLowerCase().includes(filter) ||
-        data.address.toLocaleLowerCase().includes(filter)
-
-    };
+  this.intervenants.filterPredicate = (data: any, filter: string): boolean => data.fname.toLowerCase().includes(filter) ||
+    data.lname.toLowerCase().includes(filter) ||
+    data.phone.includes(filter) ||
+    data.email.toLocaleLowerCase().includes(filter) ||
+    data.address.toLocaleLowerCase().includes(filter);
   }
+  /*
+  this.intervenants.filterPredicate = function(data: any, filter: string): boolean {
+    return data.fname.toLowerCase().includes(filter) ||
+      data.lname.toLowerCase().includes(filter) ||
+      data.phone.includes(filter) ||
+      data.email.toLocaleLowerCase().includes(filter) ||
+      data.address.toLocaleLowerCase().includes(filter);
 
+  };
+}
+*/
   ngAfterViewInit(): void {
     this.intervenants.sort = this.sort;
   }
@@ -63,26 +70,25 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
     const filterValue = (event.target as HTMLInputElement).value;
     this.intervenants.filter = filterValue.trim().toLowerCase();
   }
-  onDelete(id: number){
+  onDelete(id: number): void{
     const dialogRef = this.dialog.open(DeleteIntervenantComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result == true){
-        this.intervenantService.ActiveDesactiveIntervenant(id,false);
+      if (result === true){
+        this.intervenantService.ActiveDesactiveIntervenant(id, false);
         this.intervenantService.activateDesactivateSubject.subscribe(
           (intervenants: any) => {
-            console.log('can i get please')
             this.intervenantService.getActiveIntervenants();
           },
-          (error)=>{
+          (error) => {
             this.errorMessage = error;
         }
-        )
+        );
       }
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.intervenantSubscription.unsubscribe();
     this.errorsSubscription.unsubscribe();
   }

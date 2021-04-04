@@ -15,7 +15,7 @@ import {UserService} from '../../../services/user/user.service';
   templateUrl: './list-meeting.component.html',
   styleUrls: ['./list-meeting.component.css']
 })
-export class ListMeetingComponent implements OnInit, AfterViewInit {
+export class ListMeetingComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   @ViewChild(MatSort) sort: MatSort;
@@ -26,11 +26,8 @@ export class ListMeetingComponent implements OnInit, AfterViewInit {
   errorsSubscription: Subscription;
   errorMessage: any;
   displayedColumns: string[] = [ 'notes', 'followup', 'goals', 'actions-icon'];
-  // dataSource: MatTableDataSource<Meeting>;
 
-
-
-  constructor(private meetingService: MeetingService , private route: ActivatedRoute, private userService: UserService, private dialog: MatDialog) {
+  constructor(private meetingService: MeetingService , private route: ActivatedRoute, private userService: UserService) {
 
   }
 
@@ -87,8 +84,7 @@ export class ListMeetingComponent implements OnInit, AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.meetings.filter = filterValue.trim().toLowerCase();
   }
-
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.meetingSubscription.unsubscribe();
     this.errorsSubscription.unsubscribe();
   }

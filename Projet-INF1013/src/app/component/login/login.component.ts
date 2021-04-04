@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserService} from '../../services/user/user.service';
 import {User} from '../../models/users/user';
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginInvalid: boolean;
   accountID = 0;
   errorMessage: any;
-  verifyErrorSubscription: Subscription
+  verifyErrorSubscription: Subscription;
 
 
   constructor(private formBuilder: FormBuilder, private userService: UserService) { }
@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   }
 
-  get email(){
+  get email(): AbstractControl{
     return this.loginForm.get('email');
   }
   // Fonction pour réagir lorsque la personne clique sur le bouton "Connexion"
@@ -75,13 +75,13 @@ export class LoginComponent implements OnInit, OnDestroy {
       let email = this.loginForm.value.email;
       let password = this.loginForm.value.password;
 
-      // Évidament, il faut mettre email et password à la place, lorsqu'on va faire la vrai connexion
-      this.userService.verifyUserExist('pierro_kool@hotmail.com', '1234');
+      // this.userService.verifyUserExist('pierro_kool@hotmail.com', '1234');  // Auto connexion
+      this.userService.verifyUserExist(email, password);
 
       this.verifyErrorSubscription = this.userService.verifySubjectError.subscribe(
-        (errorResponse)=>{
+        (errorResponse) => {
           console.log(errorResponse);
-            this.errorMessage = errorResponse;
+          this.errorMessage = errorResponse;
         },
         (error) => {
           this.errorMessage = error;
@@ -91,6 +91,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.verifyErrorSubscription.unsubscribe()
+    this.verifyErrorSubscription.unsubscribe();
   }
 }

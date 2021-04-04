@@ -9,6 +9,7 @@ import {UserService} from '../../../services/user/user.service';
 import {Subscription} from 'rxjs';
 import {MatTableDataSource} from '@angular/material/table';
 import {Intervenant} from '../../../models/intervenant/intervenant';
+import {User} from '../../../models/users/user';
 
 @Component({
   selector: 'app-add-meeting',
@@ -20,9 +21,9 @@ export class AddMeetingComponent implements OnInit, OnDestroy {
  @ViewChild(ListMeetingComponent) personID: number;
   loggedUser = this.userService.user;
   errorsSubscription: Subscription;
-  errorMessage: String;
+  errorMessage: string;
   intervenantSubscription: Subscription;
-  intervenants: Intervenant;
+  intervenants: User;
   personsSubscription: Subscription;
   persons: Intervenant;
   addMeetingForm: FormGroup;
@@ -33,10 +34,9 @@ export class AddMeetingComponent implements OnInit, OnDestroy {
     idPerson: [null, Validators.compose([Validators.required])],
     idIntervenant: [null, Validators.compose([Validators.required])]
   });*/
-
-
-  constructor(private router: Router, private userService: UserService, private intervenantService: IntervenantService, public personService: PersonService, private meetingService: MeetingService, private formBuilder: FormBuilder , private route: ActivatedRoute) { }
-
+  constructor(private router: Router, private userService: UserService, private personService: PersonService,
+              private intervenantService: IntervenantService, private meetingService: MeetingService, private formBuilder: FormBuilder,
+              private route: ActivatedRoute) { }
   ngOnInit(): void {
     this.initForm();
 
@@ -113,7 +113,7 @@ export class AddMeetingComponent implements OnInit, OnDestroy {
     this.errorsSubscription.unsubscribe();
   }
 
-  ngOnDestroy(){
+  ngOnDestroy(): void{
     this.intervenantSubscription.unsubscribe();
     this.personsSubscription.unsubscribe();
     this.errorsSubscription.unsubscribe();

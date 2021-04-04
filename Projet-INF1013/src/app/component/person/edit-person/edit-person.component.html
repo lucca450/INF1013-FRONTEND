@@ -12,7 +12,7 @@
           <ng-template matStepLabel>Informations personnelles</ng-template>
           <p>Informations personnelles</p>
           <mat-form-field class="full-width-input">
-            <input matInput placeholder="Prénom" formControlName="fname">
+            <input matInput placeholder="Prénom" formControlName="fname" required>
             <mat-error *ngIf="firstFormGroup.hasError('required', 'fname')">
               Veuillez entrer un prénom.
             </mat-error>
@@ -22,7 +22,7 @@
           </mat-form-field>
           <br>
           <mat-form-field class="full-width-input">
-            <input matInput placeholder="Nom" formControlName="lname">
+            <input matInput placeholder="Nom" formControlName="lname" required>
             <mat-error *ngIf="firstFormGroup.hasError('required', 'lname')">
               Veuillez entrer un nom.
             </mat-error>
@@ -33,18 +33,21 @@
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Date de naissance</mat-label>
-            <input matInput [matDatepicker]="birthday" [value]="person.birthday" formControlName="birthday">
+            <input matInput [matDatepicker]="birthday" [value]="person.birthday" formControlName="birthday" required>
            <!-- {{person.birthday | date:'d MMMM  y':'d MMMM  y'}}  -->
             <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
             <mat-datepicker #birthday></mat-datepicker>
             <mat-error *ngIf="firstFormGroup.hasError('required', 'birthday')">
               Veuillez entrer une date de naissance.
             </mat-error>
+            <mat-error *ngIf="firstFormGroup.hasError('dateLessThanToday', 'birthday')">
+              La date de naissance doit être plus petite que la date du jour.
+            </mat-error>
           </mat-form-field>
           <br>
           <mat-form-field>
             <mat-label>Sexe</mat-label>
-            <mat-select [(value)]="person.sexe">
+            <mat-select [(value)]="person.sexe" formControlName="sexe" required>
               <mat-option *ngFor="let gender of genderEnum" [value]="gender.name">
                 {{ gender.name }}
               </mat-option>
@@ -55,7 +58,7 @@
           </mat-form-field>
           <br>
           <mat-form-field class="full-width-input">
-            <input matInput placeholder="Adresse" formControlName="address">
+            <input matInput placeholder="Adresse" formControlName="address" required>
             <mat-error *ngIf="firstFormGroup.hasError('required', 'address')">
               Veuillez entrer une adresse.
             </mat-error>
@@ -65,7 +68,7 @@
           </mat-form-field>
           <br>
           <mat-form-field class="full-width-input">
-            <input matInput placeholder="Numéro de téléphone" formControlName="phone">
+            <input matInput placeholder="Numéro de téléphone" formControlName="phone" required>
             <mat-error *ngIf="firstFormGroup.hasError('required', 'phone')">
               Veuillez entrer un numéro de téléphone.
             </mat-error>
@@ -75,7 +78,7 @@
           </mat-form-field>
           <br>
           <mat-form-field class="full-width-input">
-            <input matInput placeholder="NAS" formControlName="NAS">
+            <input matInput placeholder="NAS" formControlName="NAS" required>
             <mat-error *ngIf="firstFormGroup.hasError('required', 'NAS')">
               Veuillez entrer un NAS.
             </mat-error>
@@ -86,7 +89,7 @@
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Problèmes de santé/allergies</mat-label>
-            <textarea matInput formControlName="healthIssues"></textarea>
+            <textarea matInput formControlName="healthIssues" required></textarea>
             <mat-error *ngIf="firstFormGroup.hasError('required', 'healthIssues')">
               Veuillez entrer un/des problèmes de santé/allergies.
             </mat-error>
@@ -111,7 +114,7 @@
           <p>Informations sur le travail</p>
           <mat-form-field>
             <mat-label>Lieu de travail</mat-label>
-            <mat-select [(value)]="person.workCityID" formControlName="workCityID">
+            <mat-select [(value)]="person.workCityID" formControlName="workCityID" required>
               <mat-option *ngFor="let city of cities" [value]="city.id">
                 {{ city.name}}
               </mat-option>
@@ -123,29 +126,35 @@
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Date de début de la participation</mat-label>
-            <input matInput [matDatepicker]="startDate" [value]="person.startDate" formControlName="startDate">
+            <input matInput [matDatepicker]="startDate" [value]="person.startDate" formControlName="startDate" required>
             <!--  {{person.startDate | date:'d MMMM  y':'d MMMM  y'}}-->
               <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
               <mat-datepicker #startDate></mat-datepicker>
             <mat-error *ngIf="secondFormGroup.hasError('required', 'startDate')">
               Veuillez sélectionner un date de début.
             </mat-error>
+            <mat-error *ngIf="secondFormGroup.hasError('dateLessThan', 'startDate')">
+              La date de début doit être plus petite que la date de fin.
+            </mat-error>
             </mat-form-field>
             <br>
             <mat-form-field appearance="fill">
               <mat-label>Date de fin de la participation</mat-label>
-              <input matInput [matDatepicker]="endDate" [value]="person.endDate" formControlName="endDate">
+              <input matInput [matDatepicker]="endDate" [value]="person.endDate" formControlName="endDate" required>
               <!--  {{person.endDate | date:'d MMMM  y':'d MMMM  y'}}-->
                 <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
                 <mat-datepicker #endDate></mat-datepicker>
               <mat-error *ngIf="secondFormGroup.hasError('required', 'endDate')">
                 Veuillez sélectionner un date de fin.
               </mat-error>
+              <mat-error *ngIf="secondFormGroup.hasError('dateLessThan', 'endDate')">
+                La date de fin doit être plus grande que la date de début.
+              </mat-error>
               </mat-form-field>
               <br>
               <mat-form-field>
                 <mat-label>Référence</mat-label>
-                <mat-select [(value)]="person.referenceID" formControlName="referenceID">
+                <mat-select [(value)]="person.referenceID" formControlName="referenceID" required>
                   <mat-option *ngFor="let reference of referenceList" [value]="reference.id">
                     {{ reference.name }}
                   </mat-option>
@@ -157,7 +166,7 @@
               <br>
               <mat-form-field>
                 <mat-label>Type de résidence</mat-label>
-                <mat-select [(value)]="person.residenceTypeID" formControlName="residenceTypeID">
+                <mat-select [(value)]="person.residenceTypeID" formControlName="residenceTypeID" required>
                   <mat-option *ngFor="let residenceType of residenceTypeList" [value]="residenceType.id">
                     {{ residenceType.name }}
                   </mat-option>
@@ -169,7 +178,7 @@
               <br>
               <mat-form-field>
                 <mat-label>Niveau de scolarité</mat-label>
-                <mat-select [(value)]="person.educationalLevelID" formControlName="educationalLevelID">
+                <mat-select [(value)]="person.educationalLevelID" formControlName="educationalLevelID" required>
                   <mat-option *ngFor="let educationLevel of educationLevelList" [value]="educationLevel.id">
                     {{ educationLevel.name }}
                   </mat-option>
@@ -197,29 +206,35 @@
 
           <mat-form-field appearance="fill">
             <mat-label>Date de début</mat-label>
-            <input matInput [matDatepicker]="programStartDate" [value]="person.programStartDate" formControlName="programStartDate">
+            <input matInput [matDatepicker]="programStartDate" [value]="person.programStartDate" formControlName="programStartDate" required>
             <!-- {{person.programStartDate | date:'d MMMM  y':'d MMMM  y'}}-->
              <mat-datepicker-toggle matSuffix [for]="programStartDate"></mat-datepicker-toggle>
              <mat-datepicker #programStartDate></mat-datepicker>
             <mat-error *ngIf="thirdFormGroup.hasError('required', 'programStartDate')">
               Veuillez sélectionner une date de début de programme.
             </mat-error>
+            <mat-error *ngIf="thirdFormGroup.hasError('dateLessThan', 'programStartDate')">
+              La date de début doit être plus petite que la date de fin.
+            </mat-error>
            </mat-form-field>
            <br>
            <mat-form-field appearance="fill">
              <mat-label>Date de fin</mat-label>
-             <input matInput [matDatepicker]="programEndDate" [value]="person.programEndDate" formControlName="programEndDate">
+             <input matInput [matDatepicker]="programEndDate" [value]="person.programEndDate" formControlName="programEndDate" required>
            <!--  {{person.programEndDate | date:'d MMMM  y':'d MMMM  y'}}-->
              <mat-datepicker-toggle matSuffix [for]="programEndDate"></mat-datepicker-toggle>
              <mat-datepicker #programEndDate></mat-datepicker>
              <mat-error *ngIf="thirdFormGroup.hasError('required', 'programEndDate')">
                Veuillez sélectionner une date de fin de programme.
              </mat-error>
+             <mat-error *ngIf="thirdFormGroup.hasError('dateLessThan', 'programEndDate')">
+               La date de fin doit être plus grande que la date de début.
+             </mat-error>
            </mat-form-field>
            <br>
            <mat-form-field>
              <mat-label>Motifs de départ</mat-label>
-             <mat-select [(value)]="person.departureReasonID" formControlName="departureReasonID">
+             <mat-select [(value)]="person.departureReasonID" formControlName="departureReasonID" required>
                <mat-option *ngFor="let departureReason of departureReasonList" [value]="departureReason.id">
                  {{ departureReason.name }}
                </mat-option>
@@ -230,7 +245,7 @@
            </mat-form-field>
            <br>
            <mat-form-field class="full-width-input">
-             <input matInput type="number" placeholder="Heures travaillées par jour " formControlName="hoursPerDay" max="24" min="0">
+             <input matInput type="number" placeholder="Heures travaillées par jour " formControlName="hoursPerDay" max="24" min="0" required>
              <mat-error *ngIf="thirdFormGroup.hasError('required', 'hoursPerDay')">
                Veuillez entrer le nombre d'heures travaillées par jour.
              </mat-error>
@@ -244,7 +259,7 @@
            <br>
            <mat-form-field>
              <mat-label>Statut</mat-label>
-             <mat-select [(value)]="person.statusID" formControlName="statusID">
+             <mat-select [(value)]="person.statusID" formControlName="statusID" required>
                <mat-option *ngFor="let status of statusList"
                            [value]="status.id">{{status.name}}
                </mat-option>
@@ -257,7 +272,7 @@
            <mat-form-field>
              <mat-label>Suivi en itinérance</mat-label>
              <mat-select #followRoaming [value]="person.roamingTracking|convertBoolean"
-                         (valueChange)="followRoaming.value = $event" formControlName="roamingTracking">
+                         (valueChange)="followRoaming.value = $event" formControlName="roamingTracking" required>
                <mat-option value="true">Oui</mat-option>
                <mat-option value="false">Non</mat-option>
              </mat-select>
@@ -270,23 +285,29 @@
              <p>Dates du suivi d'itinérance</p>
              <mat-form-field appearance="fill">
                <mat-label>Date de début</mat-label>
-               <input matInput [matDatepicker]="roamingStartDate" [value]="person.roamingStartDate" formControlName="roamingStartDate">
+               <input matInput [matDatepicker]="roamingStartDate" [value]="person.roamingStartDate" formControlName="roamingStartDate" required>
                <!-- {{person.roamingStartDate | date:'d MMMM  y':'d MMMM  y'}}-->
                 <mat-datepicker-toggle matSuffix [for]="roamingStartDate"></mat-datepicker-toggle>
                 <mat-datepicker #roamingStartDate></mat-datepicker>
                <mat-error *ngIf="thirdFormGroup.hasError('required', 'roamingStartDate')">
                  Veuillez sélectionner une date de début d'itinérence.
                </mat-error>
+               <mat-error *ngIf="thirdFormGroup.hasError('dateLessThan', 'roamingStartDate')">
+                 La date de début doit être plus petite que la date de fin.
+               </mat-error>
               </mat-form-field>
               <br>
               <mat-form-field appearance="fill">
                 <mat-label>Date de fin</mat-label>
-                <input matInput [matDatepicker]="roamingEndDate" [value]="person.roamingEndDate" formControlName="roamingEndDate">
+                <input matInput [matDatepicker]="roamingEndDate" [value]="person.roamingEndDate" formControlName="roamingEndDate" required>
               <!--  {{person.roamingStartDate | date:'d MMMM  y':'d MMMM  y'}} -->
                 <mat-datepicker-toggle matSuffix [for]="roamingEndDate"></mat-datepicker-toggle>
                 <mat-datepicker #roamingEndDate></mat-datepicker>
                 <mat-error *ngIf="thirdFormGroup.hasError('required', 'roamingEndDate')">
                   Veuillez sélectionner une date de fin d'itinérence.
+                </mat-error>
+                <mat-error *ngIf="secondFormGroup.hasError('dateLessThan', 'roamingEndDate')">
+                  La date de fin doit être plus grande que la date de début.
                 </mat-error>
               </mat-form-field>
             </div>
@@ -294,7 +315,7 @@
             <mat-form-field>
               <mat-label>Travaux communautaires</mat-label>
               <mat-select #communityWork [value]="person.communityWork|convertBoolean"
-                          (valueChange)="communityWork.value = $event" formControlName="communityWork">
+                          (valueChange)="communityWork.value = $event" formControlName="communityWork" required>
                 <mat-option value="true">Oui</mat-option>
                 <mat-option value="false">Non</mat-option>
               </mat-select>
@@ -307,29 +328,35 @@
               <p>Dates des travaux communautaires</p>
               <mat-form-field appearance="fill">
                 <mat-label>Date de début</mat-label>
-                <input matInput [matDatepicker]="communityStartDate" [value]="person.communityStartDate" formControlName="communityStartDate">
+                <input matInput [matDatepicker]="communityStartDate" [value]="person.communityStartDate" formControlName="communityStartDate" required>
                 <!--  {{person.communityStartDate | date:'d MMMM  y':'d MMMM  y'}}-->
                   <mat-datepicker-toggle matSuffix [for]="communityStartDate"></mat-datepicker-toggle>
                   <mat-datepicker #communityStartDate></mat-datepicker>
                 <mat-error *ngIf="thirdFormGroup.hasError('required', 'communityStartDate')">
                   Veuillez sélectionner la date de début des travaux communautaires.
                 </mat-error>
+                <mat-error *ngIf="thirdFormGroup.hasError('dateLessThan', 'communityStartDate')">
+                  La date de début doit être plus petite que la date de fin.
+                </mat-error>
                 </mat-form-field>
                 <br>
                 <mat-form-field appearance="fill">
                   <mat-label>Date de fin</mat-label>
-                  <input matInput [matDatepicker]="communityEndDate" [value]="person.communityEndDate" formControlName="communityEndDate">
+                  <input matInput [matDatepicker]="communityEndDate" [value]="person.communityEndDate" formControlName="communityEndDate" required>
                <!--   {{person.communityEndDate | date:'d MMMM  y':'d MMMM  y'}}-->
                   <mat-datepicker-toggle matSuffix [for]="communityEndDate"></mat-datepicker-toggle>
                   <mat-datepicker #communityEndDate></mat-datepicker>
                   <mat-error *ngIf="thirdFormGroup.hasError('required', 'communityEndDate')">
                     Veuillez sélectionner la date de fin des travaux communautaires.
                   </mat-error>
+                  <mat-error *ngIf="secondFormGroup.hasError('dateLessThan', 'communityEndDate')">
+                    La date de fin doit être plus grande que la date de début.
+                  </mat-error>
                 </mat-form-field>
               </div>
               <br>
               <mat-form-field class="full-width-input">
-                <input matInput type="number" placeholder="Taux horaire" formControlName="hourlyRate" maxlength="3" min="0" >
+                <input matInput type="number" placeholder="Taux horaire" formControlName="hourlyRate" maxlength="3" min="0" required>
                 <mat-error *ngIf="thirdFormGroup.hasError('required', 'hourlyRate')">
                   Veuillez entrer le taux horaire.
                 </mat-error>
@@ -342,7 +369,7 @@
               </mat-form-field>
               <br>
               <mat-form-field class="full-width-input">
-                <input matInput type="number" placeholder="Frais de transport" formControlName="transportFees" maxlength="3" min="0" >
+                <input matInput type="number" placeholder="Frais de transport" formControlName="transportFees" maxlength="3" min="0" required>
                 <mat-error *ngIf="thirdFormGroup.hasError('required', 'transportFees')">
                   Veuillez entrer les frais de transport.
                 </mat-error>
@@ -353,6 +380,18 @@
                   Les frais de transport doivent être  entre 0 et 999.
                 </mat-error>
               </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Intervenant responsable</mat-label>
+            <mat-select formControlName="responsibleIntervenantID" required>
+              <mat-option *ngFor="let intervenant of intervenants"
+                          [value]="intervenant.id">{{intervenant.fname + ' ' +intervenant.lname}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="thirdFormGroup.hasError('required', 'responsibleIntervenantID')">
+              Veuillez sélectionner une option.
+            </mat-error>
+          </mat-form-field>
               <br>
           <div>
             <button mat-button matStepperPrevious>Étape précédente</button>
@@ -367,7 +406,7 @@
           <ng-template matStepLabel>Personne ressource en cas d'urgence</ng-template>
           <p>Personne ressource en cas d'urgence</p>
           <mat-form-field class="full-width-input">
-            <input matInput placeholder="Prénom de la personne ressource en cas d'urgence" formControlName="fname">
+            <input matInput placeholder="Prénom de la personne ressource en cas d'urgence" formControlName="fname" required>
             <mat-error *ngIf="fourthFormGroup.hasError('required', 'fname')">
               Veuillez entrer le prénom de la personne ressource en cas d'urgence.
             </mat-error>
@@ -377,7 +416,7 @@
           </mat-form-field>
           <br>
           <mat-form-field class="full-width-input">
-            <input matInput placeholder="Nom de la personne ressource en cas d'urgence" formControlName="lname">
+            <input matInput placeholder="Nom de la personne ressource en cas d'urgence" formControlName="lname" required>
             <mat-error *ngIf="fourthFormGroup.hasError('required', 'lname')">
               Veuillez entrer le nom de la personne ressource en cas d'urgence.
             </mat-error>
@@ -387,7 +426,7 @@
           </mat-form-field>
           <br>
           <mat-form-field class="full-width-input">
-            <input matInput placeholder="Numéro de téléphone de la personne ressource en cas d'urgence" formControlName="phone">
+            <input matInput placeholder="Numéro de téléphone de la personne ressource en cas d'urgence" formControlName="phone" required>
             <mat-error *ngIf="fourthFormGroup.hasError('required', 'phone')">
               Veuillez entrer le numéro de téléphone de la personne ressource en cas d'urgence.
             </mat-error>
@@ -396,7 +435,7 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field class="full-width-input">
-            <input matInput placeholder="Relation avec la personne" formControlName="relation">
+            <input matInput placeholder="Relation avec la personne" formControlName="relation" required>
             <mat-error *ngIf="fourthFormGroup.hasError('required', 'relation')">
               Veuillez entrer le type de relation de la personne ressource en cas d'urgence avec la personne.
             </mat-error>
@@ -420,8 +459,8 @@
           <mat-form-field>
             <mat-label>Suivi par</mat-label>
             <mat-select #followedBy [value]="person.followedBy.interfaceName"
-                        (valueChange)="followedBy.value =$event" formControlName="interfaceName">
-              <mat-option value="Intervenant">Intervenant</mat-option>
+                        (valueChange)="followedBy.value =$event" formControlName="interfaceName" required>
+              <mat-option value="User">Intervenant</mat-option>
               <mat-option value="Doctor">Médecin</mat-option>
               <mat-option value="EmergencyContact">Contacte d'urgence</mat-option>
               <mat-option value="OtherPerson">Autres</mat-option>
@@ -431,7 +470,7 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field class="full-width-input" >
-            <input matInput placeholder="Prénom de la personne de suivi." formControlName="fname">
+            <input matInput placeholder="Prénom de la personne de suivi." formControlName="fname" required>
             <mat-error *ngIf="fifthFormGroup.hasError('required', 'fname')">
               Veuillez entrer le prénom de la personne de suivi.
             </mat-error>
@@ -441,7 +480,7 @@
           </mat-form-field>
           <br>
           <mat-form-field class="full-width-input">
-            <input matInput placeholder="Nom de la personne de suivi." formControlName="lname">
+            <input matInput placeholder="Nom de la personne de suivi." formControlName="lname" required>
             <mat-error *ngIf="fifthFormGroup.hasError('required', 'lname')">
               Veuillez entrer le nom de la personne de suivi.
             </mat-error>
@@ -451,7 +490,7 @@
           </mat-form-field>
           <br>
           <mat-form-field class="full-width-input">
-            <input matInput placeholder="Numéro de téléphone de la personne de suivi." formControlName="phone">
+            <input matInput placeholder="Numéro de téléphone de la personne de suivi." formControlName="phone" required>
             <mat-error *ngIf="fifthFormGroup.hasError('required', 'phone')">
               Veuillez entrer le numéro de téléphone de la personne de suivi.
             </mat-error>
@@ -460,8 +499,8 @@
             </mat-error>
           </mat-form-field>
           <br>
-          <mat-form-field *ngIf="followedBy.value == 'Doctor' || followedBy.value == 'Intervenant'" class="full-width-input">
-            <input matInput placeholder="Email de la personne de suivi." formControlName="email">
+          <mat-form-field *ngIf="followedBy.value == 'Doctor' || followedBy.value == 'User'" class="full-width-input">
+            <input matInput placeholder="Email de la personne de suivi." formControlName="email" required>
             <mat-error *ngIf="fifthFormGroup.hasError('required', 'email')">
               Veuillez entrer l'email de la personne de suivi.
             </mat-error>
@@ -480,8 +519,8 @@
             </mat-error>
             <br>
           </mat-form-field>
-          <mat-form-field *ngIf="followedBy.value == 'OtherPerson' || followedBy.value == 'Intervenant'" class="full-width-input">
-            <input matInput placeholder="Organisme de la personne de suivi." formControlName="organism">
+          <mat-form-field *ngIf="followedBy.value == 'OtherPerson' || followedBy.value == 'User'" class="full-width-input">
+            <input matInput placeholder="Organisme de la personne de suivi." formControlName="organism" required>
             <mat-error *ngIf="fifthFormGroup.hasError('required', 'organism')">
               Veuillez entrer l'organisme de la personne de suivi.
             </mat-error>

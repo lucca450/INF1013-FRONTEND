@@ -37,7 +37,8 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
     idIntervenant: [null, Validators.compose([Validators.required])]
   });
 
-  constructor(private intervenantService: IntervenantService, private userService: UserService, public personService: PersonService, private meetingService: MeetingService, private formBuilder: FormBuilder , private route: ActivatedRoute) {
+  constructor(private intervenantService: IntervenantService, private userService: UserService, public personService: PersonService,
+              private meetingService: MeetingService, private formBuilder: FormBuilder , private route: ActivatedRoute) {
   }
 
    ngOnInit(): void {
@@ -134,7 +135,7 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
     this.personsSubscription.unsubscribe();
   }
 
-  ngOnDestroy(){
+  ngOnDestroy(): void{
   this.meetingSubscription.unsubscribe();
   this.errorsSubscription.unsubscribe();
   this.intervenantSubscription.unsubscribe();

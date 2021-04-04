@@ -26,7 +26,8 @@ export class ListPersonMeetingsComponent implements OnInit, OnDestroy {
   errorMessage: any;
   displayedColumns: string[] = [ 'notes', 'followup', 'goals', 'actions-icon'];
 
-  constructor(private meetingService: MeetingService, private personService: PersonService, private route: ActivatedRoute, private userService: UserService) {
+  constructor(private meetingService: MeetingService, private personService: PersonService, private route: ActivatedRoute,
+              private userService: UserService) {
 
   }
 
@@ -62,18 +63,18 @@ export class ListPersonMeetingsComponent implements OnInit, OnDestroy {
         data.goals.toString().includes(filter);
     };
   }
-
+/*
   ngAfterViewInit(): void {
     this.meetings.sort = this.sort;
   }
-
+ */
   // Fonction qui permet d'appliquer le filtre sur toute les colonnes du tableau selon ce que l'utilisateur à écris.
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.meetings.filter = filterValue.trim().toLowerCase();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.meetingSubscription.unsubscribe();
     this.errorsSubscription.unsubscribe();
   }

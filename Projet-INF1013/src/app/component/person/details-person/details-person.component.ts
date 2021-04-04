@@ -2,7 +2,6 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {PersonService} from '../../../services/person/person.service';
 import {Person} from '../../../models/person/person';
-import {Intervenant} from '../../../models/intervenant/intervenant';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
 import {MatSlideToggleChange} from '@angular/material/slide-toggle';
 import {Gender} from '../../../enum/gender.enum';
@@ -21,22 +20,22 @@ import {Subscription} from 'rxjs';
 })
 export class DetailsPersonComponent implements OnInit, OnDestroy {
 
-  errorMessage: String;
+  errorMessage: string;
   person: Person;
   departureReasonName: string;
-  status: String;
+  status: string;
   city: string;
   residenceType: string;
   educationLevel: string;
   reference: string;
   workCity: string;
   isSlideChecked = false;
-  //Énumération
+  // Énumération
   gender = Object.keys(Gender).map(key => Gender[key]);
   // Récupération des services
 
   intervenant = this.intervenantService;
-  fullname: String;
+  fullname: string;
 
   errorsSubscription: Subscription;
   personSubscription: Subscription;
@@ -65,7 +64,7 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
         (error: any) => {
           this.errorMessage = error;
         }
-      )
+      );
       const id =	Number(params.get('id'));
 
       this.personService.getPersonFromId(id);
@@ -78,11 +77,11 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
         (error: any) => {
           this.errorMessage = error;
         }
-      )
+      );
     });
   }
 
-  private SetAllAttributes(person: Person){
+  private SetAllAttributes(person: Person): void{
 
     // On observe les requêtes qu'on va faire.
     this.personFullNameSubscription = this.intervenantService.intervenantsFullnameSubject.subscribe(
@@ -92,7 +91,7 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
       (error: any) => {
         this.errorMessage = error;
       }
-    )
+    );
 
     this.departureReasonSubscription = this.departureReasonService.departureReasonSubject.subscribe(
       (name: any) => {
@@ -101,7 +100,7 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
       (error: any) => {
         this.errorMessage = error;
       }
-    )
+    );
     this.statusSubscription = this.statusService.statusSubject.subscribe(
       (name: any) => {
         this.status = name;
@@ -109,7 +108,7 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
       (error: any) => {
         this.errorMessage = error;
       }
-    )
+    );
 
     this.workCitySubscription = this.workCityService.workCitySubject.subscribe(
       (name: any) => {
@@ -118,7 +117,7 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
       (error: any) => {
         this.errorMessage = error;
       }
-    )
+    );
 
     this.residenceTypeSubscription = this.residenceTypeService.residenceTypeSubject.subscribe(
       (name: any) => {
@@ -127,7 +126,7 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
       (error: any) => {
         this.errorMessage = error;
       }
-    )
+    );
 
     this.educationLevelSubscription = this.educationLevelService.educationLevelSubject.subscribe(
       (name: any) => {
@@ -136,7 +135,7 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
       (error: any) => {
         this.errorMessage = error;
       }
-    )
+    );
 
     this.referenceSubscription = this.referenceService.referenceSubject.subscribe(
       (name: any) => {
@@ -145,21 +144,21 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
       (error: any) => {
         this.errorMessage = error;
       }
-    )
+    );
 
     // On fait nos requêtes
     this.intervenantService.intervenantFullName(person.responsibleIntervenantID);
     this.departureReasonService.getDepartureReasonName(person.departureReasonID);
-    this.statusService.getStatusName(person.departureReasonID);
-    this.workCityService.getWorkCityName(person.departureReasonID);
-    this.residenceTypeService.getResidencesTypeName(person.departureReasonID);
-    this.educationLevelService.getEducationLevelName(person.departureReasonID);
-    this.referenceService.getReferenceName(person.departureReasonID);
+    this.statusService.getStatusName(person.statusID);
+    this.workCityService.getWorkCityName(person.workCityID);
+    this.residenceTypeService.getResidencesTypeName(person.residenceTypeID);
+    this.educationLevelService.getEducationLevelName(person.educationalLevelID);
+    this.referenceService.getReferenceName(person.referenceID);
   }
 
   // Fonction pour gèrer le slider du NAS.
 
-  toggleChanges($event: MatSlideToggleChange):  void {
+  toggleChanges($event: MatSlideToggleChange): void {
     this.isSlideChecked = $event.checked;
   }
 

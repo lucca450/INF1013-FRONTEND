@@ -35,23 +35,29 @@ export class ListPersonComponent implements OnInit, AfterViewInit, OnDestroy{
 
     this.personSubscription = this.personService.personsSubject.subscribe(
       (persons: any) => {
-        //console.log(persons);
         this.dataSource = new MatTableDataSource(persons);
       }
-    )
+    );
 
     this.errorsSubscription = this.personService.errorsSubject.subscribe(
       (error: any) => {
         this.errorMessage = error;
       }
-    )
+    );
 
+    // Nous permet de définir sur quels attributs la recherche va se faire.
+    this.dataSource.filterPredicate = (data: any, filter: string): boolean => data.fname.toLowerCase().includes(filter) ||
+      data.lname.toLowerCase().includes(filter) ||
+      data.phone.toString().includes(filter);
+/*
     // Nous permet de définir sur quels attributs la recherche va se faire.
     this.dataSource.filterPredicate = function(data:any, filter: string): boolean {
       return data.fname.toLowerCase().includes(filter) ||
         data.lname.toLowerCase().includes(filter) ||
         data.phone.toString().includes(filter) ;
     };
+     */
+
   }
 
   ngAfterViewInit(): void {
@@ -64,24 +70,24 @@ export class ListPersonComponent implements OnInit, AfterViewInit, OnDestroy{
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  onDelete(id: number){
+  onDelete(id: number): void{
     const dialogRef = this.dialog.open(DeletePersonComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result == true){
-        this.personService.ActiveDesactivePerson(id,false);
+      if (result === true){
+        this.personService.ActiveDesactivePerson(id, false);
         this.personService.activateDesactivateSubject.subscribe(
           (persons: any) => {
             this.personService.getActivePersons();
           },
-          (error)=>{
+          (error) => {
             this.errorMessage = error;
           }
-        )
+        );
       }
     });
   }
-ngOnDestroy(){
+ngOnDestroy(): void{
   this.personSubscription.unsubscribe();
   this.errorsSubscription.unsubscribe();
 }

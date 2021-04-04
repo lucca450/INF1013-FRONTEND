@@ -13,12 +13,12 @@ import {Role} from '../../../enum/role.enum';
 export class AddIntervenantComponent implements OnInit {
 
   addintervenantForm: FormGroup;
-  //addUserForm: FormGroup;
+  // addUserForm: FormGroup;
   roleEnum = Object.entries(Role).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
   errorsSubscription: Subscription;
-  errorMessage: String;
-  defaultRole: String = 'I';
-  defaultActiveInnactif: String = 'true';
+  errorMessage: string;
+  defaultRole = 'I';
+  defaultActiveInnactif = 'true';
   hide = true;
 
   constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService) { }
@@ -39,7 +39,7 @@ export class AddIntervenantComponent implements OnInit {
   private initForm(): void {
 
     this.addintervenantForm = this.formBuilder.group({
-      interfaceName: 'Intervenant',
+      interfaceName: 'User',
       fname: ['', [Validators.required, Validators.maxLength(30)]],
       lname: ['', [Validators.required, Validators.maxLength(30)]],
       email: ['', [Validators.required, Validators.email]],

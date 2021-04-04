@@ -14,9 +14,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   isAuth: boolean;
   isAuthSubscription: Subscription;
-  user: User
+  user: User;
   userSubscription: Subscription;
-  accountID: number = 0;
+  accountID = 0;
 
 
   constructor(private userService: UserService, private router: Router) { }
@@ -26,23 +26,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.loadingObersable();
   }
   // Fonction pour déconnecter l'utilisateur.
-  OnSignOut() {
+  OnSignOut(): void {
     this.userService.signOut();
-    this.router.navigate(['/login'])
+    this.router.navigate(['/login']);
   }
 
-  private loadingObersable(){
+  private loadingObersable(): void {
     this.isAuthSubscription = this.userService.authSubject.subscribe((value: boolean) => {
         this.isAuth = value;
       });
 
     this.userSubscription = this.userService.userSubject.subscribe((value: User) => {
-      console.log('I change the value');
         this.user = value;
       });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.isAuthSubscription.unsubscribe();
     this.userSubscription.unsubscribe();
   }

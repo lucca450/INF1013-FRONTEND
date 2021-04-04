@@ -145,7 +145,7 @@
           <p>{{person?.followedBy.phone | phone}}</p>
 
 
-        <div *ngIf="person?.followedBy.interfaceName == 'Doctor' || person?.followedBy.interfaceName == 'Intervenant'" >
+        <div *ngIf="person?.followedBy.interfaceName == 'Doctor' || person?.followedBy.interfaceName == 'User'" >
           <label>Email de la personne de suivi:</label>
           <p>{{person?.followedBy.email}}</p>
         </div>
@@ -155,7 +155,7 @@
           <p>{{person?.followedBy.fax | phone}}</p>
         </div>
 
-        <div *ngIf="person?.followedBy.interfaceName == 'OtherPerson'  || person?.followedBy.interfaceName == 'Intervenant'">
+        <div *ngIf="person?.followedBy.interfaceName == 'OtherPerson'  || person?.followedBy.interfaceName == 'User'">
           <label>Organisme de la personne de suivi:</label>
           <p>{{person?.followedBy.organization}}</p>
         </div>
