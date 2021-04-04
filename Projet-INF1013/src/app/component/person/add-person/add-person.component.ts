@@ -24,23 +24,27 @@ import {dateLessThan} from '../../../Validators/dateLessthan';
 export class AddPersonComponent implements OnInit, OnDestroy{
 
   intervenants: User[];
-  formAddPerson: FormGroup;
   statusList = [];
   referenceList = [];
   cities = [];
   departureReasonList = [];
   educationLevelList = [];
   residenceTypeList = [];
-  genderEnum = Object.entries(Gender).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
   errorMessage: string;
-
   isLinear = true;
+
+  // Énumération
+  genderEnum = Object.entries(Gender).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
+
+  // Formgroup
+  formAddPerson: FormGroup;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
   fourthFormGroup: FormGroup;
   fifthFormGroup: FormGroup;
 
+  // Subscription
   errorsSubscription: Subscription;
   departureReasonSubscription: Subscription;
   statusSubscription: Subscription;
@@ -63,16 +67,19 @@ export class AddPersonComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
 
+    // Vérification pour savoir si une requête à eu une erreur.
     this.errorsSubscription = this.personService.errorsSubject.subscribe(
       (error: any) => {
         this.errorMessage = error;
       }
     );
+    // Récupération et modification des attributs
     this.SetAllAttributes();
+    // Appel de méthode qui fait une requête pour récupèrer les intervenants actifs.
     this.intervenantService.getActiveIntervenants();
+    // On écoute la requête pour récupèrer les intervenants
     this.intervenantSubscription = this.intervenantService.intervenantsSubject.subscribe(
       (inter: any) => {
-        console.log(inter);
         this.intervenants = inter;
         this.initForm();
       }
@@ -145,7 +152,7 @@ export class AddPersonComponent implements OnInit, OnDestroy{
     this.refererenceService.getReferences();
   }
 
-
+  // Fonction pour modifier le 3ième groupe de validations et mettre des actions dynamique
   setThirdFormGroupValidators(): void {
     const roamingStartDate = this.thirdFormGroup.get('roamingStartDate');
     const roamingEndDate = this.thirdFormGroup.get('roamingEndDate');
@@ -185,13 +192,12 @@ export class AddPersonComponent implements OnInit, OnDestroy{
         communityEndDate.updateValueAndValidity();
       });
   }
-
+  // Fonction pour modifier le 5ième groupe de validations et mettre des actions dynamique
   setFifthFormGroupValidators(): void {
 
     const email = this.fifthFormGroup.get('email');
     const fax = this.fifthFormGroup.get('fax');
     const organism = this.fifthFormGroup.get('organism');
-
 
     this.fifthFormGroup.get('interfaceName').valueChanges
       .subscribe(interfaceName => {
@@ -227,7 +233,7 @@ export class AddPersonComponent implements OnInit, OnDestroy{
       });
   }
 
-
+  // Initialisation du formulaire
   private initForm(): void {
 
     this.firstFormGroup = this.formBuilder.group({
@@ -332,7 +338,7 @@ export class AddPersonComponent implements OnInit, OnDestroy{
       fax: ['', ],
       organism: ['', [Validators.required, Validators.maxLength(100)]]
     });
-
+    // Validations dynamiques du 5ième groupe.
     this.setFifthFormGroupValidators();
   }
 
@@ -378,20 +384,20 @@ export class AddPersonComponent implements OnInit, OnDestroy{
       });
       this.personService.addPerson(this.formAddPerson.value);
     }else {
-      alert('Veuillez remplir tous les champs');
+      alert('Les champs en surbrillance contiennent des données incorrectes, veuillez les corriger.');
     }
   }
 
-  onSubmit(): void {
-
-  }
-
-
   onCancelPerson(): void {
+    this.unsubscribe();
     this.personService.cancelPerson();
   }
 
   ngOnDestroy(): void {
+    this.unsubscribe();
+  }
+
+  private unsubscribe(): void{
     this.errorsSubscription.unsubscribe();
     this.departureReasonSubscription.unsubscribe();
     this.statusSubscription.unsubscribe();

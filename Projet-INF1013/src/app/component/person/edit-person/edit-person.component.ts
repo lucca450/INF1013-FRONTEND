@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PersonService} from '../../../services/person/person.service';
 import {Person} from '../../../models/person/person';
 import {ActivatedRoute} from '@angular/router';
@@ -26,8 +26,9 @@ export class EditPersonComponent implements OnInit, OnDestroy {
   intervenants: User[];
   formEditPerson: FormGroup;
   errorMessage: string;
+  isLinear = true;
   person: Person;
-  // Récupérer les services
+  // Variables pour les services
   statusList = [];
   referenceList = [];
   cities = [];
@@ -37,13 +38,14 @@ export class EditPersonComponent implements OnInit, OnDestroy {
   // Énumération
   genderEnum = Object.entries(Gender).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
 
-  isLinear = true;
+  // Formgroup
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
   fourthFormGroup: FormGroup;
   fifthFormGroup: FormGroup;
 
+  // Subscription
   errorsSubscription: Subscription;
   personSubscription: Subscription;
   departureReasonSubscription: Subscription;
@@ -69,7 +71,7 @@ export class EditPersonComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.route.paramMap.subscribe(params => {
-
+      // Vérification pour savoir si une requête à eu une erreur.
       this.errorsSubscription = this.personService.errorsSubject.subscribe(
         (error: any) => {
           this.errorMessage = error;
@@ -77,8 +79,9 @@ export class EditPersonComponent implements OnInit, OnDestroy {
       );
       const id =	Number(params.get('id'));
 
+      // Appel de la méthode qui fait la requête pour récupèrer les informations de la personne
       this.personService.getPersonFromId(id);
-
+      // Écoute la réponse de la requête
       this.personSubscription = this.personService.personSubject.subscribe(
         (person: any) => {
           this.person = person;
@@ -90,13 +93,12 @@ export class EditPersonComponent implements OnInit, OnDestroy {
       );
     });
   }
-
+  // Fonction pour modifier les attributs.
   private setAllAttributes(): void{
 
     // On observe les requêtes qu'on va faire.
     this.intervenantSubscription = this.intervenantService.intervenantsSubject.subscribe(
       (inter: any) => {
-        console.log(inter);
         this.intervenants = inter;
       }
     );
@@ -167,6 +169,7 @@ export class EditPersonComponent implements OnInit, OnDestroy {
     this.refererenceService.getReferences();
   }
 
+  // Fonction pour modifier dynamiquement le 3ième form.
   setThirdFormGroupValidators(): void {
     const roamingStartDate = this.thirdFormGroup.get('roamingStartDate');
     const roamingEndDate = this.thirdFormGroup.get('roamingEndDate');
@@ -206,13 +209,12 @@ export class EditPersonComponent implements OnInit, OnDestroy {
         communityEndDate.updateValueAndValidity();
       });
   }
-
+// Fonction pour modifier dynamiquement le 5ième form.
   setFifthFormGroupValidators(): void {
 
     const email = this.fifthFormGroup.get('email');
     const fax = this.fifthFormGroup.get('fax');
     const organism = this.fifthFormGroup.get('organism');
-
 
     this.fifthFormGroup.get('interfaceName').valueChanges
       .subscribe(interfaceName => {
@@ -254,6 +256,8 @@ export class EditPersonComponent implements OnInit, OnDestroy {
         email.updateValueAndValidity();
       });
   }
+
+  // Initialisation du formulaire
   private initForm(): void {
     this.firstFormGroup = this.formBuilder.group({
       fname: [this.person.fname, [Validators.required, Validators.maxLength(40)]],
@@ -297,12 +301,6 @@ export class EditPersonComponent implements OnInit, OnDestroy {
     this.setThirdFormGroupValidators();
 
     this.fourthFormGroup = this.formBuilder.group({
-      /*
-            lname: [this.person.emergencyContact.lname],
-            fname: [this.person.emergencyContact.fname],
-            phone: [this.person.emergencyContact.phone],
-            relation: [this.person.emergencyContact.relation]
-            */
       interfaceName: [this.person.emergencyContact.interfaceName],
       lname: [this.person.emergencyContact.lname, [Validators.required, Validators.maxLength(40)]],
       fname: [this.person.emergencyContact.fname, [Validators.required, Validators.maxLength(40)]],
@@ -356,8 +354,9 @@ export class EditPersonComponent implements OnInit, OnDestroy {
     }
     this.setFifthFormGroupValidators();
   }
-
+  // Fonction pour réagir lorsque la personne clique sur le bouton "Enregistrer"
   onEditPerson(): void {
+    // On vérifie que tous les formulaires ne contiennent pas d'erreur.
     if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.thirdFormGroup.valid
       && this.fourthFormGroup.valid && this.fifthFormGroup.valid) {
       this.formEditPerson = this.formBuilder.group({
@@ -397,18 +396,19 @@ export class EditPersonComponent implements OnInit, OnDestroy {
       });
       this.personService.editPerson(this.formEditPerson.value);
     }else {
-      alert('Veuillez remplir tous les champs');
+      alert('Les champs en surbrillance contiennent des données incorrectes, veuillez les corriger.');
     }
   }
-
-  onSubmit(): void {
-
-  }
+  // Fonction pour réagir lorsque l'utilisateur clique sur le bouton "Annuler"
   onCancelPerson(): void {
+    this.unsubscribe();
     this.personService.cancelPerson();
   }
 
   ngOnDestroy(): void {
+    this.unsubscribe();
+  }
+  private unsubscribe(): void{
     this.errorsSubscription.unsubscribe();
     this.personSubscription.unsubscribe();
     this.departureReasonSubscription.unsubscribe();

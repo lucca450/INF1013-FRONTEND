@@ -2,13 +2,9 @@ import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/c
 import {PersonService} from '../../../services/person/person.service';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import {DeleteIntervenantComponent} from '../../intervenant/delete-intervenant/delete-intervenant.component';
 import {MatDialog} from '@angular/material/dialog';
 import {Subscription} from 'rxjs';
 import {DeletePersonComponent} from '../delete-person/delete-person.component';
-
-
-
 
 @Component({
   selector: 'app-list-person',
@@ -30,15 +26,15 @@ export class ListPersonComponent implements OnInit, AfterViewInit, OnDestroy{
   constructor(private personService: PersonService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-
+    // Appel de la méthode qui fait la requête pour récupèrer les personnes actives.
     this.personService.getActivePersons();
-
+    // On écoute la requête
     this.personSubscription = this.personService.personsSubject.subscribe(
       (persons: any) => {
         this.dataSource = new MatTableDataSource(persons);
       }
     );
-
+    // Vérification pour savoir si une requête à eu une erreur.
     this.errorsSubscription = this.personService.errorsSubject.subscribe(
       (error: any) => {
         this.errorMessage = error;
@@ -49,15 +45,6 @@ export class ListPersonComponent implements OnInit, AfterViewInit, OnDestroy{
     this.dataSource.filterPredicate = (data: any, filter: string): boolean => data.fname.toLowerCase().includes(filter) ||
       data.lname.toLowerCase().includes(filter) ||
       data.phone.toString().includes(filter);
-/*
-    // Nous permet de définir sur quels attributs la recherche va se faire.
-    this.dataSource.filterPredicate = function(data:any, filter: string): boolean {
-      return data.fname.toLowerCase().includes(filter) ||
-        data.lname.toLowerCase().includes(filter) ||
-        data.phone.toString().includes(filter) ;
-    };
-     */
-
   }
 
   ngAfterViewInit(): void {
@@ -70,6 +57,7 @@ export class ListPersonComponent implements OnInit, AfterViewInit, OnDestroy{
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  // Fonction pour réagir lorsque l'utilisateur clique sur la corbeille(Supprimer)
   onDelete(id: number): void{
     const dialogRef = this.dialog.open(DeletePersonComponent);
 

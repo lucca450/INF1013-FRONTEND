@@ -18,18 +18,14 @@ export class MeetingService {
   errorsSubject: Subject<string> = new Subject<string>();
 
   constructor(private router: Router, private userService: UserService,  private httpClient: HttpClient) {
-
-   /* console.log(this.loggedUser.role);
-    console.log(this.loggedUser.id);*/
-    this.loadAllMeetings();
-
   }
 
+  // Fonction pour modifier une rencontre
   editMeeting(meeting: Meeting): void{
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(meeting);
 
-    this.httpClient.put('http://localhost:3000/meeting/' + meeting.id, body, {'headers': headers}).subscribe(
+    this.httpClient.put('http://localhost:3000/meeting/' + meeting.id, body, {headers}).subscribe(
       (meet: any) => {
         this.meetingSubject.next(meet);
         this.router.navigate(['meeting']);
@@ -57,7 +53,7 @@ export class MeetingService {
   }
 
   // Retourne un meeting spécifique
-  public getMeetingFromId(id: number) {
+  public getMeetingFromId(id: number): void {
     this.httpClient.get<Meeting>(`http://localhost:3000/meeting?id=` + id).subscribe(
         (meet: any) => {
           this.meetingSubject.next(meet);
@@ -70,12 +66,12 @@ export class MeetingService {
 
   }
 
+  // Fonction pour ajouter une rencontre
   public addMeeting(meeting: Meeting): void{
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(meeting);
-    console.log(body);
 
-    this.httpClient.post('http://localhost:3000/meeting', body, {'headers': headers}).subscribe(
+    this.httpClient.post('http://localhost:3000/meeting', body, {headers}).subscribe(
       (meet: any) => {
             this.meetingSubject.next(meet);
             this.router.navigate(['meeting']);
@@ -87,7 +83,9 @@ export class MeetingService {
     );
   }
 
+  // Fonction pour charger toutes les rencontres
   public loadAllMeetings(): void{
+    // Si c'est un administrateur, on récupère toutes les rencontres
     if (this.loggedUser.role === 'A'){
       this.getAllMeetings().subscribe(
         (meeting: any) => {
@@ -98,6 +96,7 @@ export class MeetingService {
           this.errorsSubject.next(message);
         }
       );
+      //  Sinon c'est un intervenant,alors on récupère seulement ses rencontres à lui
     }else{
       this.getMeetingsFromIntervenantId(this.loggedUser.id).subscribe(
         (meeting: any) => {
@@ -116,7 +115,7 @@ export class MeetingService {
   public getPersonMeetings(id: number): Observable<Meeting> {
     return this.httpClient.get<Meeting>(`http://localhost:3000/meeting?idPerson=` + id);
   }
-
+  // Fonction qui charge les rencontres de la personnes
   public loadPersonMeetings(id: number): void{
       this.getPersonMeetings(id).subscribe(
         (meeting: any) => {

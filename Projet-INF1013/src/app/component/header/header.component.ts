@@ -31,6 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['/login']);
   }
 
+  // Chargement des observables
   private loadingObersable(): void {
     this.isAuthSubscription = this.userService.authSubject.subscribe((value: boolean) => {
         this.isAuth = value;

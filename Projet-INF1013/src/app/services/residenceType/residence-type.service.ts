@@ -13,8 +13,8 @@ export class ResidenceTypeService {
   errorsSubject: Subject<string> = new Subject<string>();
   constructor(private httpClient: HttpClient) {
   }
-
-  getResidencesType(){
+  // Fonction pour récupèrer toutes les types de résidences
+  getResidencesType(): void{
     this.httpClient.get<ResidenceType>(`http://localhost:3000/residencesType`).subscribe(
       (residencesType: any) => {
         this.residencesTypeSubject.next(residencesType);
@@ -23,11 +23,11 @@ export class ResidenceTypeService {
         const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des résidences';
         this.errorsSubject.next(message);
       }
-    )
+    );
   }
-
-  getResidencesTypeName(id: number){
-    this.httpClient.get<ResidenceType>(`http://localhost:3000/residencesType/`+id).subscribe(
+  // Fonction pour récupèrer le nom d'une résidence
+  getResidencesTypeName(id: number): void{
+    this.httpClient.get<ResidenceType>(`http://localhost:3000/residencesType/` + id).subscribe(
       (residenceType: any) => {
         this.residenceTypeSubject.next(residenceType.name);
       },
@@ -35,6 +35,6 @@ export class ResidenceTypeService {
         const message = 'Un erreur au niveau du serveur est survenu lors de la récupération de la résidence';
         this.errorsSubject.next(message);
       }
-    )
+    );
   }
 }

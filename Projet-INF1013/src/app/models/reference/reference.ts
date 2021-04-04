@@ -1,5 +1,5 @@
 export interface Reference {
   interfaceName: 'Reference';
-  id: number,
-  name: string
+  id: number;
+  name: string;
 }

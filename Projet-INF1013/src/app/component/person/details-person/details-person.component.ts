@@ -37,6 +37,7 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
   intervenant = this.intervenantService;
   fullname: string;
 
+  // Subscription
   errorsSubscription: Subscription;
   personSubscription: Subscription;
   personFullNameSubscription: Subscription;
@@ -60,6 +61,7 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
 
+      // Vérification pour savoir si une requête à eu une erreur.
       this.errorsSubscription = this.personService.errorsSubject.subscribe(
         (error: any) => {
           this.errorMessage = error;
@@ -67,8 +69,9 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
       );
       const id =	Number(params.get('id'));
 
+      // Appel de la méthode qui récupère les informations de la personne
       this.personService.getPersonFromId(id);
-
+      // On écoute la requête.
       this.personSubscription = this.personService.personSubject.subscribe(
         (person: any) => {
           this.person = person;
@@ -80,7 +83,7 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
       );
     });
   }
-
+  // Fonction pour modifier tous les attributs.
   private SetAllAttributes(person: Person): void{
 
     // On observe les requêtes qu'on va faire.
@@ -157,7 +160,6 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
   }
 
   // Fonction pour gèrer le slider du NAS.
-
   toggleChanges($event: MatSlideToggleChange): void {
     this.isSlideChecked = $event.checked;
   }

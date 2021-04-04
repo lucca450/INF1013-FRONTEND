@@ -6,10 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class PhonePipe implements PipeTransform {
   // Fonction pour gèrer l'affichage des numéro de téléphones.
   transform(phone: number): string {
-
-    if(phone){
-
-
+    if (phone){
     let pipedPhone = '';
     const str = phone.toString();
 

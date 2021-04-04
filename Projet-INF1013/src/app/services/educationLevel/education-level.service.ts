@@ -14,7 +14,8 @@ export class EducationLevelService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getEducationLevels(){
+  // Fonction pour récupèrer toutes les éducations
+  getEducationLevels(): void {
     this.httpClient.get<EducationLevel>(`http://localhost:3000/educationLevels`).subscribe(
       (educationLevels: any) => {
         this.educationLevelsSubject.next(educationLevels);
@@ -23,11 +24,12 @@ export class EducationLevelService {
         const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des éducations';
         this.errorsSubject.next(message);
       }
-    )
+    );
   }
 
-  getEducationLevelName(id: number){
-    this.httpClient.get<EducationLevel>(`http://localhost:3000/educationLevels/`+id).subscribe(
+  // Fonction pour récupèrer le nom de l'éducation
+  getEducationLevelName(id: number): void{
+    this.httpClient.get<EducationLevel>(`http://localhost:3000/educationLevels/` + id).subscribe(
       (educationLevel: any) => {
         this.educationLevelSubject.next(educationLevel.name);
       },
@@ -35,6 +37,6 @@ export class EducationLevelService {
         const message = 'Un erreur au niveau du serveur est survenu lors de la récupération de l\'éducation';
         this.errorsSubject.next(message);
       }
-    )
+    );
   }
 }

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {Reference} from '../../models/reference/reference';
 import {Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {DepartureReason} from '../../models/departureReason/departure-reason';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +14,8 @@ export class ReferenceService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getReferences(){
+  // Fonction pour récupèrer les références
+  getReferences(): void{
     this.httpClient.get<Reference>(`http://localhost:3000/references`).subscribe(
       (references: any) => {
         this.referencesSubject.next(references);
@@ -24,11 +24,12 @@ export class ReferenceService {
         const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des références';
         this.errorsSubject.next(message);
       }
-    )
+    );
   }
 
-  getReferenceName(id: number){
-    this.httpClient.get<Reference>(`http://localhost:3000/references/`+id).subscribe(
+  // Fonction pour récupèrer le nom de la référence
+  getReferenceName(id: number): void{
+    this.httpClient.get<Reference>(`http://localhost:3000/references/` + id).subscribe(
       (reference: any) => {
         this.referenceSubject.next(reference.name);
       },
@@ -36,6 +37,6 @@ export class ReferenceService {
         const message = 'Un erreur au niveau du serveur est survenu lors de la récupération de la référence';
         this.errorsSubject.next(message);
       }
-    )
+    );
   }
 }

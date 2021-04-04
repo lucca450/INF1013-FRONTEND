@@ -6,13 +6,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ConvertBooleanPipe implements PipeTransform {
   // Fonction pour traduire les boolean en mot français
   transform(booleanValue: boolean): string {
-
-   if(booleanValue)
+   if (booleanValue)
    {
-     return 'Oui'
+     return 'Oui';
    }
    else {
-     return 'Non'
+     return 'Non';
    }
   }
 

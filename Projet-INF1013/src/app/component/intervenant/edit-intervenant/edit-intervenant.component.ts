@@ -14,15 +14,18 @@
 export class EditIntervenantComponent implements OnInit, OnDestroy {
 
   // intervenant: Intervenant;
-  intervenantSubscription: Subscription;
   user: User;
   editintervenantForm: FormGroup;
-  roleEnum = Object.entries(Role).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
-  editUserForm: FormGroup;
-  errorsSubscription: Subscription;
+
+ // editUserForm: FormGroup;
   errorMessage: string;
   hide = true;
   sameAccount = false;
+   // Énumération
+   roleEnum = Object.entries(Role).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
+   // Subscription
+   intervenantSubscription: Subscription;
+   errorsSubscription: Subscription;
 
 
   constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService, private userService: UserService,
@@ -39,13 +42,14 @@ export class EditIntervenantComponent implements OnInit, OnDestroy {
     // Nous permet d'aller chercher les informations selon l'id passé dans le path
     this.route.paramMap.subscribe(params => {
       id =  Number(params.get('id'));
+      // Appel de la méthode pour obtenir les informations de l'intervenant.
       this.intervenantService.getIntervenantFromId(id);
-
+      // On écoute la requête qui nous retourne les informations de l'intervenant.
       this.intervenantSubscription = this.intervenantService.intervenantSubject.subscribe(
 
         (user: any) => {
           this.user = user;
-
+          // Si l'utilisateur connecté est le même que celui de la requête, alors c'est le même compte.
           if (this.userService.user.id === this.user.id){
             this.sameAccount = true;
           }
@@ -60,7 +64,7 @@ export class EditIntervenantComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
   }
-
+  // Initialisation du formulaire
   private initForm(): void {
     this.editintervenantForm = this.formBuilder.group({
       interfaceName: [this.user.interfaceName],
@@ -98,24 +102,24 @@ Fusion avec user
     element.click();
 
  */
-
+    // On vérifie si le formulaire ne contient pas d'erreur
     if (this.editintervenantForm.valid) {
-      console.log('ok validation');
       this.intervenantService.editIntervenant(this.editintervenantForm.value);
     }else {
-      alert('Veuillez remplir tous les champs');
+      alert('Les champs en surbrillance contiennent des données incorrectes, veuillez les corriger.');
     }
   }
   // Fonction pour réagir lorsque la personne clique sur le bouton "Annuler"
   onCancelIntervenant(): void {
-    this.errorsSubscription.unsubscribe();
-    this.intervenantSubscription.unsubscribe();
+    this.unsubscribe();
     this.intervenantService.cancelIntervenant();
-
   }
 
   ngOnDestroy(): void{
-    this.errorsSubscription.unsubscribe();
-    this.intervenantSubscription.unsubscribe();
+    this.unsubscribe()
   }
+   private unsubscribe(): void{
+     this.errorsSubscription.unsubscribe();
+     this.intervenantSubscription.unsubscribe();
+   }
 }

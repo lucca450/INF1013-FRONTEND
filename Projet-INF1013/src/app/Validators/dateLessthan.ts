@@ -1,6 +1,6 @@
 import {FormGroup, ValidatorFn} from '@angular/forms';
 
-
+// Fonction pour comparer deux dates
 export function dateLessThan(firstDateField: string, secondDateField: string): ValidatorFn {
   return (form: FormGroup): { [key: string]: boolean } | null => {
 
