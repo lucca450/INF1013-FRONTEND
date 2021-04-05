@@ -7,10 +7,10 @@ export class ConvertInterfaceNamePipe implements PipeTransform {
   // Fonction pour transformer le nom des interfaces
   transform(interfaceName: string): string {
 
-    if (interfaceName === 'Intervenant ') {
+    if (interfaceName === 'Intervenant') {
       return 'Intervenant';
     }
-    if (interfaceName === 'User ') {
+    if (interfaceName === 'User') {
       return 'Intervenant';
     }
     else if(interfaceName === 'EmergencyContact')

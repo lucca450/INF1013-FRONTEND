@@ -179,7 +179,6 @@ export class EditPersonComponent implements OnInit, OnDestroy {
 
     this.thirdFormGroup.get('roamingTracking').valueChanges
       .subscribe(roamingTracking => {
-        console.log('Value has change');
         if (roamingTracking === 'true') {
           roamingStartDate.setValidators([Validators.required]);
           roamingEndDate.setValidators([Validators.required]);
@@ -288,9 +287,9 @@ export class EditPersonComponent implements OnInit, OnDestroy {
       departureReasonID: [this.person.departureReasonID, [Validators.required]],
       hoursPerDay: [this.person.hoursPerDay, [Validators.required, Validators.min(0), Validators.max(24)]],
       statusID: [this.person.statusID, [Validators.required]],
-      roamingTracking: [this.person.roamingTracking, []],
+      roamingTracking: [this.person.roamingTracking, [Validators.required]],
       roamingStartDate: [this.person.roamingStartDate, []],
-      roamingEndDate: [this.person.roamingEndDate, [Validators.required]],
+      roamingEndDate: [this.person.roamingEndDate, []],
       communityWork: [this.person.communityWork, [Validators.required]],
       communityStartDate: [this.person.communityStartDate, []],
       communityEndDate: [this.person.communityEndDate, []],

@@ -299,62 +299,44 @@
   ],
   "meeting": [
     {
-      "notes": "Aucune",
-      "followup": "Examen médical",
-      "goals": "voir s'il y a des problèmes",
-      "idPerson": 1,
+      "notes": "fewfew",
+      "followup": "fewfew",
+      "goals": "fewfewfew",
+      "idPerson": 3,
       "idIntervenant": 0,
       "id": 1
     },
     {
-      "notes": "Aucune",
-      "followup": "Suivi de Marcel Plante",
-      "goals": "Aucun",
-      "idPerson": 2,
-      "idIntervenant": 1,
+      "notes": "fefew",
+      "followup": "fwefwefew",
+      "goals": "fewfwefwe",
+      "idPerson": 4,
+      "idIntervenant": 3,
       "id": 2
-    }
-  ],
-  "departureReasons": [
-    {
-      "interfaceName:": "DepartureReason",
-      "id": 0,
-      "name": "Emploi"
     },
     {
-      "interfaceName:": "DepartureReason",
-      "id": 1,
-      "name": "Retour aux études"
+      "notes": "fewfewfewf",
+      "followup": "wefwefwef",
+      "goals": "ewfwefew",
+      "idPerson": 3,
+      "idIntervenant": 0,
+      "id": 3
     },
     {
-      "interfaceName:": "DepartureReason",
-      "id": 2,
-      "name": "Problèmes de santé mentale"
+      "notes": "fewfewfwe",
+      "followup": "fewfewfewf",
+      "goals": "ewfewfewfwe",
+      "idPerson": 4,
+      "idIntervenant": 1,
+      "id": 4
     },
     {
-      "interfaceName:": "DepartureReason",
-      "id": 3,
-      "name": "Problèmes de santé physique"
-    },
-    {
-      "interfaceName:": "DepartureReason",
-      "id": 4,
-      "name": "Déménagement"
-    },
-    {
-      "interfaceName:": "DepartureReason",
-      "id": 5,
-      "name": "Fin de contrat/projet"
-    },
-    {
-      "interfaceName:": "DepartureReason",
-      "id": 6,
-      "name": "Décès"
-    },
-    {
-      "interfaceName:": "DepartureReason",
-      "id": 7,
-      "name": "Autres"
+      "notes": "fewfewfewf",
+      "followup": "ewfewfewf",
+      "goals": "wefewfwefew",
+      "idPerson": 4,
+      "idIntervenant": 1,
+      "id": 5
     }
   ],
   "educationLevels": [
