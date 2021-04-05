@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
 import {MeetingService} from '../../../services/meeting/meeting.service';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {ListMeetingComponent} from '../list-meeting/list-meeting.component';
 import {PersonService} from '../../../services/person/person.service';

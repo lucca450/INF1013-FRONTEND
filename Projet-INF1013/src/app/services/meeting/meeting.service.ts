@@ -87,6 +87,7 @@ export class MeetingService {
 
   // Fonction pour charger toutes les rencontres
   public loadAllMeetings(): void{
+    this.loggedUser = this.userService.user;
     // Si c'est un administrateur, on récupère toutes les rencontres
     if (this.loggedUser.role === 'A'){
       this.getAllMeetings().subscribe(
