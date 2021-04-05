@@ -38,6 +38,7 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
   meetingSubscription: Subscription;
   intervenantSubscription: Subscription;
   personsSubscription: Subscription;
+  person: number;
 
   constructor(private intervenantService: IntervenantService, private userService: UserService, public personService: PersonService,
               private meetingService: MeetingService, private formBuilder: FormBuilder , private route: ActivatedRoute) {
@@ -47,6 +48,8 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe(params => {
       const idx =	Number(params.get('id'));
       this.meetingID = idx;
+      const personidx =	Number(params.get('personidx'));
+      this.person = personidx;
     });
 
     // On appel la méthode qui fait la requête pour récupèrer les informations de la recnontre.
@@ -111,7 +114,7 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
   // Fonction pour réagir lorsque la personne clique sur le bouton "Enregistrer"
   onEditMeeting(): void {
     if (this.editMeetingForm.valid) {
-      this.meetingService.editMeeting(this.editMeetingForm.value);
+      this.meetingService.editMeeting(this.editMeetingForm.value, this.person);
       this.unsubscribe();
     }else {
       alert('Les champs en surbrillance contiennent des données incorrectes, veuillez les corriger.');
@@ -120,7 +123,7 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
 
   // Fonction pour réagir lorsque la personne clique sur le bouton "Annuler"
   onCancelEditMeeting(): void {
-    this.meetingService.cancelMeeting();
+    this.meetingService.cancelMeeting(this.person);
     this.unsubscribe();
   }
 

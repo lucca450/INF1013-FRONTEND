@@ -101,7 +101,7 @@ export class AddMeetingComponent implements OnInit, OnDestroy {
   }
  // Fonction pour réagir lorsque la personne clique sur le bouton "Annuler"
   onCancelMeeting(): void {
-    this.meetingService.cancelMeeting();
+    this.meetingService.cancelMeeting(this.person);
     this.unsubscribe();
   }
 

@@ -21,14 +21,18 @@ export class MeetingService {
   }
 
   // Fonction pour modifier une rencontre
-  editMeeting(meeting: Meeting): void{
+  editMeeting(meeting: Meeting, personid: number): void{
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(meeting);
 
     this.httpClient.put('http://localhost:3000/meeting/' + meeting.id, body, {headers}).subscribe(
       (meet: any) => {
         this.meetingSubject.next(meet);
-        this.router.navigate(['meeting']);
+        if (isNaN(personid) === false){
+          this.router.navigate(['meeting/' + personid]);
+        }else {
+          this.router.navigate(['meeting']);
+        }
       },
       (error) => {
         const message = 'Une erreur au niveau du serveur est survenu lors de la modification de la rencontre. Veuillez réessayer plus tard';
@@ -38,8 +42,13 @@ export class MeetingService {
   }
 
   // Fonction pour annuler une rencontre et revenir à l'étape précédente
-  cancelMeeting(): void {
-    this.router.navigate(['meeting']);
+  cancelMeeting(personid: number): void {
+    if (isNaN(personid) === false){
+      this.router.navigate(['meeting/' + personid]);
+    }else {
+      this.router.navigate(['meeting']);
+    }
+   // this.router.navigate(['meeting']);
   }
 
   // Retourne tous les meetings
@@ -77,7 +86,6 @@ export class MeetingService {
       (meet: any) => {
             this.meetingSubject.next(meet);
 
-            console.log(personid);
             if (isNaN(personid) === false){
               this.router.navigate(['meeting/' + personid]);
             }else {
