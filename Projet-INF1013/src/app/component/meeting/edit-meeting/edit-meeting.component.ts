@@ -74,7 +74,7 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
       // On appel la méthode qui éffectue une requête pour récupèrer l'identifiant de l'intervenant à partir de son identifiant.
       this.intervenantService.getIntervenantFromId(this.loggedUser.id);
       // On récupère les informations de la requête.
-      this.intervenantSubscription = this.intervenantService.intervenantsSubject.subscribe(
+      this.intervenantSubscription = this.intervenantService.intervenantSubject.subscribe(
         (inter: any) => {
           this.intervenants = inter;
         }

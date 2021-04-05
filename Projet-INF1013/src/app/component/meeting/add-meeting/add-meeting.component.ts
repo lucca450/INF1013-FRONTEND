@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
 import {MeetingService} from '../../../services/meeting/meeting.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ListMeetingComponent} from '../list-meeting/list-meeting.component';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {PersonService} from '../../../services/person/person.service';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
 import {UserService} from '../../../services/user/user.service';
@@ -23,7 +23,7 @@ export class AddMeetingComponent implements OnInit, OnDestroy {
   intervenants: User;
   persons: Intervenant;
   addMeetingForm: FormGroup;
-
+  intervenantFullName: string;
   // Subscription
   personsSubscription: Subscription;
   intervenantSubscription: Subscription;
@@ -50,8 +50,8 @@ export class AddMeetingComponent implements OnInit, OnDestroy {
       this.intervenantService.intervenantFullName(this.loggedUser.id);
       // On écoute la réponse de cette requête pour le nom complet.
       this.intervenantSubscription = this.intervenantService.intervenantsFullnameSubject.subscribe(
-        (inter: any) => {
-          this.intervenants = inter;
+        (fullName: any) => {
+          this.intervenantFullName = fullName;
         }
       );
     }

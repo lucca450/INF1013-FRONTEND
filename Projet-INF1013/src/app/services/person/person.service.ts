@@ -94,8 +94,10 @@ export class PersonService {
         this.emitpersonsSubject(persons);
       },
       (error) => {
-        const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des personnes. Veuillez réessayer plus tard.';
-        this.emitErrorsSubject(message);
+        if (!(error.status === 404)) {
+          const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des personnes. Veuillez réessayer plus tard.';
+          this.emitErrorsSubject(message);
+        }
       }
     );
   }

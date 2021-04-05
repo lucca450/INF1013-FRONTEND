@@ -7,7 +7,7 @@ export function dateLessThan(firstDateField: string, secondDateField: string): V
 
     const firstDateValue = form.get(firstDateField).value;
     const secondDateValue = form.get(secondDateField).value;
-    if (firstDateValue != null && secondDateValue != null)
+    if (firstDateValue != null && secondDateValue != null && firstDateValue !== '' && secondDateValue !== '')
     {
       const firstDate = new Date(firstDateValue);
       const secondDate = new Date(secondDateValue);

@@ -273,7 +273,7 @@ export class AddPersonComponent implements OnInit, OnDestroy{
       residenceTypeID: ['', [Validators.required]],
       educationalLevelID: ['', [Validators.required]]
 
-    });
+    }, { validators: dateLessThan('startDate', 'endDate')});
 
     this.thirdFormGroup = this.formBuilder.group({
 

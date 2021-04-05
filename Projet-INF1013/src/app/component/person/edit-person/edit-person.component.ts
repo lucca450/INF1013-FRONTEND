@@ -179,7 +179,7 @@ export class EditPersonComponent implements OnInit, OnDestroy {
 
     this.thirdFormGroup.get('roamingTracking').valueChanges
       .subscribe(roamingTracking => {
-
+        console.log('Value has change');
         if (roamingTracking === 'true') {
           roamingStartDate.setValidators([Validators.required]);
           roamingEndDate.setValidators([Validators.required]);
@@ -208,7 +208,10 @@ export class EditPersonComponent implements OnInit, OnDestroy {
         communityStartDate.updateValueAndValidity();
         communityEndDate.updateValueAndValidity();
       });
+
+
   }
+
 // Fonction pour modifier dynamiquement le 5ième form.
   setFifthFormGroupValidators(): void {
 
@@ -285,12 +288,12 @@ export class EditPersonComponent implements OnInit, OnDestroy {
       departureReasonID: [this.person.departureReasonID, [Validators.required]],
       hoursPerDay: [this.person.hoursPerDay, [Validators.required, Validators.min(0), Validators.max(24)]],
       statusID: [this.person.statusID, [Validators.required]],
-      roamingTracking: [this.person.roamingTracking, [Validators.required]],
-      roamingStartDate: [this.person.roamingStartDate, [Validators.required]],
+      roamingTracking: [this.person.roamingTracking, []],
+      roamingStartDate: [this.person.roamingStartDate, []],
       roamingEndDate: [this.person.roamingEndDate, [Validators.required]],
       communityWork: [this.person.communityWork, [Validators.required]],
-      communityStartDate: [this.person.communityStartDate, [Validators.required]],
-      communityEndDate: [this.person.communityEndDate, [Validators.required]],
+      communityStartDate: [this.person.communityStartDate, []],
+      communityEndDate: [this.person.communityEndDate, []],
       hourlyRate: [this.person.hourlyRate, [Validators.required,  Validators.min(0), Validators.max(999)]],
       transportFees: [this.person.transportFees, [Validators.required,  Validators.min(0), Validators.max(999)]],
       responsibleIntervenantID: [this.person.responsibleIntervenantID]

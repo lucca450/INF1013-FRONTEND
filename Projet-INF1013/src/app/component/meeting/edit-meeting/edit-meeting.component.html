@@ -72,7 +72,7 @@
 
       <div *ngIf="loggedUser.role == 'I'">
         <mat-form-field class="full-width-input">
-          <mat-select placeholder="Intervenant" formControlName="idIntervenant" required>
+          <mat-select placeholder="Intervenant" formControlName="idIntervenant" required [(ngModel)]="loggedUser.id">
             <mat-option [value]="loggedUser.id">
              {{ intervenants.fname + ' ' + intervenants.lname }}
               <!--  {{loggedUser.id}}-->

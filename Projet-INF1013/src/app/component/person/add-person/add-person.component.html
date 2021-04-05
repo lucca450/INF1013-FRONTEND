@@ -275,26 +275,26 @@
             <input matInput [matDatepicker]="roamingStartDate" formControlName="roamingStartDate" required>
             <mat-datepicker-toggle matSuffix [for]="roamingStartDate"></mat-datepicker-toggle>
             <mat-datepicker #roamingStartDate></mat-datepicker>
+            <mat-error *ngIf="thirdFormGroup.hasError('required', 'roamingStartDate')">
+              Veuillez sélectionner une date de début d'itinérence.
+            </mat-error>
+            <mat-error *ngIf="thirdFormGroup.hasError('dateLessThan', 'roamingStartDate')">
+              La date de début doit être plus petite que la date de fin.
+            </mat-error>
           </mat-form-field>
-          <mat-error *ngIf="thirdFormGroup.hasError('required', 'roamingStartDate')">
-            Veuillez sélectionner une date de début d'itinérence.
-          </mat-error>
-          <mat-error *ngIf="thirdFormGroup.hasError('dateLessThan', 'roamingStartDate')">
-            La date de début doit être plus petite que la date de fin.
-          </mat-error>
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Date de fin</mat-label>
             <input matInput [matDatepicker]="roamingEndDate" formControlName="roamingEndDate" required>
             <mat-datepicker-toggle matSuffix [for]="roamingEndDate"></mat-datepicker-toggle>
             <mat-datepicker #roamingEndDate></mat-datepicker>
+            <mat-error *ngIf="thirdFormGroup.hasError('required', 'roamingEndDate')">
+              Veuillez sélectionner une date de fin d'itinérence.
+            </mat-error>
+            <mat-error *ngIf="secondFormGroup.hasError('dateLessThan', 'roamingEndDate')">
+              La date de fin doit être plus grande que la date de début.
+            </mat-error>
           </mat-form-field>
-          <mat-error *ngIf="thirdFormGroup.hasError('required', 'roamingEndDate')">
-            Veuillez sélectionner une date de fin d'itinérence.
-          </mat-error>
-          <mat-error *ngIf="secondFormGroup.hasError('dateLessThan', 'roamingEndDate')">
-            La date de fin doit être plus grande que la date de début.
-          </mat-error>
         </div>
         <br>
         <mat-form-field>

@@ -59,8 +59,10 @@ export class MeetingService {
           this.meetingSubject.next(meet);
         },
         (error) => {
-          const message = 'Un erreur au niveau du serveur est survenu lors du chargement de la rencontre. Veuillez réessayer plus tard';
-          this.errorsSubject.next(message);
+          if (!(error.status === 404)) {
+            const message = 'Un erreur au niveau du serveur est survenu lors du chargement de la rencontre. Veuillez réessayer plus tard';
+            this.errorsSubject.next(message);
+          }
         }
       );
 
@@ -92,8 +94,10 @@ export class MeetingService {
           this.meetingSubject.next(meeting);
         },
         (error) => {
-          const message = 'Une erreur au niveau du serveur est survenu lors du chargement des rencontres. Veuillez réessayer plus tard';
-          this.errorsSubject.next(message);
+          if (!(error.status === 404)) {
+            const message = 'Une erreur au niveau du serveur est survenu lors du chargement des rencontres. Veuillez réessayer plus tard';
+            this.errorsSubject.next(message);
+          }
         }
       );
       //  Sinon c'est un intervenant,alors on récupère seulement ses rencontres à lui
@@ -103,8 +107,10 @@ export class MeetingService {
           this.meetingSubject.next(meeting);
         },
         (error) => {
-          const message = 'Une erreur au niveau du serveur est survenu lors du chargement des rencontres. Veuillez réessayer plus tard';
-          this.errorsSubject.next(message);
+          if (!(error.status === 404)) {
+            const message = 'Une erreur au niveau du serveur est survenu lors du chargement des rencontres. Veuillez réessayer plus tard';
+            this.errorsSubject.next(message);
+          }
         }
       );
     }
@@ -122,8 +128,10 @@ export class MeetingService {
           this.PersonMeetingsSubject.next(meeting);
         },
         (error) => {
-          const message = 'Une erreur au niveau du serveur est survenu lors du chargement des rencontres. Veuillez réessayer plus tard';
-          this.errorsSubject.next(message);
+          if (!(error.status === 404)) {
+            const message = 'Une erreur au niveau du serveur est survenu lors du chargement des rencontres. Veuillez réessayer plus tard';
+            this.errorsSubject.next(message);
+          }
         }
       );
   }

@@ -12,8 +12,6 @@ export function dateLessThanToday(firstDateField: string): ValidatorFn {
         const err = {dateLessThanToday: true};
         form.get(firstDateField).setErrors(err);
         return err;
-      } else {
-       // form.get(firstDateField).setErrors(null);
       }
     }
   };
