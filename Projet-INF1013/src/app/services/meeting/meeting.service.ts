@@ -69,14 +69,21 @@ export class MeetingService {
   }
 
   // Fonction pour ajouter une rencontre
-  public addMeeting(meeting: Meeting): void{
+  public addMeeting(meeting: Meeting, personid: number): void{
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(meeting);
 
     this.httpClient.post('http://localhost:3000/meeting', body, {headers}).subscribe(
       (meet: any) => {
             this.meetingSubject.next(meet);
-            this.router.navigate(['meeting']);
+
+            console.log(personid);
+            if (isNaN(personid) === false){
+              this.router.navigate(['meeting/' + personid]);
+            }else {
+              this.router.navigate(['meeting']);
+            }
+
       },
       (error) => {
         const message = 'Une erreur au niveau du serveur est survenu lors de l\'ajout de la rencontre. Veuillez réessayer plus tard';
@@ -124,7 +131,8 @@ export class MeetingService {
   }
   // Fonction qui charge les rencontres de la personnes
   public loadPersonMeetings(id: number): void{
-      this.getPersonMeetings(id).subscribe(
+    this.loggedUser = this.userService.user;
+    this.getPersonMeetings(id).subscribe(
         (meeting: any) => {
           this.PersonMeetingsSubject.next(meeting);
         },

@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
 import {MeetingService} from '../../../services/meeting/meeting.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ListMeetingComponent} from '../list-meeting/list-meeting.component';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {PersonService} from '../../../services/person/person.service';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
 import {UserService} from '../../../services/user/user.service';
@@ -28,10 +28,16 @@ export class AddMeetingComponent implements OnInit, OnDestroy {
   personsSubscription: Subscription;
   intervenantSubscription: Subscription;
   errorsSubscription: Subscription;
+  person: number;
 
-  constructor(private router: Router, private userService: UserService, private personService: PersonService,
+  constructor(private router: Router, private userService: UserService, private personService: PersonService, private route: ActivatedRoute,
               private intervenantService: IntervenantService, private meetingService: MeetingService, private formBuilder: FormBuilder) { }
   ngOnInit(): void {
+
+    this.route.paramMap.subscribe(params => {
+      const idx =	Number(params.get('id'));
+      this.person = idx;
+    });
 
     // Initialisation du formulaire
     this.initForm();
@@ -88,7 +94,7 @@ export class AddMeetingComponent implements OnInit, OnDestroy {
   onAddMeeting(): void {
     // On vérifie si le formulaire ne contient pas d'erreur.
     if (this.addMeetingForm.valid) {
-      this.meetingService.addMeeting(this.addMeetingForm.value);
+      this.meetingService.addMeeting(this.addMeetingForm.value, this.person);
     }else {
       alert('Les champs en surbrillance contiennent des données incorrectes, veuillez les corriger.');
     }
