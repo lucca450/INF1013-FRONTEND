@@ -15,7 +15,8 @@ export class WorkCityService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getWorkCities(){
+  // Fonction pour récupèrer toutes les villes
+  getWorkCities(): void{
     this.httpClient.get<WorkCity>(`http://localhost:3000/workCities`).subscribe(
       (workCities: any) => {
         this.workCitiesSubject.next(workCities);
@@ -24,11 +25,12 @@ export class WorkCityService {
         const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des raisons des villes';
         this.errorsSubject.next(message);
       }
-    )
+    );
   }
 
-  getWorkCityName(id: number){
-    this.httpClient.get<WorkCity>(`http://localhost:3000/workCities/`+id).subscribe(
+  // Fonction pour récupère le nom de la ville
+  getWorkCityName(id: number): void{
+    this.httpClient.get<WorkCity>(`http://localhost:3000/workCities/` + id).subscribe(
       (workCity: any) => {
         this.workCitySubject.next(workCity.name);
       },
@@ -36,6 +38,6 @@ export class WorkCityService {
         const message = 'Un erreur au niveau du serveur est survenu lors de la récupération de la ville;';
         this.errorsSubject.next(message);
       }
-    )
+    );
   }
 }

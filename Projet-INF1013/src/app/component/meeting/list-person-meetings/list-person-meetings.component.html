@@ -41,7 +41,7 @@
       <mat-cell  *matCellDef="let row">
         <span class="mobile-label"></span>
         <img class="table-icon icons-click" src="assets/edit-icon.png" alt="Icone modifier" title="Modifier"
-             [routerLink]="['/meeting/edit',row.id]" routerLinkActive="active"/>
+             [routerLink]="['/meeting/edit', row.id, personID]" routerLinkActive="active"/>
       </mat-cell>
     </ng-container>
 

@@ -10,22 +10,24 @@ import {Role} from '../../../enum/role.enum';
   templateUrl: './add-intervenant.component.html',
   styleUrls: ['./add-intervenant.component.css']
 })
-export class AddIntervenantComponent implements OnInit {
+export class AddIntervenantComponent implements OnInit, OnDestroy {
 
   addintervenantForm: FormGroup;
-  //addUserForm: FormGroup;
-  roleEnum = Object.entries(Role).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
-  errorsSubscription: Subscription;
-  errorMessage: String;
-  defaultRole: String = 'I';
-  defaultActiveInnactif: String = 'true';
+  // addUserForm: FormGroup;
+  errorMessage: string;
+  defaultRole = 'I';
+  defaultActiveInnactif = 'true';
   hide = true;
+  // Énumération
+  roleEnum = Object.entries(Role).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
+  // Subscription
+  errorsSubscription: Subscription;
 
   constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService) { }
 
   ngOnInit(): void {
     this.initForm();
-
+    // Vérifier s'il y a des erreurs.
     this.errorsSubscription = this.intervenantService.errorsSubject.subscribe(
       (error: any) => {
         this.errorMessage = error;
@@ -35,11 +37,11 @@ export class AddIntervenantComponent implements OnInit {
 
   onSubmit(): void {
   }
-
+  // Initialisation du formulaire
   private initForm(): void {
 
     this.addintervenantForm = this.formBuilder.group({
-      interfaceName: 'Intervenant',
+      interfaceName: 'User',
       fname: ['', [Validators.required, Validators.maxLength(30)]],
       lname: ['', [Validators.required, Validators.maxLength(30)]],
       email: ['', [Validators.required, Validators.email]],
@@ -73,12 +75,21 @@ export class AddIntervenantComponent implements OnInit {
     if (this.addintervenantForm.valid) {
       this.intervenantService.addIntervenant(this.addintervenantForm.value);
     }else {
-      alert('Veuillez remplir tous les champs');
+      alert('Les champs en surbrillance contiennent des données incorrectes, veuillez les corriger.');
     }
   }
-
+  // Fonction pour réagir lorsque la personne clique sur le bouton "Annuler"
   onCancelIntervenant(): void {
+    this.unsubscribe();
     this.intervenantService.cancelIntervenant();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe();
+  }
+
+  private unsubscribe(): void{
     this.errorsSubscription.unsubscribe();
   }
+
 }

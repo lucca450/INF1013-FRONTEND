@@ -1,4 +1,4 @@
 export enum Role {
-  "I",
-  "A",
+  'I',
+  'A',
 }

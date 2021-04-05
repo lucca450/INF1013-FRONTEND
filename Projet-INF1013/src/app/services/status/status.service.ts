@@ -14,7 +14,8 @@ export class StatusService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getStatus(){
+  // Fonction pour récupèrer les status
+  getStatus(): void{
     this.httpClient.get<Status>(`http://localhost:3000/status`).subscribe(
       (allStatus: any) => {
         this.allStatusSubject.next(allStatus);
@@ -23,11 +24,12 @@ export class StatusService {
         const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des status';
         this.errorsSubject.next(message);
       }
-    )
+    );
   }
 
-  getStatusName(id: number){
-    this.httpClient.get<Status>(`http://localhost:3000/status/`+id).subscribe(
+  // Fonction pour récupèrer le nom du statut
+  getStatusName(id: number): void{
+    this.httpClient.get<Status>(`http://localhost:3000/status/` + id).subscribe(
       (status: any) => {
         this.statusSubject.next(status.name);
       },
@@ -35,6 +37,6 @@ export class StatusService {
         const message = 'Un erreur au niveau du serveur est survenu lors de la récupération du status';
         this.errorsSubject.next(message);
       }
-    )
+    );
   }
 }

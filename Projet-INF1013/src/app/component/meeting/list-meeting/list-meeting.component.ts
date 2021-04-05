@@ -5,9 +5,6 @@ import {MeetingService} from '../../../services/meeting/meeting.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Meeting} from '../../../models/meeting/meeting';
 import {Subscription} from 'rxjs';
-import {IntervenantService} from '../../../services/intervenant/intervenant.service';
-import {MatDialog} from '@angular/material/dialog';
-import {DeleteIntervenantComponent} from '../../intervenant/delete-intervenant/delete-intervenant.component';
 import {UserService} from '../../../services/user/user.service';
 
 @Component({
@@ -15,67 +12,41 @@ import {UserService} from '../../../services/user/user.service';
   templateUrl: './list-meeting.component.html',
   styleUrls: ['./list-meeting.component.css']
 })
-export class ListMeetingComponent implements OnInit, AfterViewInit {
+export class ListMeetingComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   @ViewChild(MatSort) sort: MatSort;
   @Input() personID: number;
-  loggedUser = this.userService.user;
+  // loggedUser = this.userService.user;
   meetings = new MatTableDataSource(/*this.meetingService.meetings*/);
   meetingSubscription: Subscription;
   errorsSubscription: Subscription;
   errorMessage: any;
   displayedColumns: string[] = [ 'notes', 'followup', 'goals', 'actions-icon'];
-  // dataSource: MatTableDataSource<Meeting>;
 
-
-
-  constructor(private meetingService: MeetingService , private route: ActivatedRoute, private userService: UserService, private dialog: MatDialog) {
+  constructor(private meetingService: MeetingService , private route: ActivatedRoute, private userService: UserService) {
 
   }
 
   ngOnInit(): void {
-
-    console.log('onINIT');
+    // Appel de la méthode qui fait la requête pour charger toute les rencontres
     this.meetingService.loadAllMeetings();
-
+    // On écoute la requête
     this.meetingSubscription = this.meetingService.meetingSubject.subscribe(
       (meet: any) => {
         this.meetings = new MatTableDataSource(meet);
       }
     );
-
+    // Vérifie s'il y à une erreur en fesant une requête.
     this.errorsSubscription = this.meetingService.errorsSubject.subscribe(
       (error: any) => {
         this.errorMessage = error;
       }
     );
-
-/*
-    if (this.loggedUser.role === 'A'){
-      this.meetingService.getAllMeetings()
-        .subscribe( (meet: any) => {
-          this.meetings = meet;
-        });
-    }else{
-      this.meetingService.getMeetingsFromID(this.loggedUser.id)
-        .subscribe( (meet: any) => {
-          this.meetings = meet;
-        });
-
-    }
-*/
-
-
-
-
     // Nous permet de définir sur quels attributs la recherche va se faire.
-    // tslint:disable-next-line:only-arrow-functions
-    this.meetings.filterPredicate = function(data: Meeting, filter: string): boolean {
-      return data.notes.toLowerCase().includes(filter) ||
-        data.followup.toLowerCase().includes(filter) ||
-        data.goals.toString().includes(filter);
-    };
+    this.meetings.filterPredicate = (data: Meeting, filter: string): boolean => data.notes.toLowerCase().includes(filter) ||
+      data.followup.toLowerCase().includes(filter) ||
+      data.goals.toString().includes(filter);
   }
 
   ngAfterViewInit(): void {
@@ -87,8 +58,7 @@ export class ListMeetingComponent implements OnInit, AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.meetings.filter = filterValue.trim().toLowerCase();
   }
-
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.meetingSubscription.unsubscribe();
     this.errorsSubscription.unsubscribe();
   }

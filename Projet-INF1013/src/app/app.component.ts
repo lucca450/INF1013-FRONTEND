@@ -9,7 +9,7 @@ export class AppComponent {
   title = 'Projet-INF1030';
 
   constructor(){
-    /*
+    /* Ancienne configuration avec firebase
     var config = {
       apiKey: "AIzaSyByvTifvAnLfpaYyyZEtGTRiWwQAhqcYUs",
       authDomain: "projet-angular-ecole.firebaseapp.com",

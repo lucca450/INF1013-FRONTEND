@@ -13,8 +13,8 @@ export class SectorService {
   errorsSubject: Subject<string> = new Subject<string>();
   constructor(private httpClient: HttpClient) {
   }
-
-  getSectors(){
+  // Fonction pour récupérer tous les secteurs
+  getSectors(): void{
     this.httpClient.get<Sector>(`http://localhost:3000/sectors`).subscribe(
       (sectors: any) => {
         this.sectorsSubject.next(sectors);
@@ -23,11 +23,11 @@ export class SectorService {
         const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des secteurs';
         this.errorsSubject.next(message);
       }
-    )
+    );
   }
-
-  getSectorName(id: number){
-    this.httpClient.get<Sector>(`http://localhost:3000/sectors/`+id).subscribe(
+  // Fonction pour récupèrer le nom d'un secteur
+  getSectorName(id: number): void{
+    this.httpClient.get<Sector>(`http://localhost:3000/sectors/` + id).subscribe(
       (sector: any) => {
         this.sectorSubject.next(sector.name);
       },
@@ -35,7 +35,7 @@ export class SectorService {
         const message = 'Un erreur au niveau du serveur est survenu lors de la récupération du secteur';
         this.errorsSubject.next(message);
       }
-    )
+    );
   }
 
 

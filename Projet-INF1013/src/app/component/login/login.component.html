@@ -10,19 +10,13 @@
        Le nom d'utilisateur ou le mot de passe est invalide
       </mat-error>
       <mat-form-field class="full-width-input">
-        <input matInput placeholder="Courriel" formControlName="email">
-        <!-- <input matInput placeholder="Email" formControlName="username" required> -->
-        <mat-error *ngIf="email?.errors?.required">
-          Veuillez entrer une adresse courriel.
-        </mat-error>
-
-        <mat-error *ngIf="email?.errors?.email">
-          Veuillez entrer une adresse courriel valide.
+        <input matInput placeholder="Nom d'utilisateur" formControlName="username" required>
+        <mat-error *ngIf="username?.errors?.required">
+          Veuillez entrer un nom d'utilisateur.
         </mat-error>
       </mat-form-field>
       <mat-form-field class="full-width-input">
-        <input matInput type="password" placeholder="Mot de passe" formControlName="password">
-        <!-- <input matInput type="password" placeholder="Mot de passe" formControlName="password" required> -->
+        <input matInput type="password" placeholder="Mot de passe" formControlName="password" required>
         <mat-error>
           Veuillez entrer un mot de passe.
         </mat-error>

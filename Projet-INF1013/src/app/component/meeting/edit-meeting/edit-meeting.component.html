@@ -4,7 +4,7 @@
 <mat-card>
   <!-- Formulaire pour modifier une rencontre entre l'intervenant et le client -->
   <mat-card-content>
-    <form [formGroup]="editMeetingForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="editMeetingForm">
       <h2>Modification d'une rencontre</h2>
 
       <mat-form-field class="full-width-input">
@@ -72,7 +72,7 @@
 
       <div *ngIf="loggedUser.role == 'I'">
         <mat-form-field class="full-width-input">
-          <mat-select placeholder="Intervenant" formControlName="idIntervenant" required>
+          <mat-select placeholder="Intervenant" formControlName="idIntervenant" required [(ngModel)]="loggedUser.id">
             <mat-option [value]="loggedUser.id">
              {{ intervenants.fname + ' ' + intervenants.lname }}
               <!--  {{loggedUser.id}}-->

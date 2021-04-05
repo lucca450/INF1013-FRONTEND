@@ -93,7 +93,7 @@
           Veuillez entrer un prénom.
         </mat-error>
         <mat-error *ngIf="editintervenantForm.hasError('maxlength', 'fname')">
-          Le nom doit avoir au maximum 40 caractères.
+          Le prénom doit avoir au maximum 40 caractères.
         </mat-error>
       </mat-form-field>
 
@@ -110,10 +110,10 @@
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Courriel" formControlName="email" required>
         <mat-error *ngIf="editintervenantForm.hasError('required', 'email')">
-          Veuillez entrer un email.
+          Veuillez entrer un courriel.
         </mat-error>
         <mat-error *ngIf="editintervenantForm.hasError('email', 'email')">
-          Veuillez entrer un email dans le format suivant: abc@abc.com
+          Veuillez entrer un courriel dans le format suivant: abc@abc.com
         </mat-error>
       </mat-form-field>
 
@@ -129,8 +129,11 @@
 
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Adresse" formControlName="address" required>
-        <mat-error>
+        <mat-error *ngIf="editintervenantForm.hasError('required', 'address')">
           Veuillez entrer une adresse.
+        </mat-error>
+        <mat-error *ngIf="editintervenantForm.hasError('maxlength', 'address')">
+          L'adresse doit avoir au maximum 50 caractères.
         </mat-error>
       </mat-form-field>
 

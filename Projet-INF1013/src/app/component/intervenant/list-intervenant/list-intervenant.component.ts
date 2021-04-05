@@ -16,43 +16,41 @@ import {UserService} from '../../../services/user/user.service';
 export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild(MatSort) sort: MatSort;
-  errorMessage: any;
+  errorMessage: string;
   intervenants = new MatTableDataSource();
+  accountid: number = this.userService.user.id;
+  displayedColumns: string[] = [ 'fname', 'lname', 'email', 'phone', 'address', 'actions-icon']; // L'ordre des colonnes est déterminé ici
+
+  // Subscription
   intervenantSubscription: Subscription;
   errorsSubscription: Subscription;
-  accountid: number = this.userService.user.id;
-  displayedColumns: string[] = [ 'fname', 'lname', 'email', 'phone', 'address','actions-icon']; // L'ordre des colonnes est déterminé ici
 
 
 
   constructor(private intervenantService: IntervenantService, private dialog: MatDialog, private userService: UserService) { }
 
   ngOnInit(): void {
-
+  // appel de la méthode pour obtenir tous les intervenants actifs
   this.intervenantService.getActiveIntervenants();
-
-    this.intervenantSubscription = this.intervenantService.intervenantsSubject.subscribe(
+  // On écoute la requête qui nous retourne les intervenants actifs pour les récupérer.
+  this.intervenantSubscription = this.intervenantService.intervenantsSubject.subscribe(
       (intervenants: any) => {
-        console.log('On recoit un intervenant');
         this.intervenants = new MatTableDataSource(intervenants);
-      }
-    )
-
-    this.errorsSubscription = this.intervenantService.errorsSubject.subscribe(
+      },
+    );
+  // Si une erreur est reçu par la requête, on l'affiche.
+  this.errorsSubscription = this.intervenantService.errorsSubject.subscribe(
       (error: any) => {
         this.errorMessage = error;
-      }
-    )
-    // Nous permet de définir sur quels attributs la recherche va se faire.
+      },
+    );
 
-    this.intervenants.filterPredicate = function(data:any, filter: string): boolean {
-      return data.fname.toLowerCase().includes(filter) ||
-        data.lname.toLowerCase().includes(filter) ||
-        data.phone.includes(filter) ||
-        data.email.toLocaleLowerCase().includes(filter) ||
-        data.address.toLocaleLowerCase().includes(filter)
-
-    };
+  // Nous permet de définir sur quels attributs la recherche va se faire.
+  this.intervenants.filterPredicate = (data: any, filter: string): boolean => data.fname.toLowerCase().includes(filter) ||
+    data.lname.toLowerCase().includes(filter) ||
+    data.phone.includes(filter) ||
+    data.email.toLocaleLowerCase().includes(filter) ||
+    data.address.toLocaleLowerCase().includes(filter);
   }
 
   ngAfterViewInit(): void {
@@ -63,26 +61,27 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
     const filterValue = (event.target as HTMLInputElement).value;
     this.intervenants.filter = filterValue.trim().toLowerCase();
   }
-  onDelete(id: number){
+  // Fonction qui permet de réagir lorsque l'utilisateur clique sur la corbeille (Boutton supprimer)
+  onDelete(id: number): void{
     const dialogRef = this.dialog.open(DeleteIntervenantComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result == true){
-        this.intervenantService.ActiveDesactiveIntervenant(id,false);
+      if (result === true){
+        // Désactivation de l'intervenant
+        this.intervenantService.ActiveDesactiveIntervenant(id, false);
         this.intervenantService.activateDesactivateSubject.subscribe(
           (intervenants: any) => {
-            console.log('can i get please')
             this.intervenantService.getActiveIntervenants();
           },
-          (error)=>{
+          (error) => {
             this.errorMessage = error;
         }
-        )
+        );
       }
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.intervenantSubscription.unsubscribe();
     this.errorsSubscription.unsubscribe();
   }

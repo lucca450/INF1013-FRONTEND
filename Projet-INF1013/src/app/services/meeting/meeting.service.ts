@@ -18,21 +18,21 @@ export class MeetingService {
   errorsSubject: Subject<string> = new Subject<string>();
 
   constructor(private router: Router, private userService: UserService,  private httpClient: HttpClient) {
-
-   /* console.log(this.loggedUser.role);
-    console.log(this.loggedUser.id);*/
-    this.loadAllMeetings();
-
   }
 
-  editMeeting(meeting: Meeting): void{
+  // Fonction pour modifier une rencontre
+  editMeeting(meeting: Meeting, personid: number): void{
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(meeting);
 
-    this.httpClient.put('http://localhost:3000/meeting/' + meeting.id, body, {'headers': headers}).subscribe(
+    this.httpClient.put('http://localhost:3000/meeting/' + meeting.id, body, {headers}).subscribe(
       (meet: any) => {
         this.meetingSubject.next(meet);
-        this.router.navigate(['meeting']);
+        if (isNaN(personid) === false){
+          this.router.navigate(['meeting/' + personid]);
+        }else {
+          this.router.navigate(['meeting']);
+        }
       },
       (error) => {
         const message = 'Une erreur au niveau du serveur est survenu lors de la modification de la rencontre. Veuillez réessayer plus tard';
@@ -42,8 +42,13 @@ export class MeetingService {
   }
 
   // Fonction pour annuler une rencontre et revenir à l'étape précédente
-  cancelMeeting(): void {
-    this.router.navigate(['meeting']);
+  cancelMeeting(personid: number): void {
+    if (isNaN(personid) === false){
+      this.router.navigate(['meeting/' + personid]);
+    }else {
+      this.router.navigate(['meeting']);
+    }
+   // this.router.navigate(['meeting']);
   }
 
   // Retourne tous les meetings
@@ -57,28 +62,36 @@ export class MeetingService {
   }
 
   // Retourne un meeting spécifique
-  public getMeetingFromId(id: number) {
+  public getMeetingFromId(id: number): void {
     this.httpClient.get<Meeting>(`http://localhost:3000/meeting?id=` + id).subscribe(
         (meet: any) => {
           this.meetingSubject.next(meet);
         },
         (error) => {
-          const message = 'Un erreur au niveau du serveur est survenu lors du chargement de la rencontre. Veuillez réessayer plus tard';
-          this.errorsSubject.next(message);
+          if (!(error.status === 404)) {
+            const message = 'Un erreur au niveau du serveur est survenu lors du chargement de la rencontre. Veuillez réessayer plus tard';
+            this.errorsSubject.next(message);
+          }
         }
       );
 
   }
 
-  public addMeeting(meeting: Meeting): void{
+  // Fonction pour ajouter une rencontre
+  public addMeeting(meeting: Meeting, personid: number): void{
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(meeting);
-    console.log(body);
 
-    this.httpClient.post('http://localhost:3000/meeting', body, {'headers': headers}).subscribe(
+    this.httpClient.post('http://localhost:3000/meeting', body, {headers}).subscribe(
       (meet: any) => {
             this.meetingSubject.next(meet);
-            this.router.navigate(['meeting']);
+
+            if (isNaN(personid) === false){
+              this.router.navigate(['meeting/' + personid]);
+            }else {
+              this.router.navigate(['meeting']);
+            }
+
       },
       (error) => {
         const message = 'Une erreur au niveau du serveur est survenu lors de l\'ajout de la rencontre. Veuillez réessayer plus tard';
@@ -87,25 +100,33 @@ export class MeetingService {
     );
   }
 
+  // Fonction pour charger toutes les rencontres
   public loadAllMeetings(): void{
+    this.loggedUser = this.userService.user;
+    // Si c'est un administrateur, on récupère toutes les rencontres
     if (this.loggedUser.role === 'A'){
       this.getAllMeetings().subscribe(
         (meeting: any) => {
           this.meetingSubject.next(meeting);
         },
         (error) => {
-          const message = 'Une erreur au niveau du serveur est survenu lors du chargement des rencontres. Veuillez réessayer plus tard';
-          this.errorsSubject.next(message);
+          if (!(error.status === 404)) {
+            const message = 'Une erreur au niveau du serveur est survenu lors du chargement des rencontres. Veuillez réessayer plus tard';
+            this.errorsSubject.next(message);
+          }
         }
       );
+      //  Sinon c'est un intervenant,alors on récupère seulement ses rencontres à lui
     }else{
       this.getMeetingsFromIntervenantId(this.loggedUser.id).subscribe(
         (meeting: any) => {
           this.meetingSubject.next(meeting);
         },
         (error) => {
-          const message = 'Une erreur au niveau du serveur est survenu lors du chargement des rencontres. Veuillez réessayer plus tard';
-          this.errorsSubject.next(message);
+          if (!(error.status === 404)) {
+            const message = 'Une erreur au niveau du serveur est survenu lors du chargement des rencontres. Veuillez réessayer plus tard';
+            this.errorsSubject.next(message);
+          }
         }
       );
     }
@@ -116,15 +137,18 @@ export class MeetingService {
   public getPersonMeetings(id: number): Observable<Meeting> {
     return this.httpClient.get<Meeting>(`http://localhost:3000/meeting?idPerson=` + id);
   }
-
+  // Fonction qui charge les rencontres de la personnes
   public loadPersonMeetings(id: number): void{
-      this.getPersonMeetings(id).subscribe(
+    this.loggedUser = this.userService.user;
+    this.getPersonMeetings(id).subscribe(
         (meeting: any) => {
           this.PersonMeetingsSubject.next(meeting);
         },
         (error) => {
-          const message = 'Une erreur au niveau du serveur est survenu lors du chargement des rencontres. Veuillez réessayer plus tard';
-          this.errorsSubject.next(message);
+          if (!(error.status === 404)) {
+            const message = 'Une erreur au niveau du serveur est survenu lors du chargement des rencontres. Veuillez réessayer plus tard';
+            this.errorsSubject.next(message);
+          }
         }
       );
   }
