@@ -48,8 +48,10 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe(params => {
       const idx =	Number(params.get('id'));
       this.meetingID = idx;
+      console.log('param1:' + this.meetingID);
       const personidx =	Number(params.get('personidx'));
       this.person = personidx;
+      console.log('param2:' + this.person);
     });
 
     // On appel la méthode qui fait la requête pour récupèrer les informations de la recnontre.
@@ -123,6 +125,13 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
 
   // Fonction pour réagir lorsque la personne clique sur le bouton "Annuler"
   onCancelEditMeeting(): void {
+  console.log(this.person);
+  console.log(this.meetingID);
+
+    if (this.person === 0){
+      this.person = NaN;
+    }
+
     this.meetingService.cancelMeeting(this.person);
     this.unsubscribe();
   }
