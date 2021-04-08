@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="8e05d5e6-e25b-40fc-968c-f302dc727a58" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/.browserslistrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/angular.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/db.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/e2e/protractor.conf.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/e2e/src/app.e2e-spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/e2e/src/app.po.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/e2e/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/karma.conf.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/app.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/app.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/app.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/app.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/app.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/admin/report-annual-statistic/report-annual-statistic.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/admin/report-annual-statistic/report-annual-statistic.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/admin/report-annual-statistic/report-annual-statistic.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/admin/report-annual-statistic/report-annual-statistic.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/admin/report-hours-weekly/report-hours-weekly.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/admin/report-hours-weekly/report-hours-weekly.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/admin/report-hours-weekly/report-hours-weekly.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/admin/report-hours-weekly/report-hours-weekly.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/admin/report-nbrpeople-month/report-nbrpeople-month.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/admin/report-nbrpeople-month/report-nbrpeople-month.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/admin/report-nbrpeople-month/report-nbrpeople-month.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/admin/report-nbrpeople-month/report-nbrpeople-month.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/admin/report-weekly/report-weekly.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/admin/report-weekly/report-weekly.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/admin/report-weekly/report-weekly.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/admin/report-weekly/report-weekly.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/error/not-found/not-found.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/error/not-found/not-found.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/error/not-found/not-found.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/error/not-found/not-found.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/header/header.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/header/header.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/header/header.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/header/header.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/intervenant/add-intervenant/add-intervenant.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/intervenant/add-intervenant/add-intervenant.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/intervenant/add-intervenant/add-intervenant.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/intervenant/add-intervenant/add-intervenant.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/intervenant/delete-intervenant/delete-intervenant.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/intervenant/delete-intervenant/delete-intervenant.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/intervenant/delete-intervenant/delete-intervenant.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/intervenant/delete-intervenant/delete-intervenant.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/intervenant/edit-intervenant/edit-intervenant.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/intervenant/edit-intervenant/edit-intervenant.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/intervenant/edit-intervenant/edit-intervenant.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/intervenant/edit-intervenant/edit-intervenant.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/intervenant/list-intervenant/list-intervenant.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/intervenant/list-intervenant/list-intervenant.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/intervenant/list-intervenant/list-intervenant.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/intervenant/list-intervenant/list-intervenant.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/intervenant/my-account/my-account.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/intervenant/my-account/my-account.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/intervenant/my-account/my-account.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/intervenant/my-account/my-account.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/login/login.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/login/login.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/login/login.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/login/login.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/meeting/add-meeting/add-meeting.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/meeting/add-meeting/add-meeting.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/meeting/add-meeting/add-meeting.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/meeting/add-meeting/add-meeting.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/meeting/edit-meeting/edit-meeting.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/meeting/edit-meeting/edit-meeting.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/meeting/edit-meeting/edit-meeting.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/meeting/edit-meeting/edit-meeting.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/meeting/list-meeting/list-meeting.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/meeting/list-meeting/list-meeting.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/meeting/list-meeting/list-meeting.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/meeting/list-meeting/list-meeting.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/meeting/list-person-meetings/list-person-meetings.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/meeting/list-person-meetings/list-person-meetings.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/meeting/list-person-meetings/list-person-meetings.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/meeting/list-person-meetings/list-person-meetings.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/person/add-person/add-person.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/person/add-person/add-person.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/person/add-person/add-person.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/person/add-person/add-person.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/person/delete-person/delete-person.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/person/delete-person/delete-person.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/person/delete-person/delete-person.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/person/delete-person/delete-person.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/person/details-person/details-person.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/person/details-person/details-person.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/person/details-person/details-person.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/person/details-person/details-person.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/person/edit-person/edit-person.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/person/edit-person/edit-person.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/person/edit-person/edit-person.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/person/edit-person/edit-person.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/person/list-person/list-person.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/person/list-person/list-person.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/person/list-person/list-person.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/component/person/list-person/list-person.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/enum/gender.enum.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/enum/role.enum.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/models/departureReason/departure-reason.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/models/doctor/doctor.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/models/doctor/doctor.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/models/educationLevel/education-level.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/models/emergency/emergency-contact.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/models/emergency/emergency-contact.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/models/intervenant/intervenant.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/models/intervenant/intervenant.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/models/meeting/meeting.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/models/meeting/meeting.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/models/other-person/other-person.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/models/other-person/other-person.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/models/person/person.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/models/person/person.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/models/reference/reference.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/models/residenceType/residence-type.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/models/sector/sector.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/models/status/status.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/models/users/user.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/models/workCity/work-city.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/pipes/convert-boolean.pipe.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/pipes/convert-boolean.pipe.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/pipes/convert-interface-name.pipe.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/pipes/convert-interface-name.pipe.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/pipes/convert-role-name.pipe.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/pipes/convert-role-name.pipe.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/pipes/phone.pipe.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/pipes/phone.pipe.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/services/authentification/auth-guard.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/services/departureReason/departure-reason.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/services/departureReason/departure-reason.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/services/educationLevel/education-level.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/services/educationLevel/education-level.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/services/intervenant/intervenant.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/services/intervenant/intervenant.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/services/meeting/meeting.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/services/meeting/meeting.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/services/person/person.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/services/person/person.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/services/reference/reference.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/services/reference/reference.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/services/residenceType/residence-type.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/services/residenceType/residence-type.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/services/sector/sector.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/services/sector/sector.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/services/status/status.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/services/status/status.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/services/user/user.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/services/user/user.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/services/workCity/work-city.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/app/services/workCity/work-city.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/assets/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/assets/calendar-icon.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/assets/details-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/assets/edit-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/assets/edit2-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/assets/eye.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/assets/icons8-trash-can-52.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/assets/login-logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/assets/meeting-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/assets/search-information.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/assets/visibility.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/custom-theme.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/environments/environment.prod.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/environments/environment.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/main.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/polyfills.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/src/test.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/tsconfig.app.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/tsconfig.spec.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projet-INF1013/tslint.json" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1qfJY1056WoC0RvcQGQgFVQ0MnR" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Projet_Angular_INF1013/Projet-INF1013" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8e05d5e6-e25b-40fc-968c-f302dc727a58" name="Default Changelist" comment="" />
+      <created>1617464756502</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1617464756502</updated>
+      <workItem from="1617464758742" duration="65000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
