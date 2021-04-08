@@ -1,0 +1,7 @@
+{
+  "timestamp": "2021-04-07T22:24:07.708+00:00",
+  "status": 403,
+  "error": "Forbidden",
+  "message": "",
+  "path": "/api/users/add"
+}
