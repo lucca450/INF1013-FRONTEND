@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
- //@DefaultConfiguration // J'arrive pas a le mettre
+ //@DefaultConfiguration // J'arrive pas a le mettres
 public class DefaultConfig {
 
     @Bean
