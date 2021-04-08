@@ -1,3 +1,15 @@
+GET http://localhost:8080/login
+
+<> 2021-04-08T182008.401.json
+
+###
+
+GET http://localhost:8080/login
+
+<> 2021-04-08T181901.401.json
+
+###
+
 POST http://localhost:8080/api/users/add
 Content-Type: application/json
 
@@ -437,28 +449,6 @@ Content-Type: application/json
 }
 
 <> 2021-04-07T181703.403.json
-
-###
-
-POST http://localhost:8080/api/users/add
-Content-Type: application/json
-
-{
-  "ID": 2,
-  "fName": "Julien",
-  "lName": "Carron"
-}
-
-###
-
-POST http://localhost:8080/api/users/add
-Content-Type: application/json
-
-{
-  "ID": 2,
-  "fName": "Julien",
-  "lName": "Carron"
-}
 
 ###
 
