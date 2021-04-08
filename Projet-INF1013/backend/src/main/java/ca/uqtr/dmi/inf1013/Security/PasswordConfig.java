@@ -1,4 +1,4 @@
-package Security;
+package ca.uqtr.dmi.inf1013.Security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
