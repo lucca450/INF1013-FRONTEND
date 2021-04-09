@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bf352b4-974d-4d92-950c-0a8865cb59f1" name="Default Changelist" comment="repush le backend" />
+    <list default="true" id="3bf352b4-974d-4d92-950c-0a8865cb59f1" name="Default Changelist" comment="Avancement backend authentification">
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2021-04-07T181844.403.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2021-04-07T182024.200.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -102,7 +107,7 @@
             </list>
           </option>
           <option name="httpMethod" value="GET" />
-          <option name="urlBase" value="http://localhost:8080/api/v1/students/1" />
+          <option name="urlBase" value="http://localhost:8080/login" />
           <option name="urlPath" value="" />
           <option name="textToSend" value="" />
           <option name="filesToSend" value="" />
@@ -120,7 +125,7 @@
             </list>
           </option>
           <option name="httpMethod" value="GET" />
-          <option name="urlBase" value="http://localhost:8080/login" />
+          <option name="urlBase" value="http://localhost:8080/api/v1/students/1" />
           <option name="urlPath" value="" />
           <option name="textToSend" value="" />
           <option name="filesToSend" value="" />
@@ -751,17 +756,6 @@
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.Spring boot">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="generated-requests#1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" runType="Run single request">
       <method v="2" />
     </configuration>
@@ -856,8 +850,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="HTTP Request.generated-requests#5" />
         <item itemvalue="HTTP Request.generated-requests#4" />
+        <item itemvalue="HTTP Request.generated-requests#5" />
         <item itemvalue="HTTP Request.generated-requests#3" />
         <item itemvalue="HTTP Request.generated-requests#2" />
         <item itemvalue="HTTP Request.generated-requests#1" />
@@ -908,6 +902,7 @@
       <workItem from="1617923028275" duration="10000" />
       <workItem from="1617923083881" duration="284000" />
       <workItem from="1617923393023" duration="7000" />
+      <workItem from="1617978712228" duration="2185000" />
     </task>
     <task id="LOCAL-00001" summary="- Ajout de validations customs + vérifications que tout les champs sont bien modifiés, règlages de bugs.&#10;&#10;- Prêt pour tester l'application au complet, le login est réactivé et les validations aussi.">
       <created>1617510643422</created>
@@ -1053,7 +1048,8 @@
     <MESSAGE value="Début login" />
     <MESSAGE value="de l'odre" />
     <MESSAGE value="repush le backend" />
-    <option name="LAST_COMMIT_MESSAGE" value="repush le backend" />
+    <MESSAGE value="Avancement backend authentification" />
+    <option name="LAST_COMMIT_MESSAGE" value="Avancement backend authentification" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
