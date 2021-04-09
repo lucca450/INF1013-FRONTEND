@@ -15,7 +15,7 @@ public class Doctor {
   private String interfaceName;
   private String lname;
   private String fname;
-  private Number phone;
-  private Number fax;
+  private String phone;
+  private String fax;
   private String email;
 }

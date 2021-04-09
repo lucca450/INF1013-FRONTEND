@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Data // Permet d'avoir les get set
   public class User {
     @Id() // Permet de dire que le champs qui suit est l'id
-    private Long ID;
+    private Long id;
     private String interfaceName;
     private String lname;
     private String fname;

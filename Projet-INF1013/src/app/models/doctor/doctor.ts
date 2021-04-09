@@ -3,7 +3,7 @@ export interface Doctor {
   interfaceName: 'Doctor';
   lname: string;
   fname: string;
-  phone: number;
-  fax: number;
+  phone: string;
+  fax: string;
   email: string;
 }

@@ -16,6 +16,6 @@ public class EmergencyContact {
   private String interfaceName;
   private String lname;
   private String fname;
-  private Number phone;
+  private String phone;
   private String relation;
 }

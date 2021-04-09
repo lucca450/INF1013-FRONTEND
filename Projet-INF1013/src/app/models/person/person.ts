@@ -6,7 +6,7 @@ export interface Person {
   birthday: Date;
   sexe: 'Homme' | 'Femme';
   address: string;
-  phone: number;
+  phone: string;
   nas: number;
   healthIssues: string;
   workCityId: number; // Trois-Rivières, Shawinigan, Louiseville, St-Tite

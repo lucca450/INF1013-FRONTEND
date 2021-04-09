@@ -19,7 +19,7 @@ public class Person {
   private Date birthday;
   private String sexe;
   private String address;
-  private Number phone;
+  private String phone;
   private Number nas;
   private String healthIssues;
   private Number workCityId;
@@ -33,10 +33,10 @@ public class Person {
   private Number departureReasonId;
   private Number hoursPerDay;
   private Number statusId;
-  private boolean roamingTracking;
+  private Boolean roamingTracking;
   private Date roamingStartDate;
   private Date roamingEndDate;
-  private boolean communityWork;
+  private Boolean communityWork;
   private Date communityStartDate;
   private Date communityEndDate;
   private Number hourlyRate;
@@ -44,5 +44,5 @@ public class Person {
   private Number responsibleIntervenantId;
   private Number emergencyContactId;
   private Number followedById;
-  private String active;
+  private Boolean active;
 }
