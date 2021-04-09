@@ -1,3 +1,9 @@
+POST http://localhost:8080/api/users/add
+
+<> 2021-04-09T182717.404.json
+
+###
+
 GET http://localhost:8080/login
 
 <> 2021-04-09T105012.200.html
@@ -418,17 +424,6 @@ Content-Type: application/json
 }
 
 <> 2021-04-07T182354.403.json
-
-###
-
-POST http://localhost:8080/api/hello/authenticate
-Content-Type: application/json
-
-{"username": "foo",
-"password": "foo"
-}
-
-<> 2021-04-07T182304.403.json
 
 ###
 

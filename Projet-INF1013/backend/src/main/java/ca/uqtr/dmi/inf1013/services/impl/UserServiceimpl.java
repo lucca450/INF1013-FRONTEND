@@ -24,4 +24,11 @@ public class UserServiceimpl implements UserService {
   public Optional<List<User>> getUsers(Long... id) {
     return Optional.empty();
   }
+
+  @Override
+  public User addUser(User user) {
+    System.out.println(user);
+    return this.userRepo.save(user);
+  }
+
 }

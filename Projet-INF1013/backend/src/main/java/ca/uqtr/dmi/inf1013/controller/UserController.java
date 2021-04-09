@@ -38,4 +38,11 @@ public class UserController {
     System.out.println("Try to sign in");
      userDetailsService.save(user);
   }
+
+  @PostMapping(path = "/add")
+  public void addUser(@RequestBody User user){
+    System.out.println(user);
+   /* Optional<User> s =*/ userService.addUser(user);
+   /* return s.orElseThrow(()-> new RuntimeException("Étudiant non trouvé"));*/
+  }
 }

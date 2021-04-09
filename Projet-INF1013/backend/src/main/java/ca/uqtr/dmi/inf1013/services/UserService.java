@@ -9,4 +9,6 @@ public interface UserService {
 
   Optional<User> getUser(Long id);
   Optional <List<User>> getUsers(Long ... id);
+
+  User addUser(User user);
 }

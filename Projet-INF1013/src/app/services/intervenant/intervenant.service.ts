@@ -61,7 +61,10 @@ export class IntervenantService {
   addIntervenant(intervenant: User): void{
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(intervenant);
-    this.httpClient.post('http://localhost:3000/users', body, {headers}).subscribe(
+
+    console.log(body);
+
+    this.httpClient.post('http://localhost:8080/api/users/add', body, {headers}).subscribe(
       (data: any) => {
         this.emitIntervenantsSubject(data);
         this.goToMainRoute();
