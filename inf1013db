@@ -1,0 +1,727 @@
+--
+-- PostgreSQL database cluster dump
+--
+
+-- Started on 2021-04-09 13:59:46
+
+SET default_transaction_read_only = off;
+
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+
+--
+-- Roles
+--
+
+CREATE ROLE postgres;
+ALTER ROLE postgres WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION BYPASSRLS PASSWORD 'SCRAM-SHA-256$4096:x2460eq7/t6s950VJLo5sQ==$W+TFVFhxKxyvOPUT2NuUfcp3JbfheTW1QPkElPSKBpw=:3quHVKn3joNM+zjntJd1R8Yae/WplJAq1ujdoQLq2LQ=';
+
+
+
+
+
+
+--
+-- Databases
+--
+
+--
+-- Database "template1" dump
+--
+
+\connect template1
+
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 13.2
+-- Dumped by pg_dump version 13.2
+
+-- Started on 2021-04-09 13:59:46
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+-- Completed on 2021-04-09 13:59:47
+
+--
+-- PostgreSQL database dump complete
+--
+
+--
+-- Database "inf1013db" dump
+--
+
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 13.2
+-- Dumped by pg_dump version 13.2
+
+-- Started on 2021-04-09 13:59:47
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 3067 (class 1262 OID 16395)
+-- Name: inf1013db; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE inf1013db WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE = 'French_France.1252';
+
+
+ALTER DATABASE inf1013db OWNER TO postgres;
+
+\connect inf1013db
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 202 (class 1259 OID 16591)
+-- Name: departurereason; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.departurereason (
+    id integer,
+    interface_name character varying,
+    name character varying
+);
+
+
+ALTER TABLE public.departurereason OWNER TO postgres;
+
+--
+-- TOC entry 203 (class 1259 OID 16597)
+-- Name: doctor; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.doctor (
+    id integer,
+    interface_name character varying,
+    lname character varying,
+    fname character varying,
+    phone integer,
+    fax character varying,
+    email character varying
+);
+
+
+ALTER TABLE public.doctor OWNER TO postgres;
+
+--
+-- TOC entry 204 (class 1259 OID 16604)
+-- Name: educationlevel; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.educationlevel (
+    id integer,
+    interface_name character varying,
+    name character varying
+);
+
+
+ALTER TABLE public.educationlevel OWNER TO postgres;
+
+--
+-- TOC entry 205 (class 1259 OID 16610)
+-- Name: emergencycontact; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.emergencycontact (
+    id integer,
+    interface_name character varying,
+    lname character varying,
+    fname character varying,
+    phone character varying,
+    relation character varying
+);
+
+
+ALTER TABLE public.emergencycontact OWNER TO postgres;
+
+--
+-- TOC entry 206 (class 1259 OID 16616)
+-- Name: followedby; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.followedby (
+    id integer,
+    interface_name character varying,
+    type character varying
+);
+
+
+ALTER TABLE public.followedby OWNER TO postgres;
+
+--
+-- TOC entry 207 (class 1259 OID 16622)
+-- Name: meeting; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.meeting (
+    id integer,
+    interface_name character varying,
+    notes character varying,
+    followup character varying,
+    goals character varying,
+    id_person integer,
+    id_intervenant integer
+);
+
+
+ALTER TABLE public.meeting OWNER TO postgres;
+
+--
+-- TOC entry 208 (class 1259 OID 16628)
+-- Name: otherperson; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.otherperson (
+    id integer,
+    interface_name character varying,
+    lname character varying,
+    fname character varying,
+    phone integer,
+    organism character varying
+);
+
+
+ALTER TABLE public.otherperson OWNER TO postgres;
+
+--
+-- TOC entry 209 (class 1259 OID 16634)
+-- Name: person; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.person (
+    id integer,
+    interface_name character varying,
+    lname character varying,
+    fname character varying,
+    birthday date,
+    sexe character varying,
+    address character varying,
+    phone integer,
+    nas integer,
+    health_issues character varying,
+    work_city_id integer,
+    start_date date,
+    end_date date,
+    reference_id integer,
+    residencetype_id integer,
+    educationallevel_id integer,
+    program_start_date date,
+    program_end_date date,
+    departurereason_id integer,
+    hours_per_day integer,
+    status_id integer,
+    roaming_tracking boolean,
+    roaming_start_date date,
+    roaming_end_date date,
+    community_work boolean,
+    community_start_date date,
+    community_end_date date,
+    hourly_rate integer,
+    transport_fees integer,
+    responsible_intervenant_id integer,
+    emergency_contact_id integer,
+    followed_by_id integer,
+    active boolean
+);
+
+
+ALTER TABLE public.person OWNER TO postgres;
+
+--
+-- TOC entry 210 (class 1259 OID 16640)
+-- Name: reference; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.reference (
+    id integer,
+    interface_name character varying,
+    name character varying
+);
+
+
+ALTER TABLE public.reference OWNER TO postgres;
+
+--
+-- TOC entry 211 (class 1259 OID 16646)
+-- Name: residencetype; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.residencetype (
+    id integer,
+    interface_name character varying,
+    name character varying
+);
+
+
+ALTER TABLE public.residencetype OWNER TO postgres;
+
+--
+-- TOC entry 212 (class 1259 OID 16652)
+-- Name: sector; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.sector (
+    id integer,
+    interface_name character varying,
+    name character varying
+);
+
+
+ALTER TABLE public.sector OWNER TO postgres;
+
+--
+-- TOC entry 213 (class 1259 OID 16658)
+-- Name: status; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.status (
+    id integer,
+    interfacename character varying,
+    name character varying
+);
+
+
+ALTER TABLE public.status OWNER TO postgres;
+
+--
+-- TOC entry 201 (class 1259 OID 16419)
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users (
+    id bigint NOT NULL,
+    interface_name character varying(50),
+    lname character varying(50),
+    fname character varying(50),
+    email character varying(100),
+    phone character varying(14),
+    address character varying(100),
+    organism character varying(100),
+    username character varying(40),
+    password character varying(40),
+    role character(1),
+    active boolean
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- TOC entry 200 (class 1259 OID 16417)
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3068 (class 0 OID 0)
+-- Dependencies: 200
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- TOC entry 214 (class 1259 OID 16664)
+-- Name: workcity; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.workcity (
+    id integer,
+    interface_name character varying,
+    name character varying
+);
+
+
+ALTER TABLE public.workcity OWNER TO postgres;
+
+--
+-- TOC entry 2916 (class 2604 OID 16426)
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- TOC entry 3049 (class 0 OID 16591)
+-- Dependencies: 202
+-- Data for Name: departurereason; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.departurereason (id, interface_name, name) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3050 (class 0 OID 16597)
+-- Dependencies: 203
+-- Data for Name: doctor; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.doctor (id, interface_name, lname, fname, phone, fax, email) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3051 (class 0 OID 16604)
+-- Dependencies: 204
+-- Data for Name: educationlevel; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.educationlevel (id, interface_name, name) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3052 (class 0 OID 16610)
+-- Dependencies: 205
+-- Data for Name: emergencycontact; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.emergencycontact (id, interface_name, lname, fname, phone, relation) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3053 (class 0 OID 16616)
+-- Dependencies: 206
+-- Data for Name: followedby; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.followedby (id, interface_name, type) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3054 (class 0 OID 16622)
+-- Dependencies: 207
+-- Data for Name: meeting; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.meeting (id, interface_name, notes, followup, goals, id_person, id_intervenant) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3055 (class 0 OID 16628)
+-- Dependencies: 208
+-- Data for Name: otherperson; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.otherperson (id, interface_name, lname, fname, phone, organism) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3056 (class 0 OID 16634)
+-- Dependencies: 209
+-- Data for Name: person; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.person (id, interface_name, lname, fname, birthday, sexe, address, phone, nas, health_issues, work_city_id, start_date, end_date, reference_id, residencetype_id, educationallevel_id, program_start_date, program_end_date, departurereason_id, hours_per_day, status_id, roaming_tracking, roaming_start_date, roaming_end_date, community_work, community_start_date, community_end_date, hourly_rate, transport_fees, responsible_intervenant_id, emergency_contact_id, followed_by_id, active) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3057 (class 0 OID 16640)
+-- Dependencies: 210
+-- Data for Name: reference; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.reference (id, interface_name, name) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3058 (class 0 OID 16646)
+-- Dependencies: 211
+-- Data for Name: residencetype; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.residencetype (id, interface_name, name) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3059 (class 0 OID 16652)
+-- Dependencies: 212
+-- Data for Name: sector; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sector (id, interface_name, name) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3060 (class 0 OID 16658)
+-- Dependencies: 213
+-- Data for Name: status; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.status (id, interfacename, name) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3048 (class 0 OID 16419)
+-- Dependencies: 201
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users (id, interface_name, lname, fname, email, phone, address, organism, username, password, role, active) FROM stdin;
+1	User	Dubois-Nadeau	Pierre-Olivier	pierro_kool@hotmail.com	8196932091	320 rue des roses	Aucun	polo	1234	A	t
+\.
+
+
+--
+-- TOC entry 3061 (class 0 OID 16664)
+-- Dependencies: 214
+-- Data for Name: workcity; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.workcity (id, interface_name, name) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3069 (class 0 OID 0)
+-- Dependencies: 200
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 1, true);
+
+
+-- Completed on 2021-04-09 13:59:47
+
+--
+-- PostgreSQL database dump complete
+--
+
+--
+-- Database "postgres" dump
+--
+
+\connect postgres
+
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 13.2
+-- Dumped by pg_dump version 13.2
+
+-- Started on 2021-04-09 13:59:47
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 2 (class 3079 OID 16384)
+-- Name: adminpack; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS adminpack WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2980 (class 0 OID 0)
+-- Dependencies: 2
+-- Name: EXTENSION adminpack; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION adminpack IS 'administrative functions for PostgreSQL';
+
+
+-- Completed on 2021-04-09 13:59:47
+
+--
+-- PostgreSQL database dump complete
+--
+
+--
+-- Database "studentdb" dump
+--
+
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 13.2
+-- Dumped by pg_dump version 13.2
+
+-- Started on 2021-04-09 13:59:47
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 2988 (class 1262 OID 16394)
+-- Name: studentdb; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE studentdb WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE = 'French_France.1252';
+
+
+ALTER DATABASE studentdb OWNER TO postgres;
+
+\connect studentdb
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 201 (class 1259 OID 16404)
+-- Name: students; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.students (
+    id integer NOT NULL,
+    first_name character varying(100),
+    last_name character varying(100)
+);
+
+
+ALTER TABLE public.students OWNER TO postgres;
+
+--
+-- TOC entry 200 (class 1259 OID 16402)
+-- Name: students_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.students_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.students_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2989 (class 0 OID 0)
+-- Dependencies: 200
+-- Name: students_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.students_id_seq OWNED BY public.students.id;
+
+
+--
+-- TOC entry 2850 (class 2604 OID 16407)
+-- Name: students id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.students ALTER COLUMN id SET DEFAULT nextval('public.students_id_seq'::regclass);
+
+
+--
+-- TOC entry 2982 (class 0 OID 16404)
+-- Dependencies: 201
+-- Data for Name: students; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.students (id, first_name, last_name) FROM stdin;
+0	test1	test2
+\.
+
+
+--
+-- TOC entry 2990 (class 0 OID 0)
+-- Dependencies: 200
+-- Name: students_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.students_id_seq', 1, false);
+
+
+-- Completed on 2021-04-09 13:59:47
+
+--
+-- PostgreSQL database dump complete
+--
+
+-- Completed on 2021-04-09 13:59:47
+
+--
+-- PostgreSQL database cluster dump complete
+--
+
