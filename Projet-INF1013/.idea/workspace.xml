@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bf352b4-974d-4d92-950c-0a8865cb59f1" name="Default Changelist" comment="de l'odre">
+    <list default="true" id="3bf352b4-974d-4d92-950c-0a8865cb59f1" name="Default Changelist" comment="repush le backend">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2021-04-07T181703.403.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2021-04-07T181751.403.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,6 +38,14 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1qfJgjj6lqfPWDeAuHiNaSHFQC9" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -68,7 +81,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.22333333" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.runner" />
+    <property name="settings.editor.selected.configurable" value="spring.boot" />
     <property name="ts.external.directory.path" value="C:\Users\Pierre-Olivier\Desktop\Angular\École\Projet_Angular_INF1013\Projet_Angular_INF1013\Projet-INF1013\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -83,6 +96,24 @@
   <component name="RestClientSettings">
     <option name="REQUEST_HISTORY">
       <list>
+        <RestClientRequest>
+          <option name="biscuits">
+            <list>
+              <Biscuit>
+                <option name="date" value="-1" />
+                <option name="domain" value="localhost" />
+                <option name="name" value="JSESSIONID" />
+                <option name="path" value="/" />
+                <option name="value" value="0F5CA6FA8EFFA02F428663C41AB54BA4" />
+              </Biscuit>
+            </list>
+          </option>
+          <option name="httpMethod" value="GET" />
+          <option name="urlBase" value="http://localhost:8080/api/v1/students/1" />
+          <option name="urlPath" value="" />
+          <option name="textToSend" value="" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
         <RestClientRequest>
           <option name="biscuits">
             <list>
@@ -726,7 +757,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Shell Script.Start application">
+  <component name="RunManager" selected="Spring Boot.Spring boot">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -748,6 +779,9 @@
       <method v="2" />
     </configuration>
     <configuration name="generated-requests#4" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="4" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests#5" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="5" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration default="true" type="JetRunConfigurationType">
@@ -811,7 +845,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Spring boot" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="demo" />
+      <module name="backend" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="ca.uqtr.dmi.inf1013.DemoApplication" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2">
@@ -825,14 +859,15 @@
       <item itemvalue="HTTP Request.generated-requests#4" />
       <item itemvalue="Shell Script.Start application" />
       <item itemvalue="Spring Boot.Spring boot" />
+      <item itemvalue="HTTP Request.generated-requests#5" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="HTTP Request.generated-requests#5" />
         <item itemvalue="HTTP Request.generated-requests#4" />
         <item itemvalue="HTTP Request.generated-requests#3" />
         <item itemvalue="HTTP Request.generated-requests#2" />
         <item itemvalue="HTTP Request.generated-requests#1" />
-        <item itemvalue="HTTP Request.generated-requests#3" />
       </list>
     </recent_temporary>
   </component>
@@ -1017,7 +1052,8 @@
     <MESSAGE value="test push avec mon compte" />
     <MESSAGE value="Début login" />
     <MESSAGE value="de l'odre" />
-    <option name="LAST_COMMIT_MESSAGE" value="de l'odre" />
+    <MESSAGE value="repush le backend" />
+    <option name="LAST_COMMIT_MESSAGE" value="repush le backend" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1029,5 +1065,9 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
