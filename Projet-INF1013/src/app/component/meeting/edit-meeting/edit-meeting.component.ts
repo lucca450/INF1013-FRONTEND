@@ -8,8 +8,8 @@ import {IntervenantService} from '../../../services/intervenant/intervenant.serv
 import {Meeting} from '../../../models/meeting/meeting';
 import {Subscription} from 'rxjs';
 import {UserService} from '../../../services/user/user.service';
-import {Intervenant} from '../../../models/intervenant/intervenant';
 import {User} from '../../../models/users/user';
+import {Person} from '../../../models/person/person';
 
 
 @Component({
@@ -25,7 +25,7 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
   loggedUser = this.userService.user;
   errorMessage: string;
   intervenants: User;
-  persons: Intervenant;
+  persons: Person; //Intervenant;
   editMeetingForm = this.formBuilder.group({
     notes: [null, Validators.compose([Validators.required])],
     followup: [null, Validators.compose([Validators.required])],
@@ -109,7 +109,7 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
       goals: [this.meeting.goals, [Validators.required, Validators.minLength(5), Validators.maxLength(4000)]],
       idPerson: [this.meeting.idPerson, Validators.required],
       idIntervenant: [this.meeting.idIntervenant, Validators.required],
-      id: [this.meeting.id]
+      id: [this.meeting.ID]
     });
   }
 
@@ -128,12 +128,12 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
   console.log(this.person);
   console.log(this.meetingID);
 
-    if (this.person === 0){
+  if (this.person === 0){
       this.person = NaN;
     }
 
-    this.meetingService.cancelMeeting(this.person);
-    this.unsubscribe();
+  this.meetingService.cancelMeeting(this.person);
+  this.unsubscribe();
   }
 
   ngOnDestroy(): void{

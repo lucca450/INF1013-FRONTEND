@@ -1,7 +1,7 @@
 
 <div class="contianer-row">
   <h1 id = "information_emplacement">Détails d'une personne</h1>
-  <h2 id = "intervenant_responsable" *ngIf="person?.responsibleIntervenantID">Intervenant responsable :
+  <h2 id = "intervenant_responsable" *ngIf="person?.responsibleIntervenantId">Intervenant responsable :
     {{fullname}}</h2>
   <!-- Affichage détaillés des informations concernant la personne. -->
   <div class="row">
@@ -30,7 +30,7 @@
 
         <div>
           <label>NAS:</label>
-          <mat-slide-toggle [checked]="isSlideChecked" (change)="toggleChanges($event)"> <p class="toggle-p">{{isSlideChecked ? person?.NAS : 'Information cachée'}}</p>
+          <mat-slide-toggle [checked]="isSlideChecked" (change)="toggleChanges($event)"> <p class="toggle-p">{{isSlideChecked ? person?.nas : 'Information cachée'}}</p>
           </mat-slide-toggle>
         </div>
 
@@ -116,55 +116,57 @@
 
       </div>
       <!-- PERSONNE RESSOURCE EN CAS D'URGENCE -->
-      <div class ="container-column">
-        <h1 class = "header-column"> Personne ressource en cas d'urgence</h1>
-          <label>Prénom de la personne ressource en cas d'urgence:</label>
-          <p>{{person?.emergencyContact.fname}}</p>
+      <!--
+     <div class ="container-column">
+       <h1 class = "header-column"> Personne ressource en cas d'urgence</h1>
+         <label>Prénom de la personne ressource en cas d'urgence:</label>
+         <p>{{person?.emergencyContact.fname}}</p>
 
-          <label>Nom de la personne ressource en cas d'urgence:</label>
-          <p>{{person?.emergencyContact.lname}}</p>
+         <label>Nom de la personne ressource en cas d'urgence:</label>
+         <p>{{person?.emergencyContact.lname}}</p>
 
-          <label>Numéro de téléphone de la personne ressource en cas d'urgence:</label>
-          <p>{{person?.emergencyContact.phone  | phone}}</p>
+         <label>Numéro de téléphone de la personne ressource en cas d'urgence:</label>
+         <p>{{person?.emergencyContact.phone  | phone}}</p>
 
-        <label>Numéro de téléphone de la personne ressource en cas d'urgence:</label>
-        <p>{{person?.emergencyContact.relation}}</p>
+       <label>Numéro de téléphone de la personne ressource en cas d'urgence:</label>
+       <p>{{person?.emergencyContact.relation}}</p>
 
-      </div>
-      <!-- Informations de la personne de suivi -->
-      <div class ="container-column">
-        <h1 class = "header-column"> Informations de la personne de suivi</h1>
-          <label>Type de personne:</label>
-          <p>{{person?.followedBy?.interfaceName | convertInterfaceName}}</p>
+     </div>
+     -->
+     <!-- Informations de la personne de suivi -->
+      <!--   <div class ="container-column">
+          <h1 class = "header-column"> Informations de la personne de suivi</h1>
+            <label>Type de personne:</label>
+            <p>{{person?.followedBy?.interfaceName | convertInterfaceName}}</p>
 
-          <label>Prénom de la personne de suivi:</label>
-          <p>{{person?.followedBy?.fname}}</p>
+            <label>Prénom de la personne de suivi:</label>
+            <p>{{person?.followedBy?.fname}}</p>
 
-          <label>Nom de la personne de suivi:</label>
-          <p>{{person?.followedBy?.lname}}</p>
+            <label>Nom de la personne de suivi:</label>
+            <p>{{person?.followedBy?.lname}}</p>
 
-          <label>Numéro de téléphone de la personne de suivi:</label>
-          <p>{{person?.followedBy?.phone | phone}}</p>
+            <label>Numéro de téléphone de la personne de suivi:</label>
+            <p>{{person?.followedBy?.phone | phone}}</p>
 
 
-        <div *ngIf="person?.followedBy?.interfaceName === 'Doctor' || person?.followedBy?.interfaceName === 'User'" >
-          <label>Email de la personne de suivi:</label>
-          <p>{{person?.followedBy?.email}}</p>
-        </div>
+          <div *ngIf="person?.followedBy?.interfaceName === 'Doctor' || person?.followedBy?.interfaceName === 'User'" >
+            <label>Email de la personne de suivi:</label>
+            <p>{{person?.followedBy?.email}}</p>
+          </div>
 
-        <div *ngIf="person?.followedBy.interfaceName === 'Doctor' " >
-          <label>Numéro de fax de la personne de suivi:</label>
-          <p>{{person?.followedBy?.fax | phone}}</p>
-        </div>
+          <div *ngIf="person?.followedBy.interfaceName === 'Doctor' " >
+            <label>Numéro de fax de la personne de suivi:</label>
+            <p>{{person?.followedBy?.fax | phone}}</p>
+          </div>
 
-        <div *ngIf="person?.followedBy?.interfaceName === 'OtherPerson'  || person?.followedBy?.interfaceName === 'User'">
-          <label>Organisme de la personne de suivi:</label>
-          <p>{{person?.followedBy?.organism}}</p>
-        </div>
+          <div *ngIf="person?.followedBy?.interfaceName === 'OtherPerson'  || person?.followedBy?.interfaceName === 'User'">
+            <label>Organisme de la personne de suivi:</label>
+            <p>{{person?.followedBy?.organism}}</p>
+          </div>
+        </div>-->
       </div>
     </div>
   </div>
-</div>
 
 
 

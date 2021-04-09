@@ -150,13 +150,13 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
     );
 
     // On fait nos requêtes
-    this.intervenantService.intervenantFullName(person.responsibleIntervenantID);
-    this.departureReasonService.getDepartureReasonName(person.departureReasonID);
-    this.statusService.getStatusName(person.statusID);
-    this.workCityService.getWorkCityName(person.workCityID);
-    this.residenceTypeService.getResidencesTypeName(person.residenceTypeID);
-    this.educationLevelService.getEducationLevelName(person.educationalLevelID);
-    this.referenceService.getReferenceName(person.referenceID);
+    this.intervenantService.intervenantFullName(person.responsibleIntervenantId);
+    this.departureReasonService.getDepartureReasonName(person.departureReasonId);
+    this.statusService.getStatusName(person.statusId);
+    this.workCityService.getWorkCityName(person.workCityId);
+    this.residenceTypeService.getResidencesTypeName(person.residenceTypeId);
+    this.educationLevelService.getEducationLevelName(person.educationalLevelId);
+    this.referenceService.getReferenceName(person.referenceId);
   }
 
   // Fonction pour gèrer le slider du NAS.

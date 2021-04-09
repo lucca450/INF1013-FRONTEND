@@ -268,25 +268,25 @@ export class EditPersonComponent implements OnInit, OnDestroy {
       sexe: [this.person.sexe, Validators.required],
       address: [this.person.address, [Validators.required, Validators.maxLength(50)]],
       phone: [this.person.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
-      NAS: [this.person.NAS, [Validators.required, Validators.pattern('[0-9]{9}')]],
+      NAS: [this.person.nas, [Validators.required, Validators.pattern('[0-9]{9}')]],
       healthIssues: [this.person.healthIssues, [Validators.required, Validators.maxLength(4000)]]
     }, { validators: dateLessThanToday('birthday')});
     this.secondFormGroup = this.formBuilder.group({
-      workCityID: [this.person.workCityID, [Validators.required]],
+      workCityID: [this.person.workCityId, [Validators.required]],
       startDate: [this.person.startDate, [Validators.required]],
       endDate: [this.person.endDate, [Validators.required]],
-      referenceID: [this.person.referenceID, [Validators.required]],
-      residenceTypeID: [this.person.residenceTypeID, [Validators.required]],
-      educationalLevelID: [this.person.educationalLevelID, [Validators.required]]
+      referenceID: [this.person.referenceId, [Validators.required]],
+      residenceTypeID: [this.person.residenceTypeId, [Validators.required]],
+      educationalLevelID: [this.person.educationalLevelId, [Validators.required]]
 
     }, { validators: dateLessThan('startDate', 'endDate')});
     // @ts-ignore
     this.thirdFormGroup = this.formBuilder.group({
       programStartDate: [this.person.programStartDate, [Validators.required]],
       programEndDate: [this.person.programEndDate, [Validators.required]],
-      departureReasonID: [this.person.departureReasonID, [Validators.required]],
+      departureReasonID: [this.person.departureReasonId, [Validators.required]],
       hoursPerDay: [this.person.hoursPerDay, [Validators.required, Validators.min(0), Validators.max(24)]],
-      statusID: [this.person.statusID, [Validators.required]],
+      statusID: [this.person.statusId, [Validators.required]],
       roamingTracking: [this.person.roamingTracking, [Validators.required]],
       roamingStartDate: [this.person.roamingStartDate, []],
       roamingEndDate: [this.person.roamingEndDate, []],
@@ -295,66 +295,67 @@ export class EditPersonComponent implements OnInit, OnDestroy {
       communityEndDate: [this.person.communityEndDate, []],
       hourlyRate: [this.person.hourlyRate, [Validators.required,  Validators.min(0), Validators.max(999)]],
       transportFees: [this.person.transportFees, [Validators.required,  Validators.min(0), Validators.max(999)]],
-      responsibleIntervenantID: [this.person.responsibleIntervenantID]
+      responsibleIntervenantID: [this.person.responsibleIntervenantId]
     }, { validators: [dateLessThan('programStartDate', 'programEndDate'),
                              dateLessThan('roamingStartDate', 'roamingEndDate'),
                              dateLessThan('communityStartDate', 'communityEndDate')]});
 
     this.setThirdFormGroupValidators();
 
-    this.fourthFormGroup = this.formBuilder.group({
-      interfaceName: [this.person.emergencyContact.interfaceName],
-      lname: [this.person.emergencyContact.lname, [Validators.required, Validators.maxLength(40)]],
-      fname: [this.person.emergencyContact.fname, [Validators.required, Validators.maxLength(40)]],
-      phone: [this.person.emergencyContact.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
-      relation: [this.person.emergencyContact.relation, [Validators.required, Validators.maxLength(40)]]
-    });
-
-    if (this.person.followedBy.interfaceName === 'Doctor') {
-      this.fifthFormGroup = this.formBuilder.group({
-        interfaceName: [this.person.followedBy.interfaceName],
-        lname: [this.person.followedBy.lname, [Validators.required, Validators.maxLength(40)]],
-        fname: [this.person.followedBy.fname, [Validators.required, Validators.maxLength(40)]],
-        phone: [this.person.followedBy.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
-        email: [this.person.followedBy.email, [Validators.required, Validators.email]],
-        fax: [this.person.followedBy.fax, [Validators.required, Validators.pattern('[0-9]{10}')]],
-        organism: ['']
-      });
-    }
-    if (this.person.followedBy.interfaceName === 'OtherPerson') {
-      this.fifthFormGroup = this.formBuilder.group({
-        interfaceName: [this.person.followedBy.interfaceName],
-        lname: [this.person.followedBy.lname, [Validators.required, Validators.maxLength(40)]],
-        fname: [this.person.followedBy.fname, [Validators.required, Validators.maxLength(40)]],
-        phone: [this.person.followedBy.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
-        email: [''],
-        fax: [''],
-        organism: [this.person.followedBy.organism, [Validators.required, Validators.maxLength(100)]]
-      });
-    }
-    if (this.person.followedBy.interfaceName === 'User') {
-      this.fifthFormGroup = this.formBuilder.group({
-        interfaceName: [this.person.followedBy.interfaceName],
-        lname: [this.person.followedBy.lname, [Validators.required, Validators.maxLength(40)]],
-        fname: [this.person.followedBy.fname, [Validators.required, Validators.maxLength(40)]],
-        phone: [this.person.followedBy.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
-        email: [this.person.followedBy.email, [Validators.required, Validators.email]],
-        fax: [''],
-        organism: [this.person.followedBy.organism, [Validators.required, Validators.maxLength(100)]]
-      });
-    }
-    if (this.person.followedBy.interfaceName === 'EmergencyContact') {
-      this.fifthFormGroup = this.formBuilder.group({
-        interfaceName: [this.person.followedBy.interfaceName],
-        lname: [this.person.followedBy.lname, [Validators.required, Validators.maxLength(40)]],
-        fname: [this.person.followedBy.fname, [Validators.required, Validators.maxLength(40)]],
-        phone: [this.person.followedBy.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
-        email: [''],
-        fax: [''],
-        organism: ['']
-      });
-    }
-    this.setFifthFormGroupValidators();
+    //VA FALOIR ALLER LES CHERCHER EN FAISANT UNE REQUETE CAR ON A JUSTE LES ID MAINTENANT
+    /*
+        this.fourthFormGroup = this.formBuilder.group({
+          interfaceName: [this.person.emergencyContact.interfaceName],
+          lname: [this.person.emergencyContact.lname, [Validators.required, Validators.maxLength(40)]],
+          fname: [this.person.emergencyContact.fname, [Validators.required, Validators.maxLength(40)]],
+          phone: [this.person.emergencyContact.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
+          relation: [this.person.emergencyContact.relation, [Validators.required, Validators.xLength(40)]]
+        });
+        if (this.person.followedBy.interfaceName === 'Doctor') {
+          this.fifthFormGroup = this.formBuilder.group({
+            interfaceName: [this.person.followedBy.interfaceName],
+            lname: [this.person.followedBy.lname, [Validators.required, Validators.maxLength(40)]],
+            fname: [this.person.followedBy.fname, [Validators.required, Validators.maxLength(40)]],
+            phone: [this.person.followedBy.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
+            email: [this.person.followedBy.email, [Validators.required, Validators.email]],
+            fax: [this.person.followedBy.fax, [Validators.required, Validators.pattern('[0-9]{10}')]],
+            organism: ['']
+          });
+        }
+        if (this.person.followedBy.interfaceName === 'OtherPerson') {
+          this.fifthFormGroup = this.formBuilder.group({
+            interfaceName: [this.person.followedBy.interfaceName],
+            lname: [this.person.followedBy.lname, [Validators.required, Validators.maxLength(40)]],
+            fname: [this.person.followedBy.fname, [Validators.required, Validators.maxLength(40)]],
+            phone: [this.person.followedBy.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
+            email: [''],
+            fax: [''],
+            organism: [this.person.followedBy.organism, [Validators.required, Validators.maxLength(100)]]
+          });
+        }
+        if (this.person.followedBy.interfaceName === 'User') {
+          this.fifthFormGroup = this.formBuilder.group({
+            interfaceName: [this.person.followedBy.interfaceName],
+            lname: [this.person.followedBy.lname, [Validators.required, Validators.maxLength(40)]],
+            fname: [this.person.followedBy.fname, [Validators.required, Validators.maxLength(40)]],
+            phone: [this.person.followedBy.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
+            email: [this.person.followedBy.email, [Validators.required, Validators.email]],
+            fax: [''],
+            organism: [this.person.followedBy.organism, [Validators.required, Validators.maxLength(100)]]
+          });
+        }
+        if (this.person.followedBy.interfaceName === 'EmergencyContact') {
+          this.fifthFormGroup = this.formBuilder.group({
+            interfaceName: [this.person.followedBy.interfaceName],
+            lname: [this.person.followedBy.lname, [Validators.required, Validators.maxLength(40)]],
+            fname: [this.person.followedBy.fname, [Validators.required, Validators.maxLength(40)]],
+            phone: [this.person.followedBy.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
+            email: [''],
+            fax: [''],
+            organism: ['']
+          });
+    }*/
+  this.setFifthFormGroupValidators();
   }
   // Fonction pour réagir lorsque la personne clique sur le bouton "Enregistrer"
   onEditPerson(): void {
@@ -363,7 +364,7 @@ export class EditPersonComponent implements OnInit, OnDestroy {
       && this.fourthFormGroup.valid && this.fifthFormGroup.valid) {
       this.formEditPerson = this.formBuilder.group({
         interfaceName: 'Person',
-        id: [this.person.id],
+        id: [this.person.ID],
         lname: [this.firstFormGroup.value.lname],
         fname: [this.firstFormGroup.value.fname],
         birthday : [this.firstFormGroup.value.birthday],

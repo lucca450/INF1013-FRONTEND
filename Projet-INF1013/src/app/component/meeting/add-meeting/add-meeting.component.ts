@@ -7,8 +7,8 @@ import {PersonService} from '../../../services/person/person.service';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
 import {UserService} from '../../../services/user/user.service';
 import {Subscription} from 'rxjs';
-import {Intervenant} from '../../../models/intervenant/intervenant';
 import {User} from '../../../models/users/user';
+import {Person} from '../../../models/person/person';
 
 @Component({
   selector: 'app-add-meeting',
@@ -21,7 +21,7 @@ export class AddMeetingComponent implements OnInit, OnDestroy {
   loggedUser = this.userService.user;
   errorMessage: string;
   intervenants: User;
-  persons: Intervenant;
+  persons: Person; // Intervenant;
   addMeetingForm: FormGroup;
   intervenantFullName: string;
   // Subscription

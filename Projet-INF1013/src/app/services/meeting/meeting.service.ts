@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Meeting} from '../../models/meeting/meeting';
 import {Router} from '@angular/router';
-import {Person} from '../../models/person/person';
-import {Intervenant} from '../../models/intervenant/intervenant';
 import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {UserService} from '../user/user.service';
@@ -25,7 +23,7 @@ export class MeetingService {
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(meeting);
 
-    this.httpClient.put('http://localhost:3000/meeting/' + meeting.id, body, {headers}).subscribe(
+    this.httpClient.put('http://localhost:3000/meeting/' + meeting.ID, body, {headers}).subscribe(
       (meet: any) => {
         this.meetingSubject.next(meet);
         if (isNaN(personid) === false){

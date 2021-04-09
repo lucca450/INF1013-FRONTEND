@@ -56,7 +56,7 @@ export class PersonService {
   editPerson(person: Person): void {
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(person);
-    this.httpClient.put('http://localhost:3000/persons/' + person.id, body, {headers}).subscribe(
+    this.httpClient.put('http://localhost:3000/persons/' + person.ID, body, {headers}).subscribe(
       (data: any) => {
         this.emitpersonsSubject(data);
         this.goToMainRoute();

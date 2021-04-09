@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {Intervenant} from '../../models/intervenant/intervenant';
 import {Router} from '@angular/router';
 import {Subject, Subscription} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
@@ -21,7 +20,7 @@ export class IntervenantService {
 
   // Fonction pour récupérer tous les intervenants
   getAllIntervenants(): void{
-    this.httpClient.get<Intervenant>(`http://localhost:3000/users`).subscribe(
+    this.httpClient.get<User>(`http://localhost:3000/users`).subscribe(
       (intervenants: any) => {
         this.emitIntervenantsSubject(intervenants);
       },
