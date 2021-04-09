@@ -1,5 +1,5 @@
 export interface Sector {
+  ID: number;
   interfaceName: 'Sector';
-  id: number;
   name: string;
 }

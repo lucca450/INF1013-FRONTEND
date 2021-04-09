@@ -1,5 +1,6 @@
 export interface Meeting {
-  id: number;
+  ID: number;
+  interfaceName: 'Meeting';
   notes: string;
   followup: string;
   goals: string;

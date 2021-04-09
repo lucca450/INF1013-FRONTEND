@@ -1,5 +1,5 @@
 export interface DepartureReason {
+  ID: number;
   interfaceName: 'DepartureReason';
-  id: number;
   name: string;
 }

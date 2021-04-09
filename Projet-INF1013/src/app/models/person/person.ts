@@ -1,31 +1,25 @@
-import {EmergencyContact} from '../emergency/emergency-contact';
-import {Intervenant} from '../intervenant/intervenant';
-import {Doctor} from '../doctor/doctor';
-import {OtherPerson} from '../other-person/other-person';
-import {User} from '../users/user';
-
 export interface Person {
+  ID: number;
   interfaceName: 'Person';
-  id: number;
   lname: string;
   fname: string;
   birthday: Date;
   sexe: 'Homme' | 'Femme';
   address: string;
   phone: number;
-  NAS: number;
+  nas: number;
   healthIssues: string;
-  workCityID: number; // Trois-Rivières, Shawinigan, Louiseville, St-Tite
+  workCityId: number; // Trois-Rivières, Shawinigan, Louiseville, St-Tite
   startDate: Date;
   endDate: Date;
-  referenceID: number;
-  residenceTypeID: number; // appartement, famille d’accueil, logement supervisé
-  educationalLevelID: number; // aucun diplôme, études secondaires, études professionnelles, études collégiales, études universitaires
+  referenceId: number;
+  residenceTypeId: number; // appartement, famille d’accueil, logement supervisé
+  educationalLevelId: number; // aucun diplôme, études secondaires, études professionnelles, études collégiales, études universitaires
   programStartDate: Date;
   programEndDate: Date;
-  departureReasonID: number;
+  departureReasonId: number;
   hoursPerDay: number;
-  statusID: number;
+  statusId: number;
   roamingTracking: boolean;
   roamingStartDate: Date;
   roamingEndDate: Date;
@@ -34,9 +28,9 @@ export interface Person {
   communityEndDate: Date;
   hourlyRate: number;
   transportFees: number;
-  responsibleIntervenantID: number;
-  emergencyContact: EmergencyContact;
+  responsibleIntervenantId: number;
+  emergencyContactId: number //EmergencyContact;
   // followedBy: Intervenant | EmergencyContact | Doctor | OtherPerson;
-  followedBy: User | EmergencyContact | Doctor | OtherPerson;
+  followedById: number; //User | EmergencyContact | Doctor | OtherPerson;
   active: boolean;
 }

@@ -1,5 +1,5 @@
 export interface EducationLevel {
+  ID: number;
   interfaceName: 'EducationLevel';
-  id: number;
   name: string;
 }

@@ -1,5 +1,5 @@
 export interface Status {
+  ID: number;
   interfaceName: 'Status';
-  id: number;
   name: string;
 }

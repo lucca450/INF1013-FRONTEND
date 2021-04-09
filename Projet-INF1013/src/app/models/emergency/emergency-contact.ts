@@ -1,4 +1,5 @@
 export interface EmergencyContact {
+  ID: number;
   interfaceName: 'EmergencyContact';
   lname: string;
   fname: string;

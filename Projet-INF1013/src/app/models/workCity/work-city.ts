@@ -1,5 +1,5 @@
 export interface WorkCity {
+  ID: number;
   interfaceName: 'WorkCity';
-  id: number;
   name: string;
 }

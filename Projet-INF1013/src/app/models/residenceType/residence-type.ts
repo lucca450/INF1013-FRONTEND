@@ -1,5 +1,5 @@
 export interface ResidenceType {
+  ID: number;
   interfaceName: 'ResidenceType';
-  id: number;
   name: string;
 }
