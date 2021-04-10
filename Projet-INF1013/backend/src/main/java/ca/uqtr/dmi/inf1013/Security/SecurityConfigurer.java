@@ -32,7 +32,6 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     this.secretKey = secretKey;
     this.jwtConfig = jwtConfig;
   }
-
   @Autowired
   public void ApplicationSecurityConfig(PasswordEncoder passwordEncoder){
     this.passwordEncoder = passwordEncoder;

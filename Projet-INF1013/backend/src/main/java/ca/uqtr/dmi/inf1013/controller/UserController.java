@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 
-@CrossOrigin(origins = "*")
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("api/users")
 public class UserController {
@@ -33,7 +33,6 @@ public class UserController {
   System.out.println("Get student");
     Optional<User> s =userService.getUser(id);
     return s.orElseThrow(()-> new RuntimeException("Étudiant non trouvé"));
-
   }
 
   @PostMapping(path = "/signin/")
@@ -42,10 +41,9 @@ public class UserController {
      userDetailsService.save(user);
   }
 
-  @CrossOrigin(origins = "http://localhost:8080")
   @PostMapping(path = "/add")
   public User addUser(@RequestBody User user){
-
+    System.out.println("User is addddddd123123");
     return userService.addUser(user);
    /* Optional<User> s =*/
    /* return s.orElseThrow(()-> new RuntimeException("Étudiant non trouvé"));*/
