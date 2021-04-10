@@ -9,8 +9,9 @@ import javax.persistence.*;
 @Data // Permet d'avoir les get set
   public class User {
 
-    @Id() // Permet de dire que le champs qui suit est l'id
+    @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Permet de remplacer le serial
+    @Column(name = "id", updatable = false, nullable = false) // Util si on a pas mis serial a id quand on créer la table
     private Long id;
     private String interfaceName;
     private String lname;
@@ -23,6 +24,8 @@ import javax.persistence.*;
     private String password;
     private Character role;
     private Boolean active;
+
+
 
 /*
     public User(Long ID, String interfaceName, String lname, String fname, String email, String phone,
