@@ -7,6 +7,9 @@ import ca.uqtr.dmi.inf1013.services.impl.UserDetailsServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+
+
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("api/users")
 public class UserController {
@@ -39,10 +42,12 @@ public class UserController {
      userDetailsService.save(user);
   }
 
+  @CrossOrigin(origins = "http://localhost:8080")
   @PostMapping(path = "/add")
-  public void addUser(@RequestBody User user){
-    System.out.println(user);
-   /* Optional<User> s =*/ userService.addUser(user);
+  public User addUser(@RequestBody User user){
+
+    return userService.addUser(user);
+   /* Optional<User> s =*/
    /* return s.orElseThrow(()-> new RuntimeException("Étudiant non trouvé"));*/
   }
 }

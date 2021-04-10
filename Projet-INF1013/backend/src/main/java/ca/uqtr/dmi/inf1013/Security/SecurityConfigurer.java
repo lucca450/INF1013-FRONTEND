@@ -10,8 +10,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import javax.crypto.SecretKey;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Collections;
+
 
 @Configuration
 @EnableWebSecurity

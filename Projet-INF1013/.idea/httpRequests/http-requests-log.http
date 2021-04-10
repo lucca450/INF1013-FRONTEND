@@ -1,4 +1,97 @@
 POST http://localhost:8080/api/users/add
+Content-Type: application/json
+{:
+    "id": 2,
+    "interfaceName": "Users",
+    "lname": "lucca2",
+    "fname": "po",
+    "email": "a@a.com",
+    "phone": "1112223333",
+    "address": "12 rue de la rue",
+    "organism": "toto",
+    "username": "polo",
+    "password": "1234",
+    "role": "A",
+    "active": true
+}:
+
+<> 2021-04-09T205911.400.html
+
+###
+
+POST http://localhost:8080/api/users/add
+Content-Type: application/json
+{:
+    "id": 2,
+    "interfaceName": "Users",
+    "lname": "lucca2",
+    "fname": "po",
+    "email": "a@a.com",
+    "phone": "1112223333",
+    "address": "12 rue de la rue",
+    "organism": "toto",
+    "username": "polo",
+    "password": "1234",
+    "role": "A",
+    "active": true
+}:
+
+<> 2021-04-09T205826.400.html
+
+###
+
+POST http://localhost:8080/api/users/add
+
+<> 2021-04-09T205821.404.json
+
+###
+
+POST http://localhost:8080/api/users/add
+Content-Type: application/json
+{:
+    "id": 2,
+    "interfaceName": "Users",
+    "lname": "lucca2",
+    "fname": "po",
+    "email": "a@a.com",
+    "phone": "1112223333",
+    "address": "12 rue de la rue",
+    "organism": "toto",
+    "username": "polo",
+    "password": "1234",
+    "role": "A",
+    "active": true
+}:
+
+<> 2021-04-09T205753.400.html
+
+###
+
+POST http://localhost:8080/api/users/add
+
+<> 2021-04-09T205643.404.json
+
+###
+
+GET http://localhost:8080/api/users/get/1
+
+<> 2021-04-09T205113.200.json
+
+###
+
+GET http://localhost:8080/api/users/get/1
+
+<> 2021-04-09T204844.200.json
+
+###
+
+GET http://localhost:8080/api/users/get/1
+
+<> 2021-04-09T204820.200.json
+
+###
+
+POST http://localhost:8080/api/users/add
 
 <> 2021-04-09T182717.404.json
 
@@ -334,96 +427,6 @@ Content-Type: application/json
 }
 
 <> 2021-04-07T185607.200.json
-
-###
-
-POST http://localhost:8080/api/hello/authenticate
-Content-Type: application/json
-
-{"username": "foo",
-"password": "foo"
-}
-
-<> 2021-04-07T185546.403.json
-
-###
-
-POST http://localhost:8080/api/hello/authenticate
-Content-Type: application/json
-
-{"username": "foo",
-"password": "foo"
-}
-
-<> 2021-04-07T185541.403.json
-
-###
-
-POST http://localhost:8080/api/hello/authenticate
-Content-Type: application/json
-
-{"username": "foo",
-"password": "foo"
-}
-
-<> 2021-04-07T185502.404.json
-
-###
-
-POST http://localhost:8080/api/hello/authenticate
-Content-Type: application/json
-
-{"username": "foo",
-"password": "foo"
-}
-
-<> 2021-04-07T185455.404.json
-
-###
-
-POST http://localhost:8080/api/hello/authenticate
-Content-Type: application/json
-
-{"username": "foo",
-"password": "foo"
-}
-
-<> 2021-04-07T182515.200.json
-
-###
-
-POST http://localhost:8080/api/hello/authenticate
-Content-Type: application/json
-
-{"username": "foo",
-"password": "foo"
-}
-
-<> 2021-04-07T182407-1.403.json
-
-###
-
-POST http://localhost:8080/api/users/add
-Content-Type: application/json
-
-{
-  "ID": 2,
-  "firstName": "Julien",
-  "lastName": "Carron"
-}
-
-<> 2021-04-07T182407.403.json
-
-###
-
-POST http://localhost:8080/api/hello/authenticate
-Content-Type: application/json
-
-{"username": "foo",
-"password": "foo"
-}
-
-<> 2021-04-07T182354.403.json
 
 ###
 

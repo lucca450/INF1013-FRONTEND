@@ -1,7 +1,0 @@
-{
-  "timestamp": "2021-04-07T22:54:55.159+00:00",
-  "status": 404,
-  "error": "Not Found",
-  "message": "",
-  "path": "/api/hello/authenticate"
-}

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Router} from '@angular/router';
 import {Subject, Subscription} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from '../../models/users/user';
+
 
 // @ts-ignore
 @Injectable({
@@ -58,20 +59,37 @@ export class IntervenantService {
   }
 
   // Fonction pour ajouter un intervenant
-  addIntervenant(intervenant: User): void{
-    const headers = { 'content-type': 'application/json'};
-    const body = JSON.stringify(intervenant);
+  addIntervenant(user: User): void{
+    /*
+     Access-Control-Allow-Origin: *
 
+   const headers = {'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'DELETE, POST, GET, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'};*/
+
+    const HTTP_OPTIONS = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'GET,POST, PUT, DELETE'
+      })
+    };
+
+   // const headers = { 'content-type': 'application/json'};
+
+    const body = JSON.stringify(user);
+
+   // console.log(headers);
     console.log(body);
 
-    this.httpClient.post('http://localhost:8080/api/users/add', body, {headers}).subscribe(
+    this.httpClient.post('http://localhost:8080/api/users/add', body, HTTP_OPTIONS).subscribe(
       (data: any) => {
         this.emitIntervenantsSubject(data);
         this.goToMainRoute();
       },
       (error) => {
         const message = 'Un erreur au niveau du serveur est survenu lors de l\'ajout de l\'intervenant. Veuillez réessayer plus tard';
-        this.emitErrorsSubject(message);
+        this.emitErrorsSubject(error.error);
       }
     );
 }

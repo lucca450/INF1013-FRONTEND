@@ -21,56 +21,69 @@ import java.util.stream.Collectors;
 
 public class JwtTokenVerifier extends OncePerRequestFilter {
 
-    private final SecretKey secretKey;
-    private final JwtConfig jwtConfig;
+  private final SecretKey secretKey;
+  private final JwtConfig jwtConfig;
 
-    public JwtTokenVerifier(SecretKey secretKey, JwtConfig jwtConfig) {
-        this.secretKey = secretKey;
-        this.jwtConfig = jwtConfig;
+  public JwtTokenVerifier(SecretKey secretKey, JwtConfig jwtConfig) {
+    this.secretKey = secretKey;
+    this.jwtConfig = jwtConfig;
+  }
+
+  @Override
+  protected void doFilterInternal(HttpServletRequest request,
+                                  HttpServletResponse response,
+                                  FilterChain filterChain) throws ServletException, IOException{
+
+
+
+
+/*
+      response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+      response.setHeader("Access-Control-Allow-Credentials", "true");
+      response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+      response.setHeader("Access-Control-Max-Age", "3600");
+      response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
+*/
+
+
+
+    String authorizationHeader = request.getHeader(jwtConfig.getAuthorizationHeader());
+
+    if(Strings.isNullOrEmpty(authorizationHeader) || !authorizationHeader.startsWith(jwtConfig.getTokenPrefix())){
+      filterChain.doFilter(request,response);
+      return;
+    }
+    String token = authorizationHeader.replace(jwtConfig.getTokenPrefix(),"");
+    try{
+
+
+
+      Jws<Claims> claimsJws = Jwts.parser()
+        .setSigningKey(secretKey)
+        .parseClaimsJws(token);
+
+      Claims body = claimsJws.getBody();
+
+      String username = body.getSubject();
+
+      var authorities = (List<Map<String, String>>) body.get("authorities");
+
+      Set<SimpleGrantedAuthority> simpleGrantedAuthorities = authorities.stream()
+        .map(m -> new SimpleGrantedAuthority(m.get("authority")))
+        .collect(Collectors.toSet());
+
+      Authentication authentication =  new UsernamePasswordAuthenticationToken(
+        username,
+        null,
+        simpleGrantedAuthorities
+      );
+
+      SecurityContextHolder.getContext().setAuthentication(authentication);
+    } catch(JwtException e){
+      throw new IllegalStateException(String.format("Token %s cannot be trust", token));
     }
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException{
+    filterChain.doFilter(request,response);
 
-        String authorizationHeader = request.getHeader(jwtConfig.getAuthorizationHeader());
-
-        if(Strings.isNullOrEmpty(authorizationHeader) || !authorizationHeader.startsWith(jwtConfig.getTokenPrefix())){
-            filterChain.doFilter(request,response);
-            return;
-        }
-        String token = authorizationHeader.replace(jwtConfig.getTokenPrefix(),"");
-        try{
-
-
-
-           Jws<Claims> claimsJws = Jwts.parser()
-                    .setSigningKey(secretKey)
-                    .parseClaimsJws(token);
-
-           Claims body = claimsJws.getBody();
-
-           String username = body.getSubject();
-
-           var authorities = (List<Map<String, String>>) body.get("authorities");
-
-           Set<SimpleGrantedAuthority> simpleGrantedAuthorities = authorities.stream()
-                   .map(m -> new SimpleGrantedAuthority(m.get("authority")))
-                   .collect(Collectors.toSet());
-
-           Authentication authentication =  new UsernamePasswordAuthenticationToken(
-                   username,
-                   null,
-                   simpleGrantedAuthorities
-           );
-
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        } catch(JwtException e){
-            throw new IllegalStateException(String.format("Token %s cannot be trust", token));
-        }
-
-        filterChain.doFilter(request,response);
-
-    }
+  }
 }

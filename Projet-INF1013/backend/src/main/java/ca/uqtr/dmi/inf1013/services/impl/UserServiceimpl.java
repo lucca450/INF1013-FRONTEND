@@ -17,6 +17,7 @@ public class UserServiceimpl implements UserService {
   }
   @Override
   public Optional<User> getUser(Long id) {
+    System.out.println("tetetete");
     return userRepo.findById(id);
   }
 
@@ -27,7 +28,6 @@ public class UserServiceimpl implements UserService {
 
   @Override
   public User addUser(User user) {
-    System.out.println(user);
     return this.userRepo.save(user);
   }
 
