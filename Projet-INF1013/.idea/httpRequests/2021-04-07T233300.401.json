@@ -1,7 +1,0 @@
-{
-  "timestamp": "2021-04-08T03:33:00.273+00:00",
-  "status": 401,
-  "error": "Unauthorized",
-  "message": "",
-  "path": "/api/users/getstatic/1"
-}

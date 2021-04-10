@@ -30,7 +30,7 @@ public class UserController {
 
   @GetMapping(path = "/get/{ID}")
   public User getUser(@PathVariable("ID")  Long id){ // PathVariable c'est pour dire que la variable est dans le path.
-
+  System.out.println("Get student");
     Optional<User> s =userService.getUser(id);
     return s.orElseThrow(()-> new RuntimeException("Étudiant non trouvé"));
 

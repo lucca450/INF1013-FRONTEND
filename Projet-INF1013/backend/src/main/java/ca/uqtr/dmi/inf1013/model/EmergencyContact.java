@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity()
-@Table(name = "EmergencyContact")
+@Table(name = "emergency_contact")
 @Data // Permet d'avoir les get set
 
 public class EmergencyContact {

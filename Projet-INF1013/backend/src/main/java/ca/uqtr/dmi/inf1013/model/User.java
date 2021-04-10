@@ -1,15 +1,16 @@
 package ca.uqtr.dmi.inf1013.model;
 
 import lombok.Data;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 
 @Entity()
 @Table(name = "users")
 @Data // Permet d'avoir les get set
   public class User {
+
     @Id() // Permet de dire que le champs qui suit est l'id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Permet de remplacer le serial
     private Long id;
     private String interfaceName;
     private String lname;

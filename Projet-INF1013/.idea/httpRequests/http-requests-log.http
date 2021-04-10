@@ -1,5 +1,488 @@
 POST http://localhost:8080/api/users/add
 Content-Type: application/json
+
+{
+  "id" :null,
+  "interfaceName":"User123",
+  "fname":"Pierre-olivierfdwqfwq",
+  "lname":"Dubois-Nadeau",
+  "email":"pierro_kool@hotmail.com",
+  "phone":"8199959353",
+  "address":"355 rue d'adrano",
+  "username":"prénomIntervenanttest@hotmail.com",
+  "password":"fewfew",
+  "role":"I",
+  "active":true
+}
+
+<> 2021-04-10T003808.500.json
+
+###
+
+POST http://localhost:8080/api/users/add
+Content-Type: application/json
+
+{
+  "id" :2,
+  "interfaceName":"User123",
+  "fname":"Pierre-olivierfdwqfwq",
+  "lname":"Dubois-Nadeau",
+  "email":"pierro_kool@hotmail.com",
+  "phone":"8199959353",
+  "address":"355 rue d'adrano",
+  "username":"prénomIntervenanttest@hotmail.com",
+  "password":"fewfew",
+  "role":"I",
+  "active":true
+}
+
+<> 2021-04-10T003759.200.json
+
+###
+
+POST http://localhost:8080/api/users/add
+Content-Type: application/json
+
+{
+  "id" :2,
+  "interfaceName":"User123",
+  "fname":"Pierre-olivierfdwqfwq",
+  "lname":"Dubois-Nadeau",
+  "email":"pierro_kool@hotmail.com",
+  "phone":"8199959353",
+  "address":"355 rue d'adrano",
+  "username":"prénomIntervenanttest@hotmail.com",
+  "password":"fewfew",
+  "role":"I",
+  "active":true
+}
+
+<> 2021-04-10T003736.200.json
+
+###
+
+POST http://localhost:8080/api/users/add
+Content-Type: application/json
+
+{
+  "id" :2,
+  "interfaceName":"User123",
+  "fname":"Pierre-olivierfdwqfwq",
+  "lname":"Dubois-Nadeau",
+  "email":"pierro_kool@hotmail.com",
+  "phone":"8199959353",
+  "address":"355 rue d'adrano",
+  "username":"prénomIntervenanttest@hotmail.com",
+  "password":"fewfew",
+  "role":"I",
+  "active":true
+}
+
+###
+
+POST http://localhost:8080/api/users/add
+Content-Type: application/json
+
+{
+  "id" :2,
+  "interfaceName":"User123",
+  "fname":"Pierre-olivierfdwqfwq",
+  "lname":"Dubois-Nadeau",
+  "email":"pierro_kool@hotmail.com",
+  "phone":"8199959353",
+  "address":"355 rue d'adrano",
+  "username":"prénomIntervenanttest@hotmail.com",
+  "password":"fewfew",
+  "role":"I",
+  "active":true
+}
+
+###
+
+POST http://localhost:8080/api/users/add
+Content-Type: application/json
+
+{
+  "id" :1,
+  "interfaceName":"User123",
+  "fname":"Pierre-olivierfdwqfwq",
+  "lname":"Dubois-Nadeau",
+  "email":"pierro_kool@hotmail.com",
+  "phone":"8199959353",
+  "address":"355 rue d'adrano",
+  "username":"prénomIntervenanttest@hotmail.com",
+  "password":"fewfew",
+  "role":"I",
+  "active":true
+}
+
+###
+
+POST http://localhost:8080/api/users/add
+Content-Type: application/json
+
+{
+  "id" :1,
+  "interfaceName":"User123",
+  "fname":"Pierre-olivierfdwqfwq",
+  "lname":"Dubois-Nadeau",
+  "email":"pierro_kool@hotmail.com",
+  "phone":"8199959353",
+  "address":"355 rue d'adrano",
+  "username":"prénomIntervenanttest@hotmail.com",
+  "password":"fewfew",
+  "role":"I",
+  "active":true
+}
+
+###
+
+POST http://localhost:8080/api/users/add
+Content-Type: application/json
+
+{
+  "id" :1,
+  "interfaceName":"User123",
+  "fname":"Pierre-olivierfdwqfwq",
+  "lname":"Dubois-Nadeau",
+  "email":"pierro_kool@hotmail.com",
+  "phone":"8199959353",
+  "address":"355 rue d'adrano",
+  "username":"prénomIntervenanttest@hotmail.com",
+  "password":"fewfew",
+  "role":"I",
+  "active":true
+}
+
+<> 2021-04-10T003148.200.json
+
+###
+
+PUT http://localhost:8080/api/users/add
+Content-Type: application/json
+
+{
+  "id" :1,
+  "interfaceName":"User123",
+  "fname":"Pierre-olivierfdwqfwq",
+  "lname":"Dubois-Nadeau",
+  "email":"pierro_kool@hotmail.com",
+  "phone":"8199959353",
+  "address":"355 rue d'adrano",
+  "username":"prénomIntervenanttest@hotmail.com",
+  "password":"fewfew",
+  "role":"I",
+  "active":true
+}
+
+<> 2021-04-10T003050.405.json
+
+###
+
+POST http://localhost:8080/api/users/add
+Content-Type: application/json
+
+{
+  "id" :1,
+  "interfaceName":"User123",
+  "fname":"Pierre-olivierfdwqfwq",
+  "lname":"Dubois-Nadeau",
+  "email":"pierro_kool@hotmail.com",
+  "phone":"8199959353",
+  "address":"355 rue d'adrano",
+  "username":"prénomIntervenanttest@hotmail.com",
+  "password":"fewfew",
+  "role":"I",
+  "active":true
+}
+
+<> 2021-04-10T003037.200.json
+
+###
+
+POST http://localhost:8080/api/users/add
+Content-Type: application/json
+
+{
+  "id" :1,
+  "interfaceName":"User",
+  "fname":"Pierre-olivier",
+  "lname":"Dubois-Nadeau",
+  "email":"pierro_kool@hotmail.com",
+  "phone":"8199959353",
+  "address":"355 rue d'adrano",
+  "username":"prénomIntervenanttest@hotmail.com",
+  "password":"fewfew",
+  "role":"I",
+  "active":true
+}
+
+<> 2021-04-10T002937.200.json
+
+###
+
+POST http://localhost:8080/api/users/add
+Content-Type: application/json
+
+{
+  "id" :1,
+  "interfaceName":"User",
+  "fname":"Pierre-olivier",
+  "lname":"Dubois-Nadeau",
+  "email":"pierro_kool@hotmail.com",
+  "phone":"8199959353",
+  "address":"355 rue d'adrano",
+  "username":"prénomIntervenanttest@hotmail.com",
+  "password":"fewfew",
+  "role":"I",
+  "active":true
+}
+
+<> 2021-04-10T002859.200.json
+
+###
+
+POST http://localhost:8080/api/users/add
+Content-Type: application/json
+
+{
+  "id" :1,
+  "interfaceName":"User",
+  "fname":"Pierre-olivier",
+  "lname":"Dubois-Nadeau",
+  "email":"pierro_kool@hotmail.com",
+  "phone":"8199959353",
+  "address":"355 rue d'adrano",
+  "username":"prénomIntervenanttest@hotmail.com",
+  "password":"fewfew",
+  "role":"I",
+  "active":true
+}
+
+<> 2021-04-10T002847.200.json
+
+###
+
+POST http://localhost:8080/api/users/add
+Content-Type: application/json
+
+{
+  "id" :null,
+  "interfaceName":"User",
+  "fname":"Pierre-olivier",
+  "lname":"Dubois-Nadeau",
+  "email":"pierro_kool@hotmail.com",
+  "phone":"8199959353",
+  "address":"355 rue d'adrano",
+  "username":"prénomIntervenanttest@hotmail.com",
+  "password":"fewfew",
+  "role":"I",
+  "active":true
+}
+
+<> 2021-04-10T002841.500.json
+
+###
+
+POST http://localhost:8080/api/users/add
+Content-Type: application/json
+
+{
+  "id" :3,
+  "interfaceName":"User",
+  "fname":"Pierre-olivier",
+  "lname":"Dubois-Nadeau",
+  "email":"pierro_kool@hotmail.com",
+  "phone":"8199959353",
+  "address":"355 rue d'adrano",
+  "username":"prénomIntervenanttest@hotmail.com",
+  "password":"fewfew",
+  "role":"I",
+  "active":true
+}
+
+<> 2021-04-10T002622.200.json
+
+###
+
+POST http://localhost:8080/api/users/add
+Content-Type: application/json
+
+{
+  "interfaceName":"User",
+  "fname":"Pierre-olivier",
+  "lname":"Dubois-Nadeau",
+  "email":"pierro_kool@hotmail.com",
+  "phone":"8199959353",
+  "address":"355 rue d'adrano",
+  "username":"prénomIntervenanttest@hotmail.com",
+  "password":"fewfew",
+  "role":"I",
+  "active":true
+}
+
+<> 2021-04-10T002356.500.json
+
+###
+
+POST http://localhost:8080/api/users/add
+Content-Type: application/json
+
+{
+  "id": 0,
+  "interfaceName":"User",
+  "fname":"Pierre-olivier",
+  "lname":"Dubois-Nadeau",
+  "email":"pierro_kool@hotmail.com",
+  "phone":"8199959353",
+  "address":"355 rue d'adrano",
+  "username":"prénomIntervenanttest@hotmail.com",
+  "password":"fewfew",
+  "role":"I",
+  "active":true
+}
+
+<> 2021-04-10T002117.200.json
+
+###
+
+POST http://localhost:8080/api/users/add
+Content-Type: application/json
+
+{
+  "id": 2,
+  "interfaceName":"User",
+  "fname":"Pierre-olivier",
+  "lname":"Dubois-Nadeau",
+  "email":"pierro_kool@hotmail.com",
+  "phone":"8199959353",
+  "address":"355 rue d'adrano",
+  "username":"prénomIntervenanttest@hotmail.com",
+  "password":"fewfew",
+  "role":"I",
+  "active":true
+}
+
+<> 2021-04-10T002010.200.json
+
+###
+
+POST http://localhost:8080/api/users/add
+Content-Type: application/json
+
+{
+  "id": 2,
+  "interfaceName":"User",
+  "fname":"Pierre-olivier",
+  "lname":"Dubois-Nadeau",
+  "email":"pierro_kool@hotmail.com",
+  "phone":"8199959353",
+  "address":"355 rue d'adrano",
+  "username":"prénomIntervenanttest@hotmail.com",
+  "password":"fewfew",
+  "role":"I",
+  "active":true
+}
+
+<> 2021-04-10T001909.200.json
+
+###
+
+GET http://localhost:8080/api/users/get/1
+
+<> 2021-04-10T001830.200.json
+
+###
+
+POST http://localhost:8080/api/users/add
+Content-Type: application/json
+
+{"interfaceName":"User",
+  "fname":"Pierre-olivier",
+  "lname":"Dubois-Nadeau",
+  "email":"pierro_kool@hotmail.com",
+  "phone":"8199959353",
+  "address":"355 rue d'adrano",
+  "username":"prénomIntervenanttest@hotmail.com",
+  "password":"fewfew",
+  "role":"I",
+  "active":true
+}
+
+<> 2021-04-10T001757.500.json
+
+###
+
+POST http://localhost:8080/api/users/add
+Content-Type: application/json
+
+{"interfaceName":"User",
+  "fname":"Pierre-olivier",
+  "lname":"Dubois-Nadeau",
+  "email":"pierro_kool@hotmail.com",
+  "phone":"8199959353",
+  "address":"355 rue d'adrano",
+  "username":"prénomIntervenanttest@hotmail.com",
+  "password":"fewfew",
+  "role":"I",
+  "active":true
+}
+
+<> 2021-04-10T001708.500.json
+
+###
+
+POST http://localhost:8080/api/users/add
+Content-Type: application/json
+
+{"interfaceName":"User",
+  "fname":"Pierre-olivier",
+  "lname":"Dubois-Nadeau",
+  "email":"pierro_kool@hotmail.com",
+  "phone":"8199959353",
+  "address":"355 rue d'adrano",
+  "username":"prénomIntervenanttest@hotmail.com",
+  "password":"fewfew",
+  "role":"I",
+  "active":true
+}
+
+<> 2021-04-10T001638.500.json
+
+###
+
+GET http://localhost:8080/api/users/get/1
+
+<> 2021-04-10T001434.200.json
+
+###
+
+GET http://localhost:8080/api/users/get/1
+
+<> 2021-04-10T000822.200.json
+
+###
+
+GET http://localhost:8080/api/users/get/1
+
+<> 2021-04-10T000528.200.json
+
+###
+
+GET http://localhost:8080/api/users/get/1
+
+<> 2021-04-10T000442.200.json
+
+###
+
+GET http://localhost:8080/api/users/get/1
+
+<> 2021-04-09T235910.500.json
+
+###
+
+POST http://localhost:8080/api/users/add
+Content-Type: application/json
 {:
     "id": 2,
     "interfaceName": "Users",
@@ -195,238 +678,6 @@ Content-Type: application/json
 {"username": "foo",
 "password": "foo"
 }
-
-###
-
-POST http://localhost:8080/api/users/authenticate
-Content-Type: application/json
-
-{"username": "foo",
-"password": "foo"
-}
-
-###
-
-POST http://localhost:8080/api/users/authenticate
-Content-Type: application/json
-
-{"username": "foo",
-"password": "foo"
-}
-
-###
-
-POST http://localhost:8080/api/users/add
-Content-Type: application/json
-
-{
-  "ID": 2,
-  "firstName": "Julien",
-  "lastName": "Carron"
-}
-
-###
-
-POST http://localhost:8080/api/users/authenticate
-Content-Type: application/json
-
-{"username": "foo",
-"password": "foo"
-}
-
-###
-
-POST http://localhost:8080/api/users/authenticate
-Content-Type: application/json
-
-{"username": "foo",
-"password": "foo"
-}
-
-###
-
-GET http://localhost:8080/api/users/getstatic/1
-
-<> 2021-04-07T233324.401.json
-
-###
-
-POST http://localhost:8080/api/users/authenticate
-Content-Type: application/json
-
-{"username": "foo",
-"password": "foo"
-}
-
-###
-
-POST http://localhost:8080/api/users/add
-Content-Type: application/json
-
-{
-  "ID": 2,
-  "firstName": "Julien",
-  "lastName": "Carron"
-}
-
-###
-
-POST http://localhost:8080/api/users/add
-Content-Type: application/json
-
-{
-  "ID": 2,
-  "firstName": "Julien",
-  "lastName": "Carron"
-}
-
-###
-
-GET http://localhost:8080/api/users/getstatic/1
-
-<> 2021-04-07T233300.401.json
-
-###
-
-GET http://localhost:8080/api/users/getstatic/1
-
-<> 2021-04-07T233051.401.json
-
-###
-
-POST http://localhost:8080/api/users/authenticate
-Content-Type: application/json
-
-{"username": "foo",
-"password": "foo"
-}
-
-###
-
-GET http://localhost:8080/api/users/getstatic/1
-
-<> 2021-04-07T233042.401.json
-
-###
-
-POST http://localhost:8080/api/hello/authenticate
-Content-Type: application/json
-
-{"username": "foo",
-"password": "foo"
-}
-
-###
-
-GET http://localhost:8080/api/users/getstatic/1
-
-<> 2021-04-07T223231.401.json
-
-###
-
-GET http://localhost:8080/api/users/getstatic/1
-
-<> 2021-04-07T223149.401.json
-
-###
-
-GET http://localhost:8080/api/users/getstatic/1
-
-<> 2021-04-07T222554.401.json
-
-###
-
-GET http://localhost:8080/api/users/getstatic/1
-
-<> 2021-04-07T222521.401.json
-
-###
-
-GET http://localhost:8080/api/users/getstatic/1
-
-<> 2021-04-07T222435.401.json
-
-###
-
-GET http://localhost:8080/api/users/getstatic/1
-
-<> 2021-04-07T222416.401.json
-
-###
-
-GET http://localhost:8080/api/users/getstatic/1
-
-<> 2021-04-07T222314.401.json
-
-###
-
-GET http://localhost:8080/api/users/getstatic/{{1}}
-
-###
-
-POST http://localhost:8080/api/hello/authenticate
-Content-Type: application/json
-
-{"username": "foo",
-"password": "foo"
-}
-
-<> 2021-04-07T191247.200.json
-
-###
-
-POST http://localhost:8080/api/hello/authenticate
-Content-Type: application/json
-
-{"username": "foo",
-"password": "foo"
-}
-
-<> 2021-04-07T185758.200.json
-
-###
-
-POST http://localhost:8080/api/hello/authenticate
-Content-Type: application/json
-
-{"username": "foo",
-"password": "foo"
-}
-
-<> 2021-04-07T185739.404.json
-
-###
-
-POST http://localhost:8080/api/hello/authenticate
-Content-Type: application/json
-
-{"username": "foo",
-"password": "foo"
-}
-
-<> 2021-04-07T185736.404.json
-
-###
-
-POST http://localhost:8080/authenticate
-Content-Type: application/json
-
-{"username": "foo",
-"password": "foo"
-}
-
-<> 2021-04-07T185624.200.json
-
-###
-
-POST http://localhost:8080/authenticate
-Content-Type: application/json
-
-{"username": "foo",
-"password": "foo"
-}
-
-<> 2021-04-07T185607.200.json
 
 ###
 
