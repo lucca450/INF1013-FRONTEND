@@ -51,6 +51,19 @@
       "role": "I",
       "active": true,
       "id": 4
+    },
+    {
+      "interfaceName": "User",
+      "fname": "lucca",
+      "lname": "test",
+      "email": "test@hotmail.com",
+      "phone": "8195551234",
+      "address": "321 rue de la rue",
+      "username": "lucca",
+      "password": "1234",
+      "role": "I",
+      "active": true,
+      "id": 26
     }
   ],
   "persons": [

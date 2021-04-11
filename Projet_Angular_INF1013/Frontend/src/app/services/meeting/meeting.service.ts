@@ -61,7 +61,7 @@ export class MeetingService {
 
   // Retourne tous les meetings d'un intervenant
   public getMeetingsFromIntervenantId(id: number): Observable<Meeting> {
-    return this.httpClient.get<Meeting>(`http://localhost:3000/meeting?idIntervenant=` + id);
+    return this.httpClient.get<Meeting>(/*`http://localhost:3000/meeting?idIntervenant=`*/ this.utilitiesService.serverUrl + 'meetings/getByIntervenantId/' + id);
   }
 
   // Retourne un meeting spécifique
