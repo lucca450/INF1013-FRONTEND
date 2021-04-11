@@ -2,8 +2,6 @@ package ca.uqtr.dmi.inf1013.controller;
 
 import ca.uqtr.dmi.inf1013.model.User;
 import ca.uqtr.dmi.inf1013.services.UserService;
-import ca.uqtr.dmi.inf1013.services.impl.UserServiceImpl;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,11 +40,26 @@ public class UserController {
     return s.orElseThrow(()-> new RuntimeException("Aucun utilisateurs"));
   }
 
-  @GetMapping(path = "/users/verifySignin/{username}/{password}")
+  @GetMapping(path = "/verifySignin/{username}/{password}")
   public User verifySignin(@PathVariable("username")  String username, @PathVariable("password")  String password){
     Optional<User> s =userService.getSigninUser(username,password);
     return s.orElseThrow(()-> new RuntimeException("Aucun utilisateurs"));
   }
+
+  @GetMapping(path = "/verifyName/{username}")
+  public boolean verifyUserExist(@PathVariable("username") String username){
+    Long nbrUser =userService.verifyUserExist(username);
+    if(nbrUser == 0){
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+
+    //.orElseThrow(()-> new RuntimeException("Ce nom d'utilisateur existe déja"));
+  }
+
 
   @PutMapping(path = "/edit")
   public int editUser(@RequestBody User user){ // PathVariable c'est pour dire que la variable est dans le path.

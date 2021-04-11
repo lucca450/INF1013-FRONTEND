@@ -25,6 +25,7 @@ export class AddIntervenantComponent implements OnInit, OnDestroy {
   roleEnum = Object.entries(Role).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
   // Subscription
   errorsSubscription: Subscription;
+  verifyUsernameSubscription: Subscription;
 
   constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService) { }
 
@@ -35,6 +36,16 @@ export class AddIntervenantComponent implements OnInit, OnDestroy {
       (error: any) => {
         this.errorMessage = error;
       }
+    );
+
+    // On vérifie si le nom de l'utilisateur est correcte, sinon message d'erreur
+    this.verifyUsernameSubscription = this.intervenantService.intervenantVerifyUsernameSubject.subscribe(
+      (data: any) => {
+        this.intervenantService.addIntervenant(this.addintervenantForm.value);
+      },
+      (error: any) => {
+        this.errorMessage = error;
+      },
     );
   }
 
@@ -75,9 +86,9 @@ export class AddIntervenantComponent implements OnInit, OnDestroy {
     const element: HTMLElement = document.getElementById('buttonintervenant') as HTMLElement;
     element.click();
      */
-
-    if (this.addintervenantForm.valid) {
-      this.intervenantService.addIntervenant(this.addintervenantForm.value);
+      this.intervenantService.sendEmail(this.addintervenantForm.get('username').value);
+      if (this.addintervenantForm.valid) {
+      this.intervenantService.verifyUsernameExist(this.addintervenantForm.get('username').value);
     }else {
       alert('Les champs en surbrillance contiennent des données incorrectes, veuillez les corriger.');
     }
@@ -94,6 +105,7 @@ export class AddIntervenantComponent implements OnInit, OnDestroy {
 
   private unsubscribe(): void{
     this.errorsSubscription.unsubscribe();
+    this.verifyUsernameSubscription.unsubscribe();
   }
 
 }

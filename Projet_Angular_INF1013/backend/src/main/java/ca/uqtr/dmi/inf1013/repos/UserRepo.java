@@ -37,7 +37,7 @@ public interface UserRepo extends CrudRepository<User,Long> {
   @Transactional
   int saveUser(Long id, String lname, String fname, String email, String phone, String address, String organism, String username, Character role);
 
-  Optional<User> findByUsernameAndPassword(String username, String password);
-
-
+    Boolean findByUsernameAndPassword(String username, String password);
+    @Query(value = "select count(*) from users where username = ?1", nativeQuery = true)
+    Long verifyUserExist(String username);
 }

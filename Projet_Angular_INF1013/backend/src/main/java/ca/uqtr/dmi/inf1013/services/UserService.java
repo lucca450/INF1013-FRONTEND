@@ -14,4 +14,5 @@ public interface UserService extends UserDetailsService {
   int editUser(User user);
   int activeDesactiveUser(Long id, Boolean activeDesactive);
   Optional<User> getSigninUser(String username, String password);
+  long verifyUserExist(String username);
 }
