@@ -13,5 +13,10 @@ public class FollowedBy {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long ID;
   private String interfaceName;
-  private String type;
+  private String lname;
+  private String fname;
+  private String phone;
+  private String email;
+  private String fax;
+  private String organism;
 }

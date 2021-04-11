@@ -14,6 +14,8 @@ import {Person} from '../../../models/person/person';
 import {User} from '../../../models/users/user';
 import {dateLessThanToday} from '../../../Validators/dateLessThanToday';
 import {dateLessThan} from '../../../Validators/dateLessthan';
+import {EmergencyContactService} from '../../../services/emergencyContact/emergency-contact.service';
+import {FollowedByService} from '../../../services/followedBy/followed-by.service';
 
 
 @Component({
@@ -47,6 +49,8 @@ export class AddPersonComponent implements OnInit, OnDestroy{
   // Subscription
   errorsSubscription: Subscription;
   departureReasonSubscription: Subscription;
+  emergencyContactSubscription: Subscription;
+  followedBySubscription: Subscription;
   statusSubscription: Subscription;
   workCitySubscription: Subscription;
   residenceTypeSubscription: Subscription;
@@ -63,7 +67,9 @@ export class AddPersonComponent implements OnInit, OnDestroy{
               private workCityService: WorkCityService,
               private departureReasonService: DepartureReasonService,
               private educationLevelService: EducationLevelService,
-              private residenceTypeService: ResidenceTypeService) { }
+              private residenceTypeService: ResidenceTypeService,
+              private emergencyContactService: EmergencyContactService,
+              private followedByService: FollowedByService) { }
 
   ngOnInit(): void {
 
@@ -316,7 +322,7 @@ export class AddPersonComponent implements OnInit, OnDestroy{
 
     this.fourthFormGroup = this.formBuilder.group({
 
-      // interfaceName: ['EmergencyContact'],
+      interfaceName: ['EmergencyContact'],
       lname: ['', [Validators.required, Validators.maxLength(40)]],
       fname: ['', [Validators.required, Validators.maxLength(40)]],
       phone: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
@@ -347,42 +353,76 @@ export class AddPersonComponent implements OnInit, OnDestroy{
   onAddPerson(): void {
     if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.thirdFormGroup.valid
      && this.fourthFormGroup.valid && this.fifthFormGroup.valid) {
-     // let formAddPersonTempo;
-      this.formAddPerson = this.formBuilder.group({
-        interfaceName: 'Person',
-        lname: [this.firstFormGroup.value.lname],
-        fname: [this.firstFormGroup.value.fname],
-        birthday : [this.firstFormGroup.value.birthday],
-        sexe: [this.firstFormGroup.value.sexe],
-        address: [this.firstFormGroup.value.address],
-        phone: [this.firstFormGroup.value.phone],
-        nas: [this.firstFormGroup.value.nas],
-        healthIssues: [this.firstFormGroup.value.healthIssues],
-        workCityId: [this.secondFormGroup.value.workCityId],
-        startDate: [this.secondFormGroup.value.startDate],
-        endDate: [this.secondFormGroup.value.endDate],
-        referenceId: [this.secondFormGroup.value.referenceId],
-        residenceTypeId: [this.secondFormGroup.value.residenceTypeId],
-        educationalLevelId: [this.secondFormGroup.value.educationalLevelId],
-        programStartDate: [this.thirdFormGroup.value.programStartDate],
-        programEndDate: [this.thirdFormGroup.value.programEndDate],
-        departureReasonId: [this.thirdFormGroup.value.departureReasonId],
-        hoursPerDay: [this.thirdFormGroup.value.hoursPerDay],
-        statusId: [this.thirdFormGroup.value.statusId],
-        roamingTracking: [this.thirdFormGroup.value.roamingTracking],
-        roamingStartDate: [this.thirdFormGroup.value.roamingStartDate],
-        roamingEndDate: [this.thirdFormGroup.value.roamingEndDate],
-        communityWork: [this.thirdFormGroup.value.communityWork],
-        communityStartDate: [this.thirdFormGroup.value.communityStartDate],
-        communityEndDate: [this.thirdFormGroup.value.communityEndDate],
-        hourlyRate: [this.thirdFormGroup.value.hourlyRate],
-        transportFees: [this.thirdFormGroup.value.transportFees],
-        responsibleIntervenantId: [this.thirdFormGroup.value.responsibleIntervenantId],
-        emergencyContact: [this.fourthFormGroup.value],
-        followedBy: [this.fifthFormGroup.value],
-        active: true
-      });
-      this.personService.addPerson(this.formAddPerson.value);
+
+      let emergencyContactId = 0;
+    // On observe la requête qui ajoute le contacte d'urgence pour récupérer son identifiant
+      this.emergencyContactSubscription = this.emergencyContactService.emergencyContactsSubject.subscribe(
+          (data: any) => {
+            emergencyContactId = data.id;
+            this.emergencyContactSubscription.unsubscribe();
+            let follwedById = 0;
+            // On observe la requête qui ajoute la personne qui de suivi pour récupérer son identifiant
+            this.followedBySubscription = this.followedByService.followupsBySubject.subscribe(
+              (followedData: any) => {
+                this.followedBySubscription.unsubscribe();
+                console.log('id après ajout :');
+                follwedById = followedData.id;
+                console.log(follwedById);
+
+                // On créer un nouveau form pour envoyer les données au serveur et pouvoir ajouter la personne
+                this.formAddPerson = this.formBuilder.group({
+                  interfaceName: 'Person',
+                  lname: [this.firstFormGroup.value.lname],
+                  fname: [this.firstFormGroup.value.fname],
+                  birthday : [this.firstFormGroup.value.birthday],
+                  sexe: [this.firstFormGroup.value.sexe],
+                  address: [this.firstFormGroup.value.address],
+                  phone: [this.firstFormGroup.value.phone],
+                  nas: [this.firstFormGroup.value.nas],
+                  healthIssues: [this.firstFormGroup.value.healthIssues],
+                  workCityId: [this.secondFormGroup.value.workCityId],
+                  startDate: [this.secondFormGroup.value.startDate],
+                  endDate: [this.secondFormGroup.value.endDate],
+                  referenceId: [this.secondFormGroup.value.referenceId],
+                  residenceTypeId: [this.secondFormGroup.value.residenceTypeId],
+                  educationalLevelId: [this.secondFormGroup.value.educationalLevelId],
+                  programStartDate: [this.thirdFormGroup.value.programStartDate],
+                  programEndDate: [this.thirdFormGroup.value.programEndDate],
+                  departureReasonId: [this.thirdFormGroup.value.departureReasonId],
+                  hoursPerDay: [this.thirdFormGroup.value.hoursPerDay],
+                  statusId: [this.thirdFormGroup.value.statusId],
+                  roamingTracking: [this.thirdFormGroup.value.roamingTracking],
+                  roamingStartDate: [this.thirdFormGroup.value.roamingStartDate],
+                  roamingEndDate: [this.thirdFormGroup.value.roamingEndDate],
+                  communityWork: [this.thirdFormGroup.value.communityWork],
+                  communityStartDate: [this.thirdFormGroup.value.communityStartDate],
+                  communityEndDate: [this.thirdFormGroup.value.communityEndDate],
+                  hourlyRate: [this.thirdFormGroup.value.hourlyRate],
+                  transportFees: [this.thirdFormGroup.value.transportFees],
+                  responsibleIntervenantId: [this.thirdFormGroup.value.responsibleIntervenantId],
+                  emergencyContactId: [emergencyContactId],
+                  followedById: [follwedById],
+                  active: true
+                });
+                console.log('ask add 1');
+                this.personService.addPerson(this.formAddPerson.value);
+              },
+              (error: any) => {
+                this.errorMessage = error;
+              }
+            );
+          },
+          (error: any) => {
+            this.errorMessage = error;
+          }
+        );
+
+      // On ajoute le contacte d'urgence à la base de donnée
+      this.emergencyContactService.addEmergencyContact(this.fourthFormGroup.value);
+      // On ajoute la personne qui suis à la base de donneé.
+      this.followedByService.addFollowedBy(this.fifthFormGroup.value);
+
+
     }else {
       alert('Les champs en surbrillance contiennent des données incorrectes, veuillez les corriger.');
     }
@@ -405,6 +445,8 @@ export class AddPersonComponent implements OnInit, OnDestroy{
     this.residenceTypeSubscription.unsubscribe();
     this.educationLevelSubscription.unsubscribe();
     this.referenceSubscription.unsubscribe();
+    this.emergencyContactSubscription.unsubscribe();
+    this.followedBySubscription.unsubscribe();
     this.intervenantSubscription.unsubscribe();
   }
 }

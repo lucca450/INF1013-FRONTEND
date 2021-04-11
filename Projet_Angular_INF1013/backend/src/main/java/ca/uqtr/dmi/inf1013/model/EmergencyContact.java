@@ -18,4 +18,5 @@ public class EmergencyContact {
   private String fname;
   private String phone;
   private String relation;
+
 }

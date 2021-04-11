@@ -65,29 +65,13 @@ export class IntervenantService {
 
   // Fonction pour ajouter un intervenant
   addIntervenant(user: User): void{
-    /*
-     Access-Control-Allow-Origin: *
-
-   const headers = {'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'DELETE, POST, GET, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'};*/
-
-    const HTTP_OPTIONS = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Methods': 'GET,POST, PUT, DELETE'
-      })
-    };
-
-   // const headers = { 'content-type': 'application/json'};
-
+    const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(user);
 
    // console.log(headers);
     console.log(body);
 
-    this.httpClient.post(this.utilitiesService.serverUrl + 'users/add', body, HTTP_OPTIONS).subscribe(
+    this.httpClient.post(this.utilitiesService.serverUrl + 'users/add', body, {headers}).subscribe(
       (data: any) => {
         this.emitIntervenantsSubject(data);
         this.goToMainRoute();

@@ -37,6 +37,7 @@ export class PersonService {
   addPerson(person: Person): void{
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(person);
+    console.log('ask add 2');
     console.log('On envoie cette personne : ');
     console.log(body);
     this.httpClient.post(this.utilitiesService.serverUrl + 'persons/add', body, {headers}).subscribe(

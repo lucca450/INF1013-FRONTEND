@@ -15,11 +15,9 @@ import java.util.Optional;
 public class MeetingController {
 
     private MeetingService meetingService;
-    private MeetingServiceImpl meetingServiceImpl;
 
-    public MeetingController(MeetingService meetingService, MeetingServiceImpl meetingServiceImpl){
+    public MeetingController(MeetingService meetingService){
         this.meetingService = meetingService;
-        this.meetingServiceImpl = meetingServiceImpl;
     }
 
     @PostMapping(path = "/add")
