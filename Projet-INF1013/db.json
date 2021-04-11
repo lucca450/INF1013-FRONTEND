@@ -296,7 +296,49 @@
       "active": false,
       "id": 5
     }
+  ],"departureReasons": [
+    {
+      "interfaceName:": "DepartureReason",
+      "id": 0,
+      "name": "Emploi"
+    },
+    {
+      "interfaceName:": "DepartureReason",
+      "id": 1,
+      "name": "Retour aux études"
+    },
+    {
+      "interfaceName:": "DepartureReason",
+      "id": 2,
+      "name": "Problèmes de santé mentale"
+    },
+    {
+      "interfaceName:": "DepartureReason",
+      "id": 3,
+      "name": "Problèmes de santé physique"
+    },
+    {
+      "interfaceName:": "DepartureReason",
+      "id": 4,
+      "name": "Déménagement"
+    },
+    {
+      "interfaceName:": "DepartureReason",
+      "id": 5,
+      "name": "Fin de contrat/projet"
+    },
+    {
+      "interfaceName:": "DepartureReason",
+      "id": 6,
+      "name": "Décès"
+    },
+    {
+      "interfaceName:": "DepartureReason",
+      "id": 7,
+      "name": "Autres"
+    }
   ],
+
   "meeting": [
     {
       "notes": "fewfew",
