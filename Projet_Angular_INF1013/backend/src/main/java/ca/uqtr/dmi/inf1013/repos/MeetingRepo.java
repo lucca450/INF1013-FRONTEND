@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MeetingRepo extends CrudRepository<Meeting,Long> {
-    Iterable<Meeting> findByIdPerson(Number idPerson);
+    Iterable<Meeting> findMeetingsByIdPerson(Number idPerson);
 }

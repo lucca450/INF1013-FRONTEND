@@ -41,6 +41,7 @@ export class ListPersonMeetingsComponent implements OnInit, OnDestroy {
     });
 
     // Appel de la méthode qui fait la requête pour récupèrer les rencontres de la personne
+    console.log('personID' + this.personID);
     this.meetingService.loadPersonMeetings(this.personID);
     // On écoute la requête pour récupérer les informations
     this.meetingSubscription = this.meetingService.PersonMeetingsSubject.subscribe(

@@ -2,7 +2,6 @@ package ca.uqtr.dmi.inf1013.services.impl;
 
 
 import ca.uqtr.dmi.inf1013.model.Meeting;
-import ca.uqtr.dmi.inf1013.model.User;
 import ca.uqtr.dmi.inf1013.repos.MeetingRepo;
 import ca.uqtr.dmi.inf1013.services.MeetingService;
 import org.springframework.stereotype.Service;
@@ -40,6 +39,6 @@ public class MeetingServiceImpl implements MeetingService {
 
     @Override
     public Iterable<Meeting> getMeetingByPersonId(Long id) {
-        return this.meetingRepo.findByIdPerson(id) ;
+        return this.meetingRepo.findMeetingsByIdPerson(id);
     }
 }
