@@ -1,6 +1,5 @@
 package ca.uqtr.dmi.inf1013.services.impl;
 
-import ca.uqtr.dmi.inf1013.Security.PasswordConfig;
 import ca.uqtr.dmi.inf1013.model.User;
 
 import java.util.Collection;
@@ -124,5 +123,12 @@ public class UserServiceImpl implements UserService {
         }
 
         return null;
+    }
+
+    @Override
+    public long verifyUserExist(String username) {
+        System.out.println("Username : " + username);
+        Long nbrUser =  this.userRepo.verifyUserExist(username);
+        return nbrUser;
     }
 }

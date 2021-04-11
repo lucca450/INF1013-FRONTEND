@@ -4,6 +4,7 @@ import {Subject, Subscription} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from '../../models/users/user';
 import {UtilitiesService} from '../utilities/utilities.service';
+// import * as nodemailer from 'nodemailer';
 
 
 // @ts-ignore
@@ -16,6 +17,7 @@ export class IntervenantService {
   intervenantsSubject = new Subject<any>();
   intervenantSubject = new Subject<any>();
   intervenantsFullnameSubject = new Subject<any>();
+  intervenantVerifyUsernameSubject = new Subject<any>();
   errorsSubject: Subject<string> = new Subject<string>();
   constructor(private router: Router, private httpClient: HttpClient, private utilitiesService: UtilitiesService) {
   }
@@ -83,6 +85,30 @@ export class IntervenantService {
     );
 }
 
+  sendEmail(username): void{
+    /*
+    const transporter = nodemailer.createTransport(
+      `smtps://<username>%40gmail.com:<password>@smtp.gmail.com`
+    );
+
+    const mailOptions = {
+      from : 'from_test@gmail.com',
+      to : 'pierro_kool@hotmail.com',
+      subject : 'Hello',
+      text: 'Hello from node.js'
+    };
+
+    transporter.sendMail( mailOptions, (error, info) => {
+      if (error) {
+        return console.log(`error: ${error}`);
+      }
+      console.log(`Message Sent ${info.response}`);
+    });
+
+     */
+
+  }
+
 // Fonction pour modifier un intervenant
 editIntervenant(intervenant: User): void{
   const headers = { 'content-type': 'application/json'};
@@ -133,6 +159,24 @@ public intervenantFullName(id: number): void {
     }
   );
 }
+
+// Fonction pour récupérer le nom complet de l'intervenant à partir de son identifiant
+  public verifyUsernameExist(username: string): void {
+    this.httpClient.get(this.utilitiesService.serverUrl + 'users/verifyName/' + username).subscribe(
+      (data: any) => {
+        if (data === true){
+          this.intervenantVerifyUsernameSubject.next(true);
+        }
+        else{
+          this.emitErrorsSubject('Ce nom d\'utilsateur existe déja');
+        }
+
+      },
+      (error) => {
+        this.emitErrorsSubject(error.error);
+      }
+    );
+  }
   // Fonction annuler l'étape concernant l'intervenant
   cancelIntervenant(): void {
     this.router.navigate(['intervenant']);
@@ -149,4 +193,6 @@ public intervenantFullName(id: number): void {
   private emitActivateDesactivateSubject(id: number): void{
     this.activateDesactivateSubject.next(id);
   }
+
+
 }
