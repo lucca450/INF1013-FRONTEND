@@ -364,7 +364,7 @@ export class EditPersonComponent implements OnInit, OnDestroy {
       && this.fourthFormGroup.valid && this.fifthFormGroup.valid) {
       this.formEditPerson = this.formBuilder.group({
         interfaceName: 'Person',
-        id: [this.person.ID],
+        id: [this.person.id],
         lname: [this.firstFormGroup.value.lname],
         fname: [this.firstFormGroup.value.fname],
         birthday : [this.firstFormGroup.value.birthday],

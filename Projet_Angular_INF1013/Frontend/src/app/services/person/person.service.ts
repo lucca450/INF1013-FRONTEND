@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {Subject} from 'rxjs';
 import {User} from '../../models/users/user';
+import {UtilitiesService} from '../utilities/utilities.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class PersonService {
   personSubject = new Subject<any>();
 
 
-  constructor(private router: Router, private httpClient: HttpClient)
+  constructor(private router: Router, private httpClient: HttpClient, private utilitiesService: UtilitiesService)
   {}
 
   // Fonction pour récupérer le nom complet de la personne
@@ -36,7 +37,7 @@ export class PersonService {
   addPerson(person: Person): void{
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(person);
-    this.httpClient.post('http://localhost:3000/persons', body, {headers}).subscribe(
+    this.httpClient.post(/*'http://localhost:3000/persons'*/ this.utilitiesService.serverUrl + '/add', body, {headers}).subscribe(
       (data: any) => {
         this.emitpersonsSubject(data);
         this.goToMainRoute();
@@ -56,7 +57,7 @@ export class PersonService {
   editPerson(person: Person): void {
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(person);
-    this.httpClient.put('http://localhost:3000/persons/' + person.ID, body, {headers}).subscribe(
+    this.httpClient.put('http://localhost:3000/persons/' + person.id, body, {headers}).subscribe(
       (data: any) => {
         this.emitpersonsSubject(data);
         this.goToMainRoute();

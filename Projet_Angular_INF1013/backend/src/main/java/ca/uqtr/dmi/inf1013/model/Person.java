@@ -12,7 +12,7 @@ import java.util.Date;
 public class Person {
   @Id() // Permet de dire que le champs qui suit est l'id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long ID;
+  private Long id;
   private String interfaceName;
   private String lname;
   private String fname;
