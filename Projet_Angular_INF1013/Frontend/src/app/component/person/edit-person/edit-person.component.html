@@ -458,8 +458,8 @@
           <p>Informations de la personne de suivi</p>
           <mat-form-field>
             <mat-label>Suivi par</mat-label>
-            <mat-select #followedBy [value]="person.followedBy.interfaceName"
-                        (valueChange)="followedBy.value =$event" formControlName="interfaceName" required>
+            <mat-select #followedByData [value]="followedBy.interfaceName"
+                        (valueChange)="followedByData.value =$event" formControlName="interfaceName" required>
               <mat-option value="User">Intervenant</mat-option>
               <mat-option value="Doctor">Médecin</mat-option>
               <mat-option value="EmergencyContact">Contacte d'urgence</mat-option>
@@ -499,7 +499,7 @@
             </mat-error>
           </mat-form-field>
           <br>
-          <mat-form-field *ngIf="followedBy.value == 'Doctor' || followedBy.value == 'User'" class="full-width-input">
+          <mat-form-field *ngIf="followedByData.value == 'Doctor' || followedByData.value == 'User'" class="full-width-input">
             <input matInput placeholder="Email de la personne de suivi." formControlName="email" required>
             <mat-error *ngIf="fifthFormGroup.hasError('required', 'email')">
               Veuillez entrer l'email de la personne de suivi.
@@ -509,7 +509,7 @@
             </mat-error>
             <br>
           </mat-form-field>
-          <mat-form-field *ngIf="followedBy.value == 'Doctor'" class="full-width-input">
+          <mat-form-field *ngIf="followedByData.value == 'Doctor'" class="full-width-input">
             <input matInput placeholder="Numéro de fax de la personne de suivi." formControlName="fax">
             <mat-error *ngIf="fifthFormGroup.hasError('required', 'fax')">
               Veuillez entrer le numéro de fax de la personne de suivi.
@@ -519,7 +519,7 @@
             </mat-error>
             <br>
           </mat-form-field>
-          <mat-form-field *ngIf="followedBy.value == 'OtherPerson' || followedBy.value == 'User'" class="full-width-input">
+          <mat-form-field *ngIf="followedByData.value == 'OtherPerson' || followedByData.value == 'User'" class="full-width-input">
             <input matInput placeholder="Organisme de la personne de suivi." formControlName="organism" required>
             <mat-error *ngIf="fifthFormGroup.hasError('required', 'organism')">
               Veuillez entrer l'organisme de la personne de suivi.

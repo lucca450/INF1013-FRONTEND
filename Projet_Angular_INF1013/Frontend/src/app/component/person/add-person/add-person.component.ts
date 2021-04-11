@@ -354,21 +354,24 @@ export class AddPersonComponent implements OnInit, OnDestroy{
     if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.thirdFormGroup.valid
      && this.fourthFormGroup.valid && this.fifthFormGroup.valid) {
 
+      console.log('Voici linterface : ');
+      console.log(this.fifthFormGroup.get('interfaceName').value);
+      // On ajoute le contacte d'urgence à la base de donnée
+      this.emergencyContactService.addEmergencyContact(this.fourthFormGroup.value);
       let emergencyContactId = 0;
     // On observe la requête qui ajoute le contacte d'urgence pour récupérer son identifiant
       this.emergencyContactSubscription = this.emergencyContactService.emergencyContactsSubject.subscribe(
           (data: any) => {
             emergencyContactId = data.id;
+            // On ajoute la personne qui suis à la base de donneé.
+            this.followedByService.addFollowedBy(this.fifthFormGroup.value);
             this.emergencyContactSubscription.unsubscribe();
             let follwedById = 0;
             // On observe la requête qui ajoute la personne qui de suivi pour récupérer son identifiant
             this.followedBySubscription = this.followedByService.followupsBySubject.subscribe(
               (followedData: any) => {
                 this.followedBySubscription.unsubscribe();
-                console.log('id après ajout :');
                 follwedById = followedData.id;
-                console.log(follwedById);
-
                 // On créer un nouveau form pour envoyer les données au serveur et pouvoir ajouter la personne
                 this.formAddPerson = this.formBuilder.group({
                   interfaceName: 'Person',
@@ -404,7 +407,6 @@ export class AddPersonComponent implements OnInit, OnDestroy{
                   followedById: [follwedById],
                   active: true
                 });
-                console.log('ask add 1');
                 this.personService.addPerson(this.formAddPerson.value);
               },
               (error: any) => {
@@ -416,12 +418,6 @@ export class AddPersonComponent implements OnInit, OnDestroy{
             this.errorMessage = error;
           }
         );
-
-      // On ajoute le contacte d'urgence à la base de donnée
-      this.emergencyContactService.addEmergencyContact(this.fourthFormGroup.value);
-      // On ajoute la personne qui suis à la base de donneé.
-      this.followedByService.addFollowedBy(this.fifthFormGroup.value);
-
 
     }else {
       alert('Les champs en surbrillance contiennent des données incorrectes, veuillez les corriger.');
