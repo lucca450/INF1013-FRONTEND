@@ -28,21 +28,17 @@ public class MailService {
      */
     private JavaMailSender javaMailSender;
 
-    /**
-     *
-     * @param javaMailSender
-     */
     @Autowired
     public MailService(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
     }
 
-    public void sendEmail(String email, String username, String password) throws MailException {
+    public void sendEmail(String email, String username, String password, String firstName, String lastName) throws MailException {
 
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setTo(email);
-        mail.setSubject("Testing Mail API");
-        mail.setText("Félications! Nom d'utilisateur : "+);
+        mail.setSubject("Votre inscription");
+        mail.setText("Bonjour "+firstName+' '+lastName+ "\n Votre compte à bien été créer."+ "\n Nom d'utilisateur : "+username+"\n Mot de passe : "+password);
         javaMailSender.send(mail);
     }
 

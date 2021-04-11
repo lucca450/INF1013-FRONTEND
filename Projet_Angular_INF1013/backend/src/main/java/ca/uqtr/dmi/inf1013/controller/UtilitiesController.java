@@ -20,11 +20,12 @@ public class UtilitiesController {
 
     // Envoie de courriel
 
-    @RequestMapping("/send-mail/{email}/{username}/{password}")
-    public String send(@PathVariable("email")  String email, @PathVariable("email")  String username, @PathVariable("email")  String password) {
+    @RequestMapping("/send-mail/{email}/{username}/{password}/{fname}/{lname}")
+    public String send(@PathVariable("email")  String email, @PathVariable("email") String username, @PathVariable("email")  String password,
+                       @PathVariable("fname")  String fname, @PathVariable("lname") String lname ) {
 
         try {
-            notificationService.sendEmail(email, username, password);
+            notificationService.sendEmail(email, username, password, fname, lname);
         } catch (MailException mailException) {
             System.out.println(mailException);
         }
