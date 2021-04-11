@@ -40,6 +40,6 @@ public class MeetingServiceImpl implements MeetingService {
 
     @Override
     public Iterable<Meeting> getMeetingByPersonId(Long id) {
-        return this.meetingRepo.findByIdPerson(id);
+        return this.meetingRepo.findByIdPerson(id) ;
     }
 }
