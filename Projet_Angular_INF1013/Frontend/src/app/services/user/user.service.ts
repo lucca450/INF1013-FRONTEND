@@ -3,6 +3,7 @@ import {User} from '../../models/users/user';
 import {Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {UtilitiesService} from '../utilities/utilities.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,11 @@ export class UserService {
   verifySubjectError = new Subject<string>(); // S'il y a une erreur, elle est envoyé à ceux qui se souscris
   authSubject: Subject<boolean> = new Subject<boolean>(); // Détermine si l'utilisateur est connecté ou déconnecté.
 
-  constructor(private httpClient: HttpClient, private router: Router) {
+  constructor(private httpClient: HttpClient, private router: Router, private utilitiesService: UtilitiesService) {
   }
+
+  /*
+   Maybe a day
   // Fonction pour rcéupèrer tout les utilisateurs
   getUsers(): void{
     this.httpClient.get<User>(`http://localhost:3000/users`).subscribe(
@@ -30,7 +34,8 @@ export class UserService {
       }
     );
   }
-  // Fonction pour se connecter
+
+   */
   verifyUserExist(username: string, password: string): void{
     this.httpClient.get<User>(`http://localhost:3000/users?active=true&username=` + username + '&password=' + password).subscribe(
       (user: any) => {
@@ -47,6 +52,30 @@ export class UserService {
       }
     );
   }
+
+/*
+  // Fonction pour se connecter
+  verifyUserExist(username: string, password: string): void{
+    this.httpClient.get<User>(this.utilitiesService.serverUrl + 'users/verifySignin/' + username + '/' + '&password=' + password).subscribe(
+      (user: any) => {
+        if (user.length > 0){
+          this.signIn(user[0]);
+        }
+        else{
+          this.emitError('Le nom d\'utilisateur ou le mot de passe est invalide.');
+        }
+
+      },
+      (error) => {
+        this.emitError('Erreur de communication avec le serveur ! veuillez réessayer plus tard.');
+      }
+    );
+  }
+
+
+ */
+
+
 
   /* Émission des données  */
    emitUsersSubject(user: User): void {
