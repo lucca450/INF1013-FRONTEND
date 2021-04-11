@@ -17,7 +17,7 @@ export class ListMeetingComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild(MatSort) sort: MatSort;
   @Input() personID: number;
-  // loggedUser = this.userService.user;
+  loggedUser = this.userService.user;
   meetings = new MatTableDataSource(/*this.meetingService.meetings*/);
   meetingSubscription: Subscription;
   errorsSubscription: Subscription;
@@ -31,6 +31,9 @@ export class ListMeetingComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
     // Appel de la méthode qui fait la requête pour charger toute les rencontres
     this.meetingService.loadAllMeetings();
+
+
+
     // On écoute la requête
     this.meetingSubscription = this.meetingService.meetingSubject.subscribe(
       (meet: any) => {

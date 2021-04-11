@@ -5,6 +5,8 @@ import ca.uqtr.dmi.inf1013.model.Meeting;
 import ca.uqtr.dmi.inf1013.repos.MeetingRepo;
 import ca.uqtr.dmi.inf1013.services.MeetingService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Optional;
 
@@ -45,5 +47,10 @@ public class MeetingServiceImpl implements MeetingService {
     @Override
     public Iterable<Meeting> getMeetingByIntervenantId(Long id) {
         return this.meetingRepo.findMeetingsByIdIntervenant(id);
+    }
+
+    @Override
+    public Iterable<Meeting> getMeetingsByIdPersonAndAndIdIntervenant(Long idPerson,Long idIntervenant){
+        return this.meetingRepo.findMeetingsByIdPersonAndAndIdIntervenant(idPerson, idIntervenant);
     }
 }

@@ -55,6 +55,7 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
 
       this.meetingService.getMeetingFromId(this.meetingID);
 
+
       this.meetingSubscription = this.meetingService.meetingSubject.subscribe(
         (meet: any) => {
           this.meeting = meet;

@@ -136,14 +136,23 @@ export class MeetingService {
   }
 
 
-  // Retourne tous les meetings d'un intervenant
+  // Retourne tous les meetings d'une personne
   public getPersonMeetings(id: number): Observable<Meeting> {
     return this.httpClient.get<Meeting>(/*`http://localhost:3000/meeting?idPerson=`*/ this.utilitiesService.serverUrl + 'meetings/getByPersonId/' + id);
+  }
+
+  // Retourne tous les meetings d'un intervenant pour une personne
+  public getPersonMeetingsForIntervenantId(idPerson: number, idIntervenant: number): Observable<Meeting> {
+    return this.httpClient.get<Meeting>(this.utilitiesService.serverUrl + 'meetings/getByPersonIdAndIntervenantId/' + idPerson + '/' + idIntervenant);
   }
   // Fonction qui charge les rencontres de la personnes
   public loadPersonMeetings(id: number): void{
     this.loggedUser = this.userService.user;
-    this.getPersonMeetings(id).subscribe(
+
+
+    // Si c'est un administrateur, on récupère toutes les rencontres
+    if (this.loggedUser.role === 'A'){
+      this.getPersonMeetings(id).subscribe(
         (meeting: any) => {
           this.PersonMeetingsSubject.next(meeting);
         },
@@ -154,6 +163,42 @@ export class MeetingService {
           }
         }
       );
+      //  Sinon c'est un intervenant,alors on récupère seulement ses rencontres à lui
+    }else{
+      this.getPersonMeetingsForIntervenantId(id, this.loggedUser.id).subscribe(
+        (meeting: any) => {
+          this.PersonMeetingsSubject.next(meeting);
+        },
+        (error) => {
+          if (!(error.status === 404)) {
+            const message = 'Une erreur au niveau du serveur est survenu lors du chargement des rencontres. Veuillez réessayer plus tard';
+            this.errorsSubject.next(message);
+          }
+        }
+      );
+    }
+
+
+
+
+
+
+
+
+
+
+    /*
+    this.getPersonMeetings(id).subscribe(
+        (meeting: any) => {
+          this.PersonMeetingsSubject.next(meeting);
+        },
+        (error) => {
+          if (!(error.status === 404)) {
+            const message = 'Une erreur au niveau du serveur est survenu lors du chargement des rencontres. Veuillez réessayer plus tard';
+            this.errorsSubject.next(message);
+          }
+        }
+      );*/
   }
 
 }

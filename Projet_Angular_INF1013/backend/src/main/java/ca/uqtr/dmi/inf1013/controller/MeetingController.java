@@ -47,6 +47,11 @@ public class MeetingController {
         return meetingService.getMeetingByIntervenantId(id);
     }
 
+    @GetMapping(path = "/getByPersonIdAndIntervenantId/{PersonID}/{IntervenantID}")
+    public Iterable<Meeting> getMeetingsByIdPersonAndAndIdIntervenant(@PathVariable("PersonID")  Long idPerson, @PathVariable("IntervenantID")  Long idIntervenant){
+        return meetingService.getMeetingsByIdPersonAndAndIdIntervenant(idPerson, idIntervenant);
+    }
+
     @PutMapping(path = "/edit")
     public Meeting editMeeting(@RequestBody Meeting meeting){
         return meetingService.editMeeting(meeting);

@@ -13,4 +13,5 @@ public interface MeetingService {
     Optional<Meeting> getMeetingById(Long id);
     Iterable<Meeting> getMeetingByPersonId(Long id);
     Iterable<Meeting> getMeetingByIntervenantId(Long id);
+    Iterable<Meeting> getMeetingsByIdPersonAndAndIdIntervenant(Long idPerson, Long idIntervenant);
 }

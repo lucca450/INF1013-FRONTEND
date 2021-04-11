@@ -17,7 +17,7 @@ export class ListPersonMeetingsComponent implements OnInit, OnDestroy {
 
 
   @ViewChild(MatSort) sort: MatSort;
-  //loggedUser = this.userService.user;
+  loggedUser = this.userService.user;
   personID: number;
   meetings = new MatTableDataSource();
   errorMessage: any;
