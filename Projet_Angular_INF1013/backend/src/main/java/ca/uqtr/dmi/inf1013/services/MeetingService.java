@@ -11,5 +11,5 @@ public interface MeetingService {
     Meeting editMeeting(Meeting meeting);
     Iterable<Meeting> getAllMeetings();
     Optional<Meeting> getMeetingById(Long id);
-
+    Iterable<Meeting> getMeetingByPersonId(Long id);
 }

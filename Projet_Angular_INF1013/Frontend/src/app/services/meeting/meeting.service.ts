@@ -138,7 +138,7 @@ export class MeetingService {
 
   // Retourne tous les meetings d'un intervenant
   public getPersonMeetings(id: number): Observable<Meeting> {
-    return this.httpClient.get<Meeting>(`http://localhost:3000/meeting?idPerson=` + id);
+    return this.httpClient.get<Meeting>(/*`http://localhost:3000/meeting?idPerson=`*/ this.utilitiesService.serverUrl + 'meetings/getByPersonId/' + id);
   }
   // Fonction qui charge les rencontres de la personnes
   public loadPersonMeetings(id: number): void{

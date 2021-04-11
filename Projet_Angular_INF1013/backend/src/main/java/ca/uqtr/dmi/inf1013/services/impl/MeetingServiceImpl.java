@@ -37,4 +37,9 @@ public class MeetingServiceImpl implements MeetingService {
     public Optional<Meeting> getMeetingById(Long id) {
         return this.meetingRepo.findById(id);
     }
+
+    @Override
+    public Iterable<Meeting> getMeetingByPersonId(Long id) {
+        return this.meetingRepo.findByIdPerson(id);
+    }
 }

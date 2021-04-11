@@ -39,6 +39,11 @@ public class MeetingController {
         return s.orElseThrow(()-> new RuntimeException("Rencontre non trouvé"));
     }
 
+    @GetMapping(path = "/getByPersonId/{PersonID}")
+    public Iterable<Meeting> getMeetingByPersonId(@PathVariable("PersonID")  Long id){
+      return meetingService.getMeetingByPersonId(id);
+    }
+
     @PutMapping(path = "/edit")
     public Meeting editMeeting(@RequestBody Meeting meeting){
         return meetingService.editMeeting(meeting);
