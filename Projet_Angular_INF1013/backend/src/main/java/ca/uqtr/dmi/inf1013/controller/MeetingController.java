@@ -32,4 +32,16 @@ public class MeetingController {
         return meetingService.getAllMeetings();
     }
 
+    @GetMapping(path = "/get/{ID}")
+    public Meeting getMeetingById(@PathVariable("ID")  Long id){
+        System.out.println(id);
+        Optional<Meeting> s = meetingService.getMeetingById(id);
+        return s.orElseThrow(()-> new RuntimeException("Rencontre non trouvé"));
+    }
+
+    @PutMapping(path = "/edit")
+    public Meeting editMeeting(@RequestBody Meeting meeting){
+        return meetingService.editMeeting(meeting);
+    }
+
 }

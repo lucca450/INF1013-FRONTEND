@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {UserService} from '../user/user.service';
-import {UtilitiesService} from "../utilities/utilities.service";
+import {UtilitiesService} from '../utilities/utilities.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +21,14 @@ export class MeetingService {
 
   // Fonction pour modifier une rencontre
   editMeeting(meeting: Meeting, personid: number): void{
+
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(meeting);
 
-    this.httpClient.put('http://localhost:3000/meeting/' + meeting.ID, body, {headers}).subscribe(
+    console.log(body);
+    console.log('personid' + personid);
+
+    this.httpClient.put(/*'http://localhost:3000/meeting/'*/ this.utilitiesService.serverUrl + 'meetings/edit' /*+ meeting.id*/, body, {headers}).subscribe(
       (meet: any) => {
         this.meetingSubject.next(meet);
         if (isNaN(personid) === false){
@@ -62,7 +66,7 @@ export class MeetingService {
 
   // Retourne un meeting spécifique
   public getMeetingFromId(id: number): void {
-    this.httpClient.get<Meeting>(`http://localhost:3000/meeting?id=` + id).subscribe(
+    this.httpClient.get<Meeting>(/*`http://localhost:3000/meeting?id=`*/ this.utilitiesService.serverUrl + 'meetings/get/' + id).subscribe(
         (meet: any) => {
           this.meetingSubject.next(meet);
         },

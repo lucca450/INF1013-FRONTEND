@@ -52,10 +52,8 @@ public class UserController {
 
   @PostMapping(path = "/add")
   public User addUser(@RequestBody User user){
-
     return userService.addUser(user);
   }
-
 
   @PatchMapping(path = "/activeDesactive/{ID}/{activeDesactive}")
   public int activeDesactiveUser(@PathVariable("ID")  Long id, @PathVariable("activeDesactive")  Boolean activeDesactive, @RequestBody User user){ // PathVariable c'est pour dire que la variable est dans le path.

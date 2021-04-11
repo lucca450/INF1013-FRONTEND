@@ -11,7 +11,7 @@ public class Meeting {
 
   @Id() // Permet de dire que le champs qui suit est l'id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long ID;
+  private Long id;
   private String interfaceName;
   private String notes;
   private String followup;

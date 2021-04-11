@@ -1,5 +1,5 @@
 export interface Meeting {
-  ID: number;
+  id: number;
   interfaceName: 'Meeting';
   notes: string;
   followup: string;

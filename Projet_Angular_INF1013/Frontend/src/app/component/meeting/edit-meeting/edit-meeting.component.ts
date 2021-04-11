@@ -25,7 +25,7 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
   loggedUser = this.userService.user;
   errorMessage: string;
   intervenants: User;
-  persons: Person; //Intervenant;
+  persons: Person; // Intervenant;
   editMeetingForm = this.formBuilder.group({
     notes: [null, Validators.compose([Validators.required])],
     followup: [null, Validators.compose([Validators.required])],
@@ -52,19 +52,23 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
       const personidx =	Number(params.get('personidx'));
       this.person = personidx;
       console.log('param2:' + this.person);
+
+      this.meetingService.getMeetingFromId(this.meetingID);
+
+      this.meetingSubscription = this.meetingService.meetingSubject.subscribe(
+        (meet: any) => {
+          this.meeting = meet;
+          this.initForm();
+        }, (error: any) => {
+          this.errorMessage = error;
+        }
+      );
     });
 
     // On appel la méthode qui fait la requête pour récupèrer les informations de la recnontre.
-    this.meetingService.getMeetingFromId(this.meetingID);
+
     // On écoute la requête pour récupèrer les informations de la rencontre.
-    this.meetingSubscription = this.meetingService.meetingSubject.subscribe(
-      (meet: any) => {
-        this.meeting = meet[0];
-        this.initForm();
-      }, (error: any) => {
-         this.errorMessage = error;
-      }
-    );
+
     // Si l'utilisateur est un administrateur
     if (this.loggedUser.role === 'A') {
       // On appel la méthode qui récupère tout les intervenants actifs.
@@ -109,13 +113,16 @@ export class EditMeetingComponent implements OnInit, OnDestroy {
       goals: [this.meeting.goals, [Validators.required, Validators.minLength(5), Validators.maxLength(4000)]],
       idPerson: [this.meeting.idPerson, Validators.required],
       idIntervenant: [this.meeting.idIntervenant, Validators.required],
-      id: [this.meeting.ID]
+      id: [this.meeting.id]
     });
   }
 
   // Fonction pour réagir lorsque la personne clique sur le bouton "Enregistrer"
   onEditMeeting(): void {
     if (this.editMeetingForm.valid) {
+      if (this.person === 0){
+        this.person = NaN;
+      }
       this.meetingService.editMeeting(this.editMeetingForm.value, this.person);
       this.unsubscribe();
     }else {
