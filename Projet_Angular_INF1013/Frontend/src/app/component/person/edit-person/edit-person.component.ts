@@ -268,25 +268,25 @@ export class EditPersonComponent implements OnInit, OnDestroy {
       sexe: [this.person.sexe, Validators.required],
       address: [this.person.address, [Validators.required, Validators.maxLength(50)]],
       phone: [this.person.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
-      NAS: [this.person.nas, [Validators.required, Validators.pattern('[0-9]{9}')]],
+      nas: [this.person.nas, [Validators.required, Validators.pattern('[0-9]{9}')]],
       healthIssues: [this.person.healthIssues, [Validators.required, Validators.maxLength(4000)]]
     }, { validators: dateLessThanToday('birthday')});
     this.secondFormGroup = this.formBuilder.group({
-      workCityID: [this.person.workCityId, [Validators.required]],
+      workCityId: [this.person.workCityId, [Validators.required]],
       startDate: [this.person.startDate, [Validators.required]],
       endDate: [this.person.endDate, [Validators.required]],
-      referenceID: [this.person.referenceId, [Validators.required]],
-      residenceTypeID: [this.person.residenceTypeId, [Validators.required]],
-      educationalLevelID: [this.person.educationalLevelId, [Validators.required]]
+      referenceId: [this.person.referenceId, [Validators.required]],
+      residenceTypeId: [this.person.residenceTypeId, [Validators.required]],
+      educationalLevelId: [this.person.educationalLevelId, [Validators.required]]
 
     }, { validators: dateLessThan('startDate', 'endDate')});
     // @ts-ignore
     this.thirdFormGroup = this.formBuilder.group({
       programStartDate: [this.person.programStartDate, [Validators.required]],
       programEndDate: [this.person.programEndDate, [Validators.required]],
-      departureReasonID: [this.person.departureReasonId, [Validators.required]],
+      departureReasonId: [this.person.departureReasonId, [Validators.required]],
       hoursPerDay: [this.person.hoursPerDay, [Validators.required, Validators.min(0), Validators.max(24)]],
-      statusID: [this.person.statusId, [Validators.required]],
+      statusId: [this.person.statusId, [Validators.required]],
       roamingTracking: [this.person.roamingTracking, [Validators.required]],
       roamingStartDate: [this.person.roamingStartDate, []],
       roamingEndDate: [this.person.roamingEndDate, []],
@@ -295,7 +295,7 @@ export class EditPersonComponent implements OnInit, OnDestroy {
       communityEndDate: [this.person.communityEndDate, []],
       hourlyRate: [this.person.hourlyRate, [Validators.required,  Validators.min(0), Validators.max(999)]],
       transportFees: [this.person.transportFees, [Validators.required,  Validators.min(0), Validators.max(999)]],
-      responsibleIntervenantID: [this.person.responsibleIntervenantId]
+      responsibleIntervenantId: [this.person.responsibleIntervenantId]
     }, { validators: [dateLessThan('programStartDate', 'programEndDate'),
                              dateLessThan('roamingStartDate', 'roamingEndDate'),
                              dateLessThan('communityStartDate', 'communityEndDate')]});
@@ -371,19 +371,19 @@ export class EditPersonComponent implements OnInit, OnDestroy {
         sexe: [this.firstFormGroup.value.sexe],
         address: [this.firstFormGroup.value.address],
         phone: [this.firstFormGroup.value.phone],
-        NAS: [this.firstFormGroup.value.NAS],
+        nas: [this.firstFormGroup.value.nas],
         healthIssues: [this.firstFormGroup.value.healthIssues],
-        workCityID: [this.secondFormGroup.value.workCityID],
+        workCityId: [this.secondFormGroup.value.workCityId],
         startDate: [this.secondFormGroup.value.startDate],
         endDate: [this.secondFormGroup.value.endDate],
-        referenceID: [this.secondFormGroup.value.referenceID],
-        residenceTypeID: [this.secondFormGroup.value.residenceTypeID],
-        educationalLevelID: [this.secondFormGroup.value.educationalLevelID],
+        referenceId: [this.secondFormGroup.value.referenceId],
+        residenceTypeId: [this.secondFormGroup.value.residenceTypeId],
+        educationalLevelId: [this.secondFormGroup.value.educationalLevelId],
         programStartDate: [this.thirdFormGroup.value.programStartDate],
         programEndDate: [this.thirdFormGroup.value.programEndDate],
-        departureReasonID: [this.thirdFormGroup.value.departureReasonID],
+        departureReasonId: [this.thirdFormGroup.value.departureReasonId],
         hoursPerDay: [this.thirdFormGroup.value.hoursPerDay],
-        statusID: [this.thirdFormGroup.value.statusID],
+        statusId: [this.thirdFormGroup.value.statusId],
         roamingTracking: [this.thirdFormGroup.value.roamingTracking],
         roamingStartDate: [this.thirdFormGroup.value.roamingStartDate],
         roamingEndDate: [this.thirdFormGroup.value.roamingEndDate],
@@ -392,7 +392,7 @@ export class EditPersonComponent implements OnInit, OnDestroy {
         communityEndDate: [this.thirdFormGroup.value.communityEndDate],
         hourlyRate: [this.thirdFormGroup.value.hourlyRate],
         transportFees: [this.thirdFormGroup.value.transportFees],
-        responsibleIntervenantID: [this.thirdFormGroup.value.responsibleIntervenantID],
+        responsibleIntervenantId: [this.thirdFormGroup.value.responsibleIntervenantId],
         emergencyContact: [this.fourthFormGroup.value],
         followedBy: [this.fifthFormGroup.value],
         active: true

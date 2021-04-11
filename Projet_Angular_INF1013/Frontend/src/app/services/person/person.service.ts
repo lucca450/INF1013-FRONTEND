@@ -37,6 +37,8 @@ export class PersonService {
   addPerson(person: Person): void{
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(person);
+    console.log('On envoie cette personne : ');
+    console.log(body);
     this.httpClient.post(this.utilitiesService.serverUrl + 'persons/add', body, {headers}).subscribe(
       (data: any) => {
         this.emitpersonsSubject(data);
@@ -57,7 +59,7 @@ export class PersonService {
   editPerson(person: Person): void {
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(person);
-    this.httpClient.put('http://localhost:3000/persons/' + person.id, body, {headers}).subscribe(
+    this.httpClient.put(this.utilitiesService.serverUrl + 'persons/edit', body, {headers}).subscribe(
       (data: any) => {
         this.emitpersonsSubject(data);
         this.goToMainRoute();
@@ -90,7 +92,7 @@ export class PersonService {
   }
   // Fonction pour récupèrer les personens actives
   getActivePersons(): void {
-    this.httpClient.get<User>('http://localhost:3000/persons?active=true').subscribe(
+    this.httpClient.get<Person>(this.utilitiesService.serverUrl + 'persons/active/get').subscribe(
       (persons: any) => {
         this.emitpersonsSubject(persons);
       },
@@ -104,7 +106,7 @@ export class PersonService {
   }
   // Fonction pour récupèrer une personne à partir de son identifiant.
   getPersonFromId(id: number): void {
-    this.httpClient.get<Person>(`http://localhost:3000/persons/` + id).subscribe(
+    this.httpClient.get<Person>(this.utilitiesService.serverUrl + 'persons/get/' + id).subscribe(
       (person: any) => {
         this.emitpersonSubject(person);
       },

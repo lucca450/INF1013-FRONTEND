@@ -244,7 +244,7 @@ export class AddPersonComponent implements OnInit, OnDestroy{
       sexe: ['', Validators.required],
       address: ['', [Validators.required, Validators.maxLength(50)]],
       phone: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
-      NAS: ['', [Validators.required, Validators.pattern('[0-9]{9}')]],
+      nas: ['', [Validators.required, Validators.pattern('[0-9]{9}')]],
       healthIssues: ['', [Validators.required, Validators.maxLength(4000)]],
       /*
       fname: ['', []],
@@ -259,19 +259,19 @@ export class AddPersonComponent implements OnInit, OnDestroy{
 
     this.secondFormGroup = this.formBuilder.group({
 /*
-      workCityID: [],
+      workCityId: [],
       startDate: [],
       endDate: [],
-      referenceID: [],
-      residenceTypeID: [],
-      educationalLevelID: []
+      referenceId: [],
+      residenceTypeId: [],
+      educationalLevelId: []
       */
-      workCityID: ['', [Validators.required]],
+      workCityId: ['', [Validators.required]],
       startDate: ['', [Validators.required]],
       endDate: ['', [Validators.required]],
-      referenceID: ['', [Validators.required]],
-      residenceTypeID: ['', [Validators.required]],
-      educationalLevelID: ['', [Validators.required]]
+      referenceId: ['', [Validators.required]],
+      residenceTypeId: ['', [Validators.required]],
+      educationalLevelId: ['', [Validators.required]]
 
     }, { validators: dateLessThan('startDate', 'endDate')});
 
@@ -279,9 +279,9 @@ export class AddPersonComponent implements OnInit, OnDestroy{
 
       programStartDate: ['', [Validators.required]],
       programEndDate: ['', [Validators.required]],
-      departureReasonID: ['', [Validators.required]],
+      departureReasonId: ['', [Validators.required]],
       hoursPerDay: ['', [Validators.required, Validators.min(0), Validators.max(24)]],
-      statusID: ['', [Validators.required]],
+      statusId: ['', [Validators.required]],
       roamingTracking: ['', [Validators.required]],
       roamingStartDate: [, [Validators.required]],
       roamingEndDate: [, [Validators.required]],
@@ -290,13 +290,13 @@ export class AddPersonComponent implements OnInit, OnDestroy{
       communityEndDate: [, [Validators.required]],
       hourlyRate: ['', [Validators.required,  Validators.min(0), Validators.max(999)]],
       transportFees: ['', [Validators.required,  Validators.min(0), Validators.max(999)]],
-      responsibleIntervenantID: ['', [Validators.required]],
+      responsibleIntervenantId: ['', [Validators.required]],
 /*
       programStartDate: [],
       programEndDate: [],
-      departureReasonID: [],
+      departureReasonId: [],
       hoursPerDay: [],
-      statusID: [],
+      statusId: [],
       roamingTracking: [],
       roamingStartDate: [],
       roamingEndDate: [],
@@ -305,7 +305,7 @@ export class AddPersonComponent implements OnInit, OnDestroy{
       communityEndDate: [],
       hourlyRate: [],
       transportFees: [],
-      responsibleIntervenantID: []
+      responsibleIntervenantId: []
 */
     }, { validators: [dateLessThan('programStartDate', 'programEndDate'),
         dateLessThan('roamingStartDate', 'roamingEndDate'),
@@ -356,19 +356,19 @@ export class AddPersonComponent implements OnInit, OnDestroy{
         sexe: [this.firstFormGroup.value.sexe],
         address: [this.firstFormGroup.value.address],
         phone: [this.firstFormGroup.value.phone],
-        NAS: [this.firstFormGroup.value.NAS],
+        nas: [this.firstFormGroup.value.nas],
         healthIssues: [this.firstFormGroup.value.healthIssues],
-        workCityID: [this.secondFormGroup.value.workCityID],
+        workCityId: [this.secondFormGroup.value.workCityId],
         startDate: [this.secondFormGroup.value.startDate],
         endDate: [this.secondFormGroup.value.endDate],
-        referenceID: [this.secondFormGroup.value.referenceID],
-        residenceTypeID: [this.secondFormGroup.value.residenceTypeID],
-        educationalLevelID: [this.secondFormGroup.value.educationalLevelID],
+        referenceId: [this.secondFormGroup.value.referenceId],
+        residenceTypeId: [this.secondFormGroup.value.residenceTypeId],
+        educationalLevelId: [this.secondFormGroup.value.educationalLevelId],
         programStartDate: [this.thirdFormGroup.value.programStartDate],
         programEndDate: [this.thirdFormGroup.value.programEndDate],
-        departureReasonID: [this.thirdFormGroup.value.departureReasonID],
+        departureReasonId: [this.thirdFormGroup.value.departureReasonId],
         hoursPerDay: [this.thirdFormGroup.value.hoursPerDay],
-        statusID: [this.thirdFormGroup.value.statusID],
+        statusId: [this.thirdFormGroup.value.statusId],
         roamingTracking: [this.thirdFormGroup.value.roamingTracking],
         roamingStartDate: [this.thirdFormGroup.value.roamingStartDate],
         roamingEndDate: [this.thirdFormGroup.value.roamingEndDate],
@@ -377,7 +377,7 @@ export class AddPersonComponent implements OnInit, OnDestroy{
         communityEndDate: [this.thirdFormGroup.value.communityEndDate],
         hourlyRate: [this.thirdFormGroup.value.hourlyRate],
         transportFees: [this.thirdFormGroup.value.transportFees],
-        responsibleIntervenantID: [this.thirdFormGroup.value.responsibleIntervenantID],
+        responsibleIntervenantId: [this.thirdFormGroup.value.responsibleIntervenantId],
         emergencyContact: [this.fourthFormGroup.value],
         followedBy: [this.fifthFormGroup.value],
         active: true
