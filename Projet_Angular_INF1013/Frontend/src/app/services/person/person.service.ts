@@ -37,7 +37,7 @@ export class PersonService {
   addPerson(person: Person): void{
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(person);
-    this.httpClient.post(/*'http://localhost:3000/persons'*/ this.utilitiesService.serverUrl + '/add', body, {headers}).subscribe(
+    this.httpClient.post(this.utilitiesService.serverUrl + 'persons/add', body, {headers}).subscribe(
       (data: any) => {
         this.emitpersonsSubject(data);
         this.goToMainRoute();
