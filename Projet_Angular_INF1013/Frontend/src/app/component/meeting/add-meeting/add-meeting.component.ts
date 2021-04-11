@@ -80,6 +80,7 @@ export class AddMeetingComponent implements OnInit, OnDestroy {
   // Initialisation du formulaire
   private initForm(): void {
     this.addMeetingForm = this.formBuilder.group({
+      interfaceName: ['Meeting'],
       notes: ['', [Validators.required , Validators.minLength(5), Validators.maxLength(4000)]],
       followup: ['', [Validators.required , Validators.minLength(5), Validators.maxLength(4000)]],
       goals: ['', [Validators.required , Validators.minLength(5), Validators.maxLength(4000)]],

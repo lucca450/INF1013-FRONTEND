@@ -7,8 +7,8 @@ import javax.persistence.*;
 @Entity()
 @Table(name = "Meeting")
 @Data // Permet d'avoir les get set
-
 public class Meeting {
+
   @Id() // Permet de dire que le champs qui suit est l'id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long ID;

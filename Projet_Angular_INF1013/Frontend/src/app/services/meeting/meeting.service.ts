@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {UserService} from '../user/user.service';
+import {UtilitiesService} from "../utilities/utilities.service";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class MeetingService {
   PersonMeetingsSubject = new Subject<any[]>();
   errorsSubject: Subject<string> = new Subject<string>();
 
-  constructor(private router: Router, private userService: UserService,  private httpClient: HttpClient) {
+  constructor(private router: Router, private userService: UserService,  private httpClient: HttpClient, private utilitiesService: UtilitiesService) {
   }
 
   // Fonction pour modifier une rencontre
@@ -51,7 +52,7 @@ export class MeetingService {
 
   // Retourne tous les meetings
   public getAllMeetings(): Observable<Meeting> {
-    return this.httpClient.get<Meeting>(`http://localhost:3000/meeting`);
+    return this.httpClient.get<Meeting>(/*`http://localhost:3000/meeting`*/ this.utilitiesService.serverUrl + 'meetings/getAll');
   }
 
   // Retourne tous les meetings d'un intervenant
@@ -80,7 +81,7 @@ export class MeetingService {
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(meeting);
 
-    this.httpClient.post('http://localhost:3000/meeting', body, {headers}).subscribe(
+    this.httpClient.post(this.utilitiesService.serverUrl + 'meetings/add', body, {headers}).subscribe(
       (meet: any) => {
             this.meetingSubject.next(meet);
 
