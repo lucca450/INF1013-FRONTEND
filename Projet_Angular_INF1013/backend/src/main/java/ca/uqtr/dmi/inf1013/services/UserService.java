@@ -11,6 +11,7 @@ public interface UserService extends UserDetailsService {
   Optional<User> getUser(Long id);
   Optional <List<User>> getActiveUsers();
   User addUser(User user);
-  User editUser(User user);
+  int editUser(User user);
   int activeDesactiveUser(Long id, Boolean activeDesactive);
+  Optional<User> getSigninUser(String username, String password);
 }

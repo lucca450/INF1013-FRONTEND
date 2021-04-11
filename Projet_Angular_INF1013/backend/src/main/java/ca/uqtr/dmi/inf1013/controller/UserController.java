@@ -16,37 +16,40 @@ import java.util.Optional;
 public class UserController {
 
   private UserService userService;
-  private final UserServiceImpl userDetailsService;
-  private PasswordEncoder passwordEncoder;
-
+/*
   public UserController(UserService userService, UserServiceImpl userDetailsService, PasswordEncoder passwordEncoder){ // Qualifer, il va chercher le @Service dans notre service
     this.userService = userService;
     this.userDetailsService = userDetailsService;
     this.passwordEncoder = passwordEncoder;
   }
 
+ */
 
-
- // public UserController(UserDetailsServiceImpl userDetailsService){
- //   this.userDetailsService = userDetailsService;
- // }
+  public UserController(UserService userService){ // Qualifer, il va chercher le @Service dans notre service
+    this.userService = userService;
+  }
 
   @GetMapping(path = "/get/{ID}")
-  public User getUser(@PathVariable("ID")  Long id){ // PathVariable c'est pour dire que la variable est dans le path.
+  public User getUser(@PathVariable("ID")  Long id){
     System.out.println(id);
     Optional<User> s =userService.getUser(id);
     return s.orElseThrow(()-> new RuntimeException("Étudiant non trouvé"));
   }
 
   @GetMapping(path = "/active/get")
-  public List<User> getUser(){ // PathVariable c'est pour dire que la variable est dans le path.
+  public List<User> getActiveUsers(){
     Optional<List<User>> s =userService.getActiveUsers();
     return s.orElseThrow(()-> new RuntimeException("Aucun utilisateurs"));
   }
 
+  @GetMapping(path = "/users/verifySignin/{username}/{password}")
+  public User verifySignin(@PathVariable("username")  String username, @PathVariable("password")  String password){
+    Optional<User> s =userService.getSigninUser(username,password);
+    return s.orElseThrow(()-> new RuntimeException("Aucun utilisateurs"));
+  }
 
   @PutMapping(path = "/edit")
-  public User editUser(@RequestBody User user){ // PathVariable c'est pour dire que la variable est dans le path.
+  public int editUser(@RequestBody User user){ // PathVariable c'est pour dire que la variable est dans le path.
     return userService.editUser(user);
   }
 
@@ -56,9 +59,8 @@ public class UserController {
     return userService.addUser(user);
   }
 
-
   @PatchMapping(path = "/activeDesactive/{ID}/{activeDesactive}")
-  public int activeDesactiveUser(@PathVariable("ID")  Long id, @PathVariable("activeDesactive")  Boolean activeDesactive, @RequestBody User user){ // PathVariable c'est pour dire que la variable est dans le path.
+  public int activeDesactiveUser(@PathVariable("ID")  Long id, @PathVariable("activeDesactive")  Boolean activeDesactive, @RequestBody User user){
     return userService.activeDesactiveUser(id,activeDesactive);
   }
 
