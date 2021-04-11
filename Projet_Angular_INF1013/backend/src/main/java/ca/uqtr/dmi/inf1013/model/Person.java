@@ -22,17 +22,17 @@ public class Person {
   private String phone;
   private Number nas;
   private String healthIssues;
-  private Number workCityId;
+  private Long workCityId;
   private Date startDate;
   private Date endDate;
-  private Number referenceId;
-  private Number residenceTypeId;
-  private Number educationalLevelId;
+  private Long referenceId;
+  private Long residenceTypeId;
+  private Long educationalLevelId;
   private Date programStartDate;
   private Date programEndDate;
-  private Number departureReasonId;
+  private Long departureReasonId;
   private Number hoursPerDay;
-  private Number statusId;
+  private Long statusId;
   private Boolean roamingTracking;
   private Date roamingStartDate;
   private Date roamingEndDate;
@@ -41,8 +41,8 @@ public class Person {
   private Date communityEndDate;
   private Number hourlyRate;
   private Number transportFees;
-  private Number responsibleIntervenantId;
-  private Number emergencyContactId;
-  private Number followedById;
+  private Long responsibleIntervenantId;
+  private Long emergencyContactId;
+  private Long followedById;
   private Boolean active;
 }

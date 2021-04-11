@@ -16,6 +16,6 @@ public class Meeting {
   private String notes;
   private String followup;
   private String goals;
-  private Number idPerson;
-  private Number idIntervenant;
+  private Long idPerson;
+  private Long idIntervenant;
 }
