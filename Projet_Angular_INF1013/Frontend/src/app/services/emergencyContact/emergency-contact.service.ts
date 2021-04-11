@@ -45,10 +45,10 @@ export class EmergencyContactService {
   }
 
   // Fonction pour récupérer un contacte d'urgence à partir de son identifiant
-  getEmergencyContactId(id: number): void{
+  getEmergencyContactById(id: number): void{
     this.httpClient.get<EmergencyContact>(this.utilitiesService.serverUrl + 'emergencyContacts/get/' + id).subscribe(
       (emergencyContact: any) => {
-        this.emergencyContactSubject.next(emergencyContact.id);
+        this.emergencyContactSubject.next(emergencyContact);
       },
       (error) => {
         const message = 'Un erreur au niveau du serveur est survenu lors de la récupération de l\'éducation';

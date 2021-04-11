@@ -5,6 +5,8 @@ import ca.uqtr.dmi.inf1013.repos.EmergencyContactRepo;
 import ca.uqtr.dmi.inf1013.services.EmergencyContactService;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class EmergencyContactServiceImpl implements EmergencyContactService {
 
@@ -21,5 +23,10 @@ public class EmergencyContactServiceImpl implements EmergencyContactService {
     @Override
     public EmergencyContact addEmergencyContact(EmergencyContact emergencyContact) {
         return this.emergencyContactRepo.save(emergencyContact);
+    }
+
+    @Override
+    public Optional<EmergencyContact> getEmergencyContactById(Long id) {
+        return this.emergencyContactRepo.findById(id);
     }
 }

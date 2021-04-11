@@ -49,7 +49,7 @@ export class FollowedByService {
   getFollowedById(id: number): void{
     this.httpClient.get<FollowedBy>(this.utilitiesService.serverUrl + 'followedBy/get/' + id).subscribe(
       (followedBy: any) => {
-        this.followBySubject.next(followedBy.id);
+        this.followBySubject.next(followedBy);
       },
       (error) => {
         const message = 'Un erreur au niveau du serveur est survenu lors de la récupération de l\'éducation';
