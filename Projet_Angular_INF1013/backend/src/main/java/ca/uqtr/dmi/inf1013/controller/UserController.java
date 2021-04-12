@@ -76,9 +76,16 @@ public class UserController {
     return userService.addUser(user);
   }
 
+  @PostMapping(path = "/editPassword/{ID}/{password}")
+  public int editPassword(@PathVariable("ID")  Long id, @PathVariable("password")  String password, @RequestBody User user){
+    return userService.editPassword(id,password);
+  }
+
   @PatchMapping(path = "/activeDesactive/{ID}/{activeDesactive}")
   public int activeDesactiveUser(@PathVariable("ID")  Long id, @PathVariable("activeDesactive")  Boolean activeDesactive, @RequestBody User user){
     return userService.activeDesactiveUser(id,activeDesactive);
   }
+
+
 
 }

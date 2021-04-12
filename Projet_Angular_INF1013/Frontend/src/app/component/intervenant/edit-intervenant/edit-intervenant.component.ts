@@ -6,6 +6,8 @@
  import {UserService} from '../../../services/user/user.service';
  import {User} from '../../../models/users/user';
  import {Subscription} from 'rxjs';
+ import {MatDialog} from "@angular/material/dialog";
+ import {ResetPasswordComponent} from "../reset-password/reset-password.component";
  @Component({
   selector: 'app-edit-intervenant',
   templateUrl: './edit-intervenant.component.html',
@@ -29,7 +31,8 @@ export class EditIntervenantComponent implements OnInit, OnDestroy {
 
 
   constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService, private userService: UserService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.errorsSubscription = this.intervenantService.errorsSubject.subscribe(
@@ -116,10 +119,20 @@ Fusion avec user
   }
 
   ngOnDestroy(): void{
-    this.unsubscribe()
+    this.unsubscribe();
   }
    private unsubscribe(): void{
      this.errorsSubscription.unsubscribe();
      this.intervenantSubscription.unsubscribe();
    }
-}
+
+   OneditPassword(): void {
+     const dialogRef = this.dialog.open(ResetPasswordComponent);
+     dialogRef.componentInstance.openDialog = true;
+     dialogRef.componentInstance.user = this.user;
+
+     dialogRef.afterClosed().subscribe(result => {
+       this.user.password = result;
+     });
+   }
+ }

@@ -64,17 +64,8 @@
       </mat-form-field>
 
       <mat-form-field class="full-width-input">
-        <input matInput placeholder="Mot de passe" formControlName="password" required [type]="hide ? 'password' : 'text'">
-        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        <mat-error *ngIf="editintervenantForm.hasError('required', 'password')">
-          Veuillez entrer un mot de passe
-        </mat-error>
-        <mat-error *ngIf="editintervenantForm.hasError('minlength', 'password')">
-          Le mot de passe doit avoir au moins 4 caractères.
-        </mat-error>
-        <mat-error *ngIf="editintervenantForm.hasError('maxlength', 'password')">
-          Le mot de passe doit avoir au maximum 40 caractères.
-        </mat-error>
+        <input matInput placeholder="Mot de passe" formControlName="password" required type="password">
+        <button mat-button (click)="OneditPassword()">Open dialog</button>
       </mat-form-field>
 
       <mat-form-field>

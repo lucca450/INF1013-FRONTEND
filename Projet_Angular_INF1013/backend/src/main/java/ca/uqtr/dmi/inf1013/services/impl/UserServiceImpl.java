@@ -127,7 +127,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public long verifyUserExist(String username) {
-        System.out.println("Username : " + username);
         Long nbrUser =  this.userRepo.verifyUserExist(username);
         return nbrUser;
     }
@@ -135,5 +134,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<String> getUserFullNameFromId(Long id) {
         return this.userRepo.getFullNameById(id);
+    }
+
+    @Override
+    public int editPassword(Long id, String password) {
+        password = (this.passwordEncoder.encode(password));
+        return this.userRepo.updatePasswordUser(id,password);
     }
 }

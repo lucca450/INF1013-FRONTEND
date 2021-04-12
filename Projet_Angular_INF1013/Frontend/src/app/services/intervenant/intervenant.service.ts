@@ -17,6 +17,7 @@ export class IntervenantService {
   intervenantsSubject = new Subject<any>();
   intervenantSubject = new Subject<any>();
   intervenantsFullnameSubject = new Subject<any>();
+  intervenantEditPasswordSubject = new Subject<any>();
   intervenantVerifyUsernameSubject = new Subject<any>();
   emailSubject = new Subject<any>();
   errorsSubject: Subject<string> = new Subject<string>();
@@ -119,6 +120,22 @@ editIntervenant(intervenant: User): void{
     }
   );
 }
+
+// Fonction pour modifier un mot de passe
+  editPasswordIntervenant(id: number, password: string): void{
+    const headers = { 'content-type': 'application/json'};
+    this.httpClient.post(this.utilitiesService.serverUrl + 'users/editPassword/' + id + '/' + password, {}, {headers}).subscribe(
+      (data: any) => {
+        this.goToMainRoute();
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors du changement de mot de passe. Veuillez réessayer plus tard.';
+        this.emitErrorsSubject(message);
+      }
+    );
+  }
+
+
 
 // Fonction pour activier ou désactiver un utilisateur
 ActiveDesactiveIntervenant(id: number, activeDesactive: boolean): void

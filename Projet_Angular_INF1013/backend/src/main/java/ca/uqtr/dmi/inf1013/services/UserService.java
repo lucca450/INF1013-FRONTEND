@@ -16,4 +16,5 @@ public interface UserService extends UserDetailsService {
   Optional<User> getSigninUser(String username, String password);
   long verifyUserExist(String username);
   Optional<String> getUserFullNameFromId(Long id);
+  int editPassword(Long id, String password);
 }
