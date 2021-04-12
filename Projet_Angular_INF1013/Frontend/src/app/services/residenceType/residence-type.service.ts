@@ -28,7 +28,7 @@ export class ResidenceTypeService {
   }
   // Fonction pour récupèrer le nom d'une résidence
   getResidencesTypeName(id: number): void{
-    this.httpClient.get(this.utilitiesService.serverUrl + 'residencesType/get/' + id).subscribe(
+    this.httpClient.get(this.utilitiesService.serverUrl + 'residencesType/getName/' + id).subscribe(
       (name: any) => {
         this.residenceTypeSubject.next(name);
       },

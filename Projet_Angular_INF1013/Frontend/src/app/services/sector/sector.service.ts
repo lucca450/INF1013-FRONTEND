@@ -28,7 +28,7 @@ export class SectorService {
   }
   // Fonction pour récupèrer le nom d'un secteur
   getSectorName(id: number): void{
-    this.httpClient.get(this.utilitiesService.serverUrl + 'sectors/get/' + id).subscribe(
+    this.httpClient.get(this.utilitiesService.serverUrl + 'sectors/getName/' + id).subscribe(
       (name: any) => {
         this.sectorSubject.next(name);
       },

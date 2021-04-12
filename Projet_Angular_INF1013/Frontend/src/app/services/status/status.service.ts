@@ -30,7 +30,7 @@ export class StatusService {
 
   // Fonction pour récupèrer le nom du statut
   getStatusName(id: number): void{
-    this.httpClient.get(this.utilitiesService.serverUrl + 'status/get/' + id).subscribe(
+    this.httpClient.get(this.utilitiesService.serverUrl + 'status/getName/' + id).subscribe(
       (name: any) => {
         this.statusSubject.next(name);
       },

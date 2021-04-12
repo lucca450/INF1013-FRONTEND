@@ -30,7 +30,7 @@ export class DepartureReasonService {
 
   // Fonction pour récupèrer le nom du département
   getDepartureReasonName(id: number): void{
-    this.httpClient.get(this.utilitiesService.serverUrl + 'departureReasons/get/' + id).subscribe(
+    this.httpClient.get(this.utilitiesService.serverUrl + 'departureReasons/getName/' + id).subscribe(
       (name: any) => {
         this.departureReasonSubject.next(name);
       },

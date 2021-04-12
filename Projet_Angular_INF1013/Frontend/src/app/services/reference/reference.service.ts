@@ -30,7 +30,7 @@ export class ReferenceService {
 
   // Fonction pour récupèrer le nom de la référence
   getReferenceName(id: number): void{
-    this.httpClient.get(this.utilitiesService.serverUrl + 'references/get/' + id).subscribe(
+    this.httpClient.get(this.utilitiesService.serverUrl + 'references/getName/' + id).subscribe(
       (name: any) => {
         this.referenceSubject.next(name);
       },

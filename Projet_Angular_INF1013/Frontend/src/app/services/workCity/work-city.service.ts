@@ -30,7 +30,7 @@ export class WorkCityService {
 
   // Fonction pour récupère le nom de la ville
   getWorkCityName(id: number): void{
-    this.httpClient.get(this.utilitiesService.serverUrl + 'workCities/get/' + id).subscribe(
+    this.httpClient.get(this.utilitiesService.serverUrl + 'workCities/getName/' + id).subscribe(
       (name: any) => {
         this.workCitySubject.next(name);
       },
