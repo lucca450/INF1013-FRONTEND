@@ -12,20 +12,8 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-
-/**
- *
- * @author Mukuljaiswal
- *
- */
 @Service
 public class MailService {
-
-    /*
-     * The Spring Framework provides an easy abstraction for sending email by using
-     * the JavaMailSender interface, and Spring Boot provides auto-configuration for
-     * it as well as a starter module.
-     */
     private JavaMailSender javaMailSender;
 
     @Autowired
@@ -38,7 +26,7 @@ public class MailService {
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setTo(email);
         mail.setSubject("Votre inscription");
-        mail.setText("Bonjour "+firstName+' '+lastName+ "\n Votre compte à bien été créer."+ "\n Nom d'utilisateur : "+username+"\n Mot de passe : "+password);
+        mail.setText("Bonjour "+firstName+' '+lastName+ "\n\n Votre compte à bien été crée !"+ "\n\n Nom d'utilisateur : "+username+"\n\n Mot de passe : "+password);
         javaMailSender.send(mail);
     }
 

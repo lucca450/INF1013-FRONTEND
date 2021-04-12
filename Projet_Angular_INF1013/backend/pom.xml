@@ -17,7 +17,6 @@
         <java.version>11</java.version>
 <!--        <maven.compiler.release>3.8.1</maven.compiler.release> -->
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -129,8 +128,5 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>[3.0,)</version>
         </dependency>
-
-
     </dependencies>
-
 </project>

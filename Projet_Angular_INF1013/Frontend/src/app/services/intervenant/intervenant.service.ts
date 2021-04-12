@@ -18,6 +18,7 @@ export class IntervenantService {
   intervenantSubject = new Subject<any>();
   intervenantsFullnameSubject = new Subject<any>();
   intervenantVerifyUsernameSubject = new Subject<any>();
+  emailSubject = new Subject<any>();
   errorsSubject: Subject<string> = new Subject<string>();
   constructor(private router: Router, private httpClient: HttpClient, private utilitiesService: UtilitiesService) {
   }
@@ -85,28 +86,22 @@ export class IntervenantService {
     );
 }
 
-  sendEmail(username): void{
-    /*
-    const transporter = nodemailer.createTransport(
-      `smtps://<username>%40gmail.com:<password>@smtp.gmail.com`
-    );
+  sendEmail(email: string, username: string, password: string, firstname: string, lastname: string): void{
+    const headers = { 'content-type': 'application/json'};
 
-    const mailOptions = {
-      from : 'from_test@gmail.com',
-      to : 'pierro_kool@hotmail.com',
-      subject : 'Hello',
-      text: 'Hello from node.js'
-    };
-
-    transporter.sendMail( mailOptions, (error, info) => {
-      if (error) {
-        return console.log(`error: ${error}`);
+    this.httpClient.post(this.utilitiesService.serverUrl + 'mail/send-mail/' + email + '/' + username + '/' + password +
+      '/' + firstname + '/' + lastname + '/', {}, {headers}).subscribe(
+      (data: any) => {
+        console.log('DATA RECU');
+        this.emailSubject.next(data);
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de l\'envoie du courriel. Veuillez réessayer plus tard';
+        console.log('erreur hmmmm');
+        console.log(error.error);
+        this.emitErrorsSubject(message);
       }
-      console.log(`Message Sent ${info.response}`);
-    });
-
-     */
-
+    );
   }
 
 // Fonction pour modifier un intervenant
@@ -148,10 +143,9 @@ private goToMainRoute(): void{
 
 // Fonction pour récupérer le nom complet de l'intervenant à partir de son identifiant
 public intervenantFullName(id: number): void {
-  this.httpClient.get<User>(`http://localhost:3000/users/` + id).subscribe(
-    (intervenant: any) => {
-      const fullname = intervenant.fname + ' ' + intervenant.lname;
-      this.intervenantsFullnameSubject.next(fullname);
+  this.httpClient.get(this.utilitiesService.serverUrl + 'users/getFullName/' + id).subscribe(
+    (fullName: any) => {
+      this.intervenantsFullnameSubject.next(fullName);
     },
     (error) => {
       const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des intervenants';

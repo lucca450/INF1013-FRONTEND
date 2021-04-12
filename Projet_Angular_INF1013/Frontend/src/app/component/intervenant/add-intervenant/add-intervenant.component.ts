@@ -38,10 +38,17 @@ export class AddIntervenantComponent implements OnInit, OnDestroy {
       }
     );
 
-    // On vérifie si le nom de l'utilisateur est correcte, sinon message d'erreur
+    // On vérifie si le nom de l'utilisateur est correcte pour ajouter la personne et envoyer le courriel, sinon message d'erreur
     this.verifyUsernameSubscription = this.intervenantService.intervenantVerifyUsernameSubject.subscribe(
       (data: any) => {
+        const email = this.addintervenantForm.get('email').value;
+        const username = this.addintervenantForm.get('username').value;
+        const password = this.addintervenantForm.get('password').value;
+        const firstname = this.addintervenantForm.get('fname').value;
+        const lastname = this.addintervenantForm.get('lname').value;
+
         this.intervenantService.addIntervenant(this.addintervenantForm.value);
+        this.intervenantService.sendEmail(email, username , password, firstname, lastname);
       },
       (error: any) => {
         this.errorMessage = error;
@@ -53,7 +60,7 @@ export class AddIntervenantComponent implements OnInit, OnDestroy {
   }
   // Initialisation du formulaire
   private initForm(): void {
-
+    const randomPassword = Math.random().toString(36).slice(-16);
     this.addintervenantForm = this.formBuilder.group({
       id: null,
       interfaceName: 'User',
@@ -63,7 +70,8 @@ export class AddIntervenantComponent implements OnInit, OnDestroy {
       phone: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
       address: ['', [Validators.required, Validators.maxLength(50)]],
       username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
-      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
+     // password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
+      password: [randomPassword],
       role: ['', Validators.required],
       active: [true, Validators.required]
     });
@@ -86,8 +94,8 @@ export class AddIntervenantComponent implements OnInit, OnDestroy {
     const element: HTMLElement = document.getElementById('buttonintervenant') as HTMLElement;
     element.click();
      */
-      this.intervenantService.sendEmail(this.addintervenantForm.get('username').value);
-      if (this.addintervenantForm.valid) {
+
+    if (this.addintervenantForm.valid) {
       this.intervenantService.verifyUsernameExist(this.addintervenantForm.get('username').value);
     }else {
       alert('Les champs en surbrillance contiennent des données incorrectes, veuillez les corriger.');

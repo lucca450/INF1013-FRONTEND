@@ -29,9 +29,14 @@ public class UserController {
 
   @GetMapping(path = "/get/{ID}")
   public User getUser(@PathVariable("ID")  Long id){
-    System.out.println(id);
     Optional<User> s =userService.getUser(id);
-    return s.orElseThrow(()-> new RuntimeException("Étudiant non trouvé"));
+    return s.orElseThrow(()-> new RuntimeException("Utilisateur non trouvé"));
+  }
+
+  @GetMapping(path = "/getFullName/{ID}")
+  public String getUserFullNameFromId(@PathVariable("ID")  Long id){
+    Optional<String> s =userService.getUserFullNameFromId(id);
+    return s.orElseThrow(()-> new RuntimeException("Le nom de l'utilisateur n'a pas été trouvé."));
   }
 
   @GetMapping(path = "/active/get")

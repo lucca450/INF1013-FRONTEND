@@ -40,4 +40,7 @@ public interface UserRepo extends CrudRepository<User,Long> {
     Boolean findByUsernameAndPassword(String username, String password);
     @Query(value = "select count(*) from users where username = ?1", nativeQuery = true)
     Long verifyUserExist(String username);
+
+    @Query(value = "select fname ||' '||lname as fullName from users where id = ?1", nativeQuery = true)
+    Optional<String> getFullNameById(Long id);
 }

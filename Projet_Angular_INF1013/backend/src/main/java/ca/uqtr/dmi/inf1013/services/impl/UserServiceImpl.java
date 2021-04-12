@@ -131,4 +131,9 @@ public class UserServiceImpl implements UserService {
         Long nbrUser =  this.userRepo.verifyUserExist(username);
         return nbrUser;
     }
+
+    @Override
+    public Optional<String> getUserFullNameFromId(Long id) {
+        return this.userRepo.getFullNameById(id);
+    }
 }

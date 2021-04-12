@@ -1,11 +1,10 @@
 package ca.uqtr.dmi.inf1013.controller;
 
+import ca.uqtr.dmi.inf1013.model.User;
 import ca.uqtr.dmi.inf1013.services.MailService;
+import org.hibernate.mapping.Any;
 import org.springframework.mail.MailException;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin("http://localhost:4200")
 @RestController
@@ -20,12 +19,13 @@ public class UtilitiesController {
 
     // Envoie de courriel
 
-    @RequestMapping("/send-mail/{email}/{username}/{password}/{fname}/{lname}")
-    public String send(@PathVariable("email")  String email, @PathVariable("email") String username, @PathVariable("email")  String password,
-                       @PathVariable("fname")  String fname, @PathVariable("lname") String lname ) {
+    @PostMapping("/send-mail/{email}/{username}/{password}/{fname}/{lname}")
+    public String send(@PathVariable("email")  String email, @PathVariable("username") String username, @PathVariable("password")  String password,
+                       @PathVariable("fname")  String fname, @PathVariable("lname") String lname, @RequestBody Any any) {
 
         try {
             notificationService.sendEmail(email, username, password, fname, lname);
+            return "Congratulations! Your mail has been send to the user.";
         } catch (MailException mailException) {
             System.out.println(mailException);
         }
