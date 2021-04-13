@@ -43,9 +43,8 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
   // On écoute la requête qui nous retourne les intervenants actifs pour les récupérer.
   this.intervenantsSubscription = this.intervenantService.intervenantsSubject.subscribe(
       (intervenants: any) => {
-        this.intervenants = new MatTableDataSource(intervenants);
-        this.intervenants.filterPredicate = this.getFilterPredicate();
-        this.intervenants.sort = this.sort;
+        console.log('reset');
+        this.resetMatTable(intervenants);
       },
     );
   // Si une erreur est reçu par la requête, on l'affiche.
@@ -63,6 +62,15 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
       },
     );
 
+  // S'il y a une demande pour activer ou désactiver un utilisateur
+  this.intervenantService.activateDesactivateSubject.subscribe(
+      (intervenants: any) => {
+        this.intervenantService.getAllIntervenants();
+      },
+      (error) => {
+        this.errorMessage = error;
+      }
+    );
   }
 
 
@@ -131,7 +139,6 @@ applyFilter(): void{
 
     // create string of our searching values and split if by '$'
     const filterValue = filterInput + '$' + filterSelectList + '$' + verifyActiveboolean;
-    console.log(filterValue);
     this.intervenants.filter = filterValue.trim().toLowerCase();
     this.intervenants.sort.active = this.sort.active;
   }
@@ -144,14 +151,6 @@ onDelete(id: number): void{
       if (result === true){
         // Désactivation de l'intervenant
         this.intervenantService.ActiveDesactiveIntervenant(id, false);
-        this.intervenantService.activateDesactivateSubject.subscribe(
-          (intervenants: any) => {
-            this.intervenantService.getAllIntervenants();
-          },
-          (error) => {
-            this.errorMessage = error;
-        }
-        );
       }
     });
   }
@@ -162,14 +161,6 @@ onDelete(id: number): void{
       if (result === true){
         // Réactivation de l'intervenant
         this.intervenantService.ActiveDesactiveIntervenant(id, true);
-        this.intervenantService.activateDesactivateSubject.subscribe(
-          (intervenants: any) => {
-            this.intervenantService.getAllIntervenants();
-          },
-          (error) => {
-            this.errorMessage = error;
-          }
-        );
       }
     });
   }
@@ -182,6 +173,13 @@ onDelete(id: number): void{
         this.intervenantService.getIntervenantFromId(id);
       }
     });
+  }
+
+  resetMatTable(intervenants): void{
+    this.intervenants = new MatTableDataSource(intervenants);
+    this.intervenants.filterPredicate = this.getFilterPredicate();
+    this.intervenants.sort = this.sort;
+    this.applyFilter();
   }
 
   ngOnDestroy(): void {

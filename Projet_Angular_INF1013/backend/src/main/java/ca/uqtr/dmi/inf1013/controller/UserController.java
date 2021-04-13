@@ -85,6 +85,10 @@ public class UserController {
   public int editPassword(@PathVariable("ID")  Long id, @PathVariable("password")  String password, @RequestBody User user){
     return userService.editPassword(id,password);
   }
+  @PostMapping(path = "/skipFirstStepConnexion/{ID}")
+  public int skipFirstConnexionStep(@PathVariable("ID")  Long id, @RequestBody User user){
+    return userService.skipFirstConnexionStep(id);
+  }
 
   @PatchMapping(path = "/activeDesactive/{ID}/{activeDesactive}")
   public int activeDesactiveUser(@PathVariable("ID")  Long id, @PathVariable("activeDesactive")  Boolean activeDesactive, @RequestBody User user){
@@ -97,12 +101,26 @@ public class UserController {
     var resetPassword =  userService.resetPasswordUSer(user.getId(),user.getPassword());
     if(resetPassword == 1){
       try {
-        notificationService.sendResetPasswordMail(user.getEmail(), user.getUsername(), passwordBeforeHash, user.getFname(), user.getFname());
+        notificationService.sendResetPasswordMail(user.getEmail(), user.getUsername(), passwordBeforeHash, user.getFname(), user.getLname());
       } catch (MailException mailException) {
         System.out.println(mailException);
       }
     }
     return 0;
+  }
+
+  // Envoie de courriel
+  @PostMapping("/send-mail/{email}/{username}/{password}/{fname}/{lname}")
+  public int send(@PathVariable("email")  String email, @PathVariable("username") String username, @PathVariable("password")  String password,
+                     @PathVariable("fname")  String fname, @PathVariable("lname") String lname, @RequestBody User user) {
+
+    try {
+      notificationService.sendEmail(email, username, password, fname, lname);
+      return 1;
+    } catch (MailException mailException) {
+      System.out.println(mailException);
+      return 0;
+    }
   }
 
 

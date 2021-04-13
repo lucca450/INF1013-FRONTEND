@@ -34,6 +34,11 @@ public class PersonController {
         return s.orElseThrow(()-> new RuntimeException("Aucune personnes"));
     }
 
+    @GetMapping(path = "/getAll")
+    public Iterable<Person> getAllUsers(){
+        return this.personService.findAllPersonsOrderByActive();
+    }
+
     @PostMapping(path = "/add")
     public Person addPerson(@RequestBody Person person){
         System.out.println("add");

@@ -23,6 +23,7 @@ import javax.persistence.*;
     private String password;
     private Character role;
     private Boolean active;
+    private Boolean firstConnexion;
 
 
 

@@ -87,9 +87,8 @@ export class IntervenantService {
 
   sendEmail(email: string, username: string, password: string, firstname: string, lastname: string): void{
     const headers = { 'content-type': 'application/json'};
-
-    this.httpClient.post(this.utilitiesService.serverUrl + 'mail/send-mail/' + email + '/' + username + '/' + password +
-      '/' + firstname + '/' + lastname + '/', {}, {headers}).subscribe(
+    this.httpClient.post(this.utilitiesService.serverUrl + 'users/send-mail/' + email + '/' + username + '/' + password +
+      '/' + firstname + '/' + lastname, {}, {headers}).subscribe(
       (data: any) => {
         this.emailSubject.next(data);
       },
@@ -124,13 +123,27 @@ editIntervenant(intervenant: User): void{
     const headers = { 'content-type': 'application/json'};
     this.httpClient.post(this.utilitiesService.serverUrl + 'users/editPassword/' + id + '/' + password, {}, {headers}).subscribe(
       (data: any) => {
-        this.goToMainRoute();
+        this.router.navigate(['person']);
       },
       (error) => {
         const message = 'Un erreur au niveau du serveur est survenu lors du changement de mot de passe. Veuillez réessayer plus tard.';
         this.emitErrorsSubject(message);
       }
     );
+  }
+
+  skipFirstStepConnexion(id: number): void {
+    const headers = { 'content-type': 'application/json'};
+    this.httpClient.post(this.utilitiesService.serverUrl + 'users/skipFirstStepConnexion/' + id, {}, {headers}).subscribe(
+      (data: any) => {
+        this.router.navigate(['person']);
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de cette demande. Veuillez réessayer plus tard.';
+        this.emitErrorsSubject(message);
+      }
+    );
+
   }
 
 

@@ -57,6 +57,8 @@ import {UtilitiesService} from './services/utilities/utilities.service';
 import {ReactiveIntervenantComponent} from './component/intervenant/reactive-intervenant/reactive-intervenant.component';
 import {ChangePasswordComponent} from './component/intervenant/change-password/change-password.component';
 import {ResetPasswordComponent} from './component/intervenant/reset-password/reset-password.component';
+import { ReactivePersonComponent } from './component/person/reactive-person/reactive-person.component';
+import { FirstConnexionComponent } from './component/login/first-connexion/first-connexion.component';
 
 registerLocaleData(localeFr);
 
@@ -71,7 +73,7 @@ const appRoutes: Routes = [
   {path : 'intervenant', canActivate : [AuthGuard], component : ListIntervenantComponent},
   {path : 'intervenant/add', canActivate : [AuthGuard], component : AddIntervenantComponent},
   {path : 'intervenant/edit/:id', canActivate : [AuthGuard], component : EditIntervenantComponent},
-  {path : 'intervenant/editPassword/:id', canActivate : [AuthGuard], component : ChangePasswordComponent},
+  {path : 'intervenant/login/editPassword/:id', canActivate : [AuthGuard], component : FirstConnexionComponent},
   {path : 'meeting', canActivate : [AuthGuard], component : ListMeetingComponent},
   {path : 'meeting/add/:id', canActivate : [AuthGuard], component : AddMeetingComponent},
   {path : 'meeting/edit/:id', canActivate : [AuthGuard], component : EditMeetingComponent},
@@ -115,6 +117,8 @@ const appRoutes: Routes = [
     ResetPasswordComponent,
     ChangePasswordComponent,
     ReactiveIntervenantComponent,
+    ReactivePersonComponent,
+    FirstConnexionComponent,
   ],
   imports: [
     BrowserModule,

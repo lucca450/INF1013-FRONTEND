@@ -37,4 +37,9 @@ public class PersonServiceImpl implements PersonService {
         return this.personRepo.findByActive(true);
     }
 
+    @Override
+    public Iterable<Person> findAllPersonsOrderByActive() {
+        return this.personRepo.findAllUsersOrderByActive();
+    }
+
 }

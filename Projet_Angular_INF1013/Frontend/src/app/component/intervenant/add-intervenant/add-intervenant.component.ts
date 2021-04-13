@@ -26,6 +26,7 @@ export class AddIntervenantComponent implements OnInit, OnDestroy {
   // Subscription
   errorsSubscription: Subscription;
   verifyUsernameSubscription: Subscription;
+  emailSubscription: Subscription;
 
   constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService) { }
 
@@ -47,12 +48,18 @@ export class AddIntervenantComponent implements OnInit, OnDestroy {
         const firstname = this.addintervenantForm.get('fname').value;
         const lastname = this.addintervenantForm.get('lname').value;
 
-        this.intervenantService.addIntervenant(this.addintervenantForm.value);
         this.intervenantService.sendEmail(email, username , password, firstname, lastname);
       },
       (error: any) => {
         this.errorMessage = error;
       },
+    );
+
+    // On ajoute l'intervenant si l'ajout du courriel à bien fonctionné.
+    this.emailSubscription = this.intervenantService.emailSubject.subscribe(
+      (data: any) => {
+        this.intervenantService.addIntervenant(this.addintervenantForm.value);
+      }
     );
   }
 
@@ -90,11 +97,6 @@ export class AddIntervenantComponent implements OnInit, OnDestroy {
 
   // Fonction pour réagir lorsque la personne clique sur le bouton "Ajouter"
   onAddIntervenant(): void {
-    /* Fusion avec intervenant
-    const element: HTMLElement = document.getElementById('buttonintervenant') as HTMLElement;
-    element.click();
-     */
-
     if (this.addintervenantForm.valid) {
       this.intervenantService.verifyUsernameExist(this.addintervenantForm.get('username').value);
     }else {
@@ -114,6 +116,7 @@ export class AddIntervenantComponent implements OnInit, OnDestroy {
   private unsubscribe(): void{
     this.errorsSubscription.unsubscribe();
     this.verifyUsernameSubscription.unsubscribe();
+    this.emailSubscription.unsubscribe();
   }
 
 }

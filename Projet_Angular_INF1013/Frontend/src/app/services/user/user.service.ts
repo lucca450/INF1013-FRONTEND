@@ -93,6 +93,17 @@ export class UserService {
     this.isAuth = true;
     this.emitAuthSubject(this.isAuth);
     this.emitUserSubject(this.user);
-    this.router.navigate(['person']);
+    // Si l'utilisateur c'est ça première connexion, on le redirige vers la page pour changer son mot de passe.
+    // Sinon, on l'envoie vers la page principale
+    this.verifyRouteRedirect(user);
+  }
+
+  private verifyRouteRedirect(user: User): void{
+    if (user.firstConnexion === true){
+      this.router.navigate(['person']);
+    }
+    else{
+      this.router.navigate(['intervenant/login/editPassword', user.id]);
+    }
   }
 }

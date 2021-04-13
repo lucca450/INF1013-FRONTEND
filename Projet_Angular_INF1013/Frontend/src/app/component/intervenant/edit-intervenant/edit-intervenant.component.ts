@@ -1,5 +1,5 @@
  import {Component, OnDestroy, OnInit} from '@angular/core';
- import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
  import {IntervenantService} from '../../../services/intervenant/intervenant.service';
  import {ActivatedRoute} from '@angular/router';
  import {Role} from '../../../enum/role.enum';
@@ -77,34 +77,15 @@ export class EditIntervenantComponent implements OnInit, OnDestroy {
       phone: [this.user.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
       address: [this.user.address, [Validators.required, Validators.maxLength(50)]],
       username: [this.user.username, [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
-      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
+      password: new FormControl({value: '', disabled: true }),
       role: [this.user.role, Validators.required],
       active: [this.user.active, Validators.required],
       id: [this.user.id],
 
     });
-/*
-    Fusion avec intervenant
-    this.editUserForm = this.formBuilder.group({
-      interfaceName:[this.user.interfaceName],
-      username: [this.user.username, [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
-      password: [this.user.password, [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
-      role: [this.user.role, Validators.required],
-      active: [this.user.active, Validators.required],
-      id: [this.user.id],
-    });
-
- */
   }
   // Fonction pour réagir lorsque la personne clique sur le bouton "Enregistrer"
   onEditIntervenant(): void {
-
-/*
-Fusion avec user
-    let element: HTMLElement = document.getElementById('buttonintervenant') as HTMLElement;
-    element.click();
-
- */
     // On vérifie si le formulaire ne contient pas d'erreur
     if (this.editintervenantForm.valid) {
       this.intervenantService.editIntervenant(this.editintervenantForm.value);
@@ -128,11 +109,12 @@ Fusion avec user
 
    OneditPassword(): void {
      const dialogRef = this.dialog.open(ChangePasswordComponent);
-     dialogRef.componentInstance.openDialog = true;
      dialogRef.componentInstance.user = this.user;
-
      dialogRef.afterClosed().subscribe(password => {
-       this.editintervenantForm.get('password').setValue(password);
+       // Si le mot de passe n'est pas fermer par le bouton annuler
+      if (password !== 'closingChangePassword'){
+        this.editintervenantForm.get('password').setValue(password);
+      }
      });
    }
  }

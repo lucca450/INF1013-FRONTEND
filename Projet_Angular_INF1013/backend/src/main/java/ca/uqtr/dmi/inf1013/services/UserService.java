@@ -20,4 +20,5 @@ public interface UserService extends UserDetailsService {
   Iterable<User> findAllUsersOrderByActive();
   int resetPasswordUSer(Long id, String password);
   int editUserWithoutPassword(User user);
+  int skipFirstConnexionStep(Long id);
 }

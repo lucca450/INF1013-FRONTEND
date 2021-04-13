@@ -11,4 +11,5 @@ export interface User {
   password: string;
   role: 'A' |'I';
   active: boolean;
+  firstConnexion: boolean;
 }

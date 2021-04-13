@@ -29,6 +29,7 @@ button:hover{
   border-radius: 5px;
   cursor: pointer;
   width:200px;
+  margin-top: 20px;
 }
 
 .button-cancel{
@@ -39,6 +40,7 @@ button:hover{
   border-radius: 5px;
   cursor: pointer;
   width:200px;
+  margin-top: 20px;
 }
 
 .button-add-icon {
@@ -58,7 +60,6 @@ button:hover{
   padding: 15px 10px 15px 50px;
   background-repeat: no-repeat;
   background-position: 10px center;
-
 }
 .info {
   color: #00529B;

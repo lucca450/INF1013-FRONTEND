@@ -4,7 +4,7 @@ import {Subscription} from 'rxjs';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
 import {User} from '../../../models/users/user';
 import {ActivatedRoute} from '@angular/router';
-import {MatDialogRef} from "@angular/material/dialog";
+import {MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-change-password',
@@ -19,11 +19,11 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   hideOldPasword = true;
   hideNewPassword = true;
   hideConfirmationPassword = true;
-  openDialog = false;
 
   // Subscription
   errorsSubscription: Subscription;
   intervenantSubscription: Subscription;
+  closingDialog = 'closingChangePassword';
 
   constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService, private route: ActivatedRoute,
               private dialogRef: MatDialogRef<ChangePasswordComponent>){ }
@@ -36,25 +36,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
         this.errorMessage = error;
       }
     );
-
-    this.route.paramMap.subscribe(params => {
-      if (this.openDialog === false){
-     const id =  Number(params.get('id'));
-      // Appel de la méthode pour obtenir les informations de l'intervenant.
-     this.intervenantService.getIntervenantFromId(id);
-      // On écoute la requête qui nous retourne les informations de l'intervenant.
-     this.intervenantSubscription = this.intervenantService.intervenantSubject.subscribe(
-        (intervenant: any) => {
-          this.user = intervenant;
-          this.intervenantSubscription.unsubscribe();
-          this.initForm();
-        }
-      );
-    }
-      else{
-        this.initForm();
-      }
-    });
+    this.initForm();
   }
 
   private initForm(): void {
@@ -64,11 +46,6 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
       confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]]
     });
   }
-
-  OnCancelEditPassword(): void {
-    this.intervenantService.cancelIntervenant();
-  }
-
   private unSubscribe(): void{
     this.intervenantSubscription.unsubscribe();
     this.errorsSubscription.unsubscribe();
@@ -96,5 +73,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.errorsSubscription.unsubscribe();
+    this.intervenantSubscription.unsubscribe();
   }
 }

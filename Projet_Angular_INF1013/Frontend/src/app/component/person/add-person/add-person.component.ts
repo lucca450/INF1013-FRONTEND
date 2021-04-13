@@ -441,8 +441,8 @@ export class AddPersonComponent implements OnInit, OnDestroy{
     this.residenceTypeSubscription.unsubscribe();
     this.educationLevelSubscription.unsubscribe();
     this.referenceSubscription.unsubscribe();
-    this.emergencyContactSubscription.unsubscribe();
-    this.followedBySubscription.unsubscribe();
+   // this.emergencyContactSubscription.unsubscribe();
+   // this.followedBySubscription.unsubscribe();
     this.intervenantSubscription.unsubscribe();
   }
 }

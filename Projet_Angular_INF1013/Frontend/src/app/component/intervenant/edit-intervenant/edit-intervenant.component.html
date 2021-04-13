@@ -63,20 +63,11 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field class="">
-        <input matInput placeholder="Mot de passe" formControlName="password" required type="password" disabled>
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Mot de passe" formControlName="password" required type="password" >
         <button matSuffix  mat-button (click)="OneditPassword()" title="Modifier">
           <mat-icon>edit icon</mat-icon>
         </button>
-        <mat-error *ngIf="editintervenantForm.hasError('required', 'password')">
-          Veuillez entrer la confirmation de votre mot de passe
-        </mat-error>
-        <mat-error *ngIf="editintervenantForm.hasError('minlength', 'password')">
-          La confirmation du mot de passe doit avoir au moins 4 caractères.
-        </mat-error>
-        <mat-error *ngIf="editintervenantForm.hasError('maxlength', 'password')">
-          La confirmation du mot de passe doit avoir au maximum 40 caractères.
-        </mat-error>
       </mat-form-field>
 
       <mat-form-field>

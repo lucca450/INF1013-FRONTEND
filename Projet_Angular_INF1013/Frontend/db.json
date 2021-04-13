@@ -11,7 +11,8 @@
       "password": "1234",
       "role": "A",
       "active": true,
-      "id": 25
+      "id": 25,
+      "firstConnexion": false
     },
     {
       "interfaceName": "User",
@@ -24,7 +25,8 @@
       "password": "1111",
       "role": "A",
       "active": true,
-      "id": 2
+      "id": 2,
+      "firstConnexion": false
     },
     {
       "interfaceName": "User",
@@ -37,7 +39,8 @@
       "password": "1234",
       "role": "I",
       "active": false,
-      "id": 3
+      "id": 3,
+      "firstConnexion": false
     },
     {
       "interfaceName": "User",
@@ -50,7 +53,8 @@
       "password": "1234",
       "role": "I",
       "active": true,
-      "id": 4
+      "id": 4,
+      "firstConnexion": false
     },
     {
       "interfaceName": "User",
@@ -63,7 +67,8 @@
       "password": "1234",
       "role": "I",
       "active": true,
-      "id": 26
+      "id": 26,
+      "firstConnexion": false
     }
   ],
   "persons": [
@@ -163,7 +168,7 @@
         "fax": "8882224523",
         "organism": ""
       },
-      "active": true
+      "active": false
     },
     {
       "interfaceName": "Person",
@@ -210,7 +215,7 @@
         "fax": "",
         "organism": ""
       },
-      "active": true,
+      "active": false,
       "id": 3
     },
     {
@@ -394,7 +399,6 @@
       "name": "Autres"
     }
   ],
-
   "educationLevels": [
     {
       "interfaceName:": "EducationLevel",

@@ -105,6 +105,19 @@ export class PersonService {
       }
     );
   }
+
+  // Fonction pour rcéupèrer toutes les personnes
+  getAllPersons(): void{
+    this.httpClient.get(this.utilitiesService.serverUrl + 'persons/getAll').subscribe(
+      (users: any) => {
+        this.emitpersonsSubject(users);
+      },
+      (error) => {
+        this.emitErrorsSubject('Une erreur s\'est produite avec le serveur lors de la récupérations des personnes. ' +
+          'Veuillez réessayer plus tard.');
+      }
+    );
+  }
   // Fonction pour récupèrer une personne à partir de son identifiant.
   getPersonFromId(id: number): void {
     this.httpClient.get<Person>(this.utilitiesService.serverUrl + 'persons/get/' + id).subscribe(

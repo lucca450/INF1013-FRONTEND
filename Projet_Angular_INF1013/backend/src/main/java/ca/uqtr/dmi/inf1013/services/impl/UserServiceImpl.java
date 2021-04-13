@@ -158,4 +158,9 @@ public class UserServiceImpl implements UserService {
         return this.userRepo.saveUserWithoutPassword(user.getId(), user.getLname(), user.getFname(), user.getEmail(),
                 user.getPhone(), user.getAddress(), user.getOrganism(), user.getUsername(), user.getRole());
     }
+
+    @Override
+    public int skipFirstConnexionStep(Long id) {
+       return this.userRepo.skipFirstConnexionStep(id);
+    }
 }

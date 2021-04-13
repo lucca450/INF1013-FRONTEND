@@ -15,6 +15,7 @@ import java.util.Optional;
 public interface UserRepo extends CrudRepository<User,Long> {
 
   Optional<User>findByUsername(String username);
+  Optional<List<User>> findByActive(boolean active);
 
   @Query(value = "update users set active = ?2 where id = ?1", nativeQuery = true) //native = true, requête avec les tables de la BD
   @Modifying // Obligatoire quand on fait un update
@@ -25,8 +26,6 @@ public interface UserRepo extends CrudRepository<User,Long> {
   @Modifying // Obligatoire quand on fait un update
   @Transactional
   int resetPasswordUSer(Long idUser, String password);
-
-  Optional<List<User>> findByActive(boolean active);
 
   @Query(value = "select * from users order by active desc", nativeQuery = true)
   Iterable<User> findAllUsersOrderByActive();
@@ -63,15 +62,20 @@ public interface UserRepo extends CrudRepository<User,Long> {
   @Transactional
   int saveUserWithoutPassword(Long id, String lname, String fname, String email, String phone, String address, String organism, String username, Character role);
 
-    Boolean findByUsernameAndPassword(String username, String password);
-    @Query(value = "select count(*) from users where username = ?1", nativeQuery = true)
-    Long verifyUserExist(String username);
+  Boolean findByUsernameAndPassword(String username, String password);
+  @Query(value = "select count(*) from users where username = ?1", nativeQuery = true)
+  Long verifyUserExist(String username);
 
-    @Query(value = "select fname ||' '||lname as fullName from users where id = ?1", nativeQuery = true)
-    Optional<String> getFullNameById(Long id);
+  @Query(value = "select fname ||' '||lname as fullName from users where id = ?1", nativeQuery = true)
+  Optional<String> getFullNameById(Long id);
 
-    @Query(value = "update users set password = ?2 where id = ?1", nativeQuery = true) //native = true, requête avec les tables de la BD
-    @Modifying // Obligatoire quand on fait un update
-    @Transactional
-    int updatePasswordUser(Long id, String password);
+  @Query(value = "update users set password = ?2, first_connexion = true where id = ?1", nativeQuery = true) //native = true, requête avec les tables de la BD
+  @Modifying // Obligatoire quand on fait un update
+  @Transactional
+  int updatePasswordUser(Long id, String password);
+
+  @Query(value = "update users set first_connexion = true where id = ?1", nativeQuery = true) //native = true, requête avec les tables de la BD
+  @Modifying // Obligatoire quand on fait un update
+  @Transactional
+  int skipFirstConnexionStep(Long id);
 }
