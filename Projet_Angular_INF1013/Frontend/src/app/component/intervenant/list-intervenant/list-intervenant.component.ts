@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {MatSort} from '@angular/material/sort';
+import {MatSort, MatSortable} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
 import {Subscription} from 'rxjs';
@@ -8,8 +8,8 @@ import {DeleteIntervenantComponent} from '../delete-intervenant/delete-intervena
 import {UserService} from '../../../services/user/user.service';
 import {MatSelect} from '@angular/material/select';
 import {User} from '../../../models/users/user';
-import {ReactiveIntervenantComponent} from "../reactive-intervenant/reactive-intervenant.component";
-import {ResetPasswordComponent} from "../reset-password/reset-password.component";
+import {ReactiveIntervenantComponent} from '../reactive-intervenant/reactive-intervenant.component';
+import {ResetPasswordComponent} from '../reset-password/reset-password.component';
 
 
 @Component({
@@ -26,9 +26,10 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
   accountid: number = this.userService.user.id;
   displayedColumns: string[] = [ 'fname', 'lname', 'email', 'phone', 'address', 'actions-icon']; // L'ordre des colonnes est déterminé ici
   searchInputValue: string;
-  defaultSelectList = true;
+  defaultSelectList = '';
 
   // Subscription
+  intervenantsSubscription: Subscription;
   intervenantSubscription: Subscription;
   errorsSubscription: Subscription;
 
@@ -38,12 +39,13 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
 
   ngOnInit(): void {
   // appel de la méthode pour obtenir tous les intervenants actifs
-  this.intervenantService.getActiveIntervenants();
+  this.intervenantService.getAllIntervenants();
   // On écoute la requête qui nous retourne les intervenants actifs pour les récupérer.
-  this.intervenantSubscription = this.intervenantService.intervenantsSubject.subscribe(
+  this.intervenantsSubscription = this.intervenantService.intervenantsSubject.subscribe(
       (intervenants: any) => {
         this.intervenants = new MatTableDataSource(intervenants);
         this.intervenants.filterPredicate = this.getFilterPredicate();
+        this.intervenants.sort = this.sort;
       },
     );
   // Si une erreur est reçu par la requête, on l'affiche.
@@ -52,7 +54,17 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
         this.errorMessage = error;
       },
     );
+    // Si il y a une demande pour la rénitialisation du mot de passe
+  this.intervenantSubscription = this.intervenantService.intervenantSubject.subscribe(
+      (user: User) => {
+        const randomPassword = Math.random().toString(36).slice(-16);
+        user.password = randomPassword;
+        this.intervenantService.ResetPasswordIntervenant(user);
+      },
+    );
+
   }
+
 
   ngAfterViewInit(): void {
     this.intervenants.sort = this.sort;
@@ -83,7 +95,7 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
 
       if (customFilterInput === true) {
         // push boolean values into array
-        if(customVerifyActive){
+        if (customVerifyActive === 'true'){
           if (String(user.active) === filterSelectList) {
             customFilterInput = true;
           }
@@ -121,6 +133,7 @@ applyFilter(): void{
     const filterValue = filterInput + '$' + filterSelectList + '$' + verifyActiveboolean;
     console.log(filterValue);
     this.intervenants.filter = filterValue.trim().toLowerCase();
+    this.intervenants.sort.active = this.sort.active;
   }
 
   // Fonction qui permet de réagir lorsque l'utilisateur clique sur la corbeille (Boutton supprimer)
@@ -133,7 +146,7 @@ onDelete(id: number): void{
         this.intervenantService.ActiveDesactiveIntervenant(id, false);
         this.intervenantService.activateDesactivateSubject.subscribe(
           (intervenants: any) => {
-            this.intervenantService.getActiveIntervenants();
+            this.intervenantService.getAllIntervenants();
           },
           (error) => {
             this.errorMessage = error;
@@ -143,27 +156,20 @@ onDelete(id: number): void{
     });
   }
 
-ngOnDestroy(): void {
-    this.intervenantSubscription.unsubscribe();
-    this.errorsSubscription.unsubscribe();
-  }
-
   OnReactivateAccount(id): void{
     const dialogRef = this.dialog.open(ReactiveIntervenantComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result === true){
         // Réactivation de l'intervenant
-        /*
-        this.intervenantService.ActiveDesactiveIntervenant(id, false);
+        this.intervenantService.ActiveDesactiveIntervenant(id, true);
         this.intervenantService.activateDesactivateSubject.subscribe(
           (intervenants: any) => {
-            this.intervenantService.getActiveIntervenants();
+            this.intervenantService.getAllIntervenants();
           },
           (error) => {
             this.errorMessage = error;
           }
         );
-         */
       }
     });
   }
@@ -172,19 +178,16 @@ ngOnDestroy(): void {
     const dialogRef = this.dialog.open(ResetPasswordComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result === true){
-        // Réactivation de l'intervenant
-        /*
-        this.intervenantService.ActiveDesactiveIntervenant(id, false);
-        this.intervenantService.activateDesactivateSubject.subscribe(
-          (intervenants: any) => {
-            this.intervenantService.getActiveIntervenants();
-          },
-          (error) => {
-            this.errorMessage = error;
-          }
-        );
-         */
+        // Rénitialisation du mot de passe de l'intevenant
+        this.intervenantService.getIntervenantFromId(id);
       }
     });
   }
+
+  ngOnDestroy(): void {
+    this.intervenantSubscription.unsubscribe();
+    this.intervenantsSubscription.unsubscribe();
+    this.errorsSubscription.unsubscribe();
+  }
+
 }

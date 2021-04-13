@@ -77,7 +77,7 @@ export class EditIntervenantComponent implements OnInit, OnDestroy {
       phone: [this.user.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
       address: [this.user.address, [Validators.required, Validators.maxLength(50)]],
       username: [this.user.username, [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
-      password: [this.user.password, [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
+      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
       role: [this.user.role, Validators.required],
       active: [this.user.active, Validators.required],
       id: [this.user.id],
@@ -131,8 +131,8 @@ Fusion avec user
      dialogRef.componentInstance.openDialog = true;
      dialogRef.componentInstance.user = this.user;
 
-     dialogRef.afterClosed().subscribe(result => {
-       this.user.password = result;
+     dialogRef.afterClosed().subscribe(password => {
+       this.editintervenantForm.get('password').setValue(password);
      });
    }
  }

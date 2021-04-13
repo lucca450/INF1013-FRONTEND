@@ -17,4 +17,7 @@ public interface UserService extends UserDetailsService {
   long verifyUserExist(String username);
   Optional<String> getUserFullNameFromId(Long id);
   int editPassword(Long id, String password);
+  Iterable<User> findAllUsersOrderByActive();
+  int resetPasswordUSer(Long id, String password);
+  int editUserWithoutPassword(User user);
 }

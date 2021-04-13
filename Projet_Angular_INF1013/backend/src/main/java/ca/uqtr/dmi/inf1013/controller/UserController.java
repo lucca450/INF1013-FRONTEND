@@ -1,7 +1,10 @@
 package ca.uqtr.dmi.inf1013.controller;
 
 import ca.uqtr.dmi.inf1013.model.User;
+import ca.uqtr.dmi.inf1013.services.MailService;
 import ca.uqtr.dmi.inf1013.services.UserService;
+import org.hibernate.mapping.Any;
+import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,17 +17,10 @@ import java.util.Optional;
 public class UserController {
 
   private UserService userService;
-/*
-  public UserController(UserService userService, UserServiceImpl userDetailsService, PasswordEncoder passwordEncoder){ // Qualifer, il va chercher le @Service dans notre service
+  private MailService notificationService;
+  public UserController(UserService userService, MailService notificationService){ // Qualifer, il va chercher le @Service dans notre service
     this.userService = userService;
-    this.userDetailsService = userDetailsService;
-    this.passwordEncoder = passwordEncoder;
-  }
-
- */
-
-  public UserController(UserService userService){ // Qualifer, il va chercher le @Service dans notre service
-    this.userService = userService;
+    this.notificationService = notificationService;
   }
 
   @GetMapping(path = "/get/{ID}")
@@ -51,6 +47,11 @@ public class UserController {
     return s.orElseThrow(()-> new RuntimeException("Aucun utilisateurs"));
   }
 
+  @GetMapping(path = "/getAll")
+  public Iterable<User> getAllUsers(){
+    return this.userService.findAllUsersOrderByActive();
+  }
+
   @GetMapping(path = "/verifyName/{username}")
   public boolean verifyUserExist(@PathVariable("username") String username){
     Long nbrUser =userService.verifyUserExist(username);
@@ -61,14 +62,18 @@ public class UserController {
     {
       return false;
     }
-
-    //.orElseThrow(()-> new RuntimeException("Ce nom d'utilisateur existe déja"));
   }
 
 
   @PutMapping(path = "/edit")
   public int editUser(@RequestBody User user){ // PathVariable c'est pour dire que la variable est dans le path.
-    return userService.editUser(user);
+    if(user.getPassword() != "" && user.getPassword() != null){
+      return userService.editUser(user);
+    }
+    else{
+      return userService.editUserWithoutPassword(user);
+    }
+
   }
 
   @PostMapping(path = "/add")
@@ -86,6 +91,19 @@ public class UserController {
     return userService.activeDesactiveUser(id,activeDesactive);
   }
 
+  @PostMapping(path = "/resetPassword")
+  public int resetPassword(@RequestBody User user){
+    var passwordBeforeHash = user.getPassword();
+    var resetPassword =  userService.resetPasswordUSer(user.getId(),user.getPassword());
+    if(resetPassword == 1){
+      try {
+        notificationService.sendResetPasswordMail(user.getEmail(), user.getUsername(), passwordBeforeHash, user.getFname(), user.getFname());
+      } catch (MailException mailException) {
+        System.out.println(mailException);
+      }
+    }
+    return 0;
+  }
 
 
 }

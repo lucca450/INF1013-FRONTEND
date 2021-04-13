@@ -30,6 +30,16 @@ public class MailService {
         javaMailSender.send(mail);
     }
 
+    public void sendResetPasswordMail(String email, String username, String password, String firstName, String lastName) throws MailException {
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(email);
+        mail.setSubject("Rénitialisation du mot de passe");
+        mail.setText("Bonjour "+firstName+' '+lastName+ "\n\n La rénitialisation de votre mot de passe à bien été éffectué avec succès !"+ "\n\n" +
+                " Nom d'utilisateur : "+username+"\n\n Nouveau mot de passe : "+password);
+        javaMailSender.send(mail);
+    }
+
     // Si jamais on veut envoyer des pièces jointes (Non fonctionnel) -> Feature
     public void sendEmailWithAttachment(User user) throws MailException, MessagingException {
 
@@ -46,5 +56,4 @@ public class MailService {
 
         javaMailSender.send(mimeMessage);
     }
-
 }

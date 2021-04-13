@@ -21,24 +21,22 @@ export class IntervenantService {
   intervenantVerifyUsernameSubject = new Subject<any>();
   emailSubject = new Subject<any>();
   errorsSubject: Subject<string> = new Subject<string>();
+  resetPasswordSubject = new Subject<any>();
   constructor(private router: Router, private httpClient: HttpClient, private utilitiesService: UtilitiesService) {
   }
 
-  /* Pas utilisé, mais peut-être plus tard
-  // Fonction pour récupérer tous les intervenants
+  // Fonction pour rcéupèrer tout les intervenants
   getAllIntervenants(): void{
-    this.httpClient.get<User>(`http://localhost:3000/users`).subscribe(
-      (intervenants: any) => {
-        this.emitIntervenantsSubject(intervenants);
+    this.httpClient.get(this.utilitiesService.serverUrl + 'users/getAll').subscribe(
+      (users: any) => {
+        this.emitIntervenantsSubject(users);
       },
       (error) => {
-        const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des intervenants';
-        this.emitErrorsSubject(message);
+        this.emitErrorsSubject('Une erreur s\'est produite avec le serveur lors de la récupérations des utilisateurs. ' +
+          'Veuillez réessayer plus tard.');
       }
     );
   }
-
-   */
 
   // Fonction pour récupèrer un intervenant à partir de son identifiant
   getIntervenantFromId(id: number): void{
@@ -93,7 +91,6 @@ export class IntervenantService {
     this.httpClient.post(this.utilitiesService.serverUrl + 'mail/send-mail/' + email + '/' + username + '/' + password +
       '/' + firstname + '/' + lastname + '/', {}, {headers}).subscribe(
       (data: any) => {
-        console.log('DATA RECU');
         this.emailSubject.next(data);
       },
       (error) => {
@@ -104,6 +101,7 @@ export class IntervenantService {
       }
     );
   }
+
 
 // Fonction pour modifier un intervenant
 editIntervenant(intervenant: User): void{
@@ -188,6 +186,20 @@ public intervenantFullName(id: number): void {
       }
     );
   }
+
+  ResetPasswordIntervenant(user: User): void {
+    const headers = { 'content-type': 'application/json'};
+    const body = JSON.stringify(user);
+    this.httpClient.post(this.utilitiesService.serverUrl + 'users/resetPassword', body, {headers}).subscribe(
+      (data: any) => {
+        this.resetPasswordSubject.next(data);
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de la rénitialisation du mot de passe del\'intervenant. Veuillez réessayer plus tard';
+        this.emitErrorsSubject(message);
+      }
+    );
+  }
   // Fonction annuler l'étape concernant l'intervenant
   cancelIntervenant(): void {
     this.router.navigate(['intervenant']);
@@ -204,6 +216,4 @@ public intervenantFullName(id: number): void {
   private emitActivateDesactivateSubject(id: number): void{
     this.activateDesactivateSubject.next(id);
   }
-
-
 }

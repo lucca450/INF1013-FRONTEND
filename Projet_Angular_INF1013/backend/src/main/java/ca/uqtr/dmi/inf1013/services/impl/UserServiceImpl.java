@@ -91,7 +91,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public int editUser(User user) {
         return this.userRepo.saveUser(user.getId(), user.getLname(), user.getFname(), user.getEmail(),
-                                  user.getPhone(), user.getAddress(), user.getOrganism(), user.getUsername(), user.getRole());
+                                  user.getPhone(), user.getAddress(), user.getOrganism(), user.getUsername(),
+                                  user.getPassword(), user.getRole());
     }
 
     @Override
@@ -140,5 +141,21 @@ public class UserServiceImpl implements UserService {
     public int editPassword(Long id, String password) {
         password = (this.passwordEncoder.encode(password));
         return this.userRepo.updatePasswordUser(id,password);
+    }
+    @Override
+    public Iterable<User> findAllUsersOrderByActive(){
+       return this.userRepo.findAllUsersOrderByActive();
+    }
+
+    @Override
+    public int resetPasswordUSer(Long id, String password) {
+        password = (this.passwordEncoder.encode(password));
+        return this.userRepo.resetPasswordUSer(id,password);
+    }
+
+    @Override
+    public int editUserWithoutPassword(User user) {
+        return this.userRepo.saveUserWithoutPassword(user.getId(), user.getLname(), user.getFname(), user.getEmail(),
+                user.getPhone(), user.getAddress(), user.getOrganism(), user.getUsername(), user.getRole());
     }
 }

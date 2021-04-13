@@ -4,6 +4,7 @@ import {Subscription} from 'rxjs';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
 import {User} from '../../../models/users/user';
 import {ActivatedRoute} from '@angular/router';
+import {MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-change-password',
@@ -24,7 +25,8 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   errorsSubscription: Subscription;
   intervenantSubscription: Subscription;
 
-  constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService, private route: ActivatedRoute){ }
+  constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService, private route: ActivatedRoute,
+              private dialogRef: MatDialogRef<ChangePasswordComponent>){ }
 
   ngOnInit(): void {
 
@@ -44,6 +46,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
      this.intervenantSubscription = this.intervenantService.intervenantSubject.subscribe(
         (intervenant: any) => {
           this.user = intervenant;
+          this.intervenantSubscription.unsubscribe();
           this.initForm();
         }
       );
@@ -71,16 +74,16 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
     this.errorsSubscription.unsubscribe();
   }
 
-  OnAddEditPassword(): void {
+  OnEditPassword(): void {
 
     if (this.EditPasswordForm.valid){
       if (this.EditPasswordForm.get('newPassword').value === this.EditPasswordForm.get('confirmPassword').value){
-        if (this.EditPasswordForm.get('oldPassword').value === this.user.password){
-          this.intervenantService.editPasswordIntervenant(this.user.id, this.EditPasswordForm.get('newPassword').value);
-        }
-        else{
-          alert('L\'ancien mot de passe ne correspond pas à votre mot de passe actuel');
-        }
+     //   if (this.EditPasswordForm.get('oldPassword').value === this.user.password){
+        this.dialogRef.close(this.EditPasswordForm.get('newPassword').value);
+      //  }
+      //  else{
+       //   alert('L\'ancien mot de passe ne correspond pas à votre mot de passe actuel');
+       // }
       }
       else{
         alert('Le nouveau mot de passe ne correspond pas au mot de passe que vous avez confirmé.');
@@ -93,6 +96,5 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.unSubscribe();
   }
 }

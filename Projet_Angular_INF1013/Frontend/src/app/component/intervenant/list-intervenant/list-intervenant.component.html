@@ -31,7 +31,7 @@
 
 
   <!-- Lister les intervenants -->
-  <mat-table [dataSource]="intervenants" matSort matSortActive="fname" matSortDirection="asc" class="mat-elevation-z8" >
+  <mat-table [dataSource]="intervenants" matSort  class="mat-elevation-z8" >
 
     <ng-container matColumnDef="fname">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Prénom </mat-header-cell>
@@ -78,14 +78,14 @@
       <mat-header-cell  *matHeaderCellDef mat-sort-header> Actions</mat-header-cell>
       <mat-cell *matCellDef="let row">
         <span class="mobile-label"></span>
-        <img class="table-icon icons-click" src="assets/edit-icon.png" alt="Icone modifier" title="Modifier"
+        <img *ngIf="row.active === true" class="table-icon icons-click" src="assets/edit-icon.png" alt="Icone modifier" title="Modifier"
                [routerLink]="['/intervenant/edit',row.id]" routerLinkActive="active"/>
-        <img *ngIf="accountid != row.id" class="table-icon icons-click actions" src="assets/icons8-trash-can-52.png" alt="Icone supprimer" title="Supprimer"
+        <img *ngIf="accountid != row.id && row.active === true" class="table-icon icons-click actions" src="assets/icons8-trash-can-52.png" alt="Icone supprimer" title="Supprimer"
                (click)="onDelete(row.id)"/>
-        <img class="table-icon icons-click actions" src="assets/iconfinder_Button White Check_58494.png" alt="Icone réactiver" title="Réactiver le compte"
+        <img *ngIf="row.active === false" class="table-icon icons-click actions" src="assets/iconfinder_Button White Check_58494.png" alt="Icone réactiver" title="Réactiver le compte"
              (click)="OnReactivateAccount(row.id)"/>
 
-        <img class="table-icon icons-click actions" src="assets/synchronize.png" alt="Icone rénitialiser mot de passe" title="Rénitilialiser le mot de passe"
+        <img *ngIf="row.active === true" class="table-icon icons-click actions" src="assets/synchronize.png" alt="Icone rénitialiser mot de passe" title="Rénitilialiser le mot de passe"
              (click)="OnResetPassword(row.id)"/>
 
       </mat-cell>

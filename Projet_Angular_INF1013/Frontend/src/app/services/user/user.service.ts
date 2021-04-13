@@ -21,21 +21,6 @@ export class UserService {
   constructor(private httpClient: HttpClient, private router: Router, private utilitiesService: UtilitiesService) {
   }
 
-  /*
-   Maybe a day
-  // Fonction pour rcéupèrer tout les utilisateurs
-  getUsers(): void{
-    this.httpClient.get<User>(`http://localhost:3000/users`).subscribe(
-      (users: any) => {
-        this.emitUsersSubject(users);
-      },
-      (error) => {
-        this.emitError(error);
-      }
-    );
-  }
-
-   */
   verifyUserExist(username: string, password: string): void{
     this.httpClient.get<User>(`http://localhost:3000/users?active=true&username=` + username + '&password=' + password).subscribe(
       (user: any) => {
