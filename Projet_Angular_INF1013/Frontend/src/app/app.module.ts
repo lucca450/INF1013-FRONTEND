@@ -54,7 +54,9 @@ import { ConvertRoleNamePipe } from './pipes/convert-role-name.pipe';
 import { DeletePersonComponent } from './component/person/delete-person/delete-person.component';
 import { ListPersonMeetingsComponent } from './component/meeting/list-person-meetings/list-person-meetings.component';
 import {UtilitiesService} from './services/utilities/utilities.service';
-import { ResetPasswordComponent } from './component/intervenant/reset-password/reset-password.component';
+import {ReactiveIntervenantComponent} from './component/intervenant/reactive-intervenant/reactive-intervenant.component';
+import {ChangePasswordComponent} from './component/intervenant/change-password/change-password.component';
+import {ResetPasswordComponent} from './component/intervenant/reset-password/reset-password.component';
 
 registerLocaleData(localeFr);
 
@@ -69,7 +71,7 @@ const appRoutes: Routes = [
   {path : 'intervenant', canActivate : [AuthGuard], component : ListIntervenantComponent},
   {path : 'intervenant/add', canActivate : [AuthGuard], component : AddIntervenantComponent},
   {path : 'intervenant/edit/:id', canActivate : [AuthGuard], component : EditIntervenantComponent},
-  {path : 'intervenant/editPassword/:id', canActivate : [AuthGuard], component : ResetPasswordComponent},
+  {path : 'intervenant/editPassword/:id', canActivate : [AuthGuard], component : ChangePasswordComponent},
   {path : 'meeting', canActivate : [AuthGuard], component : ListMeetingComponent},
   {path : 'meeting/add/:id', canActivate : [AuthGuard], component : AddMeetingComponent},
   {path : 'meeting/edit/:id', canActivate : [AuthGuard], component : EditMeetingComponent},
@@ -111,6 +113,8 @@ const appRoutes: Routes = [
     DeletePersonComponent,
     ListPersonMeetingsComponent,
     ResetPasswordComponent,
+    ChangePasswordComponent,
+    ReactiveIntervenantComponent,
   ],
   imports: [
     BrowserModule,

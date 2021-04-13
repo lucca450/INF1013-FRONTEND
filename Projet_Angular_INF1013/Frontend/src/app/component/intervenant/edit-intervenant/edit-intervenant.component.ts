@@ -6,8 +6,8 @@
  import {UserService} from '../../../services/user/user.service';
  import {User} from '../../../models/users/user';
  import {Subscription} from 'rxjs';
- import {MatDialog} from "@angular/material/dialog";
- import {ResetPasswordComponent} from "../reset-password/reset-password.component";
+ import {MatDialog} from '@angular/material/dialog';
+ import {ChangePasswordComponent} from '../change-password/change-password.component';
  @Component({
   selector: 'app-edit-intervenant',
   templateUrl: './edit-intervenant.component.html',
@@ -127,7 +127,7 @@ Fusion avec user
    }
 
    OneditPassword(): void {
-     const dialogRef = this.dialog.open(ResetPasswordComponent);
+     const dialogRef = this.dialog.open(ChangePasswordComponent);
      dialogRef.componentInstance.openDialog = true;
      dialogRef.componentInstance.user = this.user;
 

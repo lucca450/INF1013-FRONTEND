@@ -6,6 +6,10 @@ import {Subscription} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import {DeleteIntervenantComponent} from '../delete-intervenant/delete-intervenant.component';
 import {UserService} from '../../../services/user/user.service';
+import {MatSelect} from '@angular/material/select';
+import {User} from '../../../models/users/user';
+import {ReactiveIntervenantComponent} from "../reactive-intervenant/reactive-intervenant.component";
+import {ResetPasswordComponent} from "../reset-password/reset-password.component";
 
 
 @Component({
@@ -16,10 +20,13 @@ import {UserService} from '../../../services/user/user.service';
 export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('typeAccount') typeAccount: MatSelect;
   errorMessage: string;
   intervenants = new MatTableDataSource();
   accountid: number = this.userService.user.id;
   displayedColumns: string[] = [ 'fname', 'lname', 'email', 'phone', 'address', 'actions-icon']; // L'ordre des colonnes est déterminé ici
+  searchInputValue: string;
+  defaultSelectList = true;
 
   // Subscription
   intervenantSubscription: Subscription;
@@ -36,6 +43,7 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
   this.intervenantSubscription = this.intervenantService.intervenantsSubject.subscribe(
       (intervenants: any) => {
         this.intervenants = new MatTableDataSource(intervenants);
+        this.intervenants.filterPredicate = this.getFilterPredicate();
       },
     );
   // Si une erreur est reçu par la requête, on l'affiche.
@@ -44,25 +52,79 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
         this.errorMessage = error;
       },
     );
-
-  // Nous permet de définir sur quels attributs la recherche va se faire.
-  this.intervenants.filterPredicate = (data: any, filter: string): boolean => data.fname.toLowerCase().includes(filter) ||
-    data.lname.toLowerCase().includes(filter) ||
-    data.phone.includes(filter) ||
-    data.email.toLocaleLowerCase().includes(filter) ||
-    data.address.toLocaleLowerCase().includes(filter);
   }
 
   ngAfterViewInit(): void {
     this.intervenants.sort = this.sort;
   }
-  // Fonction qui permet d'appliquer le filtre sur toute les colonnes du tableau selon ce que l'utilisateur à écris.
-  applyFilter(event: Event): void {
-    const filterValue = (event.target as HTMLInputElement).value;
+
+  OnKeyUpSearchInput(event: Event): void{
+    this.searchInputValue = (event.target as HTMLInputElement).value;
+  }
+
+  // tslint:disable-next-line:typedef
+  getFilterPredicate() {
+    return (user: User, filters: string) => {
+      // split string per '$' to array
+      const filterArray = filters.split('$');
+      const filterInput = filterArray[0];
+      const filterSelectList = filterArray[1];
+      const customVerifyActive = filterArray[2];
+
+      const matchFilter = [];
+      // verify fetching data by our searching values
+
+      let customFilterInput = user.lname.toLowerCase().includes(filterInput) ||
+          user.fname.toLowerCase().includes(filterInput) ||
+          user.phone.includes(filterInput) ||
+          user.email.toLocaleLowerCase().includes(filterInput) ||
+          user.address.toLocaleLowerCase().includes(filterInput);
+
+
+      if (customFilterInput === true) {
+        // push boolean values into array
+        if(customVerifyActive){
+          if (String(user.active) === filterSelectList) {
+            customFilterInput = true;
+          }
+          else{
+            customFilterInput = false;
+          }
+        }
+      }
+      matchFilter.push(customFilterInput);
+
+      // return true if all values in array is true
+      // else return false
+      return matchFilter.every(Boolean);
+    };
+  }
+
+applyFilter(): void{
+
+    let filterInput = this.searchInputValue;
+    let filterSelectList = this.typeAccount.value;
+    let verifyActiveboolean = false;
+
+    if (filterInput === null || filterInput === undefined){
+      filterInput = '';
+    }
+
+    if (filterSelectList !== ''){
+      verifyActiveboolean = true;
+    }
+    else{
+      filterSelectList = true;
+    }
+
+    // create string of our searching values and split if by '$'
+    const filterValue = filterInput + '$' + filterSelectList + '$' + verifyActiveboolean;
+    console.log(filterValue);
     this.intervenants.filter = filterValue.trim().toLowerCase();
   }
+
   // Fonction qui permet de réagir lorsque l'utilisateur clique sur la corbeille (Boutton supprimer)
-  onDelete(id: number): void{
+onDelete(id: number): void{
     const dialogRef = this.dialog.open(DeleteIntervenantComponent);
 
     dialogRef.afterClosed().subscribe(result => {
@@ -81,8 +143,48 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
     });
   }
 
-  ngOnDestroy(): void {
+ngOnDestroy(): void {
     this.intervenantSubscription.unsubscribe();
     this.errorsSubscription.unsubscribe();
+  }
+
+  OnReactivateAccount(id): void{
+    const dialogRef = this.dialog.open(ReactiveIntervenantComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true){
+        // Réactivation de l'intervenant
+        /*
+        this.intervenantService.ActiveDesactiveIntervenant(id, false);
+        this.intervenantService.activateDesactivateSubject.subscribe(
+          (intervenants: any) => {
+            this.intervenantService.getActiveIntervenants();
+          },
+          (error) => {
+            this.errorMessage = error;
+          }
+        );
+         */
+      }
+    });
+  }
+
+  OnResetPassword(id): void{
+    const dialogRef = this.dialog.open(ResetPasswordComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true){
+        // Réactivation de l'intervenant
+        /*
+        this.intervenantService.ActiveDesactiveIntervenant(id, false);
+        this.intervenantService.activateDesactivateSubject.subscribe(
+          (intervenants: any) => {
+            this.intervenantService.getActiveIntervenants();
+          },
+          (error) => {
+            this.errorMessage = error;
+          }
+        );
+         */
+      }
+    });
   }
 }

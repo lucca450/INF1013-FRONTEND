@@ -1,12 +1,31 @@
 <div *ngIf="errorMessage" class="validation">
   <div>{{errorMessage}}</div>
 </div>
+
+
+
 <div class="container-intervenant">
   <!-- La recherche -->
   <div class ="container-search">
-    <mat-form-field>
+      <mat-form-field  id="filter_active" class="filter active" appearance="fill">
+        <mat-label>Statut</mat-label>
+        <mat-select id = "typeAccount" #typeAccount (valueChange)="applyFilter();" [(ngModel)]="defaultSelectList" placeholder="Status">
+          <mat-option  [value]="true">
+            Actif
+          </mat-option>
+          <mat-option  [value]="false">
+            Innactif
+          </mat-option>
+          <mat-option  [value]="''">
+            Tous
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    <mat-form-field class="filter search">
       <mat-label>Recherche</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Recherche" #input>
+      <input matInput (keyup)="OnKeyUpSearchInput($event);
+                               applyFilter();" id ="searchInput" placeholder="Recherche" #input>
     </mat-form-field>
   </div>
 
@@ -58,11 +77,16 @@
     <ng-container matColumnDef="actions-icon">
       <mat-header-cell  *matHeaderCellDef mat-sort-header> Actions</mat-header-cell>
       <mat-cell *matCellDef="let row">
-          <span class="mobile-label"></span>
-          <img class="table-icon icons-click" src="assets/edit-icon.png" alt="Icone modifier" title="Modifier"
+        <span class="mobile-label"></span>
+        <img class="table-icon icons-click" src="assets/edit-icon.png" alt="Icone modifier" title="Modifier"
                [routerLink]="['/intervenant/edit',row.id]" routerLinkActive="active"/>
-          <img *ngIf="accountid != row.id" class="table-icon icons-click actions" src="assets/icons8-trash-can-52.png" alt="Icone supprimer" title="Supprimer"
+        <img *ngIf="accountid != row.id" class="table-icon icons-click actions" src="assets/icons8-trash-can-52.png" alt="Icone supprimer" title="Supprimer"
                (click)="onDelete(row.id)"/>
+        <img class="table-icon icons-click actions" src="assets/iconfinder_Button White Check_58494.png" alt="Icone réactiver" title="Réactiver le compte"
+             (click)="OnReactivateAccount(row.id)"/>
+
+        <img class="table-icon icons-click actions" src="assets/synchronize.png" alt="Icone rénitialiser mot de passe" title="Rénitilialiser le mot de passe"
+             (click)="OnResetPassword(row.id)"/>
 
       </mat-cell>
     </ng-container>

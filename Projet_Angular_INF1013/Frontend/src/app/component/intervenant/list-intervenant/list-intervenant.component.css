@@ -1,3 +1,14 @@
+.filter .mat-form-field{
+  width: auto !important;
+}
+
+.filter .mat-select-value{
+  max-width: 100%;
+  width: auto;
+}
+
+
+
 .validation{
   max-height: 500px;
   min-width: 300px;
@@ -61,10 +72,36 @@
   width:100%;
   padding-top: 10px;
   text-align: right;
+  position: relative;
 }
 
-.mat-form-field{
+.search{
   width: 40%;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+}
+
+
+::ng-deep .mat-form-field-wrapper{
+  margin-bottom: -1.25em;
+}
+
+#filter_active{
+  width: 125px;
+  margin-bottom: 5px;
+}
+
+mat-form-field-wrapper:has(mat-form-field){
+  position: absolute!important;
+  width: 100%;
+}
+
+
+
+.active, #filter_active{
+  float:left;
 }
 
 ::ng-deep .mat-focused .mat-form-field-label {
@@ -79,4 +116,5 @@
   /*change color of underline when focused*/
   background-color: green !important;;
 }
+
 
