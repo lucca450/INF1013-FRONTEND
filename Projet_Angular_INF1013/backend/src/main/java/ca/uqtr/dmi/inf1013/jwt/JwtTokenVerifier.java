@@ -34,19 +34,6 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
                                   HttpServletResponse response,
                                   FilterChain filterChain) throws ServletException, IOException{
 
-
-
-
-/*
-      response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
-      response.setHeader("Access-Control-Allow-Credentials", "true");
-      response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-      response.setHeader("Access-Control-Max-Age", "3600");
-      response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
-*/
-
-
-
     String authorizationHeader = request.getHeader(jwtConfig.getAuthorizationHeader());
 
     if(Strings.isNullOrEmpty(authorizationHeader) || !authorizationHeader.startsWith(jwtConfig.getTokenPrefix())){
@@ -55,8 +42,6 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
     }
     String token = authorizationHeader.replace(jwtConfig.getTokenPrefix(),"");
     try{
-
-
 
       Jws<Claims> claimsJws = Jwts.parser()
         .setSigningKey(secretKey)

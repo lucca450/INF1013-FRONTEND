@@ -86,3 +86,8 @@ button:hover{
   background-color: #FFCCBA;
   background-image: url('https://i.imgur.com/GnyDvKN.png');
 }
+
+.success-message{
+  background-color: green;
+  color: white;
+}

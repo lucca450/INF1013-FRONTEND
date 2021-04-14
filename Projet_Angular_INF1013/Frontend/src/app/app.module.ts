@@ -40,6 +40,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { PhonePipe } from './pipes/phone.pipe';
 import { ConvertBooleanPipe } from './pipes/convert-boolean.pipe';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 import { registerLocaleData } from '@angular/common';
@@ -59,6 +60,8 @@ import {ChangePasswordComponent} from './component/intervenant/change-password/c
 import {ResetPasswordComponent} from './component/intervenant/reset-password/reset-password.component';
 import { ReactivePersonComponent } from './component/person/reactive-person/reactive-person.component';
 import { FirstConnexionComponent } from './component/login/first-connexion/first-connexion.component';
+import { SuccessMessageComponent } from './component/utilities/message/success-message/success-message.component';
+import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
 
 registerLocaleData(localeFr);
 
@@ -119,6 +122,7 @@ const appRoutes: Routes = [
     ReactiveIntervenantComponent,
     ReactivePersonComponent,
     FirstConnexionComponent,
+    SuccessMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -143,14 +147,16 @@ const appRoutes: Routes = [
     HttpClientModule,
     MatDialogModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSnackBarModule
   ],
   providers: [
     // On injecte services (N'est plus obligatoire dans la nouvelle version d'angular)
     PersonService,
     AuthGuard,
     UtilitiesService,
-    [ {provide: LOCALE_ID, useValue: 'fr-CA' } ]
+    ,
+    [ {provide: LOCALE_ID, useValue: 'fr-CA' }, {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 5000}} ]
   ],
   bootstrap: [AppComponent]
 })

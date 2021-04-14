@@ -1,6 +1,6 @@
 export interface FollowedBy {
   ID: number;
-  interfaceName: 'FollowedBy';
+  interfaceName: string;
   lname: string;
   fname: string;
   phone: string;

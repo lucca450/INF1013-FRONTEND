@@ -3,6 +3,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
 import {Subscription} from 'rxjs';
 import {Role} from '../../../enum/role.enum';
+import {SuccessMessageComponent} from '../../utilities/message/success-message/success-message.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {UtilitiesService} from "../../../services/utilities/utilities.service";
 
 
 
@@ -27,8 +30,10 @@ export class AddIntervenantComponent implements OnInit, OnDestroy {
   errorsSubscription: Subscription;
   verifyUsernameSubscription: Subscription;
   emailSubscription: Subscription;
+  successMessageDuration = 5;
 
-  constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService) { }
+  constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService,
+              private utilitiesService: UtilitiesService) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -97,6 +102,9 @@ export class AddIntervenantComponent implements OnInit, OnDestroy {
 
   // Fonction pour réagir lorsque la personne clique sur le bouton "Ajouter"
   onAddIntervenant(): void {
+
+    this.utilitiesService.openSuccessSnackBar();
+
     if (this.addintervenantForm.valid) {
       this.intervenantService.verifyUsernameExist(this.addintervenantForm.get('username').value);
     }else {

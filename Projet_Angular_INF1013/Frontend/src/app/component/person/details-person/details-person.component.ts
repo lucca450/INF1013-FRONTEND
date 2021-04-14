@@ -12,10 +12,10 @@ import {EducationLevelService} from '../../../services/educationLevel/education-
 import {ResidenceTypeService} from '../../../services/residenceType/residence-type.service';
 import {ReferenceService} from '../../../services/reference/reference.service';
 import {Subscription} from 'rxjs';
-import {EmergencyContact} from "../../../models/emergency/emergency-contact";
-import {FollowedBy} from "../../../models/followedBy/followedBy";
-import {EmergencyContactService} from "../../../services/emergencyContact/emergency-contact.service";
-import {FollowedByService} from "../../../services/followedBy/followed-by.service";
+import {EmergencyContact} from '../../../models/emergency/emergency-contact';
+import {FollowedBy} from '../../../models/followedBy/followedBy';
+import {EmergencyContactService} from '../../../services/emergencyContact/emergency-contact.service';
+import {FollowedByService} from '../../../services/followedBy/followed-by.service';
 
 @Component({
   selector: 'app-details-person',
