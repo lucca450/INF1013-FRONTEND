@@ -22,8 +22,7 @@ public class WorkCityController {
     }
 
     @GetMapping(path = "/getName/{ID}")
-    public String getWorkCityFromId(@PathVariable("ID")  Long id){
-        Optional<String> s =this.workCityService.getWorkCityFromId(id);
-        return s.orElseThrow(()-> new RuntimeException("Le nom de la ville n'a pas été trouvé."));
+    public Optional<String> getWorkCityFromId(@PathVariable("ID")  Long id){
+        return this.workCityService.getWorkCityFromId(id);
     }
 }

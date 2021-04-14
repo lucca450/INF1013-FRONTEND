@@ -23,8 +23,7 @@ public class StatusController {
     }
 
     @GetMapping(path = "/getName/{ID}")
-    public String getStatutFromId(@PathVariable("ID")  Long id){
-        Optional<String> s =this.statusService.getStatutFromId(id);
-        return s.orElseThrow(()-> new RuntimeException("Le nom du statut n'a pas été trouvé."));
+    public Optional<String> getStatutFromId(@PathVariable("ID")  Long id){
+        return this.statusService.getStatutFromId(id);
     }
 }

@@ -22,8 +22,7 @@ public class EducationLevelController {
     }
 
     @GetMapping(path = "/getName/{ID}")
-    public String getEducationLevelFromId(@PathVariable("ID")  Long id){
-        Optional<String> s =this.educationLevelService.getEducationLevelFromId(id);
-        return s.orElseThrow(()-> new RuntimeException("Le nom de l'éducation n'a pas été trouvé."));
+    public Optional<String> getEducationLevelFromId(@PathVariable("ID")  Long id){
+        return this.educationLevelService.getEducationLevelFromId(id);
     }
 }

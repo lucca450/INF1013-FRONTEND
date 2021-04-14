@@ -1,8 +1,6 @@
 package ca.uqtr.dmi.inf1013.controller;
 
-import ca.uqtr.dmi.inf1013.model.Reference;
 import ca.uqtr.dmi.inf1013.model.ResidenceType;
-import ca.uqtr.dmi.inf1013.services.ReferenceService;
 import ca.uqtr.dmi.inf1013.services.ResidenceTypeService;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +22,7 @@ public class ResidenceTypeController {
     }
 
     @GetMapping(path = "/getName/{ID}")
-    public String getResidenceTypeFromId(@PathVariable("ID")  Long id){
-        Optional<String> s =residenceTypeService.getResidenceTypeFromId(id);
-        return s.orElseThrow(()-> new RuntimeException("Le nom de la référence n'a pas été trouvé."));
+    public Optional<String> getResidenceTypeFromId(@PathVariable("ID")  Long id){
+        return residenceTypeService.getResidenceTypeFromId(id);
     }
 }

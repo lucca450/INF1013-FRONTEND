@@ -152,7 +152,6 @@ editIntervenant(intervenant: User): void{
 ActiveDesactiveIntervenant(id: number, activeDesactive: boolean): void
 {
   const headers = { 'content-type': 'application/json'};
-  const body = JSON.stringify({active: activeDesactive});
   this.httpClient.patch(this.utilitiesService.serverUrl + 'users/activeDesactive/' + id + '/' + activeDesactive, {}, {headers}).subscribe(
     (user: any) => {
       this.emitActivateDesactivateSubject(0);
@@ -171,11 +170,16 @@ private goToMainRoute(): void{
 
 // Fonction pour récupérer le nom complet de l'intervenant à partir de son identifiant
 public intervenantFullName(id: number): void {
-  this.httpClient.get(this.utilitiesService.serverUrl + 'users/getFullName/' + id).subscribe(
-    (fullName: any) => {
+    console.log('call intervenantFullName');
+    this.httpClient.get(this.utilitiesService.serverUrl + 'users/getFullName/' + id).subscribe(
+    (fullName: string) => {
+      console.log('We have the name');
+      console.log(name);
       this.intervenantsFullnameSubject.next(fullName);
     },
     (error) => {
+      console.log('error');
+      console.log(error.error);
       const message = 'Un erreur au niveau du serveur est survenu lors de la récupération des intervenants';
       this.emitErrorsSubject(message);
     }

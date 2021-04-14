@@ -22,8 +22,7 @@ public class SectorController {
     }
 
     @GetMapping(path = "/getName/{ID}")
-    public String getSectorFromId(@PathVariable("ID")  Long id){
-        Optional<String> s =this.sectorService.getSectorFromId(id);
-        return s.orElseThrow(()-> new RuntimeException("Le nom du secteur n'a pas été trouvé."));
+    public Optional<String> getSectorFromId(@PathVariable("ID")  Long id){
+        return this.sectorService.getSectorFromId(id);
     }
 }

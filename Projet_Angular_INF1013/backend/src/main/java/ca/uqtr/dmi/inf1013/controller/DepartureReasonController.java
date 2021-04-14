@@ -24,8 +24,7 @@ public class DepartureReasonController {
     }
 
     @GetMapping(path = "/getName/{ID}")
-    public String getDepartureNameFromId(@PathVariable("ID")  Long id){
-        Optional<String> s =this.departureReasonService.getDepartureReasonFromId(id);
-        return s.orElseThrow(()-> new RuntimeException("Le nom du département n'a pas été trouvé."));
+    public Optional<String> getDepartureNameFromId(@PathVariable("ID")  Long id){
+        return this.departureReasonService.getDepartureReasonFromId(id);
     }
 }

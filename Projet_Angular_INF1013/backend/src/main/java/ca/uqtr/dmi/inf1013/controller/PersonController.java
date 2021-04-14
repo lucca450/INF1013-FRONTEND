@@ -51,4 +51,10 @@ public class PersonController {
         return personService.editPerson(person);
     }
 
+    @PatchMapping(path = "/activeDesactive/{ID}/{activeDesactive}")
+    public int activeDesactivePerson(@PathVariable("ID")  Long id, @PathVariable("activeDesactive")  Boolean activeDesactive, @RequestBody Person person){
+        return personService.activeDesactiveUser(id,activeDesactive);
+    }
+
+
 }

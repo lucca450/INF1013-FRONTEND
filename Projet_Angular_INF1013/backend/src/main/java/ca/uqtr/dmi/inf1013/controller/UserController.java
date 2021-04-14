@@ -3,7 +3,6 @@ package ca.uqtr.dmi.inf1013.controller;
 import ca.uqtr.dmi.inf1013.model.User;
 import ca.uqtr.dmi.inf1013.services.MailService;
 import ca.uqtr.dmi.inf1013.services.UserService;
-import org.hibernate.mapping.Any;
 import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,9 +29,8 @@ public class UserController {
   }
 
   @GetMapping(path = "/getFullName/{ID}")
-  public String getUserFullNameFromId(@PathVariable("ID")  Long id){
-    Optional<String> s =userService.getUserFullNameFromId(id);
-    return s.orElseThrow(()-> new RuntimeException("Le nom de l'utilisateur n'a pas été trouvé."));
+  public Optional<String> getUserFullNameFromId(@PathVariable("ID")  Long id){
+   return userService.getUserFullNameFromId(id);
   }
 
   @GetMapping(path = "/active/get")

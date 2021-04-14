@@ -23,8 +23,7 @@ public class ReferenceController {
     }
 
     @GetMapping(path = "/getName/{ID}")
-    public String getReferenceFromId(@PathVariable("ID")  Long id){
-        Optional<String> s =this.referenceService.getReferenceFromId(id);
-        return s.orElseThrow(()-> new RuntimeException("Le nom de la référence n'a pas été trouvé."));
+    public Optional<String> getReferenceFromId(@PathVariable("ID")  Long id){
+       return this.referenceService.getReferenceFromId(id);
     }
 }

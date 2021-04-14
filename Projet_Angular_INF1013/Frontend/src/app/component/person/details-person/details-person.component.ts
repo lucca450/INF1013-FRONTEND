@@ -12,6 +12,10 @@ import {EducationLevelService} from '../../../services/educationLevel/education-
 import {ResidenceTypeService} from '../../../services/residenceType/residence-type.service';
 import {ReferenceService} from '../../../services/reference/reference.service';
 import {Subscription} from 'rxjs';
+import {EmergencyContact} from "../../../models/emergency/emergency-contact";
+import {FollowedBy} from "../../../models/followedBy/followedBy";
+import {EmergencyContactService} from "../../../services/emergencyContact/emergency-contact.service";
+import {FollowedByService} from "../../../services/followedBy/followed-by.service";
 
 @Component({
   selector: 'app-details-person',
@@ -30,6 +34,8 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
   reference: string;
   workCity: string;
   isSlideChecked = false;
+  emergencyContact: EmergencyContact;
+  followedBy: FollowedBy;
   // Énumération
   gender = Object.keys(Gender).map(key => Gender[key]);
   // Récupération des services
@@ -47,6 +53,8 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
   residenceTypeSubscription: Subscription;
   educationLevelSubscription: Subscription;
   referenceSubscription: Subscription;
+  emergencyContactSubscription: Subscription;
+  followedBySubscription: Subscription;
 
   constructor(private personService: PersonService ,
               private intervenantService: IntervenantService,
@@ -56,6 +64,8 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
               private residenceTypeService: ResidenceTypeService,
               private referenceService: ReferenceService,
               private educationLevelService: EducationLevelService,
+              private emergencyContactService: EmergencyContactService,
+              private followedByService: FollowedByService,
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -74,6 +84,8 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
       // On écoute la requête.
       this.personSubscription = this.personService.personSubject.subscribe(
         (person: any) => {
+          console.log('Person find');
+          console.log(person);
           this.person = person;
           this.SetAllAttributes(person);
         },
@@ -149,6 +161,24 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
       }
     );
 
+    this.emergencyContactSubscription = this.emergencyContactService.emergencyContactSubject.subscribe(
+      (emergencyContact: any) => {
+        this.emergencyContact = emergencyContact;
+      },
+      (error: any) => {
+        this.errorMessage = error;
+      }
+    );
+
+    this.followedBySubscription = this.followedByService.followBySubject.subscribe(
+      (followedBy: any) => {
+        this.followedBy = followedBy;
+      },
+      (error: any) => {
+        this.errorMessage = error;
+      }
+    );
+
     // On fait nos requêtes
     this.intervenantService.intervenantFullName(person.responsibleIntervenantId);
     this.departureReasonService.getDepartureReasonName(person.departureReasonId);
@@ -157,6 +187,8 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
     this.residenceTypeService.getResidencesTypeName(person.residenceTypeId);
     this.educationLevelService.getEducationLevelName(person.educationalLevelId);
     this.referenceService.getReferenceName(person.referenceId);
+    this.emergencyContactService.getEmergencyContactById(this.person.emergencyContactId);
+    this.followedByService.getFollowedById(this.person.followedById);
   }
 
   // Fonction pour gèrer le slider du NAS.
@@ -174,6 +206,8 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
     this.residenceTypeSubscription.unsubscribe();
     this.educationLevelSubscription.unsubscribe();
     this.referenceSubscription.unsubscribe();
+    this.emergencyContactSubscription.unsubscribe();
+    this.followedBySubscription.unsubscribe();
   }
 }
 

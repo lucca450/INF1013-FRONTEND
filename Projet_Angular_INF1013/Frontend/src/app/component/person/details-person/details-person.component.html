@@ -95,75 +95,76 @@
       <!-- INFORMATIONS SUR LE TRAVAIL -->
       <div class ="container-column">
         <h1 class = "header-column"> Informations sur le travail</h1>
+        
+        <label>Lieu de travail:</label>
+        <p *ngIf="workCity">{{workCity}}</p>
 
-          <label>Lieu de travail:</label>
-          <p *ngIf="workCity">{{workCity}}</p>
+        <label>Date de début de la participation:</label>
+        <p>{{person?.startDate | date:'d MMMM  y'}}</p>
 
-          <label>Date de début de la participation:</label>
-          <p>{{person?.startDate | date:'d MMMM  y'}}</p>
+        <label>Date de fin de la participation:</label>
+        <p>{{person?.endDate | date:'d MMMM  y'}}</p>
 
-          <label>Date de fin de la participation:</label>
-          <p>{{person?.endDate | date:'d MMMM  y'}}</p>
+        <label>Référence:</label>
+        <p *ngIf="reference">{{reference}}</p>
 
-          <label>Référence:</label>
-          <p *ngIf="reference">{{reference}}</p>
+        <label>Type de résidence:</label>
+        <p *ngIf="residenceType">{{residenceType}}</p>
 
-          <label>Type de résidence:</label>
-          <p *ngIf="residenceType">{{residenceType}}</p>
+        <label>Niveau de scolarité:</label>
+        <p *ngIf="educationLevel">{{educationLevel}}</p>
+    </div>
 
-          <label>Niveau de scolarité:</label>
-          <p *ngIf="educationLevel">{{educationLevel}}</p>
+              <!-- PERSONNE RESSOURCE EN CAS D'URGENCE -->
 
-      </div>
-      <!-- PERSONNE RESSOURCE EN CAS D'URGENCE -->
-      <!--
      <div class ="container-column">
        <h1 class = "header-column"> Personne ressource en cas d'urgence</h1>
          <label>Prénom de la personne ressource en cas d'urgence:</label>
-         <p>{{person?.emergencyContact.fname}}</p>
+         <p>{{emergencyContact?.fname}}</p>
 
          <label>Nom de la personne ressource en cas d'urgence:</label>
-         <p>{{person?.emergencyContact.lname}}</p>
+         <p>{{emergencyContact?.lname}}</p>
 
          <label>Numéro de téléphone de la personne ressource en cas d'urgence:</label>
-         <p>{{person?.emergencyContact.phone  | phone}}</p>
+         <p>{{emergencyContact?.phone  | phone}}</p>
 
        <label>Numéro de téléphone de la personne ressource en cas d'urgence:</label>
-       <p>{{person?.emergencyContact.relation}}</p>
+       <p>{{emergencyContact?.relation}}</p>
 
      </div>
-     -->
+
      <!-- Informations de la personne de suivi -->
-      <!--   <div class ="container-column">
+
+      <div class ="container-column">
           <h1 class = "header-column"> Informations de la personne de suivi</h1>
             <label>Type de personne:</label>
-            <p>{{person?.followedBy?.interfaceName | convertInterfaceName}}</p>
+            <p>{{followedBy?.interfaceName | convertInterfaceName}}</p>
 
             <label>Prénom de la personne de suivi:</label>
-            <p>{{person?.followedBy?.fname}}</p>
+            <p>{{followedBy?.fname}}</p>
 
             <label>Nom de la personne de suivi:</label>
-            <p>{{person?.followedBy?.lname}}</p>
+            <p>{{followedBy?.lname}}</p>
 
             <label>Numéro de téléphone de la personne de suivi:</label>
-            <p>{{person?.followedBy?.phone | phone}}</p>
+            <p>{{followedBy?.phone | phone}}</p>
 
 
-          <div *ngIf="person?.followedBy?.interfaceName === 'Doctor' || person?.followedBy?.interfaceName === 'User'" >
+          <div *ngIf="followedBy?.interfaceName === 'Doctor' || followedBy?.interfaceName === 'User'" >
             <label>Email de la personne de suivi:</label>
-            <p>{{person?.followedBy?.email}}</p>
+            <p>{{followedBy?.email}}</p>
           </div>
 
-          <div *ngIf="person?.followedBy.interfaceName === 'Doctor' " >
+          <div *ngIf="followedBy.interfaceName === 'Doctor' " >
             <label>Numéro de fax de la personne de suivi:</label>
-            <p>{{person?.followedBy?.fax | phone}}</p>
+            <p>{{followedBy?.fax | phone}}</p>
           </div>
 
-          <div *ngIf="person?.followedBy?.interfaceName === 'OtherPerson'  || person?.followedBy?.interfaceName === 'User'">
+          <div *ngIf="followedBy?.interfaceName === 'OtherPerson'  || followedBy?.interfaceName === 'User'">
             <label>Organisme de la personne de suivi:</label>
-            <p>{{person?.followedBy?.organism}}</p>
+            <p>{{followedBy?.organism}}</p>
           </div>
-        </div>-->
+        </div>
       </div>
     </div>
   </div>

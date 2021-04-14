@@ -42,4 +42,9 @@ public class PersonServiceImpl implements PersonService {
         return this.personRepo.findAllUsersOrderByActive();
     }
 
+    @Override
+    public int activeDesactiveUser(Long id, Boolean activeDesactive) {
+        return this.personRepo.activeDesactivePerson(id,activeDesactive);
+    }
+
 }

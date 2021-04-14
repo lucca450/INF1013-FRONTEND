@@ -11,4 +11,5 @@ public interface PersonService {
     Optional<Person> getPerson(Long id);
     Optional<List<Person>> getActivePersons();
     Iterable<Person> findAllPersonsOrderByActive();
+    int activeDesactiveUser(Long id, Boolean activeDesactive);
 }

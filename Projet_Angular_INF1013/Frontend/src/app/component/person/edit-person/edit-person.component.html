@@ -271,17 +271,18 @@
            <br>
            <mat-form-field>
              <mat-label>Suivi en itinérance</mat-label>
-             <mat-select #followRoaming [value]="person.roamingTracking|convertBoolean"
+             <mat-label>{{person.roamingTracking}}</mat-label>
+             <mat-select #followRoaming [value]="person.roamingTracking"
                          (valueChange)="followRoaming.value = $event" formControlName="roamingTracking" required>
-               <mat-option value="true">Oui</mat-option>
-               <mat-option value="false">Non</mat-option>
+               <mat-option [value]= "true">Oui</mat-option>
+               <mat-option [value]= "false">Non</mat-option>
              </mat-select>
              <mat-error *ngIf="thirdFormGroup.hasError('required', 'roamingTracking')">
                Veuillez sélectionner une option.
              </mat-error>
            </mat-form-field>
            <br>
-           <div *ngIf="followRoaming.value == 'true'">
+           <div *ngIf="followRoaming.value == true">
              <p>Dates du suivi d'itinérance</p>
              <mat-form-field appearance="fill">
                <mat-label>Date de début</mat-label>
@@ -316,15 +317,15 @@
               <mat-label>Travaux communautaires</mat-label>
               <mat-select #communityWork [value]="person.communityWork|convertBoolean"
                           (valueChange)="communityWork.value = $event" formControlName="communityWork" required>
-                <mat-option value="true">Oui</mat-option>
-                <mat-option value="false">Non</mat-option>
+                <mat-option [value]="true">Oui</mat-option>
+                <mat-option [value]="false">Non</mat-option>
               </mat-select>
               <mat-error *ngIf="thirdFormGroup.hasError('required', 'communityWork')">
                 Veuillez sélectionner une option.
               </mat-error>
             </mat-form-field>
             <br>
-            <div *ngIf="communityWork.value == 'true'">
+            <div *ngIf="communityWork.value == true">
               <p>Dates des travaux communautaires</p>
               <mat-form-field appearance="fill">
                 <mat-label>Date de début</mat-label>

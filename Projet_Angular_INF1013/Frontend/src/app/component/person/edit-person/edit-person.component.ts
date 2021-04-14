@@ -95,6 +95,7 @@ export class EditPersonComponent implements OnInit, OnDestroy {
       this.personSubscription = this.personService.personSubject.subscribe(
         (person: any) => {
           this.person = person;
+          console.log(person);
           this.setAllAttributes();
         },
         (error: any) => {
@@ -110,12 +111,14 @@ export class EditPersonComponent implements OnInit, OnDestroy {
     this.intervenantSubscription = this.intervenantService.intervenantsSubject.subscribe(
       (inter: any) => {
         this.intervenants = inter;
+        this.departureReasonService.getDeparturesReason();
       }
     );
 
     this.departureReasonSubscription = this.departureReasonService.departureReasonsSubject.subscribe(
       (departureReasons: any) => {
         this.departureReasonList = departureReasons;
+        this.statusService.getStatus();
       },
       (error: any) => {
         this.errorMessage = error;
@@ -125,6 +128,7 @@ export class EditPersonComponent implements OnInit, OnDestroy {
     this.statusSubscription = this.statusService.allStatusSubject.subscribe(
       (allStatus: any) => {
         this.statusList = allStatus;
+        this.workCityService.getWorkCities();
       },
       (error: any) => {
         this.errorMessage = error;
@@ -134,6 +138,7 @@ export class EditPersonComponent implements OnInit, OnDestroy {
     this.workCitySubscription = this.workCityService.workCitiesSubject.subscribe(
       (workCities: any) => {
         this.cities = workCities;
+        this.residenceTypeService.getResidencesType();
       },
       (error: any) => {
         this.errorMessage = error;
@@ -143,6 +148,7 @@ export class EditPersonComponent implements OnInit, OnDestroy {
     this.residenceTypeSubscription = this.residenceTypeService.residencesTypeSubject.subscribe(
       (residencesType: any) => {
         this.residenceTypeList = residencesType;
+        this.educationLevelService.getEducationLevels();
       },
       (error: any) => {
         this.errorMessage = error;
@@ -152,6 +158,7 @@ export class EditPersonComponent implements OnInit, OnDestroy {
     this.educationLevelSubscription = this.educationLevelService.educationLevelsSubject.subscribe(
       (educationLevels: any) => {
         this.educationLevelList = educationLevels;
+        this.emergencyContactService.getEmergencyContactById(this.person.emergencyContactId);
       },
       (error: any) => {
         this.errorMessage = error;
@@ -162,6 +169,7 @@ export class EditPersonComponent implements OnInit, OnDestroy {
     this.emergencyContactSubscription = this.emergencyContactService.emergencyContactSubject.subscribe(
       (emergencyContact: any) => {
         this.emergencyContact = emergencyContact;
+        this.followedByService.getFollowedById(this.person.followedById);
       },
       (error: any) => {
         this.errorMessage = error;
@@ -171,6 +179,7 @@ export class EditPersonComponent implements OnInit, OnDestroy {
     this.followedBySubscription = this.followedByService.followBySubject.subscribe(
       (followedBy: any) => {
         this.followedBy = followedBy;
+        this.refererenceService.getReferences();
       },
       (error: any) => {
         this.errorMessage = error;
@@ -190,14 +199,7 @@ export class EditPersonComponent implements OnInit, OnDestroy {
 
     // On fait nos requêtes
     this.intervenantService.getActiveIntervenants();
-    this.departureReasonService.getDeparturesReason();
-    this.statusService.getStatus();
-    this.workCityService.getWorkCities();
-    this.residenceTypeService.getResidencesType();
-    this.educationLevelService.getEducationLevels();
-    this.emergencyContactService.getEmergencyContactById(this.person.emergencyContactId);
-    this.followedByService.getFollowedById(this.person.followedById);
-    this.refererenceService.getReferences();
+
   }
 
   // Fonction pour modifier dynamiquement le 3ième form.
@@ -210,12 +212,12 @@ export class EditPersonComponent implements OnInit, OnDestroy {
 
     this.thirdFormGroup.get('roamingTracking').valueChanges
       .subscribe(roamingTracking => {
-        if (roamingTracking === 'true') {
+        if (roamingTracking === true) {
           roamingStartDate.setValidators([Validators.required]);
           roamingEndDate.setValidators([Validators.required]);
         }
 
-        if (roamingTracking === 'false') {
+        if (roamingTracking === false) {
           roamingStartDate.setValidators(null);
           roamingEndDate.setValidators(null);
         }
@@ -226,12 +228,12 @@ export class EditPersonComponent implements OnInit, OnDestroy {
     this.thirdFormGroup.get('communityWork').valueChanges
       .subscribe(communityWork => {
 
-        if (communityWork === 'true') {
+        if (communityWork === true) {
           communityStartDate.setValidators([Validators.required]);
           communityEndDate.setValidators([Validators.required]);
         }
 
-        if (communityWork === 'false') {
+        if (communityWork === false) {
           communityStartDate.setValidators(null);
           communityEndDate.setValidators(null);
         }
@@ -334,11 +336,6 @@ export class EditPersonComponent implements OnInit, OnDestroy {
     this.setThirdFormGroupValidators();
 
     // VA FALOIR ALLER LES CHERCHER EN FAISANT UNE REQUETE CAR ON A JUSTE LES ID MAINTENANT
-    console.log('Quatrieme form');
-    console.log(this.emergencyContact);
-
-    console.log('Cinquième form');
-    console.log(this.followedBy);
     this.fourthFormGroup = this.formBuilder.group({
           interfaceName: [this.emergencyContact.interfaceName],
           lname: [this.emergencyContact.lname, [Validators.required, Validators.maxLength(40)]],
@@ -480,8 +477,8 @@ export class EditPersonComponent implements OnInit, OnDestroy {
     this.residenceTypeSubscription.unsubscribe();
     this.educationLevelSubscription.unsubscribe();
     this.referenceSubscription.unsubscribe();
-  //  this.emergencyContactSubscription.unsubscribe();
-  //  this.followedBySubscription.unsubscribe();
+    this.emergencyContactSubscription.unsubscribe();
+    this.followedBySubscription.unsubscribe();
     this.intervenantSubscription.unsubscribe();
   }
 }
