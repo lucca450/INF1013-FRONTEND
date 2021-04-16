@@ -4,6 +4,7 @@ import {Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {UtilitiesService} from '../utilities/utilities.service';
+import {test} from 'fuzzy';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,43 @@ export class UserService {
       },
       (error) => {
         this.emitError('Erreur de communication avec le serveur ! veuillez réessayer plus tard.');
+      }
+    );
+  }
+
+  public login(username: string, password: string): void {
+    const body = {username, password};
+    this.httpClient.post('http://localhost:8080/login', body,{observe: 'response'}).subscribe(
+      (token: any) => {
+
+        console.log('Le token que je set: ');
+        const testToken = token.headers.get('Authorization');
+        console.log(testToken);
+      //  console.log(token);
+        localStorage.setItem('token', testToken);
+        this.getUserFromName(username);
+      },
+      (error) => {
+        if (error.status !== 403){
+          this.emitError('Erreur de communication avec le serveur ! veuillez réessayer plus tard.');
+        }
+        else{
+          this.emitError('Nom d\'utilisateur ou mot de passe invalide.');
+        }
+      }
+    );
+  }
+
+  // Fonction pour récupèrer le nom de l'éducation
+  getUserFromName(username: string): void{
+    this.httpClient.get(this.utilitiesService.serverUrl + 'users/getUserFromName/' + username).subscribe(
+      (user: any) => {
+        this.signIn(user[0]);
+      },
+      (error) => {
+        const message = 'Un erreur au niveau du serveur est survenu lors de la récupération de l\'utilisateur.' +
+                        'Veuillez réessayer plus tard';
+        this.emitError(message);
       }
     );
   }

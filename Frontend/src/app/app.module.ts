@@ -47,7 +47,7 @@ import { registerLocaleData } from '@angular/common';
 
 import localeFr from '@angular/common/locales/fr';
 import { ConvertInterfaceNamePipe } from './pipes/convert-interface-name.pipe';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DeleteIntervenantComponent } from './component/intervenant/delete-intervenant/delete-intervenant.component';
 import {MatFormFieldControl, MatFormFieldModule, MatSuffix} from '@angular/material/form-field';
@@ -62,6 +62,12 @@ import { ReactivePersonComponent } from './component/person/reactive-person/reac
 import { FirstConnexionComponent } from './component/login/first-connexion/first-connexion.component';
 import { SuccessMessageComponent } from './component/utilities/message/success-message/success-message.component';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
+import {JwtInterceptor} from './interceptor/jwtInterceptor';
+
+export const httpInterceptorProviders = [
+  { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+];
+
 
 registerLocaleData(localeFr);
 
@@ -155,6 +161,7 @@ const appRoutes: Routes = [
     PersonService,
     AuthGuard,
     UtilitiesService,
+    httpInterceptorProviders,
     ,
     [ {provide: LOCALE_ID, useValue: 'fr-CA' }, {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 5000}} ]
   ],

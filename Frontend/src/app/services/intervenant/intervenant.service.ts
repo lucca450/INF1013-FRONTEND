@@ -204,6 +204,7 @@ public intervenantFullName(id: number): void {
     );
   }
 
+
   ResetPasswordIntervenant(user: User): void {
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(user);

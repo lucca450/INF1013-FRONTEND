@@ -18,6 +18,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(private formBuilder: FormBuilder, private userService: UserService) { }
 
   ngOnInit(): void {
+
+    this.verifyErrorSubscription = this.userService.verifySubjectError.subscribe(
+      (errorResponse) => {
+        this.errorMessage = errorResponse;
+      },
+      (error) => {
+        this.errorMessage = error;
+      }
+    );
+
     this.initForm();
   }
 
@@ -60,16 +70,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
       // this.userService.verifyUserExist('pierro_kool@hotmail.com', '1234');  // Auto connexion
       // On vérifie si la connexion passe
-      this.userService.verifyUserExist(username, password);
+      this.userService.login(username, password);
+      // this.userService.verifyUserExist(username, password);
       // On écoute la requête qui vérifie si la connexion passe pour voir s'il y a des erreurs.
-      this.verifyErrorSubscription = this.userService.verifySubjectError.subscribe(
-        (errorResponse) => {
-          this.errorMessage = errorResponse;
-        },
-        (error) => {
-          this.errorMessage = error;
-        }
-      );
     }
   }
 
