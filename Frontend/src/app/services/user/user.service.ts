@@ -4,7 +4,7 @@ import {Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {UtilitiesService} from '../utilities/utilities.service';
-import {test} from 'fuzzy';
+import {LocalStorageService} from '../storage/LocalStorageService ';
 
 @Injectable({
   providedIn: 'root'
@@ -19,36 +19,19 @@ export class UserService {
   verifySubjectError = new Subject<string>(); // S'il y a une erreur, elle est envoyé à ceux qui se souscris
   authSubject: Subject<boolean> = new Subject<boolean>(); // Détermine si l'utilisateur est connecté ou déconnecté.
 
-  constructor(private httpClient: HttpClient, private router: Router, private utilitiesService: UtilitiesService) {
+  constructor(private httpClient: HttpClient, private router: Router, private utilitiesService: UtilitiesService,
+              private localStorageService: LocalStorageService) {
   }
 
-  verifyUserExist(username: string, password: string): void{
-    this.httpClient.get<User>(`http://localhost:3000/users?active=true&username=` + username + '&password=' + password).subscribe(
-      (user: any) => {
-        if (user.length > 0){
-          this.signIn(user[0]);
-        }
-        else{
-          this.emitError('Le nom d\'utilisateur ou le mot de passe est invalide.');
-        }
-
-      },
-      (error) => {
-        this.emitError('Erreur de communication avec le serveur ! veuillez réessayer plus tard.');
-      }
-    );
-  }
-
+  // Fonction pour essayer de se connecter
   public login(username: string, password: string): void {
     const body = {username, password};
-    this.httpClient.post('http://localhost:8080/login', body,{observe: 'response'}).subscribe(
-      (token: any) => {
+    this.httpClient.post('http://localhost:8080/login', body, {observe: 'response'}).subscribe(
+      (data: any) => {
 
-        console.log('Le token que je set: ');
-        const testToken = token.headers.get('Authorization');
-        console.log(testToken);
-      //  console.log(token);
-        localStorage.setItem('token', testToken);
+        // Récupération du token
+        const token  = data.headers.get('authorization');
+        this.localStorageService.set('token', token);
         this.getUserFromName(username);
       },
       (error) => {
@@ -62,11 +45,11 @@ export class UserService {
     );
   }
 
-  // Fonction pour récupèrer le nom de l'éducation
+  // Fonction pour récupèrer le nom de l'utilisateur pour se connecter
   getUserFromName(username: string): void{
     this.httpClient.get(this.utilitiesService.serverUrl + 'users/getUserFromName/' + username).subscribe(
       (user: any) => {
-        this.signIn(user[0]);
+        this.signIn(user);
       },
       (error) => {
         const message = 'Un erreur au niveau du serveur est survenu lors de la récupération de l\'utilisateur.' +
@@ -75,30 +58,6 @@ export class UserService {
       }
     );
   }
-
-/*
-  // Fonction pour se connecter
-  verifyUserExist(username: string, password: string): void{
-    this.httpClient.get<User>(this.utilitiesService.serverUrl + 'users/verifySignin/' + username + '/' + '&password=' + password).subscribe(
-      (user: any) => {
-        if (user.length > 0){
-          this.signIn(user[0]);
-        }
-        else{
-          this.emitError('Le nom d\'utilisateur ou le mot de passe est invalide.');
-        }
-
-      },
-      (error) => {
-        this.emitError('Erreur de communication avec le serveur ! veuillez réessayer plus tard.');
-      }
-    );
-  }
-
-
- */
-
-
 
   /* Émission des données  */
    emitUsersSubject(user: User): void {
@@ -136,8 +95,9 @@ export class UserService {
     this.verifyRouteRedirect(user);
   }
 
+  // Fonction pour rediriger l'utilisateur selon si c'est ça première connexion ou non
   private verifyRouteRedirect(user: User): void{
-    if (user.firstConnexion === true){
+    if (user.firstConnexion === false){
       this.router.navigate(['person']);
     }
     else{
