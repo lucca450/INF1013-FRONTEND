@@ -24,11 +24,12 @@ export class AddMeetingComponent implements OnInit, OnDestroy {
   persons: Person; // Intervenant;
   addMeetingForm: FormGroup;
   intervenantFullName: string;
+  person: number;
   // Subscription
   personsSubscription: Subscription;
   intervenantSubscription: Subscription;
   errorsSubscription: Subscription;
-  person: number;
+
 
   constructor(private router: Router, private userService: UserService, private personService: PersonService, private route: ActivatedRoute,
               private intervenantService: IntervenantService, private meetingService: MeetingService, private formBuilder: FormBuilder) { }
@@ -87,8 +88,6 @@ export class AddMeetingComponent implements OnInit, OnDestroy {
       idPerson: ['', Validators.required],
       idIntervenant: ['', Validators.required]
     });
-   /* const control = this.addMeetingForm.get('person');
-    control.disable();*/
   }
 
   // Fonction pour réagir lorsque la personne clique sur le bouton "Ajouter"
@@ -102,8 +101,6 @@ export class AddMeetingComponent implements OnInit, OnDestroy {
   }
  // Fonction pour réagir lorsque la personne clique sur le bouton "Annuler"
   onCancelMeeting(): void {
-    console.log(this.person);
-
     this.meetingService.cancelMeeting(this.person);
     this.unsubscribe();
   }
@@ -111,6 +108,7 @@ export class AddMeetingComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void{
     this.unsubscribe();
   }
+  // Fonction pour désinscrire les subscriptions.
   private unsubscribe(): void{
     this.intervenantSubscription.unsubscribe();
     this.personsSubscription.unsubscribe();

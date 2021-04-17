@@ -155,7 +155,7 @@
             <p>{{followedBy?.email}}</p>
           </div>
 
-          <div *ngIf="followedBy.interfaceName === 'Doctor' " >
+          <div *ngIf="followedBy?.interfaceName === 'Doctor'" >
             <label>Numéro de fax de la personne de suivi:</label>
             <p>{{followedBy?.fax | phone}}</p>
           </div>

@@ -3,9 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IntervenantService} from '../../../services/intervenant/intervenant.service';
 import {Subscription} from 'rxjs';
 import {Role} from '../../../enum/role.enum';
-import {SuccessMessageComponent} from '../../utilities/message/success-message/success-message.component';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {UtilitiesService} from "../../../services/utilities/utilities.service";
+import {UtilitiesService} from '../../../services/utilities/utilities.service';
 
 
 
@@ -30,7 +28,6 @@ export class AddIntervenantComponent implements OnInit, OnDestroy {
   errorsSubscription: Subscription;
   verifyUsernameSubscription: Subscription;
   emailSubscription: Subscription;
-  successMessageDuration = 5;
 
   constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService,
               private utilitiesService: UtilitiesService) { }
@@ -72,7 +69,7 @@ export class AddIntervenantComponent implements OnInit, OnDestroy {
   }
   // Initialisation du formulaire
   private initForm(): void {
-    const randomPassword = Math.random().toString(36).slice(-16);
+    const randomPassword = this.utilitiesService.randomNumberAndLetter();
     this.addintervenantForm = this.formBuilder.group({
       id: null,
       interfaceName: 'User',
@@ -82,30 +79,18 @@ export class AddIntervenantComponent implements OnInit, OnDestroy {
       phone: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
       address: ['', [Validators.required, Validators.maxLength(50)]],
       username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
-     // password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
       password: [randomPassword],
       role: ['', Validators.required],
       active: [true, Validators.required]
     });
-/* Fusion avec intervenant
-    this.addUserForm = this.formBuilder.group({
-      interfaceName: 'User',
-      username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
-      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
-      role: ['', Validators.required],
-      active: [true, Validators.required]
-    });
-
- */
-
   }
 
   // Fonction pour réagir lorsque la personne clique sur le bouton "Ajouter"
   onAddIntervenant(): void {
 
-    this.utilitiesService.openSuccessSnackBar();
-
+    // Si le formulaire est valide, on vérifie si le nom de l'utilisateur existe.
     if (this.addintervenantForm.valid) {
+      // Si le nom existe, l'écoute de la requête déclanche l'envoie du courriel.
       this.intervenantService.verifyUsernameExist(this.addintervenantForm.get('username').value);
     }else {
       alert('Les champs en surbrillance contiennent des données incorrectes, veuillez les corriger.');

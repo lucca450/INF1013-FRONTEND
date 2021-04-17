@@ -41,7 +41,6 @@ export class ListPersonMeetingsComponent implements OnInit, OnDestroy {
     });
 
     // Appel de la méthode qui fait la requête pour récupèrer les rencontres de la personne
-    console.log('personID' + this.personID);
     this.meetingService.loadPersonMeetings(this.personID);
     // On écoute la requête pour récupérer les informations
     this.meetingSubscription = this.meetingService.PersonMeetingsSubject.subscribe(
@@ -61,11 +60,7 @@ export class ListPersonMeetingsComponent implements OnInit, OnDestroy {
       data.followup.toLowerCase().includes(filter) ||
       data.goals.toString().includes(filter);
   }
-/*
-  ngAfterViewInit(): void {
-    this.meetings.sort = this.sort;
-  }
- */
+
   // Fonction qui permet d'appliquer le filtre sur toute les colonnes du tableau selon ce que l'utilisateur à écris.
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;

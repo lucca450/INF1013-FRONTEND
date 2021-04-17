@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
+    // Fonction pour vérifier si on reçoit des erreurs de la pars du serveur et de les affichers.
     this.verifyErrorSubscription = this.userService.verifySubjectError.subscribe(
       (errorResponse) => {
         this.errorMessage = errorResponse;
@@ -67,12 +68,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.loginForm.valid) {
       const username = this.loginForm.value.username;
       const password = this.loginForm.value.password;
-
-      // this.userService.verifyUserExist('pierro_kool@hotmail.com', '1234');  // Auto connexion
-      // On vérifie si la connexion passe
+      // On vérifie si la connexion passe. Si ça passe, la connexion va s'éffectuer dans le service.
       this.userService.login(username, password);
-      // this.userService.verifyUserExist(username, password);
-      // On écoute la requête qui vérifie si la connexion passe pour voir s'il y a des erreurs.
     }
   }
 

@@ -95,7 +95,6 @@ export class EditPersonComponent implements OnInit, OnDestroy {
       this.personSubscription = this.personService.personSubject.subscribe(
         (person: any) => {
           this.person = person;
-          console.log(person);
           this.setAllAttributes();
         },
         (error: any) => {
@@ -197,7 +196,7 @@ export class EditPersonComponent implements OnInit, OnDestroy {
       }
     );
 
-    // On fait nos requêtes
+    // Appel de la requête qui va récupérer les intervenants actifs et qui va appelé les prochaines requêtes qui écoute
     this.intervenantService.getActiveIntervenants();
 
   }
@@ -468,6 +467,8 @@ export class EditPersonComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribe();
   }
+
+  // Fonction pour désinscrire les subscriptions
   private unsubscribe(): void{
     this.errorsSubscription.unsubscribe();
     this.personSubscription.unsubscribe();

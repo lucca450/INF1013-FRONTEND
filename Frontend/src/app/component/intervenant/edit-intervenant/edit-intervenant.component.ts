@@ -8,6 +8,7 @@
  import {Subscription} from 'rxjs';
  import {MatDialog} from '@angular/material/dialog';
  import {ChangePasswordComponent} from '../change-password/change-password.component';
+ import {UtilitiesService} from '../../../services/utilities/utilities.service';
  @Component({
   selector: 'app-edit-intervenant',
   templateUrl: './edit-intervenant.component.html',
@@ -32,9 +33,12 @@ export class EditIntervenantComponent implements OnInit, OnDestroy {
 
   constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService, private userService: UserService,
               private route: ActivatedRoute,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              private utilitiesService: UtilitiesService) { }
 
   ngOnInit(): void {
+
+    // On écoute les erreurs que peut nous envoyer le serveur.
     this.errorsSubscription = this.intervenantService.errorsSubject.subscribe(
       (error: any) => {
         this.errorMessage = error;
@@ -93,6 +97,19 @@ export class EditIntervenantComponent implements OnInit, OnDestroy {
       alert('Les champs en surbrillance contiennent des données incorrectes, veuillez les corriger.');
     }
   }
+  // Fonction pour réagir quand l'utilisateur clique sur le bouton modifié (du mot de passe)
+ OneditPassword(): void {
+   const dialogRef = this.dialog.open(ChangePasswordComponent);
+   dialogRef.componentInstance.user = this.user;
+   dialogRef.afterClosed().subscribe(password => {
+     // Si le mot de passe n'est pas fermer par le bouton annuler, alors on remplace la valeur du mot de passe par celle entré
+     if (password !== 'closingChangePassword'){
+       this.editintervenantForm.get('password').setValue(password);
+       this.utilitiesService.openSuccessSnackBar();
+     }
+   });
+ }
+
   // Fonction pour réagir lorsque la personne clique sur le bouton "Annuler"
   onCancelIntervenant(): void {
     this.unsubscribe();
@@ -105,16 +122,5 @@ export class EditIntervenantComponent implements OnInit, OnDestroy {
    private unsubscribe(): void{
      this.errorsSubscription.unsubscribe();
      this.intervenantSubscription.unsubscribe();
-   }
-
-   OneditPassword(): void {
-     const dialogRef = this.dialog.open(ChangePasswordComponent);
-     dialogRef.componentInstance.user = this.user;
-     dialogRef.afterClosed().subscribe(password => {
-       // Si le mot de passe n'est pas fermer par le bouton annuler
-      if (password !== 'closingChangePassword'){
-        this.editintervenantForm.get('password').setValue(password);
-      }
-     });
    }
  }

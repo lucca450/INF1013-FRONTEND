@@ -84,8 +84,6 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
       // On écoute la requête.
       this.personSubscription = this.personService.personSubject.subscribe(
         (person: any) => {
-          console.log('Person find');
-          console.log(person);
           this.person = person;
           this.SetAllAttributes(person);
         },
@@ -102,6 +100,7 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
     this.personFullNameSubscription = this.intervenantService.intervenantsFullnameSubject.subscribe(
       (fullname: any) => {
         this.fullname = fullname;
+        this.departureReasonService.getDepartureReasonName(person.departureReasonId);
       },
       (error: any) => {
         this.errorMessage = error;
@@ -111,6 +110,7 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
     this.departureReasonSubscription = this.departureReasonService.departureReasonSubject.subscribe(
       (name: any) => {
         this.departureReasonName = name;
+        this.statusService.getStatusName(person.statusId);
       },
       (error: any) => {
         this.errorMessage = error;
@@ -119,6 +119,7 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
     this.statusSubscription = this.statusService.statusSubject.subscribe(
       (name: any) => {
         this.status = name;
+        this.workCityService.getWorkCityName(person.workCityId);
       },
       (error: any) => {
         this.errorMessage = error;
@@ -128,6 +129,7 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
     this.workCitySubscription = this.workCityService.workCitySubject.subscribe(
       (name: any) => {
         this.workCity = name;
+        this.residenceTypeService.getResidencesTypeName(person.residenceTypeId);
       },
       (error: any) => {
         this.errorMessage = error;
@@ -137,6 +139,7 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
     this.residenceTypeSubscription = this.residenceTypeService.residenceTypeSubject.subscribe(
       (name: any) => {
         this.residenceType = name;
+        this.educationLevelService.getEducationLevelName(person.educationalLevelId);
       },
       (error: any) => {
         this.errorMessage = error;
@@ -146,6 +149,7 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
     this.educationLevelSubscription = this.educationLevelService.educationLevelSubject.subscribe(
       (name: any) => {
         this.educationLevel = name;
+        this.referenceService.getReferenceName(person.referenceId);
       },
       (error: any) => {
         this.errorMessage = error;
@@ -155,6 +159,7 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
     this.referenceSubscription = this.referenceService.referenceSubject.subscribe(
       (name: any) => {
         this.reference = name;
+        this.emergencyContactService.getEmergencyContactById(this.person.emergencyContactId);
       },
       (error: any) => {
         this.errorMessage = error;
@@ -164,6 +169,7 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
     this.emergencyContactSubscription = this.emergencyContactService.emergencyContactSubject.subscribe(
       (emergencyContact: any) => {
         this.emergencyContact = emergencyContact;
+        this.followedByService.getFollowedById(this.person.followedById);
       },
       (error: any) => {
         this.errorMessage = error;
@@ -179,16 +185,8 @@ export class DetailsPersonComponent implements OnInit, OnDestroy {
       }
     );
 
-    // On fait nos requêtes
+    // Appel de la première requête qui va appelé toute les autres qui écoute, qui vont s'appelé une à la suite de l'autre
     this.intervenantService.intervenantFullName(person.responsibleIntervenantId);
-    this.departureReasonService.getDepartureReasonName(person.departureReasonId);
-    this.statusService.getStatusName(person.statusId);
-    this.workCityService.getWorkCityName(person.workCityId);
-    this.residenceTypeService.getResidencesTypeName(person.residenceTypeId);
-    this.educationLevelService.getEducationLevelName(person.educationalLevelId);
-    this.referenceService.getReferenceName(person.referenceId);
-    this.emergencyContactService.getEmergencyContactById(this.person.emergencyContactId);
-    this.followedByService.getFollowedById(this.person.followedById);
   }
 
   // Fonction pour gèrer le slider du NAS.

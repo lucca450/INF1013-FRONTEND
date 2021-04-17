@@ -353,9 +353,6 @@ export class AddPersonComponent implements OnInit, OnDestroy{
   onAddPerson(): void {
     if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.thirdFormGroup.valid
      && this.fourthFormGroup.valid && this.fifthFormGroup.valid) {
-
-      console.log('Voici linterface : ');
-      console.log(this.fifthFormGroup.get('interfaceName').value);
       // On ajoute le contacte d'urgence à la base de donnée
       this.emergencyContactService.addEmergencyContact(this.fourthFormGroup.value);
       let emergencyContactId = 0;
@@ -407,6 +404,7 @@ export class AddPersonComponent implements OnInit, OnDestroy{
                   followedById: [follwedById],
                   active: true
                 });
+                // On ajoute la personne
                 this.personService.addPerson(this.formAddPerson.value);
               },
               (error: any) => {
@@ -424,6 +422,7 @@ export class AddPersonComponent implements OnInit, OnDestroy{
     }
   }
 
+  // Fonction pour réagir losque l'utilisateur clique sur le bouton annuler
   onCancelPerson(): void {
     this.unsubscribe();
     this.personService.cancelPerson();
@@ -433,6 +432,7 @@ export class AddPersonComponent implements OnInit, OnDestroy{
     this.unsubscribe();
   }
 
+  // Désinscription des subscriptions.
   private unsubscribe(): void{
     this.errorsSubscription.unsubscribe();
     this.departureReasonSubscription.unsubscribe();
@@ -441,8 +441,6 @@ export class AddPersonComponent implements OnInit, OnDestroy{
     this.residenceTypeSubscription.unsubscribe();
     this.educationLevelSubscription.unsubscribe();
     this.referenceSubscription.unsubscribe();
-   // this.emergencyContactSubscription.unsubscribe();
-   // this.followedBySubscription.unsubscribe();
     this.intervenantSubscription.unsubscribe();
   }
 }

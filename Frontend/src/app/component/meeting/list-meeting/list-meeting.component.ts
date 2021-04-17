@@ -32,8 +32,6 @@ export class ListMeetingComponent implements OnInit, OnDestroy, AfterViewInit {
     // Appel de la méthode qui fait la requête pour charger toute les rencontres
     this.meetingService.loadAllMeetings();
 
-
-
     // On écoute la requête
     this.meetingSubscription = this.meetingService.meetingSubject.subscribe(
       (meet: any) => {

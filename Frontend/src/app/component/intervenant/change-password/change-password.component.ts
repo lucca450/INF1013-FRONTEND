@@ -22,7 +22,6 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
 
   // Subscription
   errorsSubscription: Subscription;
-  intervenantSubscription: Subscription;
   closingDialog = 'closingChangePassword';
 
   constructor(private formBuilder: FormBuilder, private intervenantService: IntervenantService, private route: ActivatedRoute,
@@ -39,6 +38,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
     this.initForm();
   }
 
+  // Initialisation du formulaire
   private initForm(): void {
     this.EditPasswordForm = this.formBuilder.group({
       oldPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
@@ -46,16 +46,15 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
       confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]]
     });
   }
-  private unSubscribe(): void{
-    this.intervenantSubscription.unsubscribe();
-    this.errorsSubscription.unsubscribe();
-  }
 
+  // Réaction lorsque l'utilisateur clique sur le bouton enregistrer.
   OnEditPassword(): void {
-
     if (this.EditPasswordForm.valid){
+      // Si les deux mots de passe son identique
       if (this.EditPasswordForm.get('newPassword').value === this.EditPasswordForm.get('confirmPassword').value){
+        // On vérifie l'ancien mot de passe de l'utilisateur pour savoir s'il concorde.
      //   if (this.EditPasswordForm.get('oldPassword').value === this.user.password){
+        // On ferme le dialogue et on envoie le password au component qui écoute.
         this.dialogRef.close(this.EditPasswordForm.get('newPassword').value);
       //  }
       //  else{
@@ -73,7 +72,12 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.errorsSubscription.unsubscribe();
-    this.intervenantSubscription.unsubscribe();
+    this.unSubscribe();
   }
+
+  // Désinscription des subscription.
+  private unSubscribe(): void{
+    this.errorsSubscription.unsubscribe();
+  }
+
 }

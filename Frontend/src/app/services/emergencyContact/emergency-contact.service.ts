@@ -16,9 +16,8 @@ export class EmergencyContactService {
 
   // Fonction pour ajouter un contacte d'urgence
   addEmergencyContact(emergencyContact: EmergencyContact): void{
-    const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(emergencyContact);
-    this.httpClient.post(this.utilitiesService.serverUrl + 'emergencyContacts/add', body, {headers}).subscribe(
+    this.httpClient.post(this.utilitiesService.serverUrl + 'emergencyContacts/add', body).subscribe(
       (data: any) => {
         this.emergencyContactsSubject.next(data);
       },
@@ -30,11 +29,8 @@ export class EmergencyContactService {
 
 // Fonction pour modifier un contacte d'urgence
   editEmergencyContact(emergencyContact: EmergencyContact): void{
-    const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(emergencyContact);
-    console.log('Ce quon envoie en modif');
-    console.log(body);
-    this.httpClient.put(this.utilitiesService.serverUrl + 'emergencyContacts/edit', body, {headers}).subscribe(
+    this.httpClient.put(this.utilitiesService.serverUrl + 'emergencyContacts/edit', body).subscribe(
       (data: any) => {
         this.emergencyContactsSubject.next(data);
       },

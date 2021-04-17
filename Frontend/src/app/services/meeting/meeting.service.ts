@@ -16,20 +16,17 @@ export class MeetingService {
   PersonMeetingsSubject = new Subject<any[]>();
   errorsSubject: Subject<string> = new Subject<string>();
 
-  constructor(private router: Router, private userService: UserService,  private httpClient: HttpClient, private utilitiesService: UtilitiesService) {
+  constructor(private router: Router, private userService: UserService,  private httpClient: HttpClient,
+              private utilitiesService: UtilitiesService) {
   }
 
   // Fonction pour modifier une rencontre
   editMeeting(meeting: Meeting, personid: number): void{
-
-    const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(meeting);
 
-    console.log(body);
-    console.log('personid' + personid);
-
-    this.httpClient.put(/*'http://localhost:3000/meeting/'*/ this.utilitiesService.serverUrl + 'meetings/edit' /*+ meeting.id*/, body, {headers}).subscribe(
+    this.httpClient.put(this.utilitiesService.serverUrl + 'meetings/edit', body).subscribe(
       (meet: any) => {
+        this.utilitiesService.openSuccessSnackBar();
         this.meetingSubject.next(meet);
         if (isNaN(personid) === false){
           this.router.navigate(['meeting/' + personid]);
@@ -51,7 +48,6 @@ export class MeetingService {
     }else {
       this.router.navigate(['meeting']);
     }
-   // this.router.navigate(['meeting']);
   }
 
   // Retourne tous les meetings
@@ -61,7 +57,7 @@ export class MeetingService {
 
   // Retourne tous les meetings d'un intervenant
   public getMeetingsFromIntervenantId(id: number): Observable<Meeting> {
-    return this.httpClient.get<Meeting>(/*`http://localhost:3000/meeting?idIntervenant=`*/ this.utilitiesService.serverUrl + 'meetings/getByIntervenantId/' + id);
+    return this.httpClient.get<Meeting>(this.utilitiesService.serverUrl + 'meetings/getByIntervenantId/' + id);
   }
 
   // Retourne un meeting spécifique
@@ -82,19 +78,17 @@ export class MeetingService {
 
   // Fonction pour ajouter une rencontre
   public addMeeting(meeting: Meeting, personid: number): void{
-    const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(meeting);
 
-    this.httpClient.post(this.utilitiesService.serverUrl + 'meetings/add', body, {headers}).subscribe(
+    this.httpClient.post(this.utilitiesService.serverUrl + 'meetings/add', body).subscribe(
       (meet: any) => {
+            this.utilitiesService.openSuccessSnackBar();
             this.meetingSubject.next(meet);
-
             if (isNaN(personid) === false){
               this.router.navigate(['meeting/' + personid]);
             }else {
               this.router.navigate(['meeting']);
             }
-
       },
       (error) => {
         const message = 'Une erreur au niveau du serveur est survenu lors de l\'ajout de la rencontre. Veuillez réessayer plus tard';
@@ -143,7 +137,8 @@ export class MeetingService {
 
   // Retourne tous les meetings d'un intervenant pour une personne
   public getPersonMeetingsForIntervenantId(idPerson: number, idIntervenant: number): Observable<Meeting> {
-    return this.httpClient.get<Meeting>(this.utilitiesService.serverUrl + 'meetings/getByPersonIdAndIntervenantId/' + idPerson + '/' + idIntervenant);
+    return this.httpClient.get<Meeting>(this.utilitiesService.serverUrl + 'meetings/getByPersonIdAndIntervenantId/'
+                                        + idPerson + '/' + idIntervenant);
   }
   // Fonction qui charge les rencontres de la personnes
   public loadPersonMeetings(id: number): void{
@@ -177,28 +172,5 @@ export class MeetingService {
         }
       );
     }
-
-
-
-
-
-
-
-
-
-
-    /*
-    this.getPersonMeetings(id).subscribe(
-        (meeting: any) => {
-          this.PersonMeetingsSubject.next(meeting);
-        },
-        (error) => {
-          if (!(error.status === 404)) {
-            const message = 'Une erreur au niveau du serveur est survenu lors du chargement des rencontres. Veuillez réessayer plus tard';
-            this.errorsSubject.next(message);
-          }
-        }
-      );*/
   }
-
 }

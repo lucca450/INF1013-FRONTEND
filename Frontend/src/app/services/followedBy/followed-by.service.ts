@@ -17,11 +17,8 @@ export class FollowedByService {
 
   // Fonction pour ajouter la personne qui va suivre l'intervenant
   addFollowedBy(followedBy: FollowedBy): void{
-    const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(followedBy);
-    console.log('Ce quon envoie en ajout');
-    console.log(body);
-    this.httpClient.post(this.utilitiesService.serverUrl + 'followedBy/add', body, {headers}).subscribe(
+    this.httpClient.post(this.utilitiesService.serverUrl + 'followedBy/add', body).subscribe(
       (data: any) => {
         this.followupsBySubject.next(data);
       },
@@ -33,9 +30,8 @@ export class FollowedByService {
 
 // Fonction pour modifier la personne qui va suivre l'intervenant
   editFollowedBy(followedBy: FollowedBy): void{
-    const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(followedBy);
-    this.httpClient.put(this.utilitiesService.serverUrl + 'followedBy/edit', body, {headers}).subscribe(
+    this.httpClient.put(this.utilitiesService.serverUrl + 'followedBy/edit', body).subscribe(
       (data: any) => {
         this.followupsBySubject.next(data);
       },

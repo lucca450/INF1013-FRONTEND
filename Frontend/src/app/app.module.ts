@@ -63,6 +63,7 @@ import { FirstConnexionComponent } from './component/login/first-connexion/first
 import { SuccessMessageComponent } from './component/utilities/message/success-message/success-message.component';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
 import {JwtInterceptor} from './interceptor/jwtInterceptor';
+import {LocalStorageService} from './services/storage/LocalStorageService ';
 
 export const httpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -162,6 +163,7 @@ const appRoutes: Routes = [
     AuthGuard,
     UtilitiesService,
     httpInterceptorProviders,
+    LocalStorageService,
     ,
     [ {provide: LOCALE_ID, useValue: 'fr-CA' }, {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 5000}} ]
   ],

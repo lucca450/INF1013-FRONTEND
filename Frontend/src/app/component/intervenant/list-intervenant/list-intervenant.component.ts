@@ -43,7 +43,6 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
   // On écoute la requête qui nous retourne les intervenants actifs pour les récupérer.
   this.intervenantsSubscription = this.intervenantService.intervenantsSubject.subscribe(
       (intervenants: any) => {
-        console.log('reset');
         this.resetMatTable(intervenants);
       },
     );
@@ -82,18 +81,19 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
     this.searchInputValue = (event.target as HTMLInputElement).value;
   }
 
+  // Fonction qui est exécuté sur chaque utilisateur lorsque this.intervenant.filter est appelé.
   // tslint:disable-next-line:typedef
   getFilterPredicate() {
     return (user: User, filters: string) => {
-      // split string per '$' to array
+      // On split l'array pour récupérer la valeur de la select list et du input dans la recherche.
       const filterArray = filters.split('$');
       const filterInput = filterArray[0];
       const filterSelectList = filterArray[1];
       const customVerifyActive = filterArray[2];
 
       const matchFilter = [];
-      // verify fetching data by our searching values
 
+      // On filtre selon la recherche
       let customFilterInput = user.lname.toLowerCase().includes(filterInput) ||
           user.fname.toLowerCase().includes(filterInput) ||
           user.phone.includes(filterInput) ||
@@ -101,8 +101,10 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
           user.address.toLocaleLowerCase().includes(filterInput);
 
 
+      // Si le filtre de la recherche est vrai
       if (customFilterInput === true) {
-        // push boolean values into array
+        // Si c'est vrai, c'est que c'est innactif ou actif donc il faut vérifier le statut de l'utilisateur.
+        // Sinon, on vérifie pas et on le push.
         if (customVerifyActive === 'true'){
           if (String(user.active) === filterSelectList) {
             customFilterInput = true;
@@ -112,24 +114,26 @@ export class ListIntervenantComponent implements OnInit, AfterViewInit, OnDestro
           }
         }
       }
+      // On push l'utilisateur dans la liste
       matchFilter.push(customFilterInput);
 
-      // return true if all values in array is true
-      // else return false
       return matchFilter.every(Boolean);
     };
   }
-
+  // Fonction qui récupère les valeurs des filtres et qui les passes au filterPredicate.
 applyFilter(): void{
 
     let filterInput = this.searchInputValue;
     let filterSelectList = this.typeAccount.value;
     let verifyActiveboolean = false;
 
+    // Si c'est null ou undefined, alors ca veut dire que l'utilisateur à rien entré dans l'input.
     if (filterInput === null || filterInput === undefined){
       filterInput = '';
     }
 
+    // Si dans la SelectList c'est diffrent de "tous", alors il faut faire une vérification supplémentaire sur le champ "actif".
+    // Sinon, on fera aucune vérification
     if (filterSelectList !== ''){
       verifyActiveboolean = true;
     }
@@ -137,7 +141,7 @@ applyFilter(): void{
       filterSelectList = true;
     }
 
-    // create string of our searching values and split if by '$'
+    // Concaténation de nos différentes valeurs pour pouvoir les récupèrer dans filterPredicate avec un split.
     const filterValue = filterInput + '$' + filterSelectList + '$' + verifyActiveboolean;
     this.intervenants.filter = filterValue.trim().toLowerCase();
     this.intervenants.sort.active = this.sort.active;
@@ -146,7 +150,6 @@ applyFilter(): void{
   // Fonction qui permet de réagir lorsque l'utilisateur clique sur la corbeille (Boutton supprimer)
 onDelete(id: number): void{
     const dialogRef = this.dialog.open(DeleteIntervenantComponent);
-
     dialogRef.afterClosed().subscribe(result => {
       if (result === true){
         // Désactivation de l'intervenant
@@ -155,6 +158,7 @@ onDelete(id: number): void{
     });
   }
 
+  // Fonction qui permet de réagir lorsque l'utilisateur clique sur le crochet vert (Boutton réactiver)
   OnReactivateAccount(id): void{
     const dialogRef = this.dialog.open(ReactiveIntervenantComponent);
     dialogRef.afterClosed().subscribe(result => {
@@ -164,7 +168,7 @@ onDelete(id: number): void{
       }
     });
   }
-
+  // Fonction qui permet de réagir lorsque l'utilisateur clique sur l'icone pour rénitialiser son mot de passe
   OnResetPassword(id): void{
     const dialogRef = this.dialog.open(ResetPasswordComponent);
     dialogRef.afterClosed().subscribe(result => {
@@ -175,6 +179,7 @@ onDelete(id: number): void{
     });
   }
 
+  // Fonction pour rénitialiser les données de la table.
   resetMatTable(intervenants): void{
     this.intervenants = new MatTableDataSource(intervenants);
     this.intervenants.filterPredicate = this.getFilterPredicate();

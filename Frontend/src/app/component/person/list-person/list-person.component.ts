@@ -52,6 +52,7 @@ export class ListPersonComponent implements OnInit, AfterViewInit, OnDestroy{
       data.lname.toLowerCase().includes(filter) ||
       data.phone.toString().includes(filter);
 
+    // Récupère les personnes actives lorsqu'une personne est activé ou désactivé
     this.personService.activateDesactivateSubject.subscribe(
       (persons: any) => {
         this.personService.getAllPersons();
@@ -70,13 +71,15 @@ export class ListPersonComponent implements OnInit, AfterViewInit, OnDestroy{
     this.searchInputValue = (event.target as HTMLInputElement).value;
   }
 
-// Fonction qui permet d'appliquer le filtre sur toute les colonnes du tableau selon ce que l'utilisateur à écris.
+  // Fonction qui récupère les valeurs des filtres et qui les passes au filterPredicate.
   applyFilter(): void{
 
     let filterInput = this.searchInputValue;
     let filterSelectList = this.typeAccount.value;
     let verifyActiveboolean = false;
 
+    // Si c'est null ou undefined, alors ca veut dire que la personne à rien entré dans l'input.
+    // Sinon, on fera aucune vérification
     if (filterInput === null || filterInput === undefined){
       filterInput = '';
     }
@@ -88,33 +91,35 @@ export class ListPersonComponent implements OnInit, AfterViewInit, OnDestroy{
       filterSelectList = true;
     }
 
-    // create string of our searching values and split if by '$'
+    // Concaténation de nos différentes valeurs pour pouvoir les récupèrer dans filterPredicate avec un split.
     const filterValue = filterInput + '$' + filterSelectList + '$' + verifyActiveboolean;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.dataSource.sort.active = this.sort.active;
   }
 
+  // Fonction qui est exécuté sur chaque personne lorsque this.person.filter est appelé.
   // tslint:disable-next-line:typedef
   getFilterPredicate() {
     return (user: User, filters: string) => {
-      // split string per '$' to array
+      // On split l'array pour récupérer la valeur de la select list et du input dans la recherche.
       const filterArray = filters.split('$');
       const filterInput = filterArray[0];
       const filterSelectList = filterArray[1];
       const customVerifyActive = filterArray[2];
 
       const matchFilter = [];
-      // verify fetching data by our searching values
 
+      // On filtre selon la recherche
       let customFilterInput = user.lname.toLowerCase().includes(filterInput) ||
         user.fname.toLowerCase().includes(filterInput) ||
         user.phone.includes(filterInput) ||
         user.email.toLocaleLowerCase().includes(filterInput) ||
         user.address.toLocaleLowerCase().includes(filterInput);
 
-
+      // Si le filtre de la recherche est vrai
       if (customFilterInput === true) {
-        // push boolean values into array
+        // Si c'est vrai, c'est que c'est innactif ou actif donc il faut vérifier le statut de la personne.
+        // Sinon, on vérifie pas et on le push.
         if (customVerifyActive === 'true'){
           if (String(user.active) === filterSelectList) {
             customFilterInput = true;
@@ -124,15 +129,14 @@ export class ListPersonComponent implements OnInit, AfterViewInit, OnDestroy{
           }
         }
       }
+      // On push la personne dans la liste
       matchFilter.push(customFilterInput);
 
-      // return true if all values in array is true
-      // else return false
       return matchFilter.every(Boolean);
     };
   }
 
-  // Fonction pour réagir lorsque l'utilisateur clique sur la corbeille(Supprimer)
+  // Fonction pour réagir lorsque la personne clique sur la corbeille(Supprimer)
   onDelete(id: number): void{
     const dialogRef = this.dialog.open(DeletePersonComponent);
 
@@ -143,6 +147,7 @@ export class ListPersonComponent implements OnInit, AfterViewInit, OnDestroy{
     });
   }
 
+// Fonction qui permet de réagir lorsque la personne clique sur le crochet vert (Boutton réactiver)
   OnReactivatePerson(id): void{
     const dialogRef = this.dialog.open(ReactivePersonComponent);
     dialogRef.afterClosed().subscribe(result => {
@@ -152,6 +157,8 @@ export class ListPersonComponent implements OnInit, AfterViewInit, OnDestroy{
       }
     });
   }
+
+  // Fonction pour rénitialiser les données de la table.
   resetMatTable(persons): void{
     this.dataSource = new MatTableDataSource(persons);
     this.dataSource.filterPredicate = this.getFilterPredicate();
