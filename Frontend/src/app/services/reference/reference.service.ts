@@ -17,7 +17,7 @@ export class ReferenceService {
 
   // Fonction pour récupèrer les références
   getReferences(): void{
-    this.httpClient.get<Reference>(this.utilitiesService.serverUrl + 'references/get').subscribe(
+    this.httpClient.get<Reference>(this.utilitiesService.serverUrl + 'api/references/get').subscribe(
       (references: any) => {
         this.referencesSubject.next(references);
       },
@@ -30,7 +30,7 @@ export class ReferenceService {
 
   // Fonction pour récupèrer le nom de la référence
   getReferenceName(id: number): void{
-    this.httpClient.get(this.utilitiesService.serverUrl + 'references/getName/' + id).subscribe(
+    this.httpClient.get(this.utilitiesService.serverUrl + 'api/references/getName/' + id).subscribe(
       (name: any) => {
         this.referenceSubject.next(name);
       },

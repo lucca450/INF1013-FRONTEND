@@ -24,7 +24,7 @@ export class IntervenantService {
 
   // Fonction pour récupérer tout les intervenants
   getAllIntervenants(): void{
-    this.httpClient.get(this.utilitiesService.serverUrl + 'users/getAll').subscribe(
+    this.httpClient.get(this.utilitiesService.serverUrl + 'api/users/getAll').subscribe(
       (users: any) => {
         this.emitIntervenantsSubject(users);
       },
@@ -37,7 +37,7 @@ export class IntervenantService {
 
   // Fonction pour récupèrer un intervenant à partir de son identifiant
   getIntervenantFromId(id: number): void{
-    this.httpClient.get<User>(this.utilitiesService.serverUrl + 'users/get/' + id).subscribe(
+    this.httpClient.get<User>(this.utilitiesService.serverUrl + 'api/users/get/' + id).subscribe(
       (intervenant: any) => {
         this.intervenantSubject.next(intervenant);
       },
@@ -50,7 +50,7 @@ export class IntervenantService {
 
   // Fonction pour récupèrer tous les intervenants actifs
   getActiveIntervenants(): void{
-  this.httpClient.get<User>(this.utilitiesService.serverUrl + 'users/active/get').subscribe(
+  this.httpClient.get<User>(this.utilitiesService.serverUrl + 'api/users/active/get').subscribe(
       (users: any) => {
         this.emitIntervenantsSubject(users);
       },
@@ -65,7 +65,7 @@ export class IntervenantService {
   addIntervenant(user: User): void{
     const body = JSON.stringify(user);
 
-    this.httpClient.post(this.utilitiesService.serverUrl + 'users/add', body).subscribe(
+    this.httpClient.post(this.utilitiesService.serverUrl + 'api/users/add', body).subscribe(
       (data: any) => {
         this.emitIntervenantsSubject(data);
         this.goToMainRoute();
@@ -78,7 +78,7 @@ export class IntervenantService {
 }
 
   sendEmail(email: string, username: string, password: string, firstname: string, lastname: string): void{
-    this.httpClient.post(this.utilitiesService.serverUrl + 'users/send-mail/' + email + '/' + username + '/' + password +
+    this.httpClient.post(this.utilitiesService.serverUrl + 'api/users/send-mail/' + email + '/' + username + '/' + password +
       '/' + firstname + '/' + lastname, {}).subscribe(
       (data: any) => {
         this.utilitiesService.openSuccessSnackBar();
@@ -95,7 +95,7 @@ export class IntervenantService {
 // Fonction pour modifier un intervenant
 editIntervenant(intervenant: User): void{
   const body = JSON.stringify(intervenant);
-  this.httpClient.put(this.utilitiesService.serverUrl + 'users/edit', body).subscribe(
+  this.httpClient.put(this.utilitiesService.serverUrl + 'api/users/edit', body).subscribe(
     (data: any) => {
       this.utilitiesService.openSuccessSnackBar();
       this.emitIntervenantsSubject(data);
@@ -110,7 +110,7 @@ editIntervenant(intervenant: User): void{
 
 // Fonction pour modifier un mot de passe
   editPasswordIntervenant(id: number, password: string): void{
-    this.httpClient.post(this.utilitiesService.serverUrl + 'users/editPassword/' + id + '/' + password, {}).subscribe(
+    this.httpClient.post(this.utilitiesService.serverUrl + 'api/users/editPassword/' + id + '/' + password, {}).subscribe(
       (data: any) => {
         this.utilitiesService.openSuccessSnackBar();
         this.router.navigate(['person']);
@@ -123,7 +123,7 @@ editIntervenant(intervenant: User): void{
   }
 
   skipFirstStepConnexion(id: number): void {
-    this.httpClient.post(this.utilitiesService.serverUrl + 'users/skipFirstStepConnexion/' + id, {}).subscribe(
+    this.httpClient.post(this.utilitiesService.serverUrl + 'api/users/skipFirstStepConnexion/' + id, {}).subscribe(
       (data: any) => {
         this.router.navigate(['person']);
       },
@@ -140,7 +140,7 @@ editIntervenant(intervenant: User): void{
 // Fonction pour activier ou désactiver un utilisateur
 ActiveDesactiveIntervenant(id: number, activeDesactive: boolean): void
 {
-  this.httpClient.patch(this.utilitiesService.serverUrl + 'users/activeDesactive/' + id + '/' + activeDesactive, {}).subscribe(
+  this.httpClient.patch(this.utilitiesService.serverUrl + 'api/users/activeDesactive/' + id + '/' + activeDesactive, {}).subscribe(
     (user: any) => {
       this.utilitiesService.openSuccessSnackBar();
       this.emitActivateDesactivateSubject(0);
@@ -159,7 +159,7 @@ private goToMainRoute(): void{
 
 // Fonction pour récupérer le nom complet de l'intervenant à partir de son identifiant
 public intervenantFullName(id: number): void {
-    this.httpClient.get(this.utilitiesService.serverUrl + 'users/getFullName/' + id).subscribe(
+    this.httpClient.get(this.utilitiesService.serverUrl + 'api/users/getFullName/' + id).subscribe(
     (fullName: string) => {
       this.intervenantsFullnameSubject.next(fullName);
     },
@@ -172,7 +172,7 @@ public intervenantFullName(id: number): void {
 
 // Fonction pour récupérer le nom complet de l'intervenant à partir de son identifiant
   public verifyUsernameExist(username: string): void {
-    this.httpClient.get(this.utilitiesService.serverUrl + 'users/verifyName/' + username).subscribe(
+    this.httpClient.get(this.utilitiesService.serverUrl + 'api/users/verifyName/' + username).subscribe(
       (data: any) => {
         if (data === true){
           this.intervenantVerifyUsernameSubject.next(true);
@@ -191,7 +191,7 @@ public intervenantFullName(id: number): void {
 
   ResetPasswordIntervenant(user: User): void {
     const body = JSON.stringify(user);
-    this.httpClient.post(this.utilitiesService.serverUrl + 'users/resetPassword', body).subscribe(
+    this.httpClient.post(this.utilitiesService.serverUrl + 'api/users/resetPassword', body).subscribe(
       (data: any) => {
         this.utilitiesService.openSuccessSnackBar();
         this.resetPasswordSubject.next(data);

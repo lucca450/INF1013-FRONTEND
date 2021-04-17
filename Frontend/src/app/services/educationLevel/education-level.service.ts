@@ -17,7 +17,7 @@ export class EducationLevelService {
 
   // Fonction pour récupèrer toutes les éducations
   getEducationLevels(): void {
-    this.httpClient.get<EducationLevel>(this.utilitiesService.serverUrl + 'educationLevels/get').subscribe(
+    this.httpClient.get<EducationLevel>(this.utilitiesService.serverUrl + 'api/educationLevels/get').subscribe(
       (educationLevels: any) => {
         this.educationLevelsSubject.next(educationLevels);
       },
@@ -30,7 +30,7 @@ export class EducationLevelService {
 
   // Fonction pour récupèrer le nom de l'éducation
   getEducationLevelName(id: number): void{
-    this.httpClient.get(this.utilitiesService.serverUrl + 'educationLevels/getName/' + id).subscribe(
+    this.httpClient.get(this.utilitiesService.serverUrl + 'api/educationLevels/getName/' + id).subscribe(
       (name: any) => {
         this.educationLevelSubject.next(name);
       },

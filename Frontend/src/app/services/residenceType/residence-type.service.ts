@@ -16,7 +16,7 @@ export class ResidenceTypeService {
   }
   // Fonction pour récupèrer toutes les types de résidences
   getResidencesType(): void{
-    this.httpClient.get<ResidenceType>(this.utilitiesService.serverUrl + 'residencesType/get').subscribe(
+    this.httpClient.get<ResidenceType>(this.utilitiesService.serverUrl + 'api/residencesType/get').subscribe(
       (residencesType: any) => {
         this.residencesTypeSubject.next(residencesType);
       },
@@ -28,7 +28,7 @@ export class ResidenceTypeService {
   }
   // Fonction pour récupèrer le nom d'une résidence
   getResidencesTypeName(id: number): void{
-    this.httpClient.get(this.utilitiesService.serverUrl + 'residencesType/getName/' + id).subscribe(
+    this.httpClient.get(this.utilitiesService.serverUrl + 'api/residencesType/getName/' + id).subscribe(
       (name: any) => {
         this.residenceTypeSubject.next(name);
       },

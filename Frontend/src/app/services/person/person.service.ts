@@ -22,7 +22,7 @@ export class PersonService {
   // Fonction pour ajouter une personne
   addPerson(person: Person): void{
     const body = JSON.stringify(person);
-    this.httpClient.post(this.utilitiesService.serverUrl + 'persons/add', body).subscribe(
+    this.httpClient.post(this.utilitiesService.serverUrl + 'api/persons/add', body).subscribe(
       (data: any) => {
         this.emitpersonsSubject(data);
         this.goToMainRoute();
@@ -41,7 +41,7 @@ export class PersonService {
   // Fonction pour modifier une personne
   editPerson(person: Person): void {
     const body = JSON.stringify(person);
-    this.httpClient.put(this.utilitiesService.serverUrl + 'persons/edit', body).subscribe(
+    this.httpClient.put(this.utilitiesService.serverUrl + 'api/persons/edit', body).subscribe(
       (data: any) => {
         this.utilitiesService.openSuccessSnackBar();
         this.emitpersonsSubject(data);
@@ -57,7 +57,7 @@ export class PersonService {
   // Fonction pour activer ou désactiver une personne
   ActiveDesactivePerson(id: number, activeDesactive: boolean): void
   {
-    this.httpClient.patch(this.utilitiesService.serverUrl + 'persons/activeDesactive/' + id + '/' + activeDesactive,
+    this.httpClient.patch(this.utilitiesService.serverUrl + 'api/persons/activeDesactive/' + id + '/' + activeDesactive,
       {}).subscribe(
       (user: any) => {
         this.utilitiesService.openSuccessSnackBar();
@@ -75,7 +75,7 @@ export class PersonService {
   }
   // Fonction pour récupèrer les personens actives
   getActivePersons(): void {
-    this.httpClient.get<Person>(this.utilitiesService.serverUrl + 'persons/active/get').subscribe(
+    this.httpClient.get<Person>(this.utilitiesService.serverUrl + 'api/persons/active/get').subscribe(
       (persons: any) => {
         this.emitpersonsSubject(persons);
       },
@@ -90,7 +90,7 @@ export class PersonService {
 
   // Fonction pour rcéupèrer toutes les personnes
   getAllPersons(): void{
-    this.httpClient.get(this.utilitiesService.serverUrl + 'persons/getAll').subscribe(
+    this.httpClient.get(this.utilitiesService.serverUrl + 'api/persons/getAll').subscribe(
       (users: any) => {
         this.emitpersonsSubject(users);
       },
@@ -102,7 +102,7 @@ export class PersonService {
   }
   // Fonction pour récupèrer une personne à partir de son identifiant.
   getPersonFromId(id: number): void {
-    this.httpClient.get<Person>(this.utilitiesService.serverUrl + 'persons/get/' + id).subscribe(
+    this.httpClient.get<Person>(this.utilitiesService.serverUrl + 'api/persons/get/' + id).subscribe(
       (person: any) => {
         this.emitpersonSubject(person);
       },

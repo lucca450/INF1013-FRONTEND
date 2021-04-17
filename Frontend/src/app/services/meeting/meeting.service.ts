@@ -24,7 +24,7 @@ export class MeetingService {
   editMeeting(meeting: Meeting, personid: number): void{
     const body = JSON.stringify(meeting);
 
-    this.httpClient.put(this.utilitiesService.serverUrl + 'meetings/edit', body).subscribe(
+    this.httpClient.put(this.utilitiesService.serverUrl + 'api/meetings/edit', body).subscribe(
       (meet: any) => {
         this.utilitiesService.openSuccessSnackBar();
         this.meetingSubject.next(meet);
@@ -52,17 +52,17 @@ export class MeetingService {
 
   // Retourne tous les meetings
   public getAllMeetings(): Observable<Meeting> {
-    return this.httpClient.get<Meeting>(/*`http://localhost:3000/meeting`*/ this.utilitiesService.serverUrl + 'meetings/getAll');
+    return this.httpClient.get<Meeting>(this.utilitiesService.serverUrl + 'api/meetings/getAll');
   }
 
   // Retourne tous les meetings d'un intervenant
   public getMeetingsFromIntervenantId(id: number): Observable<Meeting> {
-    return this.httpClient.get<Meeting>(this.utilitiesService.serverUrl + 'meetings/getByIntervenantId/' + id);
+    return this.httpClient.get<Meeting>(this.utilitiesService.serverUrl + 'api/meetings/getByIntervenantId/' + id);
   }
 
   // Retourne un meeting spécifique
   public getMeetingFromId(id: number): void {
-    this.httpClient.get<Meeting>(/*`http://localhost:3000/meeting?id=`*/ this.utilitiesService.serverUrl + 'meetings/get/' + id).subscribe(
+    this.httpClient.get<Meeting>(/*`http://localhost:3000/meeting?id=`*/ this.utilitiesService.serverUrl + 'api/meetings/get/' + id).subscribe(
         (meet: any) => {
           this.meetingSubject.next(meet);
         },
@@ -80,7 +80,7 @@ export class MeetingService {
   public addMeeting(meeting: Meeting, personid: number): void{
     const body = JSON.stringify(meeting);
 
-    this.httpClient.post(this.utilitiesService.serverUrl + 'meetings/add', body).subscribe(
+    this.httpClient.post(this.utilitiesService.serverUrl + 'api/meetings/add', body).subscribe(
       (meet: any) => {
             this.utilitiesService.openSuccessSnackBar();
             this.meetingSubject.next(meet);
@@ -132,12 +132,12 @@ export class MeetingService {
 
   // Retourne tous les meetings d'une personne
   public getPersonMeetings(id: number): Observable<Meeting> {
-    return this.httpClient.get<Meeting>(/*`http://localhost:3000/meeting?idPerson=`*/ this.utilitiesService.serverUrl + 'meetings/getByPersonId/' + id);
+    return this.httpClient.get<Meeting>(this.utilitiesService.serverUrl + 'api/meetings/getByPersonId/' + id);
   }
 
   // Retourne tous les meetings d'un intervenant pour une personne
   public getPersonMeetingsForIntervenantId(idPerson: number, idIntervenant: number): Observable<Meeting> {
-    return this.httpClient.get<Meeting>(this.utilitiesService.serverUrl + 'meetings/getByPersonIdAndIntervenantId/'
+    return this.httpClient.get<Meeting>(this.utilitiesService.serverUrl + 'api/meetings/getByPersonIdAndIntervenantId/'
                                         + idPerson + '/' + idIntervenant);
   }
   // Fonction qui charge les rencontres de la personnes

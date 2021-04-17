@@ -17,7 +17,7 @@ export class WorkCityService {
 
   // Fonction pour récupèrer toutes les villes
   getWorkCities(): void{
-    this.httpClient.get<WorkCity>(this.utilitiesService.serverUrl + 'workCities/get').subscribe(
+    this.httpClient.get<WorkCity>(this.utilitiesService.serverUrl + 'api/workCities/get').subscribe(
       (workCities: any) => {
         this.workCitiesSubject.next(workCities);
       },
@@ -30,7 +30,7 @@ export class WorkCityService {
 
   // Fonction pour récupère le nom de la ville
   getWorkCityName(id: number): void{
-    this.httpClient.get(this.utilitiesService.serverUrl + 'workCities/getName/' + id).subscribe(
+    this.httpClient.get(this.utilitiesService.serverUrl + 'api/workCities/getName/' + id).subscribe(
       (name: any) => {
         this.workCitySubject.next(name);
       },

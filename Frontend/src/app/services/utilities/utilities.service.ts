@@ -6,7 +6,8 @@ import {SuccessMessageComponent} from '../../component/utilities/message/success
   providedIn: 'root'
 })
 export class UtilitiesService {
-  serverUrl = 'http://localhost:8080/api/';
+ // serverUrl = 'http://localhost:8080/';
+  serverUrl = 'https://inf1013deployv3.herokuapp.com/';
   constructor(private snackBar: MatSnackBar) { }
 
   // Fonction pour gèrer la snackbar qui affiche "Opération éffetué avec succès".

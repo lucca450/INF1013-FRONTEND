@@ -16,7 +16,7 @@ export class SectorService {
   }
   // Fonction pour récupérer tous les secteurs
   getSectors(): void{
-    this.httpClient.get<Sector>(this.utilitiesService.serverUrl + 'sectors/get').subscribe(
+    this.httpClient.get<Sector>(this.utilitiesService.serverUrl + 'api/sectors/get').subscribe(
       (sectors: any) => {
         this.sectorsSubject.next(sectors);
       },
@@ -28,7 +28,7 @@ export class SectorService {
   }
   // Fonction pour récupèrer le nom d'un secteur
   getSectorName(id: number): void{
-    this.httpClient.get(this.utilitiesService.serverUrl + 'sectors/getName/' + id).subscribe(
+    this.httpClient.get(this.utilitiesService.serverUrl + 'api/sectors/getName/' + id).subscribe(
       (name: any) => {
         this.sectorSubject.next(name);
       },

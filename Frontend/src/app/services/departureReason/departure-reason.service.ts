@@ -17,7 +17,7 @@ export class DepartureReasonService {
 
   // Fonction pour récupèrer tout les départements
   getDeparturesReason(): void{
-    this.httpClient.get<DepartureReason>(this.utilitiesService.serverUrl + 'departureReasons/get').subscribe(
+    this.httpClient.get<DepartureReason>(this.utilitiesService.serverUrl + 'api/departureReasons/get').subscribe(
       (departureReasons: any) => {
         this.departureReasonsSubject.next(departureReasons);
       },
@@ -30,7 +30,7 @@ export class DepartureReasonService {
 
   // Fonction pour récupèrer le nom du département
   getDepartureReasonName(id: number): void{
-    this.httpClient.get(this.utilitiesService.serverUrl + 'departureReasons/getName/' + id).subscribe(
+    this.httpClient.get(this.utilitiesService.serverUrl + 'api/departureReasons/getName/' + id).subscribe(
       (name: any) => {
         this.departureReasonSubject.next(name);
       },

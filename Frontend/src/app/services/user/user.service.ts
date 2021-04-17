@@ -26,7 +26,7 @@ export class UserService {
   // Fonction pour essayer de se connecter
   public login(username: string, password: string): void {
     const body = {username, password};
-    this.httpClient.post('http://localhost:8080/login', body, {observe: 'response'}).subscribe(
+    this.httpClient.post(this.utilitiesService.serverUrl + 'login', body, {observe: 'response'}).subscribe(
       (data: any) => {
 
         // Récupération du token
@@ -47,7 +47,7 @@ export class UserService {
 
   // Fonction pour récupèrer le nom de l'utilisateur pour se connecter
   getUserFromName(username: string): void{
-    this.httpClient.get(this.utilitiesService.serverUrl + 'users/getUserFromName/' + username).subscribe(
+    this.httpClient.get(this.utilitiesService.serverUrl + 'api/users/getUserFromName/' + username).subscribe(
       (user: any) => {
         this.signIn(user);
       },
