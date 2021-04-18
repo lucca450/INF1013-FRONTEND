@@ -1,4 +1,7 @@
 
+****Note importante, le serveur heroku (du backend) prends entre 30 secondes et une minute à sortir de veille.
+
+
 
 ---------- Utilisateur  ADMINISTRATEUR----------
 - Nom d'utilisateur :polo
@@ -10,6 +13,7 @@ https://jalon-3.web.app/login
 
 HEROKU (BACKEND + BD):
 https://inf1013deployv3.herokuapp.com/
+
 
 
 
