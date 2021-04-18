@@ -6,7 +6,7 @@
     <form [formGroup]="EditPasswordForm">
       <h1 >Première connexion !</h1>
       <h2>Vous pouvez changer votre mot de passe !</h2>
-
+<!--
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Ancien mot de passe" formControlName="oldPassword" required [type]="hideOldPasword ? 'password' : 'text'">
         <mat-icon matSuffix (click)="hideOldPasword = !hideOldPasword">{{hideOldPasword ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -20,7 +20,7 @@
           Le mot de passe doit avoir au maximum 40 caractères.
         </mat-error>
       </mat-form-field>
-
+-->
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Nouveau mot de passe" formControlName="newPassword" required [type]="hideNewPassword ? 'password' : 'text'">
         <mat-icon matSuffix (click)="hideNewPassword = !hideNewPassword">{{hideNewPassword ? 'visibility_off' : 'visibility'}}</mat-icon>

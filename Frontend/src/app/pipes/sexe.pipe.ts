@@ -5,14 +5,14 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SexePipe implements PipeTransform {
 
-  transform(sexe: number): string {
-    if (sexe === 0) {
+  transform(sexe: string): string {
+    if (sexe === '0') {
       return 'Homme';
     }
-    else if (sexe === 1) {
+    else if (sexe === '1') {
       return 'Femme';
     }
-    else if (sexe === 2) {
+    else if (sexe === '2') {
       return 'Autre';
     }
   }

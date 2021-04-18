@@ -41,7 +41,7 @@ export class FirstConnexionComponent implements OnInit, OnDestroy {
 }
   private initForm(): void {
     this.EditPasswordForm = this.formBuilder.group({
-      oldPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
+     /* oldPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],*/
       newPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]]
     });
