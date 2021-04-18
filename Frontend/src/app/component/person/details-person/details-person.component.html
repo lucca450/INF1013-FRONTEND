@@ -20,7 +20,7 @@
           <p>{{person?.birthday | date:'d MMMM  y'}}</p>
 
           <label>Sexe:</label>
-          <p>{{person?.sexe}}</p>
+          <p>{{person?.sexe | sexe}}</p>
 
           <label>Adresse:</label>
           <p>{{person?.address}}</p>
@@ -128,7 +128,7 @@
          <label>Numéro de téléphone de la personne ressource en cas d'urgence:</label>
          <p>{{emergencyContact?.phone  | phone}}</p>
 
-       <label>Numéro de téléphone de la personne ressource en cas d'urgence:</label>
+       <label>Relation de la personne ressource en cas d'urgence:</label>
        <p>{{emergencyContact?.relation}}</p>
 
      </div>

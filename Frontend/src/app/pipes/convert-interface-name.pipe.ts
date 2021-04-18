@@ -13,7 +13,7 @@ export class ConvertInterfaceNamePipe implements PipeTransform {
     if (interfaceName === 'User') {
       return 'Intervenant';
     }
-    else if(interfaceName === 'EmergencyContact')
+    else if (interfaceName === 'EmergencyContact')
     {
       return 'Contacte d\'urgence';
     }

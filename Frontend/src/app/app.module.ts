@@ -64,6 +64,7 @@ import { SuccessMessageComponent } from './component/utilities/message/success-m
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
 import {JwtInterceptor} from './interceptor/jwtInterceptor';
 import {LocalStorageService} from './services/storage/LocalStorageService ';
+import { SexePipe } from './pipes/sexe.pipe';
 
 export const httpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -129,7 +130,8 @@ const appRoutes: Routes = [
     ReactiveIntervenantComponent,
     ReactivePersonComponent,
     FirstConnexionComponent,
-    SuccessMessageComponent
+    SuccessMessageComponent,
+    SexePipe,
   ],
   imports: [
     BrowserModule,
