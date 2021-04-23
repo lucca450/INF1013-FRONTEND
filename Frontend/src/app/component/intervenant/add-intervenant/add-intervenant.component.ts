@@ -81,7 +81,8 @@ export class AddIntervenantComponent implements OnInit, OnDestroy {
       username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
       password: [randomPassword],
       role: ['', Validators.required],
-      active: [true, Validators.required]
+      active: [true, Validators.required],
+      firstConnexion: [true]
     });
   }
 

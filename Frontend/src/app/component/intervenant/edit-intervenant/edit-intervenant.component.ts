@@ -81,11 +81,10 @@ export class EditIntervenantComponent implements OnInit, OnDestroy {
       phone: [this.user.phone, [Validators.required, Validators.pattern('[0-9]{10}')]],
       address: [this.user.address, [Validators.required, Validators.maxLength(50)]],
       username: [this.user.username, [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
-      password: new FormControl({value: '', disabled: true }),
+      password: [''],
       role: [this.user.role, Validators.required],
       active: [this.user.active, Validators.required],
       id: [this.user.id],
-
     });
   }
   // Fonction pour réagir lorsque la personne clique sur le bouton "Enregistrer"

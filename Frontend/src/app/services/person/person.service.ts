@@ -24,6 +24,7 @@ export class PersonService {
     const body = JSON.stringify(person);
     this.httpClient.post(this.utilitiesService.serverUrl + 'api/persons/add', body).subscribe(
       (data: any) => {
+        this.utilitiesService.openSuccessSnackBar();
         this.emitpersonsSubject(data);
         this.goToMainRoute();
       },
