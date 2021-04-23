@@ -1,0 +1,20 @@
+mat-card {
+  max-width: 600px;
+  width:600px;
+  margin: 2em auto;
+  top:2%;
+  text-align: center;
+  background-color: #fbfbfb;
+  box-shadow: 5px 10px 8px #888888!important;
+}
+
+.validation{
+  max-width: 600px;
+  width:600px;
+  margin: 2em auto;
+}
+
+mat-form-field {
+  display: block;
+  margin-top: 16px;
+}

@@ -1,0 +1,108 @@
+<div *ngIf="errorMessage" class="validation">
+  <div>{{errorMessage}}</div>
+</div>
+
+
+
+<div class="container-intervenant">
+  <!-- La recherche -->
+  <div class ="container-search">
+      <mat-form-field  id="filter_active" class="filter active" appearance="fill">
+        <mat-label>Statut</mat-label>
+        <mat-select id = "typeAccount" #typeAccount (valueChange)="applyFilter();" [(ngModel)]="defaultSelectList" placeholder="Status">
+          <mat-option  [value]="true">
+            Actif
+          </mat-option>
+          <mat-option  [value]="false">
+            Innactif
+          </mat-option>
+          <mat-option  [value]="''">
+            Tous
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    <mat-form-field class="filter search">
+      <mat-label>Recherche</mat-label>
+      <input matInput (keyup)="OnKeyUpSearchInput($event);
+                               applyFilter();" id ="searchInput" placeholder="Recherche" #input>
+    </mat-form-field>
+  </div>
+
+
+  <!-- Lister les intervenants -->
+  <mat-table [dataSource]="intervenants" matSort  class="mat-elevation-z8" >
+
+    <ng-container matColumnDef="fname">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Prénom </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <span class="mobile-label">Prénom:</span>
+        {{row.fname}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="lname">
+      <mat-header-cell  *matHeaderCellDef mat-sort-header> Nom </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <span class="mobile-label">Nom:</span>
+        {{row.lname}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell  *matHeaderCellDef mat-sort-header> Courriel </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <span class="mobile-label">Courriel:</span>
+        {{row.email}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <mat-header-cell  *matHeaderCellDef mat-sort-header> Téléphone </mat-header-cell>
+      <mat-cell  *matCellDef="let row">
+        <span class="mobile-label">Téléphone:</span>
+        {{row.phone  | phone}}
+      </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="address">
+      <mat-header-cell  *matHeaderCellDef mat-sort-header> Adresse </mat-header-cell>
+      <mat-cell  *matCellDef="let row">
+        <span class="mobile-label">Adresse:</span>
+        {{row.address}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions-icon">
+      <mat-header-cell  *matHeaderCellDef mat-sort-header> Actions</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <span class="mobile-label"></span>
+        <img *ngIf="row.active === true" class="table-icon icons-click" src="assets/edit-icon.png" alt="Icone modifier" title="Modifier"
+               [routerLink]="['/intervenant/edit',row.id]" routerLinkActive="active"/>
+        <img *ngIf="accountid != row.id && row.active === true" class="table-icon icons-click actions" src="assets/icons8-trash-can-52.png" alt="Icone supprimer" title="Supprimer"
+               (click)="onDelete(row.id)"/>
+        <img *ngIf="row.active === false" class="table-icon icons-click actions" src="assets/iconfinder_Button White Check_58494.png" alt="Icone réactiver" title="Réactiver le compte"
+             (click)="OnReactivateAccount(row.id)"/>
+
+        <img *ngIf="row.active === true" class="table-icon icons-click actions" src="assets/synchronize.png" alt="Icone rénitialiser mot de passe" title="Rénitilialiser le mot de passe"
+             (click)="OnResetPassword(row.id)"/>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row  *matHeaderRowDef=" displayedColumns" ></mat-header-row>
+    <mat-row  *matRowDef="let row; columns: displayedColumns;"></mat-row >
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">Aucune donnée trouvé en appliquant le filtre: "{{input.value}}"</td>
+    </tr>
+
+  </mat-table>
+
+  <div class ="container-button">
+    <button  [routerLink] = "['/intervenant/add/']"  mat-fab color="basic" class="button-add-icon" aria-label="Ajouter un intervenant">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+</div>

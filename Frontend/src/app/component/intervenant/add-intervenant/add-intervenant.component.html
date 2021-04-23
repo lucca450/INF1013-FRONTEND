@@ -1,0 +1,149 @@
+<div *ngIf="errorMessage" class="validation">
+  <div>{{errorMessage}}</div>
+</div>
+<mat-card>
+  <!-- Fusion avec user
+Formulaire pour ajouter les informations de l'utilisateur
+  <mat-card-content>
+    <form [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
+      <h2>Ajout d'un intervenant</h2>
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Nom d'utilisateur" formControlName="username" required>
+        <mat-error *ngIf="addUserForm.hasError('required', 'username')">
+          Veuillez entrer un nom d'utilisateur.
+        </mat-error>
+        <mat-error *ngIf="addUserForm.hasError('minlength', 'username')">
+          Le nom d'utilisateur doit avoir au moins 4 caractères.
+        </mat-error>
+        <mat-error *ngIf="addUserForm.hasError('maxlength', 'username')">
+          Le nom d'utilisateur doit avoir au maximum 40 caractères.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Mot de passe" formControlName="password" required [type]="hide ? 'password' : 'text'">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error *ngIf="addUserForm.hasError('required', 'password')">
+          Veuillez entrer un mot de passe
+        </mat-error>
+        <mat-error *ngIf="addUserForm.hasError('minlength', 'password')">
+          Le mot de passe doit avoir au moins 4 caractères.
+        </mat-error>
+        <mat-error *ngIf="addUserForm.hasError('maxlength', 'password')">
+          Le mot de passe doit avoir au maximum 40 caractères.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Rôle" formControlName="role" [(ngModel)]="defaultRole" required>
+          <mat-option *ngFor="let role of roleEnum" [value]="role.name">
+            {{role.name | convertRoleName}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="addUserForm.hasError('required', 'role')">
+          Veuillez entrer un rôle.
+        </mat-error>
+      </mat-form-field>
+      <button class ="button-add" type="submit" id = "buttonintervenant" class = "HideOtherButton">Ajouter</button>
+    </form>
+
+    -->
+    <!-- Formulaire pour ajouter les informations de l'intervenant. -->
+  <mat-card-content>
+    <form [formGroup]="addintervenantForm" (ngSubmit)="onSubmit()">
+        <h2>Ajout d'un intervenant</h2>
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Nom d'utilisateur" formControlName="username" required>
+          <mat-error *ngIf="addintervenantForm.hasError('required', 'username')">
+            Veuillez entrer un nom d'utilisateur.
+          </mat-error>
+          <mat-error *ngIf="addintervenantForm.hasError('minlength', 'username')">
+            Le nom d'utilisateur doit avoir au moins 4 caractères.
+          </mat-error>
+          <mat-error *ngIf="addintervenantForm.hasError('maxlength', 'username')">
+            Le nom d'utilisateur doit avoir au maximum 40 caractères.
+          </mat-error>
+        </mat-form-field>
+      <!--
+              <mat-form-field class="full-width-input">
+                <input matInput placeholder="Mot de passe" formControlName="password" required [type]="hide ? 'password' : 'text'">
+                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <mat-error *ngIf="addintervenantForm.hasError('required', 'password')">
+                  Veuillez entrer un mot de passe
+                </mat-error>
+                <mat-error *ngIf="addintervenantForm.hasError('minlength', 'password')">
+                  Le mot de passe doit avoir au moins 4 caractères.
+                </mat-error>
+                <mat-error *ngIf="addintervenantForm.hasError('maxlength', 'password')">
+                  Le mot de passe doit avoir au maximum 40 caractères.
+                </mat-error>
+              </mat-form-field>
+              -->
+
+              <mat-form-field>
+                <mat-select placeholder="Rôle" formControlName="role" [(ngModel)]="defaultRole" required>
+                  <mat-option *ngFor="let role of roleEnum" [value]="role.name">
+                    {{role.name | convertRoleName}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="addintervenantForm.hasError('required', 'role')">
+                  Veuillez entrer un rôle.
+                </mat-error>
+              </mat-form-field>
+
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Prénom" formControlName="fname" required>
+              <mat-error *ngIf="addintervenantForm.hasError('required', 'fname')">
+                Veuillez entrer un prénom.
+              </mat-error>
+              <mat-error *ngIf="addintervenantForm.hasError('maxlength', 'fname')">
+                Le prénom doit avoir au maximum 40 caractères.
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Nom" formControlName="lname" required>
+              <mat-error *ngIf="addintervenantForm.hasError('required', 'lname')">
+                Veuillez entrer un nom.
+              </mat-error>
+              <mat-error *ngIf="addintervenantForm.hasError('maxlength', 'lname')">
+                Le nom doit avoir au maximum 40 caractères.
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Courriel" formControlName="email" required>
+              <mat-error *ngIf="addintervenantForm.hasError('required', 'email')">
+                Veuillez entrer un courriel.
+              </mat-error>
+              <mat-error *ngIf="addintervenantForm.hasError('email', 'email')">
+                Veuillez entrer un courriel dans le format suivant: abc@abc.com
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Numéro de téléphone" formControlName="phone" required>
+              <mat-error *ngIf="addintervenantForm.hasError('required', 'phone')">
+                Veuillez entrer un numéro de téléphone.
+              </mat-error>
+              <mat-error *ngIf="addintervenantForm.hasError('pattern', 'phone')">
+                Veuillez entrer un numéro de téléphone sous le format suivant: 0001112222.
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Adresse" formControlName="address" required>
+              <mat-error *ngIf="addintervenantForm.hasError('required', 'address')">
+                Veuillez entrer une adresse.
+              </mat-error>
+              <mat-error *ngIf="addintervenantForm.hasError('maxlength', 'address')">
+                L'adresse doit avoir au maximum 50 caractères.
+              </mat-error>
+            </mat-form-field>
+
+            <button class ="button-cancel" (click) = "onCancelIntervenant()">Annuler</button>
+            <button class ="button-add" type="submit" (click) = "onAddIntervenant()">Ajouter</button>
+
+          </form>
+        </mat-card-content>
+      </mat-card>
