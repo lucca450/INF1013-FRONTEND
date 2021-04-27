@@ -48,11 +48,6 @@ export class ListPersonComponent implements OnInit, AfterViewInit, OnDestroy{
       }
     );
 
-    // Nous permet de définir sur quels attributs la recherche va se faire.
-    this.dataSource.filterPredicate = (data: any, filter: string): boolean => data.fname.toLowerCase().includes(filter) ||
-      data.lname.toLowerCase().includes(filter) ||
-      data.phone.toString().includes(filter);
-
     // Récupère les personnes actives lorsqu'une personne est activé ou désactivé
     this.personService.activateDesactivateSubject.subscribe(
       (persons: any) => {
