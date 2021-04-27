@@ -8,6 +8,7 @@ import {DeletePersonComponent} from '../delete-person/delete-person.component';
 import {MatSelect} from '@angular/material/select';
 import {User} from '../../../models/users/user';
 import {ReactivePersonComponent} from '../reactive-person/reactive-person.component';
+import {Person} from '../../../models/person/person';
 
 @Component({
   selector: 'app-list-person',
@@ -100,7 +101,7 @@ export class ListPersonComponent implements OnInit, AfterViewInit, OnDestroy{
   // Fonction qui est exécuté sur chaque personne lorsque this.person.filter est appelé.
   // tslint:disable-next-line:typedef
   getFilterPredicate() {
-    return (user: User, filters: string) => {
+    return (person: Person, filters: string) => {
       // On split l'array pour récupérer la valeur de la select list et du input dans la recherche.
       const filterArray = filters.split('$');
       const filterInput = filterArray[0];
@@ -110,18 +111,17 @@ export class ListPersonComponent implements OnInit, AfterViewInit, OnDestroy{
       const matchFilter = [];
 
       // On filtre selon la recherche
-      let customFilterInput = user.lname.toLowerCase().includes(filterInput) ||
-        user.fname.toLowerCase().includes(filterInput) ||
-        user.phone.includes(filterInput) ||
-        user.email.toLocaleLowerCase().includes(filterInput) ||
-        user.address.toLocaleLowerCase().includes(filterInput);
+      let customFilterInput =
+        person.lname.toLowerCase().includes(filterInput) ||
+        person.fname.toLowerCase().includes(filterInput) ||
+        person.phone.includes(filterInput);
 
       // Si le filtre de la recherche est vrai
       if (customFilterInput === true) {
         // Si c'est vrai, c'est que c'est innactif ou actif donc il faut vérifier le statut de la personne.
         // Sinon, on vérifie pas et on le push.
         if (customVerifyActive === 'true'){
-          if (String(user.active) === filterSelectList) {
+          if (String(person.active) === filterSelectList) {
             customFilterInput = true;
           }
           else{
