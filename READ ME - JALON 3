@@ -1,4 +1,3 @@
-
 ****Note importante, le serveur heroku (du backend) prends entre 30 secondes et une minute à sortir de veille.
 
 
@@ -18,5 +17,8 @@ https://inf1013deployv3.herokuapp.com/
 
 
 GITLAB:
-BACKEND: https://dmigit.uqtr.ca/silvalu/backendINF1013
+BACKEND: https://dmigit.uqtr.ca/silvalu/backendINF1013 (seulement le deploiement est sur ce git. le developpement est sur celui du frontend. (on avait un seul git pour les deux au début))
 FRONTEND: https://dmigit.uqtr.ca/duboisnp/Projet_Angular_INF1013
+
+
+** Veuillez noter que pour recevoir des courriels venant de notre application déployée sur Heroku, il faut utiliser un adresse courriel hotmail.com/hotmail.fr et non une adresse gmail.com. Il semble que Gmail bloque complètement les courriels venant du serveur de courriel qui nous était disponible sur Heroku. De plus, dans votre boite Hotmail, vérifiez la boite de courriers indésirables, le courriel tombe très souvent dans cette boite
